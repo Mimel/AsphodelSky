@@ -2,8 +2,7 @@ package game;
 
 /**
  * TODO List:
- * - Retune sight method; make outer edges visible
- * - Autodoc all Display except keybinds
+ * - Add Inventory System
  */
 
 import java.awt.Color;
@@ -483,8 +482,8 @@ public class Display extends JPanel {
 		ArrayList<Vector> walls = new ArrayList<Vector>();
 		boolean[][] isSeen = new boolean[currentMap.length][currentMap[0].length];
 		
-		for(int y = 1; y < currentMap.length - 1; y++) {
-			for(int x = 1; x < currentMap[y].length - 1; x++) {
+		for(int y = 0; y < currentMap.length; y++) {
+			for(int x = 0; x < currentMap[y].length; x++) {
 				//If tile is within unimpeded sight radius
 				if(Vector.hypotenuse(p1.getXCoord() - x, p1.getYCoord() - y) > p1.getSightRadius()) {
 						isSeen[y][x] = false;
@@ -498,8 +497,8 @@ public class Display extends JPanel {
 			}
 		}
 		
-		for(int y = 1; y < currentMap.length - 1; y++) {
-			for(int x = 1; x < currentMap[y].length - 1; x++) {
+		for(int y = 0; y < currentMap.length; y++) {
+			for(int x = 0; x < currentMap[y].length; x++) {
 				double mag = Vector.hypotenuse(p1.getXCoord() - x, p1.getYCoord() - y);
 				double dir = Vector.angleMeasure(p1.getXCoord() - x, p1.getYCoord() - y);
 				if(mag <= p1.getSightRadius()) {
@@ -515,8 +514,8 @@ public class Display extends JPanel {
 			}
 		}
 		
-		for(int y = 1; y < currentMap.length - 1; y++) {
-			for(int x = 1; x < currentMap[y].length - 1; x++) {
+		for(int y = 0; y < currentMap.length; y++) {
+			for(int x = 0; x < currentMap[y].length; x++) {
 				if(isSeen[y][x]) {
 					currentMap[y][x].setRevealed(2);
 				} else {

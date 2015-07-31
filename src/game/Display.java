@@ -445,7 +445,8 @@ public class Display extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Draws the block containing the player information; this area is located to the right
+	 * of the grid. Note that this area also encapsulates other methods, which will be added later.
 	 * @param g
 	 */
 	private void drawPlayerInfo(Graphics g) {

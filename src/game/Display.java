@@ -23,7 +23,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import entity.Entity;
 import entity.Player;
 
 /**
@@ -48,14 +47,15 @@ public class Display extends JPanel {
 	 * Text which also has a color assigned to it. Used nearly everywhere in the GUI
 	 * where text exists.
 	 */
+	
 	private class FlavorText {
 		private String text;
 		private Color color;
 		
-		FlavorText(String text, Color color) {
-			this.text = text;
-			this.color = color;
-		}
+	//	FlavorText(String text, Color color) {
+	//		this.text = text;
+	//		this.color = color;
+	//	}
 	}
 
 	public Display() {
@@ -449,7 +449,7 @@ public class Display extends JPanel {
 	 * @param g
 	 */
 	private void drawPlayerInfo(Graphics g) {
-		g.setColor(new Color(200, 200, 200));
+		g.setColor(new Color(220, 220, 220));
 		g.fillRect(17*36 + 40, 35, 456, 17*36);
 		
 		g.setColor(Color.BLACK);
@@ -457,8 +457,10 @@ public class Display extends JPanel {
 		g.drawString(p1.getName() + ", the " + p1.getTitle() + " " + p1.getSpecies(), 19*36 + 40 + 10, 60);
 		
 		//Draws player inventory
+		//NOTE: Assumes that inventory size is always 36.
+		g.setColor(new Color(200, 200, 200));
 		for(int x = 0; x < p1.getInventory().length; x++) {
-			//TODO
+			g.drawRect((x%12)*38 + 652, (x/12)*38 + 533, 38, 38);
 		}
 	}
 	

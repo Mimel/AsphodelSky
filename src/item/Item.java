@@ -1,5 +1,15 @@
 package item;
 
-public abstract class Item {
+import java.awt.Image;
 
+public abstract class Item {
+	private Image i;
+	
+	public Item() {
+		
+	}
+	
+	public Image getImage() {
+		return i;
+	}
 }

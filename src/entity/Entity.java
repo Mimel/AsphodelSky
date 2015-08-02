@@ -7,6 +7,9 @@ public abstract class Entity {
 	protected int xCoord;
 	protected int yCoord;
 	
+	protected int currHP;
+	protected int maxHP;
+	
 	protected double movementSpeed;
 	
 	/**
@@ -24,6 +27,22 @@ public abstract class Entity {
 		return yCoord;
 	}
 	
+	public int getCurrHP() {
+		return currHP;
+	}
+
+	public void setCurrHP(int currHP) {
+		this.currHP = currHP;
+	}
+
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+
 	final public double getMovementSpeed() {
 		return movementSpeed;
 	}

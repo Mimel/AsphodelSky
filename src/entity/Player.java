@@ -18,8 +18,14 @@ public class Player extends Entity {
 		this.title = "Testy";
 		this.species = "Human";
 		
+		
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		
+		//TEMP
+		this.maxHP = 20;
+		this.currHP = this.maxHP;
+		
 		this.sightRadius = sightRadius;
 		
 		this.immobile = false;
@@ -57,6 +63,18 @@ public class Player extends Entity {
 
 	public void setSightRadius(double sightRadius) {
 		this.sightRadius = sightRadius;
+	}
+	
+	public Item[] getInventory() {
+		return inventory;
+	}
+	
+	public void pushToInventory(Item i) {
+		for(int x = 0; x < inventory.length; x++) {
+			if(inventory[x] == null) {
+				inventory[x] = i;
+			}
+		}
 	}
 
 	/**

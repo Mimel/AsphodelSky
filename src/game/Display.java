@@ -455,6 +455,11 @@ public class Display extends JPanel {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.drawString(p1.getName() + ", the " + p1.getTitle() + " " + p1.getSpecies(), 19*36 + 40 + 10, 60);
+		
+		//Draws player inventory
+		for(int x = 0; x < p1.getInventory().length; x++) {
+			//TODO
+		}
 	}
 	
 	/**

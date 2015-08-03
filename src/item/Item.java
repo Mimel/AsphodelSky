@@ -1,15 +1,31 @@
 package item;
 
-import java.awt.Image;
-
 public abstract class Item {
-	private Image i;
+	private String title;
+	private String desc;
+	private int xStart;
+	private int yStart;
 	
-	public Item() {
-		
+	public Item(String t, String d, int x, int y) {
+		this.title = t;
+		this.desc = d;
+		this.xStart = x;
+		this.yStart = y;
 	}
 	
-	public Image getImage() {
-		return i;
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getDesc() {
+		return desc;
+	}
+	
+	public int getX() {
+		return xStart; 
+	}
+	
+	public int getY() {
+		return yStart;
 	}
 }

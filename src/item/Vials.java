@@ -13,6 +13,10 @@ public abstract class Vials extends Item {
 		super(t, d, x, y);
 	}
 	
+	/**
+	 * Effects after use. Vials only affect the player, so there is only
+	 * the one parameter.
+	 */
 	public abstract void use(Player p1);
 }
 

@@ -42,6 +42,7 @@ public class Display extends JPanel {
 	private double time;
 	
 	private Image tileset;
+	private Image t_vials;
 	
 	/**
 	 * Text which also has a color assigned to it. Used nearly everywhere in the GUI
@@ -240,6 +241,7 @@ public class Display extends JPanel {
 	 */
 	private void importImages() throws IOException {
 		tileset = ImageIO.read(new File("images/tileset.png"));
+		t_vials = ImageIO.read(new File("images/Vials.png"));
 	}
 	
 	/**

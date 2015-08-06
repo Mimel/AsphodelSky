@@ -25,6 +25,8 @@ import javax.swing.KeyStroke;
 
 import entity.Player;
 
+import item.*;
+
 /**
  * This class represents the entire display of the game; everything pertinent to this game
  * is displayed via this class and its paintComponent method.
@@ -70,7 +72,11 @@ public class Display extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+		
+		//TEMP
+
+		//ENDTEMP
+		
 		this.time = 0;
 		this.calcSightBoundaries();
 	}
@@ -350,9 +356,15 @@ public class Display extends JPanel {
 					g.fillRect(dX * Tile.tileSize + 20, dY * Tile.tileSize + 35, Tile.tileSize, Tile.tileSize);
 				}
 				
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("Georgia", Font.PLAIN, 10));
+				/* For tile coordinate reference */
+				//g.setColor(Color.WHITE);
+				//g.setFont(new Font("Georgia", Font.PLAIN, 10));
 				//g.drawString(x + "," + y, x * Tile.tileSize + 28, y * Tile.tileSize + 50);
+				
+				//Draws Items currently on floor.
+				if(currentMap[y][x].hasItems()) {
+					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].getItems().getX(), currentMap[y][x].getItems().getY());
+				}
 				
 				//Draws light shading; blacks out tile if unseen, light shades if was once seen but currently
 				//is not, and ignore shading if tile is in sight.

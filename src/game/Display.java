@@ -74,7 +74,7 @@ public class Display extends JPanel {
 		}
 		
 		//TEMP
-
+		currentMap[2][2].pushOntoInv(Item.HEALING_VIAL);
 		//ENDTEMP
 		
 		this.time = 0;
@@ -363,7 +363,7 @@ public class Display extends JPanel {
 				
 				//Draws Items currently on floor.
 				if(currentMap[y][x].hasItems()) {
-					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].getItems().getX(), currentMap[y][x].getItems().getY());
+					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].getItems().getxStart(), currentMap[y][x].getItems().getyStart());
 				}
 				
 				//Draws light shading; blacks out tile if unseen, light shades if was once seen but currently

@@ -20,11 +20,29 @@ public enum Item {
 		}
 	};
 	
+	/** The type of Item. All items have a Nature, drawn out of the Nature enum. */
 	private Nature nat;
+	
+	/** The name of the Item. */
 	private String title;
+	
+	/** The description of the Item, providing information about it and its usage. */
 	private String desc;
+	
+	/** The X-coordinate of the upper-left corner of the item image in the Item tileset. */
 	private int xStart;
+	
+	/** The Y-coordinate of the upper-left corner of the item image in the Item tileset. */
 	private int yStart;
+	
+	/** Whether or not an item can have multiples occupy the same spot in an inventory. */
+	private boolean stackable;
+	
+	/** The amount of similar items an item has. As confusing as this is, this class also stores multiples of items.
+	 * The default is 1. If stackable is true, this can exceed 1.
+	 * @see stackable
+	 */
+	private int amount;
 	
 	private Item(Nature n, String t, String d, int x, int y) {
 		this.nat = n;
@@ -54,6 +72,10 @@ public enum Item {
 		return nat == n;
 	}
 	
+	/**
+	 * The use method for items that only affect the player. Can be overridden in the predefined fields.
+	 * @param p1 The player.
+	 */
 	public void use(Player p1) {
 		System.out.print("Not overridden.");
 	}

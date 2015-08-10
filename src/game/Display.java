@@ -2,7 +2,9 @@ package game;
 
 /**
  * TODO List:
- * - Add Inventory System
+ * - Account for array overfill
+ * - Add inventory navigation system
+ * - Successfully use an item, implement primitive health bar
  */
 
 import java.awt.Color;
@@ -36,21 +38,37 @@ import item.*;
 public class Display extends JPanel {
 	
 	private static final long serialVersionUID = -3124428691024905366L;
+	
+	/** The map of the level, made of a 2D array of Tiles. */
 	private Tile[][] currentMap;
+	
+	/** In the map section of the viewport, determines the square dimension of the grid. */
 	private int viewportDimension;
+	
+	/** The name of the current map. */
 	private String mapName;
+	
+	/** The player. */
 	private Player p1;
+	
+	/** The stack of messages, used in the bottom of the game window. */
 	private ArrayList<FlavorText> messageStack;
+	
+	/** The current time. Used to coordinate events. */
 	private double time;
 	
-	private Image tileset;
+	/* Note: All Images with prefix "t_" are tilesets. */
+	
+	/** Main tileset from which floor/wall tiles are derived. */
+	private Image t_ground;
+	
+	/** Main tileset from which item tiles are derived. */
 	private Image t_vials;
 	
 	/**
 	 * Text which also has a color assigned to it. Used nearly everywhere in the GUI
 	 * where text exists.
 	 */
-	
 	private class FlavorText {
 		private String text;
 		private Color color;
@@ -172,11 +190,20 @@ public class Display extends JPanel {
 			}
 		};
 		
-		
 		Action stall1sec = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
 				shiftTime(1);
+			}
+		};
+		
+		Action get = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) {
+				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems()) {
+					p1.pushToInventory(currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
+					shiftTime(0);
+				}
 			}
 		};
 		
@@ -209,6 +236,9 @@ public class Display extends JPanel {
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('s'), "stall1sec");
 		this.getActionMap().put("stall1sec", stall1sec);
+		
+		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
+		this.getActionMap().put("get", get);
 	}
 	
 	/**
@@ -246,7 +276,7 @@ public class Display extends JPanel {
 	 * @throws IOException
 	 */
 	private void importImages() throws IOException {
-		tileset = ImageIO.read(new File("images/tileset.png"));
+		t_ground = ImageIO.read(new File("images/Ground.png"));
 		t_vials = ImageIO.read(new File("images/Vials.png"));
 	}
 	
@@ -289,57 +319,57 @@ public class Display extends JPanel {
 				//Draws the base tile based on what tile representation it is.
 				switch(currentMap[y][x].getRep()) {
 					case '0':
-						drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 0, 0);
+						drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 0, 0);
 						break;
 					case 'X':
 						switch(this.determineWallType(x, y)) {
 							case "+":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 288, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 288, 0);
 								break;
 							case "upT":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 144, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 144, 36);
 								break;
 							case "downT":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 180, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 180, 36);
 								break;
 							case "leftT":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 144, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 144, 0);
 								break;
 							case "rightT":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 180, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 180, 0);
 								break;
 							case "NW":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 36, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 36, 0);
 								break;
 							case "NE":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 108, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 108, 0);
 								break;
 							case "SW":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 36, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 36, 36);
 								break;
 							case "SE":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 72, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 72, 36);
 								break;
 							case "horiz":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 72, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 72, 0);
 								break;
 							case "vert":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 108, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 108, 36);
 								break;
 							case "N":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 216, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 216, 36);
 								break;
 							case "S":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 252, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 252, 0);
 								break;
 							case "E":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 216, 0);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 216, 0);
 								break;
 							case "W":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 252, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 252, 36);
 								break;
 							case "island":
-								drawImageFromTileset(g, tileset, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 0, 36);
+								drawImageFromTileset(g, t_ground, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, 0, 36);
 								break;
 							default:
 								g.setColor(Color.GREEN);
@@ -363,7 +393,7 @@ public class Display extends JPanel {
 				
 				//Draws Items currently on floor.
 				if(currentMap[y][x].hasItems()) {
-					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].getItems().getxStart(), currentMap[y][x].getItems().getyStart());
+					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].peekItem().getxStart(), currentMap[y][x].peekItem().getyStart());
 				}
 				
 				//Draws light shading; blacks out tile if unseen, light shades if was once seen but currently
@@ -475,6 +505,9 @@ public class Display extends JPanel {
 		g.setColor(new Color(200, 200, 200));
 		for(int x = 0; x < p1.getInventory().length; x++) {
 			g.drawRect((x%12)*38 + 652, (x/12)*38 + 533, 38, 38);
+			if(p1.getItemAt(x) != null) {
+				drawImageFromTileset(g, t_vials, 653, 534, Tile.tileSize, (x%12) * 38, (x/12) * 38, p1.getItemAt(x).getxStart(), p1.getItemAt(x).getyStart());
+			}
 		}
 	}
 	

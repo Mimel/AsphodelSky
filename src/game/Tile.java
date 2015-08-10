@@ -3,7 +3,8 @@ package game;
 import item.Item;
 
 public class Tile {
-	public static int tileSize = 36;
+	public static final int tileSize = 36;
+	public static final int maxInventorySize = 10;
 	
 	private char tileRep;
 	private boolean impassable;
@@ -13,7 +14,7 @@ public class Tile {
 	 * The current items on the ground on this tile.
 	 * TODO: Accompany for more than one item on a tile.
 	 */
-	private Item itemsOnGround;
+	private Item[] itemsOnGround;
 	
 	Tile(char tileRep) {
 		this.tileRep = tileRep;
@@ -31,7 +32,7 @@ public class Tile {
 			break;
 		}
 		
-		this.itemsOnGround = null;
+		this.itemsOnGround = new Item[Tile.maxInventorySize];
 	}
 	
 	public char getRep() { return tileRep; }
@@ -43,18 +44,60 @@ public class Tile {
 	public boolean isImpassable() { return impassable; }
 	
 	public boolean hasItems() {
-		return itemsOnGround != null;
+		return itemsOnGround[0] != null;
 	}
 	
-	public Item getItems() {
-		return itemsOnGround;
+	/**
+	 * Returns the top item on the Tile's inventory stack. Unlike the popItem method, this method does not delete
+	 * the item in question.
+	 * @return The Item furthest from the origin of the itemsOnGround array. 
+	 */
+	public Item peekItem() {
+		for(int x = 0; x < itemsOnGround.length; x++) {
+			if(itemsOnGround[x] == null) {
+				if(x == 0) {
+					System.out.println("There are no items on this tile.");
+					return null;
+				}
+				return itemsOnGround[x - 1];
+			}
+		}
+		return itemsOnGround[itemsOnGround.length - 1];
+	}
+	
+	/**
+	 * Pops an item from the array, in the manner that the archetypical stack model does. Stores the top item
+	 * in a temp variable, removes the top item, and removes the Item assigned to the temp variable.
+	 * @return The popped item.
+	 */
+	public Item popItem() {
+		for(int x = 0; x < itemsOnGround.length; x++) {
+			if(itemsOnGround[x] == null) {
+				if(x == 0) {
+					System.out.println("There are no items on this tile.");
+					return null;
+				}
+				Item temp = itemsOnGround[x - 1];
+				itemsOnGround[x - 1] = null;
+				return temp;
+			}
+		}
+		Item temp = itemsOnGround[itemsOnGround.length - 1];
+		itemsOnGround[itemsOnGround.length - 1] = null;
+		return temp;
 	}
 	
 	/**
 	 * Pushes an item onto the Tile's inventory stack.
-	 * @param i
+	 * @param i The Item being pushed on the stack.
 	 */
 	public void pushOntoInv(Item i) {
-		itemsOnGround = i;
+		for(int x = 0; x < itemsOnGround.length; x++) {
+			if(itemsOnGround[x] == null) {
+				itemsOnGround[x] = i;
+				return;
+			}
+		}
+		System.out.println("Maximum amount of items on tiles.");
 	}
 }

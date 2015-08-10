@@ -69,10 +69,25 @@ public class Player extends Entity {
 		return inventory;
 	}
 	
+	
+	/**
+	 * Returns Item at index.
+	 * @param index The index from which to return the Item.
+	 * @return
+	 */
+	public Item getItemAt(int index) {
+		return inventory[index];
+	}
+	
+	/**
+	 * Pushes an Item onto the inventory, in the way that a stack architecture does.
+	 * @param i The Item being pushed onto the inventory array.
+	 */
 	public void pushToInventory(Item i) {
 		for(int x = 0; x < inventory.length; x++) {
 			if(inventory[x] == null) {
 				inventory[x] = i;
+				return;
 			}
 		}
 	}

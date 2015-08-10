@@ -65,6 +65,19 @@ public class Display extends JPanel {
 	/** Main tileset from which item tiles are derived. */
 	private Image t_vials;
 	
+	/** This determines the focus of the directional keys. Should be the only user of the enum DirectionMode.
+	 * @see DirectionMode 
+	 */
+	private DirectionMode focusState;
+	
+	/**
+	 * All the possible states from which the variable focusState can be.
+	 * @see focusState
+	 */
+	private enum DirectionMode {
+		FOCUS_MAP, FOCUS_INVENTORY;
+	}
+	
 	/**
 	 * Text which also has a color assigned to it. Used nearly everywhere in the GUI
 	 * where text exists.
@@ -110,81 +123,70 @@ public class Display extends JPanel {
 			}
 		};
 		
-		Action moveLeft = new AbstractAction() {
+		Action move = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != 0 && !currentMap[p1.getYCoord()][p1.getXCoord() - 1].isImpassable()) {
-					p1.move(-1, 0);
-					shiftTime(p1.getMovementSpeed());
+				char key = e.getActionCommand().charAt(0);
+				int xOffset;
+				int yOffset;
+				
+				boolean ableLeft = p1.getXCoord() != 0;
+				boolean ableRight = p1.getXCoord() != currentMap[0].length - 1;
+				boolean ableUp = p1.getYCoord() != 0;
+				boolean ableDown = p1.getYCoord() != currentMap[0].length - 1;
+				
+				boolean canMove;
+				
+				switch(key) {
+					case 'q':
+						xOffset = -1;
+						yOffset = -1;
+						canMove = ableLeft && ableUp;
+						break;
+					case 'w':
+						xOffset = 0;
+						yOffset = -1;
+						canMove = ableUp;
+						break;
+					case 'e':
+						xOffset = 1;
+						yOffset = -1;
+						canMove = ableRight && ableUp;
+						break;
+					case 'a':
+						xOffset = -1;
+						yOffset = 0;
+						canMove = ableLeft;
+						break;
+					case 'd':
+						xOffset = 1;
+						yOffset = 0;
+						canMove = ableRight;
+						break;
+					case 'z':
+						xOffset = -1;
+						yOffset = 1;
+						canMove = ableLeft && ableDown;
+						break;
+					case 'x':
+						xOffset = 0;
+						yOffset = 1;
+						canMove = ableDown;
+						break;
+					case 'c':
+						xOffset = 1;
+						yOffset = 1;
+						canMove = ableRight && ableDown;
+						break;
+					default:
+						xOffset = 0;
+						yOffset = 0;
+						canMove = false;
+						break;
 				}
-			}
-		};
-		
-		Action moveRight = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != currentMap[0].length - 1 && !currentMap[p1.getYCoord()][p1.getXCoord() + 1].isImpassable()) {
-					p1.move(1, 0);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveUp = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getYCoord() != 0 && !currentMap[p1.getYCoord() - 1][p1.getXCoord()].isImpassable()) {
-					p1.move(0, -1);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveDown = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getYCoord() != currentMap[0].length - 1 && !currentMap[p1.getYCoord() + 1][p1.getXCoord()].isImpassable()) {
-					p1.move(0, 1);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveNW = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != 0 && p1.getYCoord() != 0 && !currentMap[p1.getYCoord() - 1][p1.getXCoord() - 1].isImpassable()) {
-					p1.move(-1, -1);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveNE = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != currentMap[0].length - 1 && p1.getYCoord() != 0 && !currentMap[p1.getYCoord() - 1][p1.getXCoord() + 1].isImpassable()) {
-					p1.move(1, -1);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveSW = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != 0 && p1.getYCoord() != currentMap[0].length - 1 && !currentMap[p1.getYCoord() + 1][p1.getXCoord() - 1].isImpassable()) {
-					p1.move(-1, 1);
-					shiftTime(p1.getMovementSpeed());
-				}
-			}
-		};
-		
-		Action moveSE = new AbstractAction() {
-			private static final long serialVersionUID = -8817332391432139373L;
-			public void actionPerformed(ActionEvent e) {
-				if(p1.getXCoord() != currentMap[0].length - 1 && p1.getYCoord() != currentMap[0].length - 1 && !currentMap[p1.getYCoord() + 1][p1.getXCoord() + 1].isImpassable()) {
-					p1.move(1, 1);
+				
+				if(canMove && !currentMap[p1.getYCoord() + yOffset][p1.getXCoord() + xOffset].isImpassable()) {
+					p1.move(xOffset, yOffset);
 					shiftTime(p1.getMovementSpeed());
 				}
 			}
@@ -207,38 +209,53 @@ public class Display extends JPanel {
 			}
 		};
 		
+		Action toggleInventory = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) {
+				if(focusState == DirectionMode.FOCUS_MAP) {
+					focusState = DirectionMode.FOCUS_INVENTORY;
+				} else {
+					focusState = DirectionMode.FOCUS_MAP;
+				}
+				shiftTime(0);
+			}
+		};
+		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ESCAPE"), "exitProgram");
 		this.getActionMap().put("exitProgram", exitProgram);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('a'), "moveLeft");
-		this.getActionMap().put("moveLeft", moveLeft);
+		this.getActionMap().put("moveLeft", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('d'), "moveRight");
-		this.getActionMap().put("moveRight", moveRight);
+		this.getActionMap().put("moveRight", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('w'), "moveUp");
-		this.getActionMap().put("moveUp", moveUp);
+		this.getActionMap().put("moveUp", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('x'), "moveDown");
-		this.getActionMap().put("moveDown", moveDown);
+		this.getActionMap().put("moveDown", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('q'), "moveNW");
-		this.getActionMap().put("moveNW", moveNW);
+		this.getActionMap().put("moveNW", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('e'), "moveNE");
-		this.getActionMap().put("moveNE", moveNE);
+		this.getActionMap().put("moveNE", move);
 
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('z'), "moveSW");
-		this.getActionMap().put("moveSW", moveSW);
+		this.getActionMap().put("moveSW", move);
 
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('c'), "moveSE");
-		this.getActionMap().put("moveSE", moveSE);
+		this.getActionMap().put("moveSE", move);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('s'), "stall1sec");
 		this.getActionMap().put("stall1sec", stall1sec);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
 		this.getActionMap().put("get", get);
+		
+		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "toggleInventory");
+		this.getActionMap().put("toggleInventory", toggleInventory);
 	}
 	
 	/**

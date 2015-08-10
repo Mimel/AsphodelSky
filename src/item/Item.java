@@ -79,8 +79,12 @@ public enum Item {
 	public void use(Player p1) {
 		System.out.print("Not overridden.");
 	}
-
-	public enum Nature {
+	
+	/**
+	 * A sub-enum used to classify items.
+	 * @author Matti
+	 */
+	private enum Nature {
 		VIAL;
 	}
 }

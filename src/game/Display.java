@@ -39,7 +39,7 @@ public class Display extends JPanel {
 	
 	private static final long serialVersionUID = -3124428691024905366L;
 	
-	/** The map of the level, made of a 2D array of Tiles. */
+	/** The map of the level, made of a 2D array of Tiles. [y][x]-oriented. */
 	private Tile[][] currentMap;
 	
 	/** In the map section of the viewport, determines the square dimension of the grid. */
@@ -57,6 +57,10 @@ public class Display extends JPanel {
 	/** The current time. Used to coordinate events. */
 	private double time;
 	
+	private final int inventoryHeight = 3;
+	
+	private final int inventoryWidth = 12;
+	
 	/* Note: All Images with prefix "t_" are tilesets. */
 	
 	/** Main tileset from which floor/wall tiles are derived. */
@@ -65,10 +69,21 @@ public class Display extends JPanel {
 	/** Main tileset from which item tiles are derived. */
 	private Image t_vials;
 	
+	/** Main tileset for display icons, such as selection markers. */
+	private Image t_icons;
+	
+	/* END Images */
+	
 	/** This determines the focus of the directional keys. Should be the only user of the enum DirectionMode.
 	 * @see DirectionMode 
 	 */
 	private DirectionMode focusState;
+	
+	/**
+	 * Only applicable in DirectionMode FOCUS_INVENTORY: The slot in the player's inventory in which the selector is on.
+	 * @see focusState;
+	 */
+	private int inventorySlotSelected;
 	
 	/**
 	 * All the possible states from which the variable focusState can be.
@@ -105,10 +120,12 @@ public class Display extends JPanel {
 		}
 		
 		//TEMP
-		currentMap[2][2].pushOntoInv(Item.HEALING_VIAL);
+		currentMap[2][3].pushOntoInv(Item.HEALING_VIAL);
 		//ENDTEMP
 		
 		this.time = 0;
+		this.focusState = DirectionMode.FOCUS_MAP;
+		this.inventorySlotSelected = 0;
 		this.calcSightBoundaries();
 	}
 	
@@ -130,10 +147,22 @@ public class Display extends JPanel {
 				int xOffset;
 				int yOffset;
 				
-				boolean ableLeft = p1.getXCoord() != 0;
-				boolean ableRight = p1.getXCoord() != currentMap[0].length - 1;
-				boolean ableUp = p1.getYCoord() != 0;
-				boolean ableDown = p1.getYCoord() != currentMap[0].length - 1;
+				boolean ableLeft = false;
+				boolean ableRight = false;
+				boolean ableUp = false;
+				boolean ableDown = false;
+				
+				if(focusState == DirectionMode.FOCUS_MAP) {
+					ableLeft = p1.getXCoord() != 0;
+					ableRight = p1.getXCoord() != currentMap[0].length - 1;
+					ableUp = p1.getYCoord() != 0;
+					ableDown = p1.getYCoord() != currentMap[0].length - 1;
+				} else if(focusState == DirectionMode.FOCUS_INVENTORY) {
+					ableLeft = inventorySlotSelected % inventoryWidth != 0;
+					ableRight = inventorySlotSelected % inventoryWidth != inventoryWidth - 1;
+					ableUp = inventorySlotSelected / inventoryWidth != 0;
+					ableDown = inventorySlotSelected / inventoryWidth != inventoryHeight - 1;
+				}
 				
 				boolean canMove;
 				
@@ -184,10 +213,16 @@ public class Display extends JPanel {
 						canMove = false;
 						break;
 				}
-				
-				if(canMove && !currentMap[p1.getYCoord() + yOffset][p1.getXCoord() + xOffset].isImpassable()) {
-					p1.move(xOffset, yOffset);
-					shiftTime(p1.getMovementSpeed());
+				if(focusState == DirectionMode.FOCUS_MAP) {
+					if(canMove && !currentMap[p1.getYCoord() + yOffset][p1.getXCoord() + xOffset].isImpassable()) {
+						p1.move(xOffset, yOffset);
+						shiftTime(p1.getMovementSpeed());
+					}
+				} else if(focusState == DirectionMode.FOCUS_INVENTORY) {
+					if(canMove) {
+						inventorySlotSelected += (yOffset * inventoryWidth + xOffset);
+						shiftTime(0);
+					}
 				}
 			}
 		};
@@ -295,6 +330,7 @@ public class Display extends JPanel {
 	private void importImages() throws IOException {
 		t_ground = ImageIO.read(new File("images/Ground.png"));
 		t_vials = ImageIO.read(new File("images/Vials.png"));
+		t_icons = ImageIO.read(new File("images/icons.png"));
 	}
 	
 	/**
@@ -507,6 +543,7 @@ public class Display extends JPanel {
 	/**
 	 * Draws the block containing the player information; this area is located to the right
 	 * of the grid. Note that this area also encapsulates other methods, which will be added later.
+	 * TODO: WOW, this is magic. De-uglify this asap.
 	 * @param g
 	 */
 	private void drawPlayerInfo(Graphics g) {
@@ -522,6 +559,9 @@ public class Display extends JPanel {
 		g.setColor(new Color(200, 200, 200));
 		for(int x = 0; x < p1.getInventory().length; x++) {
 			g.drawRect((x%12)*38 + 652, (x/12)*38 + 533, 38, 38);
+			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
+				drawImageFromTileset(g, t_icons, 653, 534, Tile.tileSize, (x%12) * 38, (x/12) * 38, 0, 0);
+			}
 			if(p1.getItemAt(x) != null) {
 				drawImageFromTileset(g, t_vials, 653, 534, Tile.tileSize, (x%12) * 38, (x/12) * 38, p1.getItemAt(x).getxStart(), p1.getItemAt(x).getyStart());
 			}

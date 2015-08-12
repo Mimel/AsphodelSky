@@ -82,7 +82,6 @@ public enum Item {
 	
 	/**
 	 * A sub-enum used to classify items.
-	 * @author Matti
 	 */
 	private enum Nature {
 		VIAL;

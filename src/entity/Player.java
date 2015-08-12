@@ -69,6 +69,34 @@ public class Player extends Entity {
 		return inventory;
 	}
 	
+	public Item[][] convertInvTo2D(int height, int width) {
+		if(height * width != inventory.length) {
+			System.out.println("Dimensions given are not valid factors of inventory size.");
+			return null;
+		} else {
+			Item[][] gridInventory = new Item[height][width];
+			for(int y = 0; y < height; y++) {
+				for(int x = 0; x < width; x++) {
+					gridInventory[y][x] = inventory[y * width + x];
+				}
+			}
+			return gridInventory;
+		}
+	}
+	
+	public void convertInvTo1D(Item[][] itemGrid) {
+		if(itemGrid[0].length * itemGrid.length != inventory.length) {
+			System.out.println("Given item grid cannot be translated to player inventory.");
+			return;
+		} else {
+			for(int y = 0; y < itemGrid.length; y++) {
+				for(int x = 0; x < itemGrid[y].length; x++) {
+					inventory[y * itemGrid[y].length + x] = itemGrid[y][x];
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * Returns Item at index.

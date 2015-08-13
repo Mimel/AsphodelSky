@@ -42,8 +42,17 @@ public class Display extends JPanel {
 	/** The map of the level, made of a 2D array of Tiles. [y][x]-oriented. */
 	private Tile[][] currentMap;
 	
-	/** In the map section of the viewport, determines the square dimension of the grid. */
+	/**
+	 * In the map section of the viewport, determines the square dimension of the grid. 
+	 * Note that this integer operates best as an odd number, so the player is correctly centered on screen.
+	 */
 	private int viewportDimension;
+	
+	/** Length of the top margin. */
+	private final int topMargin = 35;
+	
+	/** Length of the left margin. */
+	private final int leftMargin = 40;
 	
 	/** The name of the current map. */
 	private String mapName;
@@ -547,23 +556,32 @@ public class Display extends JPanel {
 	 * @param g
 	 */
 	private void drawPlayerInfo(Graphics g) {
-		g.setColor(new Color(220, 220, 220));
-		g.fillRect(17*36 + 40, 35, 456, 17*36);
+		int playerInfoLeftMargin = viewportDimension*Tile.tileSize + leftMargin;
 		
+		g.setColor(new Color(220, 220, 220));
+		g.fillRect(viewportDimension*Tile.tileSize + leftMargin, topMargin, inventoryWidth*Tile.tileSize, viewportDimension*Tile.tileSize);
+		
+		//Draws player id
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.drawString(p1.getName() + ", the " + p1.getTitle() + " " + p1.getSpecies(), 19*36 + 40 + 10, 60);
 		
 		//Draws player inventory
-		//NOTE: Assumes that inventory size is always 36.
+		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
 		g.setColor(new Color(200, 200, 200));
 		for(int x = 0; x < p1.getInventory().length; x++) {
-			g.drawRect((x%12)*38 + 652, (x/12)*38 + 533, 38, 38);
+			if((x/inventoryWidth)%2 != x%2) {
+				g.setColor(new Color(200, 200, 200));
+			} else {
+				g.setColor(new Color(170, 170, 170));
+			}
+			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
+			
 			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
-				drawImageFromTileset(g, t_icons, 653, 534, Tile.tileSize, (x%12) * 38, (x/12) * 38, 0, 0);
+				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
 			}
 			if(p1.getItemAt(x) != null) {
-				drawImageFromTileset(g, t_vials, 653, 534, Tile.tileSize, (x%12) * 38, (x/12) * 38, p1.getItemAt(x).getxStart(), p1.getItemAt(x).getyStart());
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getItemAt(x).getxStart(), p1.getItemAt(x).getyStart());
 			}
 		}
 	}

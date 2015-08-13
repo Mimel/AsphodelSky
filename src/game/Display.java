@@ -2,9 +2,9 @@ package game;
 
 /**
  * TODO List:
- * - Account for array overfill
- * - Add inventory navigation system
- * - Successfully use an item, implement primitive health bar
+ * - Fix text feed
+ * - Implement Player stats and display
+ * - Add proper usage on "Health Vial"
  */
 
 import java.awt.Color;
@@ -142,6 +142,9 @@ public class Display extends JPanel {
 	 * Initializes all keybinds used in the game. 
 	 */
 	private void initializeKeyBinds() {
+		/**
+		 * Closes out of the game. Used by the ESC key.
+		 */
 		Action exitProgram = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
@@ -149,6 +152,9 @@ public class Display extends JPanel {
 			}
 		};
 		
+		/**
+		 * Moves in one of eight directions. Used by the q, w, e, a, d, z, x, and c keys.
+		 */
 		Action move = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
@@ -236,6 +242,9 @@ public class Display extends JPanel {
 			}
 		};
 		
+		/** 
+		 * Progresses time by one second. Used by the s key.
+		 */
 		Action stall1sec = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
@@ -243,6 +252,9 @@ public class Display extends JPanel {
 			}
 		};
 		
+		/**
+		 * Picks up an item from the ground. Used by the g key.
+		 */
 		Action get = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
@@ -253,6 +265,24 @@ public class Display extends JPanel {
 			}
 		};
 		
+		/**
+		 * Uses an item in the inventory. Used by the u key.
+		 */
+		Action use = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) {
+				if(focusState == DirectionMode.FOCUS_INVENTORY) {
+					if(p1.getInventory()[inventorySlotSelected] != null) {
+						p1.getInventory()[inventorySlotSelected].use(p1);
+						shiftTime(0);
+					}
+				}
+			}
+		};
+		
+		/**
+		 * Toggles between grid controls and inventory controls. Used by the i key.
+		 */
 		Action toggleInventory = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
@@ -297,6 +327,9 @@ public class Display extends JPanel {
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
 		this.getActionMap().put("get", get);
+		
+		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
+		this.getActionMap().put("use", use);
 		
 		this.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "toggleInventory");
 		this.getActionMap().put("toggleInventory", toggleInventory);
@@ -552,7 +585,6 @@ public class Display extends JPanel {
 	/**
 	 * Draws the block containing the player information; this area is located to the right
 	 * of the grid. Note that this area also encapsulates other methods, which will be added later.
-	 * TODO: WOW, this is magic. De-uglify this asap.
 	 * @param g
 	 */
 	private void drawPlayerInfo(Graphics g) {
@@ -580,8 +612,8 @@ public class Display extends JPanel {
 			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
 				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
 			}
-			if(p1.getItemAt(x) != null) {
-				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getItemAt(x).getxStart(), p1.getItemAt(x).getyStart());
+			if(p1.getInventory()[x] != null) {
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getxStart(), p1.getInventory()[x].getyStart());
 			}
 		}
 	}

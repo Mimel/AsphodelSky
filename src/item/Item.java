@@ -10,7 +10,8 @@ import entity.Player;
 public enum Item {
 	HEALING_VIAL(Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
 		public void use(Player p1) {
-			System.out.println("Overridden!");
+			p1.takeDamage(-6);
+			this.consumeItem();
 		}
 	},
 	
@@ -44,12 +45,22 @@ public enum Item {
 	 */
 	private int amount;
 	
+	/**
+	 * Determines whether or not the item will be removed or decremented from inventory when used.
+	 */
+	private boolean consumable;
+	
 	private Item(Nature n, String t, String d, int x, int y) {
 		this.nat = n;
 		this.title = t;
 		this.desc = d;
 		this.xStart = x;
 		this.yStart = y;
+		
+		if(nat == Nature.VIAL) {
+			this.stackable = true;
+			this.consumable = true;
+		}
 	}
 	
 	public String getTitle() {
@@ -78,6 +89,10 @@ public enum Item {
 	 */
 	public void use(Player p1) {
 		System.out.print("Not overridden.");
+	}
+	
+	protected void consumeItem() {
+		
 	}
 	
 	/**

@@ -31,8 +31,8 @@ public abstract class Entity {
 		return currHP;
 	}
 
-	public void setCurrHP(int currHP) {
-		this.currHP = currHP;
+	public void takeDamage(int damage) {
+		this.currHP = currHP - damage;
 	}
 
 	public int getMaxHP() {

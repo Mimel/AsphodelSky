@@ -2,9 +2,9 @@ package game;
 
 /**
  * TODO List:
- * - Fix text feed
  * - Implement Player stats and display
  * - Add proper usage on "Health Vial"
+ * - Finish Player stats
  */
 
 import java.awt.Color;
@@ -60,9 +60,6 @@ public class Display extends JPanel {
 	/** The player. */
 	private Player p1;
 	
-	/** The stack of messages, used in the bottom of the game window. */
-	private ArrayList<FlavorText> messageStack;
-	
 	/** The current time. Used to coordinate events. */
 	private double time;
 	
@@ -102,24 +99,9 @@ public class Display extends JPanel {
 		FOCUS_MAP, FOCUS_INVENTORY;
 	}
 	
-	/**
-	 * Text which also has a color assigned to it. Used nearly everywhere in the GUI
-	 * where text exists.
-	 */
-	private class FlavorText {
-		private String text;
-		private Color color;
-		
-	//	FlavorText(String text, Color color) {
-	//		this.text = text;
-	//		this.color = color;
-	//	}
-	}
-
 	public Display() {
 		this.initializeKeyBinds();
-		this.viewportDimension = 17;
-		this.messageStack = new ArrayList<FlavorText>();
+		this.viewportDimension = 15;
 		
 		try {
 			this.importMap("maps/m_test.dat");
@@ -130,6 +112,7 @@ public class Display extends JPanel {
 		
 		//TEMP
 		currentMap[2][3].pushOntoInv(Item.HEALING_VIAL);
+		p1.takeDamage(8);
 		//ENDTEMP
 		
 		this.time = 0;
@@ -384,6 +367,7 @@ public class Display extends JPanel {
 		super.paintComponent(g);
 		this.drawGrid(g);
 		this.drawPlayerInfo(g);
+		this.drawTextFeed(g);
 	}
 	
 	/**
@@ -502,21 +486,79 @@ public class Display extends JPanel {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Draws the block containing the player information; this area is located to the right
+	 * of the grid. Note that this area also encapsulates other methods, which will be added later.
+	 * @param g
+	 */
+	private void drawPlayerInfo(Graphics g) {
+		final int playerInfoLeftMargin = viewportDimension*Tile.tileSize + leftMargin;
+		final int textMargin = 15;
 		
-		g.setColor(new Color(255, 255, 255));
-		g.fillRect(20, 675, 612, 125);
+		g.setColor(new Color(220, 220, 220));
+		g.fillRect(viewportDimension*Tile.tileSize + leftMargin, topMargin, inventoryWidth*Tile.tileSize, viewportDimension*Tile.tileSize);
 		
-		g.setFont(new Font("Arial", Font.PLAIN, 15));
-		g.setColor(new Color(0, 0, 0));
-		for(int x = 0; x < Math.min(messageStack.size(), 6); x++) {
-			g.setColor(new Color(messageStack.get(messageStack.size() - 1 - x).color.getRed(),
-					   messageStack.get(messageStack.size() - 1 - x).color.getGreen(),
-					   messageStack.get(messageStack.size() - 1 - x).color.getBlue(),
-					   255 - (x * 42)));
-			g.drawString(messageStack.get(messageStack.size() - 1 - x).text, 25, (100 - (x * 20)) + 765);
+		//Draws player id
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.drawString(p1.getName() + ", the " + p1.getTitle() + " " + p1.getSpecies(), playerInfoLeftMargin + textMargin, 60);
+		
+		//Draws player specs
+		g.setColor(new Color(133, 0, 0));
+		g.fillRect(playerInfoLeftMargin + textMargin, 70, 200, 30);
+		g.setColor(new Color(200, 0, 0));
+		g.fillRect(playerInfoLeftMargin + textMargin, 70, Math.round(200 * ((float) p1.getCurrHP() / p1.getMaxHP())), 30);
+		g.setColor(Color.BLACK);
+		g.drawString("Health: " + p1.getCurrHP() + "/" + p1.getMaxHP(), playerInfoLeftMargin + textMargin + 10, 93);
+		
+		//Draws player inventory
+		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
+		g.setColor(new Color(200, 200, 200));
+		for(int x = 0; x < p1.getInventory().length; x++) {
+			if((x/inventoryWidth)%2 != x%2) {
+				g.setColor(new Color(200, 200, 200));
+			} else {
+				g.setColor(new Color(170, 170, 170));
+			}
+			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
+			
+			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
+				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
+			}
+			if(p1.getInventory()[x] != null) {
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getxStart(), p1.getInventory()[x].getyStart());
+			}
 		}
 	}
 	
+	/**
+	 * Draws the text feed, the bottom-most portion of the display. 
+	 * @param g
+	 */
+	private void drawTextFeed(Graphics g) {
+		g.setColor(new Color(255, 255, 255));
+		g.fillRect(leftMargin - 20, topMargin + 20 + viewportDimension*Tile.tileSize, leftMargin - 20 + (viewportDimension*Tile.tileSize) + (inventoryWidth*Tile.tileSize), 150);
+	}
+
+	/**
+	 * Draws image from a specified tileset onto the grid; note that this method can only be correctly called if
+	 * the destination of the image is onto the playing grid. This is meant to de-clutter the main paintComponent method.
+	 * @param g
+	 * @param i The tileset from which to derive the tile.
+	 * @param marginX The X margin between the grid and the JPanel. May also include the difference between the std. tile size (36px.) and the tile size.
+	 * @param marginY The Y margin between the grid and the JPanel. May also include the difference between the std. tile size (36px.) and the tile size.
+	 * @param tileSize The size of the tile in question. Because this method only applies to drawings on the grid, all tiles must be square.
+	 * @param displayOffsetX The X distance from the origin on the grid.
+	 * @param displayOffsetY The Y distance from the origin on the grid.
+	 * @param imageOffsetX The X distance from the origin on the tileset.
+	 * @param imageOffsetY The Y distance from the origin on the tileset.
+	 */
+	private void drawImageFromTileset(Graphics g, Image i, int marginX, int marginY, int tileSize, int displayOffsetX, int displayOffsetY, int imageOffsetX, int imageOffsetY) {
+		g.drawImage(i, marginX + displayOffsetX, marginY + displayOffsetY, marginX + displayOffsetX + tileSize, marginY + displayOffsetY + tileSize, imageOffsetX, imageOffsetY, tileSize + imageOffsetX, tileSize + imageOffsetY, this);
+	}
+
 	/**
 	 * Determines the wall piece by determining whether or not the cardinally adjacent tiles are walls.
 	 * @param x The X-coordinate of the wall piece in question.
@@ -562,59 +604,6 @@ public class Display extends JPanel {
 			return "W";
 		} else {
 			return "island";
-		}
-	}
-	
-	/**
-	 * Draws image from a specified tileset onto the grid; note that this method can only be correctly called if
-	 * the destination of the image is onto the playing grid. This is meant to de-clutter the main paintComponent method.
-	 * @param g
-	 * @param i The tileset from which to derive the tile.
-	 * @param marginX The X margin between the grid and the JPanel. May also include the difference between the std. tile size (36px.) and the tile size.
-	 * @param marginY The Y margin between the grid and the JPanel. May also include the difference between the std. tile size (36px.) and the tile size.
-	 * @param tileSize The size of the tile in question. Because this method only applies to drawings on the grid, all tiles must be square.
-	 * @param displayOffsetX The X distance from the origin on the grid.
-	 * @param displayOffsetY The Y distance from the origin on the grid.
-	 * @param imageOffsetX The X distance from the origin on the tileset.
-	 * @param imageOffsetY The Y distance from the origin on the tileset.
-	 */
-	private void drawImageFromTileset(Graphics g, Image i, int marginX, int marginY, int tileSize, int displayOffsetX, int displayOffsetY, int imageOffsetX, int imageOffsetY) {
-		g.drawImage(i, marginX + displayOffsetX, marginY + displayOffsetY, marginX + displayOffsetX + tileSize, marginY + displayOffsetY + tileSize, imageOffsetX, imageOffsetY, tileSize + imageOffsetX, tileSize + imageOffsetY, this);
-	}
-	
-	/**
-	 * Draws the block containing the player information; this area is located to the right
-	 * of the grid. Note that this area also encapsulates other methods, which will be added later.
-	 * @param g
-	 */
-	private void drawPlayerInfo(Graphics g) {
-		int playerInfoLeftMargin = viewportDimension*Tile.tileSize + leftMargin;
-		
-		g.setColor(new Color(220, 220, 220));
-		g.fillRect(viewportDimension*Tile.tileSize + leftMargin, topMargin, inventoryWidth*Tile.tileSize, viewportDimension*Tile.tileSize);
-		
-		//Draws player id
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.PLAIN, 20));
-		g.drawString(p1.getName() + ", the " + p1.getTitle() + " " + p1.getSpecies(), 19*36 + 40 + 10, 60);
-		
-		//Draws player inventory
-		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
-		g.setColor(new Color(200, 200, 200));
-		for(int x = 0; x < p1.getInventory().length; x++) {
-			if((x/inventoryWidth)%2 != x%2) {
-				g.setColor(new Color(200, 200, 200));
-			} else {
-				g.setColor(new Color(170, 170, 170));
-			}
-			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
-			
-			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
-				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
-			}
-			if(p1.getInventory()[x] != null) {
-				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getxStart(), p1.getInventory()[x].getyStart());
-			}
 		}
 	}
 	

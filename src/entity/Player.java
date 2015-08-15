@@ -71,6 +71,21 @@ public class Player extends Entity {
 	}
 	
 	/**
+	 * Determines if a used item is consumed; if the item at index "index" is consumable,
+	 * decrement the amount of items in that stack. If the amount is 1, remove the item entirely.
+	 * @param index The item location in the inventory.
+	 */
+	public void runConsumptionCheck(int index) {
+		if(this.inventory[index].isConsumable()) {
+			if(this.inventory[index].getAmount() == 1) {
+				this.inventory[index] = null;
+			} else {
+				this.inventory[index].remove(1);
+			}
+		}
+	}
+	
+	/**
 	 * Pushes an Item onto the inventory, in the way that a stack architecture does.
 	 * @param i The Item being pushed onto the inventory array.
 	 */

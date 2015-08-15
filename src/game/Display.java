@@ -2,8 +2,8 @@ package game;
 
 /**
  * TODO List:
- * - Implement Player stats and display
- * - Add proper usage on "Health Vial"
+ * - Recreate pushToInventory method to account for stackable items.
+ * - Neaten amount display.
  * - Finish Player stats
  */
 
@@ -257,6 +257,7 @@ public class Display extends JPanel {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
 						p1.getInventory()[inventorySlotSelected].use(p1);
+						p1.runConsumptionCheck(inventorySlotSelected);
 						shiftTime(0);
 					}
 				}
@@ -524,11 +525,18 @@ public class Display extends JPanel {
 			}
 			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
 			
-			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
-				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
-			}
 			if(p1.getInventory()[x] != null) {
 				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getxStart(), p1.getInventory()[x].getyStart());
+
+				if(p1.getInventory()[x].isStackable()) {
+					g.setFont(new Font("Arial", Font.PLAIN, 8));
+					g.setColor(Color.WHITE);
+					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 30, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 30);
+				}
+			}
+			
+			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
+				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
 			}
 		}
 	}

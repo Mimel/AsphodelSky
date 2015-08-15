@@ -11,7 +11,6 @@ public enum Item {
 	HEALING_VIAL(Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
 		public void use(Player p1) {
 			p1.takeDamage(-6);
-			this.consumeItem();
 		}
 	},
 	
@@ -56,6 +55,7 @@ public enum Item {
 		this.desc = d;
 		this.xStart = x;
 		this.yStart = y;
+		this.amount = 1;
 		
 		if(nat == Nature.VIAL) {
 			this.stackable = true;
@@ -79,6 +79,22 @@ public enum Item {
 		return yStart;
 	}
 	
+	public boolean isStackable() {
+		return stackable == true;
+	}
+	
+	public boolean isConsumable() {
+		return consumable == true;
+	}
+	
+	public int getAmount() {
+		return amount;
+	}
+	
+	public void remove(int number) {
+		amount -= number;
+	}
+	
 	public boolean natureIs(Nature n) {
 		return nat == n;
 	}
@@ -89,10 +105,6 @@ public enum Item {
 	 */
 	public void use(Player p1) {
 		System.out.print("Not overridden.");
-	}
-	
-	protected void consumeItem() {
-		
 	}
 	
 	/**

@@ -77,11 +77,7 @@ public class Player extends Entity {
 	 */
 	public void runConsumptionCheck(int index) {
 		if(this.inventory[index].isConsumable()) {
-			if(this.inventory[index].getAmount() == 1) {
-				this.inventory[index] = null;
-			} else {
-				this.inventory[index].remove(1);
-			}
+			this.inventory[index] = null;	
 		}
 	}
 	
@@ -94,7 +90,7 @@ public class Player extends Entity {
 			if(inventory[x] == null) {
 				inventory[x] = i;
 				return;
-			}
+			} 
 		}
 	}
 

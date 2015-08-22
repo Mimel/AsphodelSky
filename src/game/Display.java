@@ -531,7 +531,6 @@ public class Display extends JPanel {
 				if(p1.getInventory()[x].isStackable()) {
 					g.setFont(new Font("Arial", Font.PLAIN, 8));
 					g.setColor(Color.WHITE);
-					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 30, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 30);
 				}
 			}
 			

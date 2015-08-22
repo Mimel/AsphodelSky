@@ -8,17 +8,20 @@ import entity.Player;
  * @author Matti
  */
 public enum Item {
-	HEALING_VIAL(Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
+	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
 		public void use(Player p1) {
 			p1.takeDamage(-6);
 		}
 	},
 	
-	ENERGY_VIAL(Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
+	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
 		public void use(Player p1) {
 			System.out.println("This is an energy vial!");
 		}
 	};
+	
+	/** Numeric ID; Each item has a different, unique id. */
+	private int id;
 	
 	/** The type of Item. All items have a Nature, drawn out of the Nature enum. */
 	private Nature nat;
@@ -38,29 +41,27 @@ public enum Item {
 	/** Whether or not an item can have multiples occupy the same spot in an inventory. */
 	private boolean stackable;
 	
-	/** The amount of similar items an item has. As confusing as this is, this class also stores multiples of items.
-	 * The default is 1. If stackable is true, this can exceed 1.
-	 * @see stackable
-	 */
-	private int amount;
-	
 	/**
 	 * Determines whether or not the item will be removed or decremented from inventory when used.
 	 */
 	private boolean consumable;
 	
-	private Item(Nature n, String t, String d, int x, int y) {
+	private Item(int id, Nature n, String t, String d, int x, int y) {
+		this.id = id;
 		this.nat = n;
 		this.title = t;
 		this.desc = d;
 		this.xStart = x;
 		this.yStart = y;
-		this.amount = 1;
 		
 		if(nat == Nature.VIAL) {
 			this.stackable = true;
 			this.consumable = true;
 		}
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getTitle() {
@@ -87,14 +88,11 @@ public enum Item {
 		return consumable == true;
 	}
 	
-	public int getAmount() {
-		return amount;
-	}
-	
-	public void remove(int number) {
-		amount -= number;
-	}
-	
+	/**
+	 * Compares item with a specific Nature.
+	 * @param n A Nature.
+	 * @return The similarity between the parameter and object's Nature.
+	 */
 	public boolean natureIs(Nature n) {
 		return nat == n;
 	}

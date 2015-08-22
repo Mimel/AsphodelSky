@@ -2,9 +2,7 @@ package game;
 
 /**
  * TODO List:
- * - Recreate pushToInventory method to account for stackable items.
- * - Neaten amount display.
- * - Finish Player stats
+ * - Holy Jeez, variable/class clarity pls
  */
 
 import java.awt.Color;
@@ -111,7 +109,7 @@ public class Display extends JPanel {
 		}
 		
 		//TEMP
-		currentMap[2][3].pushOntoInv(Item.HEALING_VIAL);
+		currentMap[2][3].pushOntoInv(new InvFitItem(Item.HEALING_VIAL, 3));
 		p1.takeDamage(8);
 		//ENDTEMP
 		
@@ -256,7 +254,7 @@ public class Display extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
-						p1.getInventory()[inventorySlotSelected].use(p1);
+						p1.getInventory()[inventorySlotSelected].getItem().use(p1);
 						p1.runConsumptionCheck(inventorySlotSelected);
 						shiftTime(0);
 					}
@@ -473,7 +471,7 @@ public class Display extends JPanel {
 				
 				//Draws Items currently on floor.
 				if(currentMap[y][x].hasItems()) {
-					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].peekItem().getxStart(), currentMap[y][x].peekItem().getyStart());
+					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].peekItem().getItem().getxStart(), currentMap[y][x].peekItem().getItem().getyStart());
 				}
 				
 				//Draws light shading; blacks out tile if unseen, light shades if was once seen but currently
@@ -526,11 +524,12 @@ public class Display extends JPanel {
 			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
 			
 			if(p1.getInventory()[x] != null) {
-				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getxStart(), p1.getInventory()[x].getyStart());
-
-				if(p1.getInventory()[x].isStackable()) {
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getItem().getxStart(), p1.getInventory()[x].getItem().getyStart());
+				
+				if(p1.getInventory()[x].getItem().isStackable()) {
 					g.setFont(new Font("Arial", Font.PLAIN, 8));
 					g.setColor(Color.WHITE);
+					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 30, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 30);
 				}
 			}
 			

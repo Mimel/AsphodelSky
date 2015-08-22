@@ -1,6 +1,6 @@
 package game;
 
-import item.Item;
+import item.*;
 
 public class Tile {
 	public static final int tileSize = 36;
@@ -14,7 +14,7 @@ public class Tile {
 	 * The current items on the ground on this tile.
 	 * TODO: Accompany for more than one item on a tile.
 	 */
-	private Item[] itemsOnGround;
+	private InvFitItem[] itemsOnGround;
 	
 	Tile(char tileRep) {
 		this.tileRep = tileRep;
@@ -32,7 +32,7 @@ public class Tile {
 			break;
 		}
 		
-		this.itemsOnGround = new Item[Tile.maxInventorySize];
+		this.itemsOnGround = new InvFitItem[Tile.maxInventorySize];
 	}
 	
 	public char getRep() { return tileRep; }
@@ -52,7 +52,7 @@ public class Tile {
 	 * the item in question.
 	 * @return The Item furthest from the origin of the itemsOnGround array. 
 	 */
-	public Item peekItem() {
+	public InvFitItem peekItem() {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				if(x == 0) {
@@ -70,19 +70,19 @@ public class Tile {
 	 * in a temp variable, removes the top item, and removes the Item assigned to the temp variable.
 	 * @return The popped item.
 	 */
-	public Item popItem() {
+	public InvFitItem popItem() {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				if(x == 0) {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				Item temp = itemsOnGround[x - 1];
+				InvFitItem temp = itemsOnGround[x - 1];
 				itemsOnGround[x - 1] = null;
 				return temp;
 			}
 		}
-		Item temp = itemsOnGround[itemsOnGround.length - 1];
+		InvFitItem temp = itemsOnGround[itemsOnGround.length - 1];
 		itemsOnGround[itemsOnGround.length - 1] = null;
 		return temp;
 	}
@@ -91,11 +91,13 @@ public class Tile {
 	 * Pushes an item onto the Tile's inventory stack.
 	 * @param i The Item being pushed on the stack.
 	 */
-	public void pushOntoInv(Item i) {
+	public void pushOntoInv(InvFitItem i) {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				itemsOnGround[x] = i;
 				return;
+			} else if(itemsOnGround[x].getItem().equals(i.getItem())) {
+				itemsOnGround[x].adjustItemAmount(i.getAmount());
 			}
 		}
 		System.out.println("Maximum amount of items on tiles.");

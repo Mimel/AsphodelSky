@@ -2,7 +2,9 @@ package game;
 
 /**
  * TODO List:
- * - Establish Text Feed
+ * - Recreate pushToInventory method to account for stackable items.
+ * - Neaten amount display.
+ * - Finish Player stats
  */
 
 import java.awt.Color;
@@ -108,9 +110,8 @@ public class Display extends JPanel {
 			e.printStackTrace();
 		}
 		
-		//TEMP -- FOR TEST CASES ONLY
+		//TEMP
 		currentMap[2][3].pushOntoInv(Item.HEALING_VIAL);
-		currentMap[2][12].pushOntoInv(Item.HEALING_VIAL);
 		p1.takeDamage(8);
 		//ENDTEMP
 		
@@ -522,7 +523,6 @@ public class Display extends JPanel {
 			} else {
 				g.setColor(new Color(170, 170, 170));
 			}
-			
 			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
 			
 			if(p1.getInventory()[x] != null) {

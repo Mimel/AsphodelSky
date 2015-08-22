@@ -96,9 +96,6 @@ public class Tile {
 			if(itemsOnGround[x] == null) {
 				itemsOnGround[x] = i;
 				return;
-			} else if(i.getId() == itemsOnGround[x].getId()) {
-				itemsOnGround[x].adjustItemCount(i.getAmount());
-				return;
 			}
 		}
 		System.out.println("Maximum amount of items on tiles.");

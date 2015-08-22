@@ -34,6 +34,10 @@ public abstract class Entity {
 	public void takeDamage(int damage) {
 		this.currHP = currHP - damage;
 	}
+	
+	public void equalizeHealth() {
+		this.currHP = this.maxHP;
+	}
 
 	public int getMaxHP() {
 		return maxHP;

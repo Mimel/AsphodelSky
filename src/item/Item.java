@@ -8,13 +8,23 @@ import entity.Player;
  * @author Matti
  */
 public enum Item {
-	HEALING_VIAL(Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
+	
+	/**
+	 * 
+	 */
+	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
 		public void use(Player p1) {
 			p1.takeDamage(-6);
+			if(p1.getCurrHP() > p1.getMaxHP()) {
+				p1.equalizeHealth();
+			}
 		}
 	},
 	
-	ENERGY_VIAL(Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
+	/**
+	 * 
+	 */
+	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
 		public void use(Player p1) {
 			System.out.println("This is an energy vial!");
 		}
@@ -22,6 +32,9 @@ public enum Item {
 	
 	/** The type of Item. All items have a Nature, drawn out of the Nature enum. */
 	private Nature nat;
+	
+	/** The numerical ID of the item. */
+	private int id;
 	
 	/** The name of the Item. */
 	private String title;
@@ -49,7 +62,8 @@ public enum Item {
 	 */
 	private boolean consumable;
 	
-	private Item(Nature n, String t, String d, int x, int y) {
+	private Item(int id, Nature n, String t, String d, int x, int y) {
+		this.id = id;
 		this.nat = n;
 		this.title = t;
 		this.desc = d;
@@ -61,6 +75,10 @@ public enum Item {
 			this.stackable = true;
 			this.consumable = true;
 		}
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getTitle() {
@@ -91,8 +109,12 @@ public enum Item {
 		return amount;
 	}
 	
-	public void remove(int number) {
-		amount -= number;
+	/**
+	 * Adds the int number to the itemCount. A negative number represents the removal of items.
+	 * @param number Number of items to add/discount.
+	 */
+	public void adjustItemCount(int number) {
+		amount += number;
 	}
 	
 	public boolean natureIs(Nature n) {

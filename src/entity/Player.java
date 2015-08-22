@@ -19,7 +19,6 @@ public class Player extends Entity {
 		this.title = "Testy";
 		this.species = "Human";
 		
-		
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		
@@ -80,7 +79,7 @@ public class Player extends Entity {
 			if(this.inventory[index].getAmount() == 1) {
 				this.inventory[index] = null;
 			} else {
-				this.inventory[index].remove(1);
+				this.inventory[index].adjustItemCount(-1);
 			}
 		}
 	}
@@ -94,7 +93,10 @@ public class Player extends Entity {
 			if(inventory[x] == null) {
 				inventory[x] = i;
 				return;
-			}
+			} else if(i.getId() == inventory[x].getId()) {
+				inventory[x].adjustItemCount(i.getAmount());
+				return;
+			} 
 		}
 	}
 

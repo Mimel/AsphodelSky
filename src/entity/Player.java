@@ -11,7 +11,7 @@ public class Player extends Entity {
 	private double sightRadius;
 	
 	/* Inventory */
-	private InvFitItem[] inventory;
+	private StackableItem[] inventory;
 	private final int inventorySize = 36;
 	
 	public Player(String name, int xCoord, int yCoord, double sightRadius) {
@@ -34,7 +34,7 @@ public class Player extends Entity {
 		this.movementSpeed = 1;
 		
 		//Std. Inventory Size
-		this.inventory = new InvFitItem[inventorySize];
+		this.inventory = new StackableItem[inventorySize];
 	}
 	
 	public String getName() {
@@ -66,7 +66,7 @@ public class Player extends Entity {
 		this.sightRadius = sightRadius;
 	}
 	
-	public InvFitItem[] getInventory() {
+	public StackableItem[] getInventory() {
 		return inventory;
 	}
 	
@@ -75,8 +75,8 @@ public class Player extends Entity {
 	 * decrement the amount of items in that stack. If the amount is 1, remove the item entirely.
 	 * @param index The item location in the inventory.
 	 */
-	public void runConsumptionCheck(int index) {
-		if(this.inventory[index].getItem().isConsumable()) {
+	public void runConsumptionCheck(int index, boolean used) {
+		if(this.inventory[index].getItem().isConsumable() && used) {
 			if(this.inventory[index].getAmount() == 1) {
 				this.inventory[index] = null;
 			} else {
@@ -89,7 +89,7 @@ public class Player extends Entity {
 	 * Pushes an Item onto the inventory, in the way that a stack architecture does.
 	 * @param i The Item being pushed onto the inventory array.
 	 */
-	public void pushToInventory(InvFitItem i) {
+	public void pushToInventory(StackableItem i) {
 		for(int x = 0; x < inventory.length; x++) {
 			if(inventory[x] == null) {
 				inventory[x] = i;

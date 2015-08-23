@@ -30,21 +30,32 @@ public abstract class Entity {
 	public int getCurrHP() {
 		return currHP;
 	}
-
-	public void takeDamage(int damage) {
-		this.currHP = currHP - damage;
-	}
-
+	
 	public int getMaxHP() {
 		return maxHP;
 	}
-
+	
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
 	}
 
 	final public double getMovementSpeed() {
 		return movementSpeed;
+	}
+	
+	/**
+	 * Adjusts Entity's current health by integer addend.
+	 * @param addend Number by which to alter the currentHealth.
+	 */
+	public void adjustCurrentHealth(int addend) {
+		currHP += addend;
+	}
+	
+	/**
+	 * Sets the current health equal to the maximum health.
+	 */
+	public void equalizeHealth() {
+		currHP = maxHP;
 	}
 	
 	/**

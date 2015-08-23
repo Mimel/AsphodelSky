@@ -3,6 +3,7 @@ package game;
 /**
  * TODO List:
  * - Holy Jeez, variable/class clarity pls
+ * - Add meat to drawTextFeed bones
  */
 
 import java.awt.Color;
@@ -97,6 +98,12 @@ public class Display extends JPanel {
 		FOCUS_MAP, FOCUS_INVENTORY;
 	}
 	
+	private FlavorText[] messageQueue;
+	
+	private final int messageCapacity = 300;
+	
+	// SEPARATOR: BEGIN INIT
+	
 	public Display() {
 		this.initializeKeyBinds();
 		this.viewportDimension = 15;
@@ -109,11 +116,12 @@ public class Display extends JPanel {
 		}
 		
 		//TEMP
-		currentMap[2][3].pushOntoInv(new InvFitItem(Item.HEALING_VIAL, 3));
-		p1.takeDamage(8);
+		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
+		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
 		this.time = 0;
+		this.messageQueue = new FlavorText[messageCapacity];
 		this.focusState = DirectionMode.FOCUS_MAP;
 		this.inventorySlotSelected = 0;
 		this.calcSightBoundaries();
@@ -239,7 +247,7 @@ public class Display extends JPanel {
 		Action get = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
-				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems()) {
+				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems() && focusState == DirectionMode.FOCUS_MAP) {
 					p1.pushToInventory(currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
 					shiftTime(0);
 				}
@@ -254,8 +262,10 @@ public class Display extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
-						p1.getInventory()[inventorySlotSelected].getItem().use(p1);
-						p1.runConsumptionCheck(inventorySlotSelected);
+						boolean used = p1.getInventory()[inventorySlotSelected].getItem().isUsable(p1);
+						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1);
+						pushToMessageQueue(message);
+						p1.runConsumptionCheck(inventorySlotSelected, used);
 						shiftTime(0);
 					}
 				}
@@ -355,6 +365,21 @@ public class Display extends JPanel {
 		t_ground = ImageIO.read(new File("images/Ground.png"));
 		t_vials = ImageIO.read(new File("images/Vials.png"));
 		t_icons = ImageIO.read(new File("images/icons.png"));
+	}
+	
+	// SEPARATOR: END INIT, BEGIN PAINT
+	
+	/**
+	 * Increases the time by the timeAddition parameter given; this method also checks all enemies and others
+	 * and does their actions if the time is right. shiftTime is called after the player has performed a time-consuming action.
+	 * It is extremely important to note that shiftTime also repaints the grid; this is something that will be fixed in a later
+	 * update, but is sufficient for the time being.
+	 * @param timeAddition	The amount of time done by the player.
+	 */
+	public void shiftTime(double timeAddition) {
+		time += timeAddition;
+		this.calcSightBoundaries();
+		repaint();
 	}
 	
 	/**
@@ -541,11 +566,18 @@ public class Display extends JPanel {
 	
 	/**
 	 * Draws the text feed, the bottom-most portion of the display. 
+	 * TODO: Nullify magic
+	 * TODO: Adjust design
 	 * @param g
 	 */
 	private void drawTextFeed(Graphics g) {
 		g.setColor(new Color(255, 255, 255));
 		g.fillRect(leftMargin - 20, topMargin + 20 + viewportDimension*Tile.tileSize, leftMargin - 20 + (viewportDimension*Tile.tileSize) + (inventoryWidth*Tile.tileSize), 150);
+		g.setFont(new Font("Arial", Font.PLAIN, 15));
+		for(int x = 0; x < Math.min(getNumOfMessages(), 6); x++) {
+			g.setColor(messageQueue[x].getColor());
+			g.drawString(messageQueue[x].getText(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 20 + (x * 20));
+		}
 	}
 
 	/**
@@ -564,6 +596,8 @@ public class Display extends JPanel {
 	private void drawImageFromTileset(Graphics g, Image i, int marginX, int marginY, int tileSize, int displayOffsetX, int displayOffsetY, int imageOffsetX, int imageOffsetY) {
 		g.drawImage(i, marginX + displayOffsetX, marginY + displayOffsetY, marginX + displayOffsetX + tileSize, marginY + displayOffsetY + tileSize, imageOffsetX, imageOffsetY, tileSize + imageOffsetX, tileSize + imageOffsetY, this);
 	}
+	
+	// SEPARATOR: END PAINT, BEGIN PAINT_SUPPLEMENTARY
 
 	/**
 	 * Determines the wall piece by determining whether or not the cardinally adjacent tiles are walls.
@@ -611,19 +645,6 @@ public class Display extends JPanel {
 		} else {
 			return "island";
 		}
-	}
-	
-	/**
-	 * Increases the time by the timeAddition parameter given; this method also checks all enemies and others
-	 * and does their actions if the time is right. shiftTime is called after the player has performed a time-consuming action.
-	 * It is extremely important to note that shiftTime also repaints the grid; this is something that will be fixed in a later
-	 * update, but is sufficient for the time being.
-	 * @param timeAddition	The amount of time done by the player.
-	 */
-	public void shiftTime(double timeAddition) {
-		time += timeAddition;
-		this.calcSightBoundaries();
-		repaint();
 	}
 	
 	/**
@@ -681,5 +702,33 @@ public class Display extends JPanel {
 				}
 			}
 		}
+	}
+	
+	//SEPARATOR: END PAINT_SUPPLEMENTARY, BEGIN MISC
+	
+	private void pushToMessageQueue(FlavorText msg) {
+		boolean arrayShifted = false;
+		for(int x = 0; x < messageCapacity && !arrayShifted; x++) {
+			if(messageQueue[x] == null || x == messageCapacity - 1) {
+				if(x == messageCapacity - 1) {
+					messageQueue[x] = null;
+				}
+				
+				for(int y = x - 1; y >= 0; y--) {
+					messageQueue[y + 1] = messageQueue[y];
+				}
+				arrayShifted = true;
+			}
+		}
+		messageQueue[0] = msg;
+	}
+	
+	private int getNumOfMessages() {
+		for(int x = 0; x < messageCapacity; x++) {
+			if(messageQueue[x] == null) {
+				return x;
+			}
+		}
+		return messageCapacity;
 	}
 }

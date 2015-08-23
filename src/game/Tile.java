@@ -14,7 +14,7 @@ public class Tile {
 	 * The current items on the ground on this tile.
 	 * TODO: Accompany for more than one item on a tile.
 	 */
-	private InvFitItem[] itemsOnGround;
+	private StackableItem[] itemsOnGround;
 	
 	Tile(char tileRep) {
 		this.tileRep = tileRep;
@@ -32,7 +32,7 @@ public class Tile {
 			break;
 		}
 		
-		this.itemsOnGround = new InvFitItem[Tile.maxInventorySize];
+		this.itemsOnGround = new StackableItem[Tile.maxInventorySize];
 	}
 	
 	public char getRep() { return tileRep; }
@@ -52,7 +52,7 @@ public class Tile {
 	 * the item in question.
 	 * @return The Item furthest from the origin of the itemsOnGround array. 
 	 */
-	public InvFitItem peekItem() {
+	public StackableItem peekItem() {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				if(x == 0) {
@@ -70,19 +70,19 @@ public class Tile {
 	 * in a temp variable, removes the top item, and removes the Item assigned to the temp variable.
 	 * @return The popped item.
 	 */
-	public InvFitItem popItem() {
+	public StackableItem popItem() {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				if(x == 0) {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				InvFitItem temp = itemsOnGround[x - 1];
+				StackableItem temp = itemsOnGround[x - 1];
 				itemsOnGround[x - 1] = null;
 				return temp;
 			}
 		}
-		InvFitItem temp = itemsOnGround[itemsOnGround.length - 1];
+		StackableItem temp = itemsOnGround[itemsOnGround.length - 1];
 		itemsOnGround[itemsOnGround.length - 1] = null;
 		return temp;
 	}
@@ -91,7 +91,7 @@ public class Tile {
 	 * Pushes an item onto the Tile's inventory stack.
 	 * @param i The Item being pushed on the stack.
 	 */
-	public void pushOntoInv(InvFitItem i) {
+	public void pushOntoInv(StackableItem i) {
 		for(int x = 0; x < itemsOnGround.length; x++) {
 			if(itemsOnGround[x] == null) {
 				itemsOnGround[x] = i;

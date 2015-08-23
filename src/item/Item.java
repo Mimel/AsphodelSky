@@ -1,6 +1,7 @@
 package item;
 
 import entity.Player;
+import game.FlavorText;
 
 /**
  * The superclass for everything that can be stored into an inventory. All pickups and collectibles
@@ -9,14 +10,27 @@ import entity.Player;
  */
 public enum Item {
 	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
-		public void use(Player p1) {
-			p1.takeDamage(-6);
+		public FlavorText use(Player p1) {
+			if(!this.isUsable(p1)) {
+				return new FlavorText("Health is already at a maximum.", 'r');
+			} else {
+				p1.adjustCurrentHealth(6);
+				if(p1.getCurrHP() > p1.getMaxHP()) {
+					p1.equalizeHealth();
+				}
+				return new FlavorText("Health restored.", 'g');
+			}
+		}
+		
+		public boolean isUsable(Player p1) {
+			return p1.getCurrHP() != p1.getMaxHP();
 		}
 	},
 	
 	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
-		public void use(Player p1) {
+		public FlavorText use(Player p1) {
 			System.out.println("This is an energy vial!");
+			return new FlavorText("Health restored.", 'b');
 		}
 	};
 	
@@ -99,10 +113,18 @@ public enum Item {
 	
 	/**
 	 * The use method for items that only affect the player. Can be overridden in the predefined fields.
+	 * Returns true if an item was successfully used, false if it wasn't.
 	 * @param p1 The player.
+	 * @return Whether or not the item was used. 
 	 */
-	public void use(Player p1) {
+	public FlavorText use(Player p1) {
 		System.out.print("Not overridden.");
+		return new FlavorText("Oops! Error!", 'r');
+	}
+	
+	public boolean isUsable(Player p1) {
+		System.out.print("Not overridden.");
+		return false;
 	}
 	
 	/**

@@ -5,11 +5,11 @@ package item;
  * multiples of the same item can be fit in one inventory element.
  * @author Xcqtion
  */
-public class InvFitItem {
+public class StackableItem {
 	private Item i;
 	private int amount;
 	
-	public InvFitItem(Item i, int a) {
+	public StackableItem(Item i, int a) {
 		this.i = i;
 		this.amount = a;
 		

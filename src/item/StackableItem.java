@@ -6,7 +6,10 @@ package item;
  * @author Xcqtion
  */
 public class StackableItem {
+	/** The item in question. */
 	private Item i;
+	
+	/** The number of items occupying one stack. For non-stackable items, this is constantly one. */
 	private int amount;
 	
 	public StackableItem(Item i, int a) {

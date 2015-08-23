@@ -3,11 +3,14 @@ package game;
 import java.awt.Color;
 
 /**
- * 
+ * A string combined with a color to provide a context for the message. Used only by the text feed in display.
  * @author Mimel
  */
 public class FlavorText {
+	/** The color of the text. */
 	private Color color;
+	
+	/** The message the text reads. */
 	private String text;
 	
 	public FlavorText(String t, char color) {

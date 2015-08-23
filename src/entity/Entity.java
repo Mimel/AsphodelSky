@@ -1,19 +1,30 @@
 package entity;
 
 /**
- * 
+ * This class represents a character present on the map, capable of very basic tasks, such as walking, having an AI, and
+ * whatnot. The player derives from this class, and can do a wider array of functions.
  * @author Mimel
  */
 public abstract class Entity {
+	/** Wait, what? */
 	protected boolean id;
+	
+	/** The name of the Entity in question. */
 	protected String name;
 	
+	/** The x-Location of the Entity relative to the current map. */
 	protected int xCoord;
+	
+	/** The y-Location of the Entity relative to the current map. */
 	protected int yCoord;
 	
+	/** The current amount of health an entity has. */
 	protected int currHP;
+	
+	/** The maximum amount of health an entity can have. */
 	protected int maxHP;
 	
+	/** The time it takes for an entity to move one tile in any direction. */
 	protected double movementSpeed;
 	
 	/**

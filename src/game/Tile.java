@@ -3,15 +3,29 @@ package game;
 import item.*;
 
 /**
- * 
+ * Represents a unit of ground/wall on the map. Tiles can have varying properties based on their type, but all tiles
+ * have some interaction with the entities and items.
  * @author Mimel
  */
 public class Tile {
+	/** The dimension in pixels the tile must be drawn. Used for both the standard for the map and inventory. */
 	public static final int tileSize = 36;
+	
+	/** The size of the tile's inventory, in unique items. */
 	public static final int maxInventorySize = 10;
 	
+	/** A character that determines the type of the tile. */
 	private char tileRep;
+	
+	/** Whether or not a tile can be walked through. */
 	private boolean impassable;
+	
+	/** 
+	 * Whether or not a tile is revealed. Must be a number ranging from 0-2;
+	 * 0 represents an unseen tile.
+	 * 1 represents an unseen tile that was once seen.
+	 * 2 represents a currently seen tile. 
+	 */
 	private int revealStatus;
 	
 	/**

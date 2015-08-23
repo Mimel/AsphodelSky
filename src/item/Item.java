@@ -113,15 +113,20 @@ public enum Item {
 	
 	/**
 	 * The use method for items that only affect the player. Can be overridden in the predefined fields.
-	 * Returns true if an item was successfully used, false if it wasn't.
 	 * @param p1 The player.
-	 * @return Whether or not the item was used. 
+	 * @return The message associated with the usage of the item.
 	 */
 	public FlavorText use(Player p1) {
 		System.out.print("Not overridden.");
 		return new FlavorText("Oops! Error!", 'r');
 	}
 	
+	/**
+	 * Determines whether or not the item in question can be used; Returns true if it can,
+	 * false if it can't
+	 * @param p1 The player.
+	 * @return Whether or not the item can be used.
+	 */
 	public boolean isUsable(Player p1) {
 		System.out.print("Not overridden.");
 		return false;

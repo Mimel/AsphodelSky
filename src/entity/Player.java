@@ -3,19 +3,23 @@ package entity;
 import item.*;
 
 /**
- * 
+ * This class represents the player itself. This is a special derivation of the Entity which the user controls. 
  * @author Mimel
  */
 public class Player extends Entity {
-	/* Decoration */
+	/** An adjective representing the player, based on the skills possessed by him/her/it. */
 	private String title;
 
-	/* Stats */
+	/** Meant for color currently, but will go back on TODO */
 	private String species;
+	
+	/** The radius of vision the player has. */
 	private double sightRadius;
 	
-	/* Inventory */
+	/** The inventory the player has. */
 	private StackableItem[] inventory;
+	
+	/** The size of the inventory array. Usually conformant to the PlayerInfo part of the GUI. */
 	private final int inventorySize = 36;
 	
 	public Player(String name, int xCoord, int yCoord, double sightRadius) {
@@ -29,15 +33,12 @@ public class Player extends Entity {
 		
 		//TEMP
 		this.maxHP = 20;
-		this.currHP = this.maxHP;
-		
+		this.currHP = this.maxHP;	
 		this.sightRadius = sightRadius;
-		
 		this.immobile = false;
-		//TEMP
-		this.movementSpeed = 1;
+		//END TEMP
 		
-		//Std. Inventory Size
+		this.movementSpeed = 1;
 		this.inventory = new StackableItem[inventorySize];
 	}
 	

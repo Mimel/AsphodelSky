@@ -2,6 +2,10 @@ package game;
 
 import item.*;
 
+/**
+ * 
+ * @author Mimel
+ */
 public class Tile {
 	public static final int tileSize = 36;
 	public static final int maxInventorySize = 10;
@@ -43,6 +47,10 @@ public class Tile {
 	
 	public boolean isImpassable() { return impassable; }
 	
+	/**
+	 * Returns whether or not a Tile has items on it.
+	 * @return The absence of items returns false, anything else returns true.
+	 */
 	public boolean hasItems() {
 		return itemsOnGround[0] != null;
 	}

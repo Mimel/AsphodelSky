@@ -98,8 +98,15 @@ public class Display extends JPanel {
 		FOCUS_MAP, FOCUS_INVENTORY;
 	}
 	
+	/**
+	 * Messages on a queue structure, meant for display and feedback. Primarily used in the method drawTextFeed().
+	 * FlavorText is a class made up of a String with a Color.
+	 * @see drawTextFeed()
+	 * @see FlavorText
+	 */
 	private FlavorText[] messageQueue;
 	
+	/** Number of messages available in the messageQueue; all messages in queue that exist after this many messages are deleted. */
 	private final int messageCapacity = 300;
 	
 	// SEPARATOR: BEGIN INIT
@@ -115,7 +122,7 @@ public class Display extends JPanel {
 			e.printStackTrace();
 		}
 		
-		//TEMP
+		//TEMP -- For testing only
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
@@ -706,6 +713,10 @@ public class Display extends JPanel {
 	
 	//SEPARATOR: END PAINT_SUPPLEMENTARY, BEGIN MISC
 	
+	/**
+	 * Pushes a message onto the messageQueue, shifting everything once to the right, and putting the message in the 0th index.
+	 * @param msg The message to push on the queue.
+	 */
 	private void pushToMessageQueue(FlavorText msg) {
 		boolean arrayShifted = false;
 		for(int x = 0; x < messageCapacity && !arrayShifted; x++) {
@@ -723,6 +734,10 @@ public class Display extends JPanel {
 		messageQueue[0] = msg;
 	}
 	
+	/**
+	 * Gets the number of messages on the messageQueue (i.e. non-null entries).
+	 * @return The number of messages on the messageQueue.
+	 */
 	private int getNumOfMessages() {
 		for(int x = 0; x < messageCapacity; x++) {
 			if(messageQueue[x] == null) {

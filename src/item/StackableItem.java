@@ -26,6 +26,10 @@ public class StackableItem {
 		return amount;
 	}
 	
+	/**
+	 * Adjust the amount of items in an inventory slot by the addend.
+	 * @param addend The number of items added (or subtracted if negative).
+	 */
 	public void adjustItemAmount(int addend) {
 		amount += addend;
 	}

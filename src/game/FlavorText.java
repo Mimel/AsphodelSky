@@ -2,6 +2,10 @@ package game;
 
 import java.awt.Color;
 
+/**
+ * 
+ * @author Mimel
+ */
 public class FlavorText {
 	private Color color;
 	private String text;

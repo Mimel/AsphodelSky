@@ -2,6 +2,10 @@ package entity;
 
 import item.*;
 
+/**
+ * 
+ * @author Mimel
+ */
 public class Player extends Entity {
 	/* Decoration */
 	private String title;

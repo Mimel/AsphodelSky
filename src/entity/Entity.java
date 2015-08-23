@@ -1,5 +1,9 @@
 package entity;
 
+/**
+ * 
+ * @author Mimel
+ */
 public abstract class Entity {
 	protected boolean id;
 	protected String name;

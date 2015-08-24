@@ -12,4 +12,8 @@ public final class Toolbox {
 		}
 		return sum;
 	}
+	
+	public static String pluralize() {
+		return "Pending.";
+	}
 }

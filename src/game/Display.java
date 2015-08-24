@@ -3,7 +3,7 @@ package game;
 /**
  * TODO List:
  * - Holy Jeez, variable/class clarity pls
- * - Add meat to drawTextFeed bones
+ * - Work with clock
  */
 
 import java.awt.Color;
@@ -61,6 +61,11 @@ public class Display extends JPanel {
 	
 	/** The current time. Used to coordinate events. */
 	private double time;
+	
+	/** 
+	 * Used to sync Item endings with the time; For example, when an item is activated, an instance of said item will be pushed to the queue, along with a time;
+	 * when said time is reached, the item's die() method will be called. (?) */
+	private Item[] itemEventQueue;
 	
 	private final int inventoryHeight = 3;
 	
@@ -124,11 +129,13 @@ public class Display extends JPanel {
 		
 		//TEMP -- For testing only
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
+		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 607));
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
 		this.time = 0;
 		this.messageQueue = new FlavorText[messageCapacity];
+		this.pushToMessageQueue(new FlavorText("Welcome to the Asphodel Sky!", 'p'));
 		this.focusState = DirectionMode.FOCUS_MAP;
 		this.inventorySlotSelected = 0;
 		this.calcSightBoundaries();
@@ -255,14 +262,17 @@ public class Display extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
 				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems() && focusState == DirectionMode.FOCUS_MAP) {
-					p1.pushToInventory(currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
+					StackableItem i;
+					p1.pushToInventory(i = currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
+					pushToMessageQueue(new FlavorText("Picked up " + i.getAmount() + " " + i.getItem().getTitle() + "(s).", 'x'));
 					shiftTime(0);
 				}
 			}
 		};
 		
 		/**
-		 * Uses an item in the inventory. Used by the u key.
+		 * Used by the u key.
+		 * Uses an item in the inventory. If the focusState is still in inventory, switch it to focus on the map.
 		 */
 		Action use = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
@@ -273,6 +283,7 @@ public class Display extends JPanel {
 						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1);
 						pushToMessageQueue(message);
 						p1.runConsumptionCheck(inventorySlotSelected, used);
+						focusState = DirectionMode.FOCUS_MAP;
 						shiftTime(0);
 					}
 				}
@@ -541,7 +552,7 @@ public class Display extends JPanel {
 		g.fillRect(playerInfoLeftMargin + textMargin, 70, 200, 30);
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect(playerInfoLeftMargin + textMargin, 70, Math.round(200 * ((float) p1.getCurrHP() / p1.getMaxHP())), 30);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.drawString("Health: " + p1.getCurrHP() + "/" + p1.getMaxHP(), playerInfoLeftMargin + textMargin + 10, 93);
 		
 		//Draws player inventory
@@ -559,9 +570,9 @@ public class Display extends JPanel {
 				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getItem().getxStart(), p1.getInventory()[x].getItem().getyStart());
 				
 				if(p1.getInventory()[x].getItem().isStackable()) {
-					g.setFont(new Font("Arial", Font.PLAIN, 8));
+					g.setFont(new Font("Arial", Font.PLAIN, 12));
 					g.setColor(Color.WHITE);
-					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 30, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 30);
+					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 3, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 33);
 				}
 			}
 			
@@ -572,18 +583,30 @@ public class Display extends JPanel {
 	}
 	
 	/**
-	 * Draws the text feed, the bottom-most portion of the display. 
+	 * Draws the text feed, the bottom-most portion of the display. In DisplayMode.FOCUS_MAP, draws current text feed.
+	 * In DisplayMode.FOCUS_INVENTORY, draws the title and description of the item being selected.
 	 * TODO: Nullify magic
-	 * TODO: Adjust design
+	 * @see focusState
 	 * @param g
 	 */
 	private void drawTextFeed(Graphics g) {
 		g.setColor(new Color(255, 255, 255));
 		g.fillRect(leftMargin - 20, topMargin + 20 + viewportDimension*Tile.tileSize, leftMargin - 20 + (viewportDimension*Tile.tileSize) + (inventoryWidth*Tile.tileSize), 150);
-		g.setFont(new Font("Arial", Font.PLAIN, 15));
-		for(int x = 0; x < Math.min(getNumOfMessages(), 6); x++) {
-			g.setColor(messageQueue[x].getColor());
-			g.drawString(messageQueue[x].getText(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 20 + (x * 20));
+		
+		if(focusState == DirectionMode.FOCUS_MAP) {
+			g.setFont(new Font("Arial", Font.PLAIN, 15));
+			for(int x = 0; x < Math.min(getNumOfMessages(), 7); x++) {
+				g.setColor(messageQueue[x].getColor());
+				g.drawString(messageQueue[x].getText(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 20 + (x * 20));
+			}
+		} else if(focusState == DirectionMode.FOCUS_INVENTORY) {
+			if(p1.getInventory()[inventorySlotSelected] != null) {
+				g.setColor(Color.black);
+				g.setFont(new Font("Arial", Font.PLAIN, 25));
+				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getTitle() + " (" + p1.getInventory()[inventorySlotSelected].getAmount() + ")", leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 30);
+				g.setFont(new Font("Arial", Font.PLAIN, 15));
+				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getDesc(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
+			}
 		}
 	}
 

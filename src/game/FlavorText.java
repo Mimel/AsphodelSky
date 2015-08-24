@@ -25,6 +25,9 @@ public class FlavorText {
 			case 'b':
 				this.color = Color.blue;
 				break;
+			case 'p':
+				this.color = Color.magenta;
+				break;
 			default:
 				this.color = Color.black;
 				break;

@@ -9,16 +9,18 @@ import game.FlavorText;
  * @author Matti
  */
 public enum Item {
-	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health", 0, 0) {
+	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health.", 0, 0) {
 		public FlavorText use(Player p1) {
 			if(!this.isUsable(p1)) {
 				return new FlavorText("Health is already at a maximum.", 'r');
 			} else {
+				int difference = p1.getCurrHP();
 				p1.adjustCurrentHealth(6);
 				if(p1.getCurrHP() > p1.getMaxHP()) {
 					p1.equalizeHealth();
 				}
-				return new FlavorText("Health restored.", 'g');
+				difference = -(difference - p1.getCurrHP());
+				return new FlavorText(difference + " health restored.", 'g');
 			}
 		}
 		
@@ -27,10 +29,10 @@ public enum Item {
 		}
 	},
 	
-	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy", 0, 36) {
+	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy.", 36, 0) {
 		public FlavorText use(Player p1) {
 			System.out.println("This is an energy vial!");
-			return new FlavorText("Health restored.", 'b');
+			return new FlavorText("Energy restored, I guess?", 'b');
 		}
 	};
 	

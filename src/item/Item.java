@@ -1,7 +1,10 @@
 package item;
 
+import java.util.SortedMap;
+
 import entity.Player;
 import game.FlavorText;
+import game.Tile;
 
 /**
  * The superclass for everything that can be stored into an inventory. All pickups and collectibles
@@ -10,7 +13,7 @@ import game.FlavorText;
  */
 public enum Item {
 	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health.", 0, 0) {
-		public FlavorText use(Player p1) {
+		public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
 			if(!this.isUsable(p1)) {
 				return new FlavorText("Health is already at a maximum.", 'r');
 			} else {
@@ -30,9 +33,15 @@ public enum Item {
 	},
 	
 	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy.", 36, 0) {
-		public FlavorText use(Player p1) {
+		public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
 			System.out.println("This is an energy vial!");
+			
 			return new FlavorText("Energy restored, I guess?", 'b');
+		}
+		
+		public FlavorText die(Player p1) {
+			p1.adjustCurrentHealth(-7);
+			return new FlavorText("You lost 7 health!", 'b');
 		}
 	};
 	
@@ -118,8 +127,7 @@ public enum Item {
 	 * @param p1 The player.
 	 * @return The message associated with the usage of the item.
 	 */
-	public FlavorText use(Player p1) {
-		System.out.print("Not overridden.");
+	public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
 		return new FlavorText("Oops! Error!", 'r');
 	}
 	
@@ -130,8 +138,16 @@ public enum Item {
 	 * @return Whether or not the item can be used.
 	 */
 	public boolean isUsable(Player p1) {
-		System.out.print("Not overridden.");
 		return false;
+	}
+	
+	/**
+	 * Provides an additional time-activated effect to an item; this method is called whenever 
+	 * @param p1
+	 * @return
+	 */
+	public FlavorText die(Player p1) {
+		return new FlavorText("This item doesn't have closure; this is an error.", 'r');
 	}
 	
 	/**

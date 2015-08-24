@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -60,12 +62,12 @@ public class Display extends JPanel {
 	private Player p1;
 	
 	/** The current time. Used to coordinate events. */
-	private double time;
+	private int time;
 	
 	/** 
 	 * Used to sync Item endings with the time; For example, when an item is activated, an instance of said item will be pushed to the queue, along with a time;
 	 * when said time is reached, the item's die() method will be called. (?) */
-	private Item[] itemEventQueue;
+	private SortedMap<Integer, Item> itemEventQueue;
 	
 	private final int inventoryHeight = 3;
 	
@@ -127,13 +129,15 @@ public class Display extends JPanel {
 			e.printStackTrace();
 		}
 		
+		this.time = 0;
+		this.itemEventQueue = new TreeMap<Integer, Item>();
+		
 		//TEMP -- For testing only
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
 		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 607));
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
-		this.time = 0;
 		this.messageQueue = new FlavorText[messageCapacity];
 		this.pushToMessageQueue(new FlavorText("Welcome to the Asphodel Sky!", 'p'));
 		this.focusState = DirectionMode.FOCUS_MAP;
@@ -280,7 +284,7 @@ public class Display extends JPanel {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
 						boolean used = p1.getInventory()[inventorySlotSelected].getItem().isUsable(p1);
-						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1);
+						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1, currentMap, itemEventQueue);
 						pushToMessageQueue(message);
 						p1.runConsumptionCheck(inventorySlotSelected, used);
 						focusState = DirectionMode.FOCUS_MAP;

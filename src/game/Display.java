@@ -16,8 +16,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.SortedMap;
-import java.util.TreeMap;
+
+import com.google.common.collect.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -67,7 +67,7 @@ public class Display extends JPanel {
 	/** 
 	 * Used to sync Item endings with the time; For example, when an item is activated, an instance of said item will be pushed to the queue, along with a time;
 	 * when said time is reached, the item's die() method will be called. (?) */
-	private SortedMap<Integer, Item> itemEventQueue;
+	private ArrayListMultimap<Integer, Item> itemEventQueue;
 	
 	private final int inventoryHeight = 3;
 	
@@ -130,7 +130,7 @@ public class Display extends JPanel {
 		}
 		
 		this.time = 0;
-		this.itemEventQueue = new TreeMap<Integer, Item>();
+		this.itemEventQueue = ArrayListMultimap.create();
 		
 		//TEMP -- For testing only
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
@@ -284,7 +284,7 @@ public class Display extends JPanel {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
 						boolean used = p1.getInventory()[inventorySlotSelected].getItem().isUsable(p1);
-						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1, currentMap, itemEventQueue);
+						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1, currentMap, time, itemEventQueue);
 						pushToMessageQueue(message);
 						p1.runConsumptionCheck(inventorySlotSelected, used);
 						focusState = DirectionMode.FOCUS_MAP;
@@ -399,7 +399,16 @@ public class Display extends JPanel {
 	 * @param timeAddition	The amount of time done by the player.
 	 */
 	public void shiftTime(double timeAddition) {
+		//Check for Item effect-endings	
+		for(int t = time; t < time + timeAddition; t++) {
+			for(Item entry : itemEventQueue.get(t)) {
+				entry.die(p1);
+			}
+			itemEventQueue.removeAll(t);
+		}
+		
 		time += timeAddition;
+		
 		this.calcSightBoundaries();
 		repaint();
 	}

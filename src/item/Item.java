@@ -1,6 +1,6 @@
 package item;
 
-import java.util.SortedMap;
+import com.google.common.collect.ArrayListMultimap;
 
 import entity.Player;
 import game.FlavorText;
@@ -12,8 +12,8 @@ import game.Tile;
  * @author Matti
  */
 public enum Item {
-	HEALING_VIAL(1, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health.", 0, 0) {
-		public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
+	HEALING_VIAL(0, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health.", 0, 0) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
 			if(!this.isUsable(p1)) {
 				return new FlavorText("Health is already at a maximum.", 'r');
 			} else {
@@ -23,6 +23,7 @@ public enum Item {
 					p1.equalizeHealth();
 				}
 				difference = -(difference - p1.getCurrHP());
+				tmm.put(time + 20, this);
 				return new FlavorText(difference + " health restored.", 'g');
 			}
 		}
@@ -30,18 +31,18 @@ public enum Item {
 		public boolean isUsable(Player p1) {
 			return p1.getCurrHP() != p1.getMaxHP();
 		}
-	},
-	
-	ENERGY_VIAL(2, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy.", 36, 0) {
-		public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
-			System.out.println("This is an energy vial!");
-			
-			return new FlavorText("Energy restored, I guess?", 'b');
-		}
 		
 		public FlavorText die(Player p1) {
 			p1.adjustCurrentHealth(-7);
 			return new FlavorText("You lost 7 health!", 'b');
+		}
+	},
+	
+	ENERGY_VIAL(1, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy.", 36, 0) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
+			System.out.println("This is an energy vial!");
+			tmm.put(time + 20, this);
+			return new FlavorText("Energy restored, I guess?", 'b');
 		}
 	};
 	
@@ -127,7 +128,7 @@ public enum Item {
 	 * @param p1 The player.
 	 * @return The message associated with the usage of the item.
 	 */
-	public FlavorText use(Player p1, Tile[][] currentMap, SortedMap<Integer, Item> sm) {
+	public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
 		return new FlavorText("Oops! Error!", 'r');
 	}
 	

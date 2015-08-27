@@ -136,6 +136,7 @@ public class Display extends JPanel {
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
 		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 1));
 		currentMap[2][5].pushOntoInv(new StackableItem(Item.HASTE_VIAL, 1));
+		currentMap[2][6].pushOntoInv(new StackableItem(Item.POISON_VIAL, 1));
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
@@ -566,8 +567,13 @@ public class Display extends JPanel {
 		g.fillRect(playerInfoLeftMargin + textMargin, 70, 200, 30);
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect(playerInfoLeftMargin + textMargin, 70, Math.round(200 * ((float) p1.getCurrHP() / p1.getMaxHP())), 30);
+		g.setColor(new Color(0, 0, 133));
+		g.fillRect(playerInfoLeftMargin + textMargin, 110, 200, 30);
+		g.setColor(new Color(0, 0, 200));
+		g.fillRect(playerInfoLeftMargin + textMargin, 110, Math.round(200 * ((float) p1.getCurrEP() / p1.getMaxEP())), 30);
 		g.setColor(Color.WHITE);
 		g.drawString("Health: " + p1.getCurrHP() + "/" + p1.getMaxHP(), playerInfoLeftMargin + textMargin + 10, 93);
+		g.drawString("Energy: " + p1.getCurrEP() + "/" + p1.getMaxEP(), playerInfoLeftMargin + textMargin + 10, 133);
 		
 		//Draws player inventory
 		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
@@ -755,6 +761,10 @@ public class Display extends JPanel {
 	 * @param msg The message to push on the queue.
 	 */
 	private void pushToMessageQueue(FlavorText msg) {
+		if(msg == null) {
+			return;
+		}
+		
 		boolean arrayShifted = false;
 		for(int x = 0; x < messageCapacity && !arrayShifted; x++) {
 			if(messageQueue[x] == null || x == messageCapacity - 1) {

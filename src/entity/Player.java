@@ -33,7 +33,11 @@ public class Player extends Entity {
 		
 		//TEMP
 		this.maxHP = 20;
-		this.currHP = this.maxHP;	
+		this.currHP = this.maxHP;
+		
+		this.maxEP = 5;
+		this.currEP = this.maxEP;
+		
 		this.sightRadius = sightRadius;
 		this.immobile = false;
 		//END TEMP

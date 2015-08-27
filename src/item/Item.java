@@ -5,6 +5,7 @@ import com.google.common.collect.ArrayListMultimap;
 import entity.Player;
 import game.FlavorText;
 import game.Tile;
+import game.Toolbox;
 
 /**
  * The superclass for everything that can be stored into an inventory. All pickups and collectibles
@@ -45,7 +46,7 @@ public enum Item {
 		}
 		
 		public boolean isUsable(Player p1) {
-			return p1.getCurrHP() != p1.getMaxHP();
+			return p1.getCurrEP() != p1.getMaxEP();
 		}
 	},
 	
@@ -62,6 +63,10 @@ public enum Item {
 			return new FlavorText("You feel time slow down around you.", 'b');
 		}
 		
+		public boolean isUsable(Player p1) {
+			return true;
+		}
+		
 		public FlavorText fade(Player p1) {
 			p1.setMovementSpeed(p1.getMovementSpeed() + 1);
 			return new FlavorText("You feel time speed up around you...", 'p');
@@ -70,10 +75,43 @@ public enum Item {
 		public FlavorText die(Player p1) {
 			return new FlavorText("The passage of time resumes at a normal pace.", 'b');
 		}
+	},
+	
+	POISON_VIAL(3, Nature.VIAL, "Poison Vial", "Gradually reduces your health.", 108, 0) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
+			int numberOfTicks = Toolbox.rollDice(3, 4);
+			addFade(almm, this, time, p1.getMovementSpeed(), numberOfTicks);
+			addDie(almm, this, time, p1.getMovementSpeed()*numberOfTicks);
+			return new FlavorText("You feel a malignant force within you...", 'b');
+		}
+		
+		public boolean isUsable(Player p1) {
+			return true;
+		}
+		
+		public FlavorText fade(Player p1) {
+			p1.adjustCurrentHealth(-1);
+			if(Toolbox.rollDice(1, 5) == 1) {
+				return new FlavorText("You convulse.", 'r');
+			} else {
+				return null;
+			}
+			
+		}
+		
+		public FlavorText die(Player p1) {
+			return new FlavorText("You feel the poison exit your system.", 'g');
+		}
 	};
 	
+	/**
+	 * When this is paired with an Item in the itemEventQueue, call fade() at that given time. 
+	 */
 	public static final int ON_ELAPSE_FADE = 0;
 	
+	/**
+	 * When this is paired with an Item in the itemEventQueue, call die() at that given time. 
+	 */
 	public static final int ON_ELAPSE_DIE = 1;
 	
 	/** Numeric ID; Each item has a different, unique id. */
@@ -188,6 +226,14 @@ public enum Item {
 		return new FlavorText("This item doesn't have closure; this is an error.", 'r');
 	}
 	
+	/**
+	 * 
+	 * @param almm
+	 * @param i
+	 * @param time
+	 * @param interval
+	 * @param numberOfIntervals
+	 */
 	private static void addFade(ArrayListMultimap<Integer, ItemTrigger> almm, Item i, int time, int interval, int numberOfIntervals) {
 		for(int x = 1; x <= numberOfIntervals; x++) {
 			almm.put(time + (interval * x), new ItemTrigger(i, ON_ELAPSE_FADE));

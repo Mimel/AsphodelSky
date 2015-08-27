@@ -56,6 +56,14 @@ public abstract class Entity {
 		return maxHP;
 	}
 	
+	public int getCurrEP() {
+		return currEP;
+	}
+	
+	public int getMaxEP() {
+		return maxEP;
+	}
+	
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
 	}
@@ -81,6 +89,21 @@ public abstract class Entity {
 	 */
 	public void equalizeHealth() {
 		currHP = maxHP;
+	}
+	
+	/**
+	 * Adjusts Entity's current health by integer addend.
+	 * @param addend Number by which to alter the currentHealth.
+	 */
+	public void adjustCurrentEnergy(int addend) {
+		currEP += addend;
+	}
+	
+	/**
+	 * Sets the current health equal to the maximum health.
+	 */
+	public void equalizeEnergy() {
+		currEP = maxEP;
 	}
 	
 	/**

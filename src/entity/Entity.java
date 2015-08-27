@@ -24,8 +24,14 @@ public abstract class Entity {
 	/** The maximum amount of health an entity can have. */
 	protected int maxHP;
 	
+	/** The current amount of energy an entity has. */
+	protected int currEP;
+	
+	/** The maximum amount of energy an entity has. */
+	protected int maxEP;
+	
 	/** The time it takes for an entity to move one tile in any direction. */
-	protected double movementSpeed;
+	protected int movementSpeed;
 	
 	/**
 	 * All of these are various flags on an entity; whether or not they are invisible,
@@ -54,8 +60,12 @@ public abstract class Entity {
 		this.maxHP = maxHP;
 	}
 
-	final public double getMovementSpeed() {
+	public int getMovementSpeed() {
 		return movementSpeed;
+	}
+	
+	public void setMovementSpeed(int ms) {
+		this.movementSpeed = ms;
 	}
 	
 	/**

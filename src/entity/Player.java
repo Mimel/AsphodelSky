@@ -38,7 +38,7 @@ public class Player extends Entity {
 		this.immobile = false;
 		//END TEMP
 		
-		this.movementSpeed = 1;
+		this.movementSpeed = 10;
 		this.inventory = new StackableItem[inventorySize];
 	}
 	

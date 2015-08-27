@@ -13,7 +13,7 @@ import game.Tile;
  */
 public enum Item {
 	HEALING_VIAL(0, Nature.VIAL, "Healing Vial", "Restores a small portion of your maximum health.", 0, 0) {
-		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
 			if(!this.isUsable(p1)) {
 				return new FlavorText("Health is already at a maximum.", 'r');
 			} else {
@@ -23,7 +23,7 @@ public enum Item {
 					p1.equalizeHealth();
 				}
 				difference = -(difference - p1.getCurrHP());
-				tmm.put(time + 20, this);
+				addDie(almm, this, time, 200);
 				return new FlavorText(difference + " health restored.", 'g');
 			}
 		}
@@ -39,12 +39,38 @@ public enum Item {
 	},
 	
 	ENERGY_VIAL(1, Nature.VIAL, "Energy Vial", "Restores a small portion of your maximum energy.", 36, 0) {
-		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
 			System.out.println("This is an energy vial!");
-			tmm.put(time + 20, this);
 			return new FlavorText("Energy restored, I guess?", 'b');
 		}
+	},
+	
+	HASTE_VIAL(2, Nature.VIAL, "Haste Vial", "Increases your current speed, and slowly returns it to the regular speed.", 72, 0) {
+		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
+			int newSpeed = 5;
+			int difference = p1.getMovementSpeed() - newSpeed;
+			
+			p1.setMovementSpeed(newSpeed);
+			
+			int interval = 40;
+			addFade(almm, this, time, interval, difference);
+			addDie(almm, this, time, interval*difference);
+			return new FlavorText("You feel time slow down around you.", 'b');
+		}
+		
+		public FlavorText fade(Player p1) {
+			p1.setMovementSpeed(p1.getMovementSpeed() + 1);
+			return new FlavorText("You feel time speed up around you...", 'p');
+		}
+		
+		public FlavorText die(Player p1) {
+			return new FlavorText("The passage of time resumes at a normal pace.", 'b');
+		}
 	};
+	
+	public static final int ON_ELAPSE_FADE = 0;
+	
+	public static final int ON_ELAPSE_DIE = 1;
 	
 	/** Numeric ID; Each item has a different, unique id. */
 	private int id;
@@ -128,7 +154,7 @@ public enum Item {
 	 * @param p1 The player.
 	 * @return The message associated with the usage of the item.
 	 */
-	public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, Item> tmm) {
+	public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
 		return new FlavorText("Oops! Error!", 'r');
 	}
 	
@@ -143,13 +169,31 @@ public enum Item {
 	}
 	
 	/**
+	 * Provides a residual effect that is called per every given increment of time. 
+	 */
+	public FlavorText fade(Player p1) {
+		return new FlavorText("This item doesn't have a fade; this is an error.", 'r');
+	}
+	
+	/**
 	 * Provides an additional time-activated effect to an item; this method is called whenever 
-	 * @param p1
-	 * @return
+	 * @param p1 The Player.
+	 * @return The message on time-activation.
 	 */
 	public FlavorText die(Player p1) {
 		return new FlavorText("This item doesn't have closure; this is an error.", 'r');
 	}
+	
+	private static void addFade(ArrayListMultimap<Integer, ItemTrigger> almm, Item i, int time, int interval, int numberOfIntervals) {
+		for(int x = 1; x <= numberOfIntervals; x++) {
+			almm.put(time + (interval * x), new ItemTrigger(i, ON_ELAPSE_FADE));
+		}
+	}
+	
+	private static void addDie(ArrayListMultimap<Integer, ItemTrigger> almm, Item i, int time, int interval) {
+		almm.put(time + interval, new ItemTrigger(i, ON_ELAPSE_DIE));
+	}
+	
 	
 	/**
 	 * A sub-enum used to classify items.

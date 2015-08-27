@@ -67,7 +67,7 @@ public class Display extends JPanel {
 	/** 
 	 * Used to sync Item endings with the time; For example, when an item is activated, an instance of said item will be pushed to the queue, along with a time;
 	 * when said time is reached, the item's die() method will be called. (?) */
-	private ArrayListMultimap<Integer, Item> itemEventQueue;
+	private ArrayListMultimap<Integer, ItemTrigger> itemEventQueue;
 	
 	private final int inventoryHeight = 3;
 	
@@ -134,7 +134,8 @@ public class Display extends JPanel {
 		
 		//TEMP -- For testing only
 		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
-		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 607));
+		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 1));
+		currentMap[2][5].pushOntoInv(new StackableItem(Item.HASTE_VIAL, 1));
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
@@ -268,7 +269,7 @@ public class Display extends JPanel {
 				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems() && focusState == DirectionMode.FOCUS_MAP) {
 					StackableItem i;
 					p1.pushToInventory(i = currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
-					pushToMessageQueue(new FlavorText("Picked up " + i.getAmount() + " " + i.getItem().getTitle() + "(s).", 'x'));
+					pushToMessageQueue(new FlavorText("Picked up " + i.getAmount() + " " + i.getItem().getTitle() + Toolbox.pluralize(i.getAmount()) + ".", 'x'));
 					shiftTime(0);
 				}
 			}
@@ -401,8 +402,8 @@ public class Display extends JPanel {
 	public void shiftTime(double timeAddition) {
 		//Check for Item effect-endings	
 		for(int t = time; t < time + timeAddition; t++) {
-			for(Item entry : itemEventQueue.get(t)) {
-				entry.die(p1);
+			for(ItemTrigger entry : itemEventQueue.get(t)) {
+				pushToMessageQueue(entry.activate(p1));
 			}
 			itemEventQueue.removeAll(t);
 		}
@@ -538,7 +539,7 @@ public class Display extends JPanel {
 				} else if(currentMap[y][x].getRevealed() == 1) {
 					g.setColor(new Color(0, 0, 0, 100));
 					g.fillRect(dX * Tile.tileSize + 20, dY * Tile.tileSize + 35, Tile.tileSize, Tile.tileSize);
-				}
+				} 
 			}
 		}
 	}

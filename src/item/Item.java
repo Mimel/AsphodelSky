@@ -43,6 +43,10 @@ public enum Item {
 			System.out.println("This is an energy vial!");
 			return new FlavorText("Energy restored, I guess?", 'b');
 		}
+		
+		public boolean isUsable(Player p1) {
+			return p1.getCurrHP() != p1.getMaxHP();
+		}
 	},
 	
 	HASTE_VIAL(2, Nature.VIAL, "Haste Vial", "Increases your current speed, and slowly returns it to the regular speed.", 72, 0) {

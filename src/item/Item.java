@@ -79,7 +79,7 @@ public enum Item {
 	
 	POISON_VIAL(3, Nature.VIAL, "Poison Vial", "Gradually reduces your health.", 108, 0) {
 		public FlavorText use(Player p1, Tile[][] currentMap, int time, ArrayListMultimap<Integer, ItemTrigger> almm) {
-			int numberOfTicks = Toolbox.rollDice(3, 4);
+			int numberOfTicks = Toolbox.rollDice(7, 6);
 			addFade(almm, this, time, p1.getMovementSpeed(), numberOfTicks);
 			addDie(almm, this, time, p1.getMovementSpeed()*numberOfTicks);
 			return new FlavorText("You feel a malignant force within you...", 'b');
@@ -90,8 +90,8 @@ public enum Item {
 		}
 		
 		public FlavorText fade(Player p1) {
-			p1.adjustCurrentHealth(-1);
 			if(Toolbox.rollDice(1, 5) == 1) {
+				p1.adjustCurrentHealth(-1);
 				return new FlavorText("You convulse.", 'r');
 			} else {
 				return null;
@@ -227,12 +227,13 @@ public enum Item {
 	}
 	
 	/**
-	 * 
-	 * @param almm
-	 * @param i
-	 * @param time
-	 * @param interval
-	 * @param numberOfIntervals
+	 * Adds a fade effect a given number of times between a given time interval. Every time the itemEventQueue lapses over a fade,
+	 * the item's overridden fade() is called.
+	 * @param almm The item event queue.
+	 * @param i The Item.
+	 * @param time The current time.
+	 * @param interval The time interval over which to space the intervals.
+	 * @param numberOfIntervals The number of intervals the fade is applied.
 	 */
 	private static void addFade(ArrayListMultimap<Integer, ItemTrigger> almm, Item i, int time, int interval, int numberOfIntervals) {
 		for(int x = 1; x <= numberOfIntervals; x++) {
@@ -240,6 +241,13 @@ public enum Item {
 		}
 	}
 	
+	/**
+	 * Adds a die effect after a given interval of time. The die() method is called after that given interval, usually signifying the end of the item's use.
+	 * @param almm The item event queue.
+	 * @param i The Item.
+	 * @param time The current time.
+	 * @param interval The given interval, after which the die() method is called.
+	 */
 	private static void addDie(ArrayListMultimap<Integer, ItemTrigger> almm, Item i, int time, int interval) {
 		almm.put(time + interval, new ItemTrigger(i, ON_ELAPSE_DIE));
 	}

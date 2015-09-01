@@ -29,7 +29,7 @@ public abstract class Entity {
 	
 	/** The maximum amount of energy an entity has. */
 	protected int maxEP;
-	
+
 	/** The time it takes for an entity to move one tile in any direction. */
 	protected int movementSpeed;
 	

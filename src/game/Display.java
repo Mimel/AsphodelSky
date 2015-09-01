@@ -75,6 +75,9 @@ public class Display extends JPanel {
 	
 	/* Note: All Images with prefix "t_" are tilesets. */
 	
+	/** Background of the whole program. */
+	private Image i_bkgd;
+	
 	/** Main tileset from which floor/wall tiles are derived. */
 	private Image t_ground;
 	
@@ -386,6 +389,7 @@ public class Display extends JPanel {
 	 * @throws IOException
 	 */
 	private void importImages() throws IOException {
+		i_bkgd = ImageIO.read(new File("images/bkgd.jpg"));
 		t_ground = ImageIO.read(new File("images/Ground.png"));
 		t_vials = ImageIO.read(new File("images/Vials.png"));
 		t_icons = ImageIO.read(new File("images/icons.png"));
@@ -432,9 +436,12 @@ public class Display extends JPanel {
 	 * @param g
 	 */
 	private void drawGrid(Graphics g) {
+		g.drawImage(i_bkgd, 0, 0, this);
+		
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.setColor(new Color(200, 200, 200));
 		g.drawString(this.mapName, 20, 25);
-		g.drawString("Time: " + this.time + " seconds", 200, 25);
+		g.drawString("Time: " + this.time/10 + "." + this.time%10 + " seconds", 200, 25);
 		
 		//Determine bounds of currentMap to draw 
 		int startingXBound = p1.getXCoord() - ((viewportDimension - 1) / 2);
@@ -554,7 +561,7 @@ public class Display extends JPanel {
 		final int playerInfoLeftMargin = viewportDimension*Tile.tileSize + leftMargin;
 		final int textMargin = 15;
 		
-		g.setColor(new Color(220, 220, 220));
+		g.setColor(new Color(220, 220, 220, 200));
 		g.fillRect(viewportDimension*Tile.tileSize + leftMargin, topMargin, inventoryWidth*Tile.tileSize, viewportDimension*Tile.tileSize);
 		
 		//Draws player id
@@ -574,6 +581,7 @@ public class Display extends JPanel {
 		g.setColor(Color.WHITE);
 		g.drawString("Health: " + p1.getCurrHP() + "/" + p1.getMaxHP(), playerInfoLeftMargin + textMargin + 10, 93);
 		g.drawString("Energy: " + p1.getCurrEP() + "/" + p1.getMaxEP(), playerInfoLeftMargin + textMargin + 10, 133);
+		g.setFont(new Font("Arial", Font.PLAIN, 15));
 		
 		//Draws player inventory
 		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
@@ -610,7 +618,7 @@ public class Display extends JPanel {
 	 * @param g
 	 */
 	private void drawTextFeed(Graphics g) {
-		g.setColor(new Color(255, 255, 255));
+		g.setColor(new Color(255, 255, 255, 150));
 		g.fillRect(leftMargin - 20, topMargin + 20 + viewportDimension*Tile.tileSize, leftMargin - 20 + (viewportDimension*Tile.tileSize) + (inventoryWidth*Tile.tileSize), 150);
 		
 		if(focusState == DirectionMode.FOCUS_MAP) {

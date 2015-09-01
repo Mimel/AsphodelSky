@@ -3,6 +3,11 @@ package item;
 import entity.Player;
 import game.FlavorText;
 
+/**
+ * Used exclusively in the Item Event Queue, an Item Trigger is merely an item/int tuple;
+ * When this ItemTrigger is activated, the given Item's given method will be called.
+ * @author Xcqtion
+ */
 public class ItemTrigger {
 	private Item i;
 	private int methodToCall;

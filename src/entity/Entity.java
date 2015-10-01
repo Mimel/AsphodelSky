@@ -29,6 +29,15 @@ public abstract class Entity {
 	
 	/** The maximum amount of energy an entity has. */
 	protected int maxEP;
+	
+	/** Amount of the strength stat an entity has. */
+	protected int str;
+	
+	/** Amount of the finesse stat an entity has. */
+	protected int fin;
+	
+	/** Amount of the mind stat an entity has. */
+	protected int mnd;
 
 	/** The time it takes for an entity to move one tile in any direction. */
 	protected int movementSpeed;
@@ -76,6 +85,30 @@ public abstract class Entity {
 		this.movementSpeed = ms;
 	}
 	
+	public int getStr() {
+		return str;
+	}
+
+	public void setStr(int str) {
+		this.str = str;
+	}
+
+	public int getFin() {
+		return fin;
+	}
+
+	public void setFin(int fin) {
+		this.fin = fin;
+	}
+
+	public int getMnd() {
+		return mnd;
+	}
+
+	public void setMnd(int mnd) {
+		this.mnd = mnd;
+	}
+
 	/**
 	 * Adjusts Entity's current health by integer addend.
 	 * @param addend Number by which to alter the currentHealth.

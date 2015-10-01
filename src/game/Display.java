@@ -260,7 +260,7 @@ public class Display extends JPanel {
 		Action stall1sec = new AbstractAction() {
 			private static final long serialVersionUID = -8817332391432139373L;
 			public void actionPerformed(ActionEvent e) {
-				shiftTime(1);
+				shiftTime(10);
 			}
 		};
 		
@@ -404,7 +404,7 @@ public class Display extends JPanel {
 	 * update, but is sufficient for the time being.
 	 * @param timeAddition	The amount of time done by the player.
 	 */
-	public void shiftTime(double timeAddition) {
+	private void shiftTime(double timeAddition) {
 		//Check for Item effect-endings	
 		for(int t = time; t < time + timeAddition; t++) {
 			for(ItemTrigger entry : itemEventQueue.get(t)) {
@@ -581,7 +581,14 @@ public class Display extends JPanel {
 		g.setColor(Color.WHITE);
 		g.drawString("Health: " + p1.getCurrHP() + "/" + p1.getMaxHP(), playerInfoLeftMargin + textMargin + 10, 93);
 		g.drawString("Energy: " + p1.getCurrEP() + "/" + p1.getMaxEP(), playerInfoLeftMargin + textMargin + 10, 133);
-		g.setFont(new Font("Arial", Font.PLAIN, 15));
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.drawString("STR: " + p1.getStr(), playerInfoLeftMargin + textMargin + 10, 165);
+		g.drawString("FIN: " + p1.getFin(), playerInfoLeftMargin + textMargin + 10, 190);
+		g.drawString("MND: " + p1.getMnd(), playerInfoLeftMargin + textMargin + 10, 215);
+		
+		//Draw player equips
+		g.setColor(new Color(200, 200, 200));
+		g.setFont(new Font("Arial", Font.PLAIN, 10));
 		
 		//Draws player inventory
 		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);

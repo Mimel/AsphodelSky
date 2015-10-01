@@ -22,7 +22,7 @@ public enum Item {
 				p1.adjustCurrentHealth(6);
 				if(p1.getCurrHP() > p1.getMaxHP()) {
 					p1.equalizeHealth();
-				}
+				}	
 				difference = -(difference - p1.getCurrHP());
 				addDie(almm, this, time, 200);
 				return new FlavorText(difference + " health restored.", 'g');

@@ -1,5 +1,8 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import item.*;
 
 /**
@@ -32,7 +35,7 @@ public class Tile {
 	 * The current items on the ground on this tile.
 	 * TODO: Accompany for more than one item on a tile.
 	 */
-	private StackableItem[] itemsOnGround;
+	private List<Item> itemsOnGround;
 	
 	Tile(char tileRep) {
 		this.tileRep = tileRep;
@@ -50,7 +53,7 @@ public class Tile {
 			break;
 		}
 		
-		this.itemsOnGround = new StackableItem[Tile.maxInventorySize];
+		this.itemsOnGround = new ArrayList<Item>();
 	}
 	
 	public char getRep() { return tileRep; }
@@ -66,25 +69,25 @@ public class Tile {
 	 * @return The absence of items returns false, anything else returns true.
 	 */
 	public boolean hasItems() {
-		return itemsOnGround[0] != null;
+		return !itemsOnGround.isEmpty();
 	}
 	
 	/**
-	 * Returns the top item on the Tile's inventory stack. Unlike the popItem method, this method does not delete
+	 * Returns the top item on the Tile's inventory list. Unlike the popItem method, this method does not delete
 	 * the item in question.
 	 * @return The Item furthest from the origin of the itemsOnGround array. 
 	 */
-	public StackableItem peekItem() {
-		for(int x = 0; x < itemsOnGround.length; x++) {
-			if(itemsOnGround[x] == null) {
+	public Item peekItem() {
+		for(int x = 0; x < itemsOnGround.size(); x++) {
+			if(itemsOnGround.get(x) == null) {
 				if(x == 0) {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				return itemsOnGround[x - 1];
+				return itemsOnGround.get(x - 1);
 			}
 		}
-		return itemsOnGround[itemsOnGround.length - 1];
+		return itemsOnGround.get(itemsOnGround.size() - 1);
 	}
 	
 	/**
@@ -92,20 +95,20 @@ public class Tile {
 	 * in a temp variable, removes the top item, and removes the Item assigned to the temp variable.
 	 * @return The popped item.
 	 */
-	public StackableItem popItem() {
-		for(int x = 0; x < itemsOnGround.length; x++) {
-			if(itemsOnGround[x] == null) {
+	public Item popItem() {
+		for(int x = 0; x < itemsOnGround.size(); x++) {
+			if(itemsOnGround.get(x) == null) {
 				if(x == 0) {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				StackableItem temp = itemsOnGround[x - 1];
-				itemsOnGround[x - 1] = null;
+				Item temp = itemsOnGround.get(x - 1);
+				itemsOnGround.remove(x - 1);
 				return temp;
 			}
 		}
-		StackableItem temp = itemsOnGround[itemsOnGround.length - 1];
-		itemsOnGround[itemsOnGround.length - 1] = null;
+		Item temp = itemsOnGround.get(itemsOnGround.size() - 1);
+		itemsOnGround.remove(itemsOnGround.size() - 1);
 		return temp;
 	}
 	
@@ -113,15 +116,13 @@ public class Tile {
 	 * Pushes an item onto the Tile's inventory stack.
 	 * @param i The Item being pushed on the stack.
 	 */
-	public void pushOntoInv(StackableItem i) {
-		for(int x = 0; x < itemsOnGround.length; x++) {
-			if(itemsOnGround[x] == null) {
-				itemsOnGround[x] = i;
+	public void pushOntoInv(Item i) {
+		for(int x = 0; x < itemsOnGround.size(); x++) {
+			if(itemsOnGround.get(x) == null) {
+				itemsOnGround.set(x, i);
 				return;
-			} else if(itemsOnGround[x].getItem().equals(i.getItem())) {
-				itemsOnGround[x].adjustItemAmount(i.getAmount());
 			}
 		}
-		System.out.println("Maximum amount of items on tiles.");
+		itemsOnGround.add(i);
 	}
 }

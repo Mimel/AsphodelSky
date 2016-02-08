@@ -2,8 +2,8 @@ package game;
 
 /**
  * TODO List:
- * - Holy Jeez, variable/class clarity pls
- * - Work with clock
+ * Reread everything, hiatus is off;
+ * Make character screen
  */
 
 import java.awt.Color;
@@ -60,14 +60,6 @@ public class Display extends JPanel {
 	
 	/** The player. */
 	private Player p1;
-	
-	/** The current time. Used to coordinate events. */
-	private int time;
-	
-	/** 
-	 * Used to sync Item endings with the time; For example, when an item is activated, an instance of said item will be pushed to the queue, along with a time;
-	 * when said time is reached, the item's die() method will be called. (?) */
-	private ArrayListMultimap<Integer, ItemTrigger> itemEventQueue;
 	
 	private final int inventoryHeight = 3;
 	
@@ -132,14 +124,9 @@ public class Display extends JPanel {
 			e.printStackTrace();
 		}
 		
-		this.time = 0;
-		this.itemEventQueue = ArrayListMultimap.create();
-		
 		//TEMP -- For testing only
-		currentMap[2][3].pushOntoInv(new StackableItem(Item.HEALING_VIAL, 3));
-		currentMap[2][4].pushOntoInv(new StackableItem(Item.ENERGY_VIAL, 1));
-		currentMap[2][5].pushOntoInv(new StackableItem(Item.HASTE_VIAL, 1));
-		currentMap[2][6].pushOntoInv(new StackableItem(Item.POISON_VIAL, 1));
+		currentMap[2][3].pushOntoInv(Vial.HEALING_VIAL);
+		currentMap[2][4].pushOntoInv(Vial.ENERGY_VIAL);
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
@@ -271,9 +258,9 @@ public class Display extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
 				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems() && focusState == DirectionMode.FOCUS_MAP) {
-					StackableItem i;
+					Item i;
 					p1.pushToInventory(i = currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
-					pushToMessageQueue(new FlavorText("Picked up " + i.getAmount() + " " + i.getItem().getTitle() + Toolbox.pluralize(i.getAmount()) + ".", 'x'));
+					pushToMessageQueue(new FlavorText("Picked up " + i.getTitle(), 'b'));
 					shiftTime(0);
 				}
 			}
@@ -288,10 +275,8 @@ public class Display extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
-						boolean used = p1.getInventory()[inventorySlotSelected].getItem().isUsable(p1);
-						FlavorText message = p1.getInventory()[inventorySlotSelected].getItem().use(p1, currentMap, time, itemEventQueue);
+						FlavorText message = new FlavorText(p1.getInventory()[inventorySlotSelected].use(p1), 'g');
 						pushToMessageQueue(message);
-						p1.runConsumptionCheck(inventorySlotSelected, used);
 						focusState = DirectionMode.FOCUS_MAP;
 						shiftTime(0);
 					}
@@ -404,17 +389,8 @@ public class Display extends JPanel {
 	 * update, but is sufficient for the time being.
 	 * @param timeAddition	The amount of time done by the player.
 	 */
-	private void shiftTime(double timeAddition) {
-		//Check for Item effect-endings	
-		for(int t = time; t < time + timeAddition; t++) {
-			for(ItemTrigger entry : itemEventQueue.get(t)) {
-				pushToMessageQueue(entry.activate(p1));
-			}
-			itemEventQueue.removeAll(t);
-		}
-		
-		time += timeAddition;
-		
+	private void shiftTime(int timeAddition) {
+		Clock.incrementTime(timeAddition);
 		this.calcSightBoundaries();
 		repaint();
 	}
@@ -441,7 +417,7 @@ public class Display extends JPanel {
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.setColor(new Color(200, 200, 200));
 		g.drawString(this.mapName, 20, 25);
-		g.drawString("Time: " + this.time/10 + "." + this.time%10 + " seconds", 200, 25);
+		g.drawString("Time: " + Clock.getTime()/10 + "." + Clock.getTime()%10 + " seconds", 200, 25);
 		
 		//Determine bounds of currentMap to draw 
 		int startingXBound = p1.getXCoord() - ((viewportDimension - 1) / 2);
@@ -536,7 +512,7 @@ public class Display extends JPanel {
 				
 				//Draws Items currently on floor.
 				if(currentMap[y][x].hasItems()) {
-					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].peekItem().getItem().getxStart(), currentMap[y][x].peekItem().getItem().getyStart());
+					drawImageFromTileset(g, t_vials, 20, 35, Tile.tileSize, dX * Tile.tileSize, dY * Tile.tileSize, currentMap[y][x].peekItem().getXLocationInTileset(), currentMap[y][x].peekItem().getYLocationInTileset());
 				}
 				
 				//Draws light shading; blacks out tile if unseen, light shades if was once seen but currently
@@ -587,8 +563,7 @@ public class Display extends JPanel {
 		g.drawString("MND: " + p1.getMnd(), playerInfoLeftMargin + textMargin + 10, 215);
 		
 		//Draw player equips
-		g.setColor(new Color(200, 200, 200));
-		g.setFont(new Font("Arial", Font.PLAIN, 10));
+		drawPlayerEquips(g);
 		
 		//Draws player inventory
 		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
@@ -602,19 +577,22 @@ public class Display extends JPanel {
 			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
 			
 			if(p1.getInventory()[x] != null) {
-				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getItem().getxStart(), p1.getInventory()[x].getItem().getyStart());
-				
-				if(p1.getInventory()[x].getItem().isStackable()) {
-					g.setFont(new Font("Arial", Font.PLAIN, 12));
-					g.setColor(Color.WHITE);
-					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 3, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 33);
-				}
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getXLocationInTileset(), p1.getInventory()[x].getYLocationInTileset());
 			}
 			
 			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
 				drawImageFromTileset(g, t_icons, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, 0, 0);
 			}
 		}
+	}
+	
+	/**
+	 * Draws the diagram displaying all the items the player has equipped. As this is a fairly complicated process that
+	 * demands very pixel-perfect measurements (much to my anguish), it belongs in its own method.
+	 * @param g
+	 */
+	private void drawPlayerEquips(Graphics g) {
+		
 	}
 	
 	/**
@@ -638,9 +616,9 @@ public class Display extends JPanel {
 			if(p1.getInventory()[inventorySlotSelected] != null) {
 				g.setColor(Color.black);
 				g.setFont(new Font("Arial", Font.PLAIN, 25));
-				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getTitle() + " (" + p1.getInventory()[inventorySlotSelected].getAmount() + ")", leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 30);
+				g.drawString(p1.getInventory()[inventorySlotSelected].getTitle(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 30);
 				g.setFont(new Font("Arial", Font.PLAIN, 15));
-				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getDesc(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
+				g.drawString(p1.getInventory()[inventorySlotSelected].getDescription(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
 			}
 		}
 	}

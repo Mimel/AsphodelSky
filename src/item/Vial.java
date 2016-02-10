@@ -1,6 +1,7 @@
 package item;
 
 import entity.Player;
+import game.Clock;
 
 public class Vial extends Item implements Consumable {
 	
@@ -28,7 +29,12 @@ public class Vial extends Item implements Consumable {
 		}
 		
 		public String use(Player p1) {
+			Clock.addEvent(10, Vial.ENERGY_VIAL, ItemEffect.DIE);
 			return "This is a cantrip, but we'll see how it goes.";
+		}
+		
+		public String die(Player p1) {
+			return "Trigger in 10 seconds.";
 		}
 	};
 

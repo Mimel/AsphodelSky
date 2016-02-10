@@ -2,8 +2,8 @@ package game;
 
 /**
  * TODO List:
- * Reread everything, hiatus is off;
- * Make character screen
+ * Handle Item stacking, events
+ * Begin Character section
  */
 
 import java.awt.Color;
@@ -59,8 +59,10 @@ public class Display extends JPanel {
 	/** The player. */
 	private Player p1;
 	
+	/** The height of the inventory, in units of (Tile.tileSize)px squares. */
 	private final int inventoryHeight = 3;
 	
+	/** The width of the inventory, in units of (Tile.tileSize)px squares. */
 	private final int inventoryWidth = 12;
 	
 	/* Note: All Images with prefix "t_" are tilesets. */
@@ -388,7 +390,12 @@ public class Display extends JPanel {
 	 * @param timeAddition	The amount of time done by the player.
 	 */
 	private void shiftTime(int timeAddition) {
+		for(int x = Clock.getTime(); x < Clock.getTime() + timeAddition; x++) {
+			Clock.performEventsAtTime(x, p1);
+			Clock.removeAllEventsAtTime(x);
+		}
 		Clock.incrementTime(timeAddition);
+		
 		this.calcSightBoundaries();
 		repaint();
 	}

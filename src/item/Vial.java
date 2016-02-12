@@ -29,7 +29,7 @@ public class Vial extends Item implements Consumable {
 		}
 		
 		public String use(Player p1) {
-			Clock.addEvent(10, Vial.ENERGY_VIAL, ItemEffect.DIE);
+			Clock.addEvent(100, Vial.ENERGY_VIAL, ItemEffect.DIE);
 			return "This is a cantrip, but we'll see how it goes.";
 		}
 		

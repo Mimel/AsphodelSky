@@ -47,6 +47,10 @@ public final class Clock {
 		itemEventQueue.put(time + interval, new Pair<Item, ItemEffect>(i, e));
 	}
 	
+	public static boolean hasEventsAtTime(int time) {
+		return itemEventQueue.containsKey(time);
+	}
+	
 	/**
 	 * Does all the events at the time given in order of entry.
 	 * @param time The time in which to perform all the events.

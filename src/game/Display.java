@@ -8,6 +8,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -390,9 +391,14 @@ public class Display extends JPanel {
 	 * @param timeAddition	The amount of time done by the player.
 	 */
 	private void shiftTime(int timeAddition) {
-		for(int x = Clock.getTime(); x < Clock.getTime() + timeAddition; x++) {
-			Clock.performEventsAtTime(x, p1);
-			Clock.removeAllEventsAtTime(x);
+		for(int x = Clock.getTime() + 1; x <= Clock.getTime() + timeAddition; x++) {
+			if(Clock.hasEventsAtTime(x)) {
+				String[] messages = Clock.performEventsAtTime(x, p1).split("`");
+				for(int y = 0; y < messages.length; y++) {
+					pushToMessageQueue(new FlavorText(messages[y], 'b'));
+				}
+				Clock.removeAllEventsAtTime(x);
+			}
 		}
 		Clock.incrementTime(timeAddition);
 		
@@ -408,8 +414,8 @@ public class Display extends JPanel {
 		//Painting methods. These must be done last.
 		super.paintComponent(g);
 		this.drawGrid(g);
-		this.drawPlayerInfo(g);
-		this.drawTextFeed(g);
+//		this.drawPlayerInfo(g);
+//		this.drawTextFeed(g);
 	}
 	
 	/**
@@ -568,7 +574,7 @@ public class Display extends JPanel {
 		g.drawString("MND: " + p1.getMnd(), playerInfoLeftMargin + textMargin + 10, 215);
 		
 		//Draw player equips
-		drawPlayerEquips(g);
+		drawPlayerEquips(g, playerInfoLeftMargin, topMargin);
 		
 		//Draws player inventory
 		int inventoryTopMargin = topMargin + Tile.tileSize*(viewportDimension - inventoryHeight);
@@ -596,8 +602,27 @@ public class Display extends JPanel {
 	 * demands very pixel-perfect measurements (much to my anguish), it belongs in its own method.
 	 * @param g
 	 */
-	private void drawPlayerEquips(Graphics g) {
+	private void drawPlayerEquips(Graphics g, int leftMargin, int upperMargin) {
+		Color textColor = new Color(220, 220, 220);
+		Font textFont = new Font("Arial", Font.PLAIN, 10);
 		
+		g.setColor(new Color(150, 150, 150));
+		g.fillRect(leftMargin + 250, 70, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Acce.", leftMargin + 250, leftMargin + 250 + Tile.tileSize, 70, 70 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 300, 70, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Head", leftMargin + 300, leftMargin + 300 + Tile.tileSize, 70, 70 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 350, 70, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Neck", leftMargin + 350, leftMargin + 350 + Tile.tileSize, 70, 70 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 250, 120, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Weap.", leftMargin + 250, leftMargin + 250 + Tile.tileSize, 120, 120 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 300, 120, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Torso", leftMargin + 300, leftMargin + 300 + Tile.tileSize, 120, 120 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 350, 120, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Offh.", leftMargin + 350, leftMargin + 350 + Tile.tileSize, 120, 120 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 300, 170, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Legs", leftMargin + 300, leftMargin + 300 + Tile.tileSize, 170, 170 + Tile.tileSize, textColor, textFont);
+		g.fillRect(leftMargin + 350, 170, Tile.tileSize, Tile.tileSize);
+		drawCenteredString(g, "Boots", leftMargin + 350, leftMargin + 350 + Tile.tileSize, 170, 170 + Tile.tileSize, textColor, textFont);
 	}
 	
 	/**
@@ -626,6 +651,21 @@ public class Display extends JPanel {
 				g.drawString(p1.getInventory()[inventorySlotSelected].getDescription(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
 			}
 		}
+	}
+	
+	private void drawCenteredString(Graphics g, String msg, int minW, int maxW, int minH, int maxH, Color c, Font font) {
+		Color prevColor = g.getColor();
+		Font prevFont = g.getFont();
+		
+		g.setColor(c);
+		g.setFont(font);
+		FontMetrics fm = g.getFontMetrics(font);
+		int width = ((maxW - minW) - (fm.stringWidth(msg)))/2;
+		int height = (((maxH - minH) - fm.getHeight()) / 2) + fm.getAscent();
+		g.drawString(msg, minW + width, minH + height);
+		
+		g.setColor(prevColor);
+		g.setFont(prevFont);
 	}
 
 	/**

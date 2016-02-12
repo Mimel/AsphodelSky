@@ -20,7 +20,16 @@ public class Player extends Entity {
 	private Item[] inventory;
 	
 	/** The size of the inventory array. Usually conforming to the PlayerInfo part of the GUI. */
-	private final int inventorySize = 36;
+	private final int INVENTORY_SIZE = 36;
+	
+	private Accessory e_Acce;
+	private Helm e_Helm;
+	private Neckwear e_Neck;
+	private Torso e_Body;
+	private Weapon e_Weap;
+	private Offhand e_Offh;
+	private Legs e_Legs;
+	private Feet e_Feet;
 	
 	public Player(String name, int xCoord, int yCoord, double sightRadius) {
 		this.name = name;
@@ -47,7 +56,7 @@ public class Player extends Entity {
 		//END TEMP
 		
 		this.movementSpeed = 10;
-		this.inventory = new Item[inventorySize];
+		this.inventory = new Item[INVENTORY_SIZE];
 	}
 	
 	public String getName() {

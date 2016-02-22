@@ -126,8 +126,8 @@ public class Display extends JPanel {
 		}
 		
 		//TEMP -- For testing only
-		currentMap[2][3].pushOntoInv(Vial.HEALING_VIAL);
-		currentMap[2][4].pushOntoInv(Vial.ENERGY_VIAL);
+		currentMap[2][3].pushOntoInv(Vial.HEALING_VIAL, 3);
+		currentMap[2][4].pushOntoInv(Vial.ENERGY_VIAL, 2);
 		p1.adjustCurrentHealth(-8);
 		//ENDTEMP
 		
@@ -259,9 +259,9 @@ public class Display extends JPanel {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
 				if(currentMap[p1.getYCoord()][p1.getXCoord()].hasItems() && focusState == DirectionMode.FOCUS_MAP) {
-					Item i;
-					p1.pushToInventory(i = currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
-					pushToMessageQueue(new FlavorText("Picked up " + i.getTitle(), 'b'));
+					ItemAmountPair iap;
+					p1.pushToInventory(iap = currentMap[p1.getYCoord()][p1.getXCoord()].popItem());
+					pushToMessageQueue(new FlavorText("Picked up " + iap.getItem().getTitle(), 'b'));
 					shiftTime(0);
 				}
 			}
@@ -276,7 +276,8 @@ public class Display extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(focusState == DirectionMode.FOCUS_INVENTORY) {
 					if(p1.getInventory()[inventorySlotSelected] != null) {
-						FlavorText message = new FlavorText(p1.getInventory()[inventorySlotSelected].use(p1), 'g');
+						FlavorText message = new FlavorText(p1.getInventory()[inventorySlotSelected].getItem().use(p1), 'g');
+						p1.decrementOrRemoveItem(inventorySlotSelected);
 						pushToMessageQueue(message);
 						focusState = DirectionMode.FOCUS_MAP;
 						shiftTime(0);
@@ -414,8 +415,8 @@ public class Display extends JPanel {
 		//Painting methods. These must be done last.
 		super.paintComponent(g);
 		this.drawGrid(g);
-//		this.drawPlayerInfo(g);
-//		this.drawTextFeed(g);
+		this.drawPlayerInfo(g);
+		this.drawTextFeed(g);
 	}
 	
 	/**
@@ -588,7 +589,13 @@ public class Display extends JPanel {
 			g.fillRect((x%inventoryWidth)*Tile.tileSize + playerInfoLeftMargin, (x/inventoryWidth)*Tile.tileSize + inventoryTopMargin, Tile.tileSize, Tile.tileSize);
 			
 			if(p1.getInventory()[x] != null) {
-				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getXLocationInTileset(), p1.getInventory()[x].getYLocationInTileset());
+				drawImageFromTileset(g, t_vials, playerInfoLeftMargin, inventoryTopMargin, Tile.tileSize, (x%inventoryWidth) * Tile.tileSize, (x/inventoryWidth) * Tile.tileSize, p1.getInventory()[x].getItem().getXLocationInTileset(), p1.getInventory()[x].getItem().getYLocationInTileset());
+				
+				if(p1.getInventory()[x].getItem().isStackable()) {
+					g.setFont(new Font("Arial", Font.PLAIN, 12));
+					g.setColor(Color.WHITE);
+					g.drawString(p1.getInventory()[x].getAmount() + "", playerInfoLeftMargin + (x%inventoryWidth) * Tile.tileSize + 3, inventoryTopMargin + (x/inventoryWidth) * Tile.tileSize + 33);
+				}
 			}
 			
 			if(inventorySlotSelected == x && focusState == DirectionMode.FOCUS_INVENTORY) {
@@ -646,9 +653,9 @@ public class Display extends JPanel {
 			if(p1.getInventory()[inventorySlotSelected] != null) {
 				g.setColor(Color.black);
 				g.setFont(new Font("Arial", Font.PLAIN, 25));
-				g.drawString(p1.getInventory()[inventorySlotSelected].getTitle(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 30);
+				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getTitle(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 30);
 				g.setFont(new Font("Arial", Font.PLAIN, 15));
-				g.drawString(p1.getInventory()[inventorySlotSelected].getDescription(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
+				g.drawString(p1.getInventory()[inventorySlotSelected].getItem().getDescription(), leftMargin - 20 + 20, topMargin + 20 + viewportDimension*Tile.tileSize + 50);
 			}
 		}
 	}

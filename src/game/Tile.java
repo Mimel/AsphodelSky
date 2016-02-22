@@ -35,7 +35,7 @@ public class Tile {
 	 * The current items on the ground on this tile.
 	 * TODO: Accompany for more than one item on a tile.
 	 */
-	private List<Item> itemsOnGround;
+	private List<ItemAmountPair> itemsOnGround;
 	
 	Tile(char tileRep) {
 		this.tileRep = tileRep;
@@ -53,7 +53,7 @@ public class Tile {
 			break;
 		}
 		
-		this.itemsOnGround = new ArrayList<Item>();
+		this.itemsOnGround = new ArrayList<ItemAmountPair>();
 	}
 	
 	public char getRep() { return tileRep; }
@@ -84,10 +84,10 @@ public class Tile {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				return itemsOnGround.get(x - 1);
+				return itemsOnGround.get(x - 1).getItem();
 			}
 		}
-		return itemsOnGround.get(itemsOnGround.size() - 1);
+		return itemsOnGround.get(itemsOnGround.size() - 1).getItem();
 	}
 	
 	/**
@@ -95,19 +95,19 @@ public class Tile {
 	 * in a temp variable, removes the top item, and removes the Item assigned to the temp variable.
 	 * @return The popped item.
 	 */
-	public Item popItem() {
+	public ItemAmountPair popItem() {
 		for(int x = 0; x < itemsOnGround.size(); x++) {
 			if(itemsOnGround.get(x) == null) {
 				if(x == 0) {
 					System.out.println("There are no items on this tile.");
 					return null;
 				}
-				Item temp = itemsOnGround.get(x - 1);
+				ItemAmountPair temp = itemsOnGround.get(x - 1);
 				itemsOnGround.remove(x - 1);
 				return temp;
 			}
 		}
-		Item temp = itemsOnGround.get(itemsOnGround.size() - 1);
+		ItemAmountPair temp = itemsOnGround.get(itemsOnGround.size() - 1);
 		itemsOnGround.remove(itemsOnGround.size() - 1);
 		return temp;
 	}
@@ -116,13 +116,17 @@ public class Tile {
 	 * Pushes an item onto the Tile's inventory stack.
 	 * @param i The Item being pushed on the stack.
 	 */
-	public void pushOntoInv(Item i) {
+	public void pushOntoInv(Item i, int amt) {
 		for(int x = 0; x < itemsOnGround.size(); x++) {
+			if(itemsOnGround.get(x).equals(i) && i.isStackable()) {
+				itemsOnGround.get(x).addItems(amt);
+				return;
+			}
 			if(itemsOnGround.get(x) == null) {
-				itemsOnGround.set(x, i);
+				itemsOnGround.set(x, new ItemAmountPair(i, amt));
 				return;
 			}
 		}
-		itemsOnGround.add(i);
+		itemsOnGround.add(new ItemAmountPair(i, amt));
 	}
 }

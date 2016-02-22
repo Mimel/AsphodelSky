@@ -1,6 +1,7 @@
 package entity;
 
 import item.*;
+import org.javatuples.Pair;
 
 /**
  * This class represents the player itself. This is a special derivation of the Entity which the user controls. 
@@ -17,7 +18,7 @@ public class Player extends Entity {
 	private double sightRadius;
 	
 	/** The inventory the player has. */
-	private Item[] inventory;
+	private ItemAmountPair[] inventory;
 	
 	/** The size of the inventory array. Usually conforming to the PlayerInfo part of the GUI. */
 	private final int INVENTORY_SIZE = 36;
@@ -56,7 +57,7 @@ public class Player extends Entity {
 		//END TEMP
 		
 		this.movementSpeed = 10;
-		this.inventory = new Item[INVENTORY_SIZE];
+		this.inventory = new ItemAmountPair[INVENTORY_SIZE];
 	}
 	
 	public String getName() {
@@ -88,21 +89,58 @@ public class Player extends Entity {
 		this.sightRadius = sightRadius;
 	}
 	
-	public Item[] getInventory() {
+	public ItemAmountPair[] getInventory() {
 		return inventory;
 	}
 	
 	/**
 	 * Pushes an Item onto the inventory, in the way that a stack architecture does.
+	 * TODO: Handle case when inventory is full.
 	 * @param i The Item being pushed onto the inventory array.
 	 */
-	public void pushToInventory(Item i) {
+	public void pushToInventory(Item i, int amt) {
 		for(int x = 0; x < inventory.length; x++) {
-			if(inventory[x] == null) {
-				inventory[x] = i;
+			if(inventory[x].getItem().equals(i) && i.isStackable()) {
+				inventory[x].addItems(amt);
+				return;
+			} else if(inventory[x] == null) {
+				inventory[x] = new ItemAmountPair(i, amt);
 				return;
 			}
 		}
+	}
+	
+	/**
+	 * Pushes an Item onto the inventory, in the way that a stack architecture does.
+	 * TODO: Handle case when inventory is full.
+	 * @param i The Item being pushed onto the inventory array.
+	 */
+	public void pushToInventory(ItemAmountPair iap) {
+		for(int x = 0; x < inventory.length; x++) {
+			if(inventory[x] == null) {
+				inventory[x] = iap;
+				return;
+			} else if(inventory[x].equals(iap) && iap.getItem().isStackable()) {
+				inventory[x].addItems(iap.getAmount());
+				return;
+			}	
+		}
+	}
+	
+	public void decrementOrRemoveItem(int pos) {
+		if(inventory[pos].getAmount() <= 1) {
+			removeItemFromInventory(pos);
+		} else {
+			inventory[pos].decrementItem();
+		}
+	}
+	
+	/**
+	 * Removes an item from the inventory.
+	 * @param pos 	The position in inventory to remove the item from.
+	 */
+	public void removeItemFromInventory(int pos) {
+		inventory[pos] = null;
 	}
 
 	/**

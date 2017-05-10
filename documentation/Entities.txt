@@ -1,0 +1,31 @@
+An entity is one that is able, through either player instruction or AI, 
+to interact with the board, items, and/or other entities.
+
+An entity must have the following properties:
+An ID, an uneditable numerical value unique to each instance of an entity.
+	- ID = 0 represents you, the player.
+	
+A TITLE, a string unique to each type of entity (e.g. "Space Marine")
+	- You, the player are designated a title unique to you.
+	
+A NAME, a string given to each entity.
+	- If an entity is not given a name, their title becomes their name.
+	
+An entity that is an OCCUPANT exists on the grid. An occupant gains the following
+properties, as well as the properties above:
+
+An X-COORDINATE, where the entity is horizontally positioned on the grid.
+
+A Y-COORDINATE, where the entity is vertically positioned on the grid.
+
+An OCCUPANT that is a COMBATANT is able to fight other COMBATANTS.
+They gain the following properties, as well as all of the above:
+
+HEALTH: The amount of life a combatant has. If the combatant's health drops
+to zero, a number of effects may occur, but it usually results in the death of the combatant.
+	
+	Health consists of a CURRENT HEALTH, and a MAXIMUM HEALTH. A combatant's
+	current health can never get above their maximum health.
+	
+INVENTORY: A Catalog (set of Items) consisting of both a set of items and
+associated amounts.

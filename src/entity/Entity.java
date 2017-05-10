@@ -1,148 +1,33 @@
 package entity;
 
 /**
- * This class represents a character present on the map, capable of very basic tasks, such as walking, having an AI, and
- * whatnot. The player derives from this class, and can do a wider array of functions.
- * @author Mimel
+ * An entity is one that is able to, on it's own (or AI controlled) volition, interact with the grid state.
+ * @author Matt Imel
  */
-public abstract class Entity {
-	/** Wait, what? */
-	protected boolean id;
-	
-	/** The name of the Entity in question. */
-	protected String name;
-	
-	/** The x-Location of the Entity relative to the current map. */
-	protected int xCoord;
-	
-	/** The y-Location of the Entity relative to the current map. */
-	protected int yCoord;
-	
-	/** The current amount of health an entity has. */
-	protected int currHP;
-	
-	/** The maximum amount of health an entity can have. */
-	protected int maxHP;
-	
-	/** The current amount of energy an entity has. */
-	protected int currEP;
-	
-	/** The maximum amount of energy an entity has. */
-	protected int maxEP;
-	
-	/** Amount of the strength stat an entity has. */
-	protected int str;
-	
-	/** Amount of the finesse stat an entity has. */
-	protected int fin;
-	
-	/** Amount of the mind stat an entity has. */
-	protected int mnd;
-
-	/** The time it takes for an entity to move one tile in any direction. */
-	protected int movementSpeed;
+public interface Entity {
 	
 	/**
-	 * All of these are various flags on an entity; whether or not they are invisible,
-	 * immobile, etc. are determined by these various sets of flags.
+	 * Returns the unique id of a given entity. Implementors must declare an id global (preferably final).
+	 * @return The id of the entity.
 	 */
-	protected boolean immobile = false;
-	protected boolean speaks = false;
-	
-	final public int getXCoord() {
-		return xCoord;
-	}
-	
-	final public int getYCoord() {
-		return yCoord;
-	}
-	
-	public int getCurrHP() {
-		return currHP;
-	}
-	
-	public int getMaxHP() {
-		return maxHP;
-	}
-	
-	public int getCurrEP() {
-		return currEP;
-	}
-	
-	public int getMaxEP() {
-		return maxEP;
-	}
-	
-	public void setMaxHP(int maxHP) {
-		this.maxHP = maxHP;
-	}
-
-	public int getMovementSpeed() {
-		return movementSpeed;
-	}
-	
-	public void setMovementSpeed(int ms) {
-		this.movementSpeed = ms;
-	}
-	
-	public int getStr() {
-		return str;
-	}
-
-	public void setStr(int str) {
-		this.str = str;
-	}
-
-	public int getFin() {
-		return fin;
-	}
-
-	public void setFin(int fin) {
-		this.fin = fin;
-	}
-
-	public int getMnd() {
-		return mnd;
-	}
-
-	public void setMnd(int mnd) {
-		this.mnd = mnd;
-	}
-
-	/**
-	 * Adjusts Entity's current health by integer addend.
-	 * @param addend Number by which to alter the currentHealth.
-	 */
-	public void adjustCurrentHealth(int addend) {
-		currHP += addend;
-	}
+	public int getId();
 	
 	/**
-	 * Sets the current health equal to the maximum health.
+	 * Returns the title of a given entity. Implementors must declare a title global.
+	 * @return The title of the entity.
 	 */
-	public void equalizeHealth() {
-		currHP = maxHP;
-	}
+	public String getTitle();
 	
 	/**
-	 * Adjusts Entity's current health by integer addend.
-	 * @param addend Number by which to alter the currentHealth.
+	 * Returns the name of a given entity. Implementors must declare a name global.
+	 * @return The name of an entity.
 	 */
-	public void adjustCurrentEnergy(int addend) {
-		currEP += addend;
-	}
+	public String getName();
 	
 	/**
-	 * Sets the current health equal to the maximum health.
+	 * Sets the name of a given entity. Implementors must declare a name global.
+	 * @param name The new name of the entity.
 	 */
-	public void equalizeEnergy() {
-		currEP = maxEP;
-	}
+	public void setName(String name);
 	
-	/**
-	 * Moves the entity 1 tile in any of the 8 directions. This, of course, greatly depends on the
-	 * current awareness of the enemy and any presence of the walls, as well as the presence of the
-	 * player.
-	 */
-	abstract void move(int xShift, int yShift);
 }

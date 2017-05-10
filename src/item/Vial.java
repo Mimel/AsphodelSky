@@ -1,69 +1,48 @@
 package item;
 
-import entity.Player;
-import game.Clock;
+import entity.Combatant;
 
-public class Vial extends Item implements Consumable {
-	
-	public static final Vial HEALING_VIAL = new Vial("Healing Vial", "Restores a small portion of your health.", 0, 0) {
-		public boolean isUsable(Player p1) {
-			return p1.getCurrHP() != p1.getMaxHP();
-		}
+/**
+ * TODO: Fix magic numbers.
+ * @author matti
+ */
+public class Vial extends Item {
+	public static final Item[] CATALOG_VIAL = new Item[]{
+		new Vial("Cardiotic Fluid", "Dark red flakes dance in the pinkish tincture.", 0, 0) {
+			
+			//TESTING adding player parameter.
+			@Override
+			public void use(Combatant user) {
+				user.decreaseHealthBy(14);
+			}
+		},
 		
-		public String use(Player p1) {
-			if(!this.isUsable(p1)) {
-				return "Health is already at a maximum.";
-			} else {
-				p1.adjustCurrentHealth(6);
-				if(p1.getCurrHP() > p1.getMaxHP()) {
-					p1.equalizeHealth();
-				}	
-				return "You feel rejuvenated.";	
+		new Vial("Solution of Finesse", "The orange liquid eddies dizzyingly.", 0, 48) {
+			@Override
+			public void use() {
+				
+			}
+		},
+		
+		new Vial("", "", 48, 0) {
+			@Override
+			public void use() {
+				
 			}
 		}
 	};
 	
-	public static final Vial ENERGY_VIAL = new Vial("Energy Vial", "Restores a portion of your energy.", 36, 0) {
-		public boolean isUsable(Player p1) {
-			return p1.getCurrEP() != p1.getMaxEP();
-		}
-		
-		public String use(Player p1) {
-			Clock.addEvent(100, Vial.ENERGY_VIAL, ItemEffect.DIE);
-			return "This is a cantrip, but we'll see how it goes.";
-		}
-		
-		public String die(Player p1) {
-			return "Trigger in 10 seconds.";
-		}
-	};
-
-	private Vial(String t, String d, int xLoc, int yLoc) {
-		super("Constant Location", 30, 60);
-		this.title = t;
-		this.desc = d;
-		this.xItemLoc = xLoc;
-		this.yItemLoc = yLoc;
+	private Vial(String name, String desc, int xMargin, int yMargin) {
+		super("img/item/vials.png", 0, 0);
+		this.name = name;
+		this.descVis = desc;
+		this.xMargin = xMargin;
+		this.yMargin = yMargin;
 	}
 
 	@Override
-	public String use(Player p1) {
-		return null;
-	}
+	public void use() {}
 
 	@Override
-	public boolean isUsable(Player p1) {
-		return false;
-	}
-
-	@Override
-	public String step(Player p1) {
-		return null;
-	}
-
-	@Override
-	public String die(Player p1) {
-		return null;
-	}
-
+	public void use(Combatant user) {}
 }

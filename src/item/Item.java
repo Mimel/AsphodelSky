@@ -1,70 +1,107 @@
 package item;
 
-import entity.Player;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.imageio.ImageIO;
+
+import entity.Combatant;
 
 /**
- * Denote the attributes of each item within each category that
- * extends this class. Note that all subclasses of this must be classes
- * that have private constructors and self-referential, static, final instances
- * of the class within them. As horrible as this sounds, this is to give the class
- * an enum-like feel, without the implicit extension of the Java.Enum class,
- * so that class can extend this one instead.
+ * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
+ * while the non-final properties are tied to each individual item.
+ * 
+ * The ID is an exception to this.
+ * 
+ * @see Catalog
  * @author Matt Imel
+ *
  */
-public abstract class Item {
-	
-	//NOTE: All final globals are attributed to the item CATEGORY, rather
-	//than the individual items themselves. All globals that are not final
-	//are attributed to each individual item. For example, tileset is used
-	//by all items within a category so it's final; while a title is used
-	//by an individual item, and is therefore not final.
-	
-	/** The file location of the tileset used by this item category */
-	protected final String TILESET;
-	
-	/** 
-	 * The X offset from the origin where the specific region created
-	 * by the item category starts. This is meant to prevent the usage
-	 * of multiple different images per item category.
-	 */
-	protected final int X_OFFSET;
+public abstract class Item implements Comparable<Item> {
 	
 	/**
-	 * The Y offset from the origin where the specific region
-	 * created by the item category starts.
+	 * The width of an item, in accordance to the tileset.
 	 */
-	protected final int Y_OFFSET;
+	public static final int ITEM_WIDTH = 48;
 	
-	//NOTE: Because an items stackability(?) is determined by whatever class it is in,
-	//the stackable property is a final global, as unintuitive as that may seem.
-	/** Determines whether multiples of items occupy the same inventory slot. */
-	protected final boolean STACKABLE;
+	/**
+	 * Keeps track of the current id number when a new item is created.
+	 * Thread-safe, on the off-chance that the individual item catalogs are created concurrently.
+	 */
+	private static final AtomicInteger AUTO_INCR_ID = new AtomicInteger(0);
 	
-	/** The name of the item. */
-	protected String title;
+	/**
+	 * The id of the item. Each item's id is unique.
+	 */
+	private final int ID;
 	
-	/** The description of the item. */
-	protected String desc;
+	/**
+	 * The tileset the image belongs to. Each category must have a singluar image
+	 * used to represent it's images.
+	 */
+	private final Image TILESET;
 	
-	/** X Location of the item in the tileset relative to the tileset origin plus the x offset. */
-	protected int xItemLoc;
+	/**
+	 * The X-offset from the tileset used to determine where the image set begins.
+	 */
+	private final int X_OFFSET;
 	
-	/** Y Location of the item in the tileset relative to the tileset origin plus the y offset. */
-	protected int yItemLoc;
+	/**
+	 * The Y-offset from the tileset used to determine where the image set begins.
+	 */
+	private final int Y_OFFSET;
 	
-	protected Item(String fileLoc, int xOff, int yOff) {
-		this.TILESET = fileLoc;
-		this.X_OFFSET = xOff;
-		this.Y_OFFSET = yOff;
+	/**
+	 * The name of the item.
+	 */
+	protected String name;
+	
+	/**
+	 * A visual description of the item.
+	 */
+	protected String descVis;
+
+	/**
+	 * A description of the item shown on use.
+	 */
+	protected String descUse;
+	
+	/**
+	 * The margin (in the context of the X variable) needed to reach the coordinate that begins the item's image.
+	 */
+	protected int xMargin;
+	
+	/**
+	 * The margin (in the context of the Y variable) needed to reach the coordinate that begins the item's image.
+	 */
+	protected int yMargin;
+	
+	/**
+	 * Creates the properties of an item set, where all properties hold true for all instances of that set.
+	 * @param tileset The tileset to use.
+	 * @param xoff The X-offset.
+	 * @param yoff The Y-offset.
+	 */
+	protected Item(String tileset, int xoff, int yoff) {
+		this.ID = AUTO_INCR_ID.incrementAndGet();
 		
-		if(this instanceof Equippable) {
-			this.STACKABLE = false;
-		} else {
-			this.STACKABLE = true;
+		Image tempimg;	
+		try {
+			tempimg = ImageIO.read(new File(tileset));
+		} catch(IOException ioe) {
+			System.out.println("What?");
+			tempimg = null;
 		}
+		
+		this.TILESET = tempimg;
+
+		this.X_OFFSET = xoff;
+		this.Y_OFFSET = yoff;
 	}
 	
-	public String getTileset() {
+	public Image getTileset() {
 		return TILESET;
 	}
 	
@@ -76,54 +113,74 @@ public abstract class Item {
 		return Y_OFFSET;
 	}
 	
-	public boolean isStackable() {
-		return STACKABLE;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public String getDescription() {
-		return desc;
-	}
-	
-	public int getXLocationInTileset() {
-		return xItemLoc;
-	}
-	
-	public int getYLocationInTileset() {
-		return yItemLoc;
+	/**
+	 * Gets the id of the item.
+	 * @return The id.
+	 */
+	public int getId() {
+		return ID;
 	}
 	
 	/**
-	 * Determines whether or not an item can be used.
-	 * @param p1 The Player.
-	 * @return Whether or not an item can be used.
+	 * Gets the name of the item.
+	 * @return The name.
 	 */
-	public abstract boolean isUsable(Player p1);
+	public String getName() {
+		return name;
+	}
 	
 	/**
-	 * The effect that happens when an item is used. For all consumable items, this is akin
-	 * to the initial consumption. For equipment, this is akin to equipping the item.
-	 * @param p1 The Player.
-	 * @return A message describing the effect.
+	 * Gets the visual description of the item.
+	 * @return The visual description.
 	 */
-	public abstract String use(Player p1);
+	public String getVisualDescription() {
+		return descVis;
+	}
 	
 	/**
-	 * An effect that happens every set interval of time. Whenever that interval is hit,
-	 * this method is called.
-	 * @param p1 The Player.
-	 * @return A message describing the effect.
+	 * Gets the use description of the item
+	 * @return The usage description.
 	 */
-	public abstract String step(Player p1);
+	public String getUseDescription() {
+		return descUse;
+	}
 	
 	/**
-	 * An effect that happens after an item is used. For equipment, this happens
-	 * after removing it from yourself.
-	 * @param p1 The player.
-	 * @return A message describing the effect.
+	 * 
+	 * @return
 	 */
-	public abstract String die(Player p1);
+	public int getXMargin() {
+		return xMargin;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getYMargin() {
+		return yMargin;
+	}
+	
+	/**
+	 * Uses the item.
+	 */
+	public abstract void use();
+	
+	/**
+	 * Uses the item that affects the user.
+	 */
+	public abstract void use(Combatant user);
+	
+	/**
+	 * Compares two items by id.
+	 */
+	@Override
+	public int compareTo(Item i) {
+		return ((Integer) this.ID).compareTo((Integer) i.ID);
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

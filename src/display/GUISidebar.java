@@ -26,11 +26,6 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 	private Image SELECTOR_YELLOW;
 	
 	/**
-	 * If the inventory is being browsed, this represents the slot that is currently hovered.
-	 */
-	private int focusedSlot;
-	
-	/**
 	 * The combatant that is being focused on. If the component is
 	 * in mode "CombatantDisplay", this combatant's stats is shown
 	 * on the sidebar.
@@ -44,8 +39,6 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 		
 		modes = new String[]{"free", "inventory"};
 		selectedMode = modes[0];
-		
-		focusedSlot = 0;
 		
 		try {
 			SELECTOR_YELLOW = ImageIO.read(new File("img/misc/selector_generic.png"));
@@ -94,10 +87,8 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 				//Item.
 				if(!items.isEmpty()) {
 					Item currentItem = items.remove(0);
-					//TODO: Oh my god this is too much
-					g2.drawImage(currentItem.getTileset(), 35 + (slot/3)*48, 250 + (slot%3)*48, 35 + (slot/3)*48 + 48, 250 + (slot%3)*48 + 48, 
-							currentItem.getXMargin() + currentItem.getXMargin(), currentItem.getYMargin() + currentItem.getYOffset(), 
-							currentItem.getXMargin() + currentItem.getXMargin() + 48, currentItem.getYMargin() + currentItem.getYOffset() + 48, null);
+					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), 35 + (slot/3)*48, 250 + (slot%3)*48, null);
+					
 					g2.setColor(Color.WHITE);
 					g2.drawString(amts.remove(0).toString(), 35 + (slot/3)*48 + 5, 250 + (slot%3)*48 + 24);
 				}

@@ -1,0 +1,2 @@
+Flag List:
+Traversible: Able to be traveled into and out of by occupants. A single occupant can occupy this space.

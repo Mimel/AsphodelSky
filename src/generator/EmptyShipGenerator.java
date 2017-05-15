@@ -13,7 +13,12 @@ public class EmptyShipGenerator implements GridGenerator {
 		
 		for(int x = 0; x < width; x++) {
 			for(int y = 0; y < height; y++) {
-				map[y][x] = new Tile('.');
+				//TEMP
+				if(y > 15 && (x + y) % 4 == 0) {
+					map[y][x] = new Tile('#');
+				} else {
+					map[y][x] = new Tile('.');
+				}
 			}
 		}
 		

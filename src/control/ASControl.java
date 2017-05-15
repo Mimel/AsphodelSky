@@ -1,12 +1,13 @@
 package control;
 
 //TODO LIST
-///// Possible SoIfI problems with the storage of images in the Item class
-///// rather than the GUI classes; consider moving.
-//5.10//// Implement enemies.
+//5.15//Testing, documenting. Make absolutely sure mapping scheme works.
+//Persistent//Lag on startup - examine.
+//Persistent//Redundancy exists in coordinates. Perhaps revise.
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,8 +19,10 @@ import javax.swing.KeyStroke;
 
 import comm.MessageManager;
 import display.Display;
+import display.ImageAssets;
 import entity.*;
 import grid.*;
+import item.Item;
 import item.Vial;
 
 /**
@@ -32,6 +35,8 @@ public class ASControl {
 	 * You!
 	 */
 	private static Player p1;
+	
+	private static ArrayList<Combatant> enemyRoster;
 	
 	/**
 	 * The current grid on which the game currently operates.
@@ -60,13 +65,27 @@ public class ASControl {
 		mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
 		
+		ImageAssets.load();
+		Tile.loadTraitMapping("img/terrain/terr_CharToTraitsMap.dat");
+		
 		//PLAYGROUND
 		grid = new Grid(game.getFocus());
-		
-		System.out.println(grid);
+
 		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
 		
+		enemyRoster = new ArrayList<Combatant>();
+		
+		Combatant f1 = Flutter.AI_FLUTTER[0];
+		f1.setX(7);
+		f1.setY(7);
+		enemyRoster.add(f1);
+		
 		grid.getTileAt(1, 1).fillOccupant(p1);
+		//Temp
+		grid.getTileAt(7, 7).fillOccupant(f1);
+		grid.getTileAt(12, 12).fillOccupant(Rush.AI_RUSH[0]);
+		grid.getTileAt(3, 6).fillOccupant(Kite.AI_KITE[0]);
+		
 		grid.getTileAt(1, 4).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
 		grid.getTileAt(5, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
@@ -100,7 +119,6 @@ public class ASControl {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				long start = System.currentTimeMillis(); //TEMP
 				int xOffset = 0;
 				int yOffset = 0;
 				
@@ -145,26 +163,35 @@ public class ASControl {
 					
 				} else if(game.getGridState().equals("player")) {
 					
-					//Moves the player.
-					
+					//Moves the player.					
 					grid.moveEntity(p1.getX(), p1.getY(), xOffset, yOffset);
 					mm.insertMessage(p1.getX() + "," + p1.getY());
 				} else if(game.getGridState().equals("crosshair")) {
 					
 					//Moves the crosshair.
-					
 					grid.switchFocus(xOffset, yOffset);
-					mm.insertMessage(p1.getX() + "," + p1.getY());
+					
+					//The following if-else chain searches a tile by order of priority; First for occupants, then items, then floor features, then floor types.
+					if(grid.getFocusedTile().getOccupant() != null) {
+						//If the crosshair overlaps an occupant, prints their name, title, and description to the Message manager.
+						Occupant o = grid.getFocusedTile().getOccupant();
+						mm.loadSourceDescPair(o.getName() + " the " + o.getTitle(), o.getX() + "," + o.getY());
+					} else if(!grid.getFocusedTile().getCatalog().isEmpty()) {
+						//If the crosshair overlaps an item, prints the items name and description to the Message manager.
+						Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
+						mm.loadSourceDescPair(i.getName(), i.getVisualDescription());
+					} else {
+						//If the crosshair overlaps nothing, prints the tile name and description.
+						Tile t = grid.getFocusedTile();
+						mm.loadSourceDescPair(t.getName(), t.getDesc());
+					}
 				}
 				
 				//TODO: Magic, for now; adjust to suit multiple viewport dimensions.
 				//We draw grid instead of repainting to adjust the center point of the viewport;
-				//either you, the player, or the crosshair.
-				
-				
+				//either you, the player, or the crosshair.	
 				grid.drawGrid(13,13);
 				p1.drawPlayer();
-				System.out.println(System.currentTimeMillis() - start);
 			}
 		};
 		
@@ -180,7 +207,7 @@ public class ASControl {
 					mm.insertMessage("Picked up items.");
 					game.repaint();
 				} else {
-					mm.insertMessage("There is no item!");
+					mm.insertMessage("There are no items to pick up.");
 				}
 			}
 		};
@@ -193,10 +220,12 @@ public class ASControl {
 				//Goes to recon if in default player mode (every non-grid state is free)
 				if(game.inDefaultState()) {
 					game.switchGridState("crosshair");
+					game.switchFooterState("descript");
 					grid.setFocusedTile(p1.getX(), p1.getY());
 					mm.insertMessage("Arise!");
 				} else if(game.getGridState().equals("crosshair")) {
 					game.switchGridState("player");
+					game.switchFooterState("free");
 					grid.clearFocusedTile();
 					mm.insertMessage("Fallen!");
 				}

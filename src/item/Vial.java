@@ -24,7 +24,7 @@ public class Vial extends Item {
 			}
 		},
 		
-		new Vial("", "", 48, 0) {
+		new Vial("Test Ichor", "What is this?", 48, 0) {
 			@Override
 			public void use() {
 				

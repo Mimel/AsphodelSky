@@ -23,11 +23,6 @@ import item.Item;
 public class GUIFocus extends GUIComponent implements FocusComponent {
 	
 	/**
-	 * The terrain tileset to use.
-	 */
-	private Image TERRAIN_TILESET;
-	
-	/**
 	 * Hash table that links characters to their representative tile images within the
 	 * given tileset.
 	 */
@@ -72,7 +67,6 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 		selectedMode = modes[0];
 		
 		try {
-			TERRAIN_TILESET = ImageIO.read(new File("img/terrain/terraintileset.png"));
 			SELECTOR_YELLOW = ImageIO.read(new File("img/misc/selector_generic.png"));
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -108,23 +102,22 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 				for(int x = 0; x < grid[y].length; x++) {
 					currentTile = grid[y][x];
 					
-					//Tile.
-					drawImageFromTileset(g, TERRAIN_TILESET, x * squareSize, y * squareSize,
-							tileMargins.get(currentTile.getTerrain()).getValue0(),
-							tileMargins.get(currentTile.getTerrain()).getValue1(), squareSize);
+					g.drawImage(ImageAssets.getTerrainImage(currentTile.getTerrain()), x*squareSize, y*squareSize, null);
 					
-					//Player.
-					if(currentTile.getOccupant() != null && currentTile.getOccupant().getId() == 0) {
-						g.setColor(new Color(0, 200, 100));
-						g.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
+					//Player, Enemies.
+					if(currentTile.getOccupant() != null) {
+						if(currentTile.getOccupant().getId() == 0) {
+							g.setColor(new Color(0, 200, 100));
+							g.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
+						} else {
+							g.drawImage(ImageAssets.getCharImage(currentTile.getOccupant().getName()), x*squareSize, y*squareSize, null);
+						}	
 					}
 					
 					//Items.
 					if(!currentTile.getCatalog().isEmpty()) {
 						currentItem = currentTile.getCatalog().getItems().get(0);
-						
-						drawImageFromTileset(g, currentItem.getTileset(), x * squareSize, y * squareSize,
-											currentItem.getXOffset() + currentItem.getXMargin(), currentItem.getYOffset() + currentItem.getYMargin(), squareSize);
+						g.drawImage(ImageAssets.getItemImage(currentItem.getName()), x*squareSize, y*squareSize, null);
 					}
 					
 					//Focus crosshair, if used.

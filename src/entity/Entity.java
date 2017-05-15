@@ -13,21 +13,21 @@ public interface Entity {
 	public int getId();
 	
 	/**
-	 * Returns the title of a given entity. Implementors must declare a title global.
-	 * @return The title of the entity.
-	 */
-	public String getTitle();
-	
-	/**
 	 * Returns the name of a given entity. Implementors must declare a name global.
 	 * @return The name of an entity.
 	 */
 	public String getName();
 	
 	/**
+	 * Returns the title of a given entity. Implementors must declare a title global.
+	 * @return The title of the entity.
+	 */
+	public String getTitle();
+	
+	/**
 	 * Sets the name of a given entity. Implementors must declare a name global.
 	 * @param name The new name of the entity.
 	 */
-	public void setName(String name);
+	public void setTitle(String title);
 	
 }

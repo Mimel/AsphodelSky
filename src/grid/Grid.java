@@ -133,6 +133,18 @@ public class Grid {
 	}
 	
 	/**
+	 * Gets the tile that is currently being focused. If there is no focused tile, returns null.
+	 * @return The focused tile, or null if there is none.
+	 */
+	public Tile getFocusedTile() {
+		if(xFocusedTile != -1 && yFocusedTile != -1) {
+			return map[yFocusedTile][xFocusedTile];
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * Sets the current focus, if there exists no focused tile.
 	 * @param newX
 	 * @param newY
@@ -244,8 +256,8 @@ public class Grid {
 					//Move occupant.
 					map[yOcc + yOffset][xOcc + xOffset].fillOccupant(map[yOcc][xOcc].vacateOccupant());
 					
-					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setX(xOcc + xOffset);
-					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setY(yOcc + yOffset);
+					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setX(xOffset);
+					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setY(yOffset);
 					
 					return true;
 				}

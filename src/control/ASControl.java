@@ -40,6 +40,7 @@ public class ASControl {
 	
 	/**
 	 * The current grid on which the game currently operates.
+	 * Test
 	 */
 	private static Grid grid;
 	

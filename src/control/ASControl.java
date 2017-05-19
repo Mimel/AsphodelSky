@@ -236,7 +236,8 @@ public class ASControl {
 		};
 		
 		Action inventory = new AbstractAction() {
-			
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(game.inDefaultState()) {
@@ -253,7 +254,7 @@ public class ASControl {
 					String desc = p1.getInventory().getFocusedItem().getVisualDescription();
 					
 					mm.loadSourceDescPair(name, desc);
-				} else if(game.getFooterState().equals("descript")) {
+				} else if(game.getGridState().equals("free") && game.getFooterState().equals("descript")) {
 					game.switchFooterState("free");
 					game.switchSidebarState("free");
 				}
@@ -262,10 +263,14 @@ public class ASControl {
 		};
 		
 		Action use = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(game.getSidebarState().equals("inventory")) {
 					p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1);
+					p1.getInventory().resetFocusIndex();
+					
 					mm.insertMessage("Consumed.");
 					
 					game.switchFooterState("free");
@@ -315,11 +320,11 @@ public class ASControl {
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('r'), "recon");
 		game.getActionMap().put("recon", recon);
 		
-		//I = Inventory. TODO Implementing
+		//I = Inventory.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "inventory");
 		game.getActionMap().put("inventory", inventory);
 		
-		//U = Use. TODO Implementing
+		//U = Use.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
 		game.getActionMap().put("use", use);
 

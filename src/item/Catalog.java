@@ -36,6 +36,10 @@ public class Catalog {
 		return focusedItemIndex;
 	}
 	
+	public void resetFocusIndex() {
+		focusedItemIndex = 0;
+	}
+	
 	/**
 	 * Gets the focused Item, without the amount.
 	 * @return The focused Item, without the amount.

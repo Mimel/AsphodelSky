@@ -45,7 +45,7 @@ public class Tile {
 	
 	/**
 	 * The flags on a tile are represented by 8 binary digits in a byte.
-	 * The bits can be represented as the string TBCKPWMF, where T is the most significant bit.
+	 * The bits can be represented as the string T???????, where T is the most significant bit.
 	 * 
 	 * T = Traversable: When on, the tile is able to be traversed. This implies
 	 * that there can be an occupant on this tile, and that occupants can move into
@@ -146,10 +146,19 @@ public class Tile {
 	public boolean isFocused() { return isFocused; }
 	public Catalog getCatalog() { return catalog; }
 	
+	/**
+	 * Checks if the Traversible bit in the flags byte is on; if so, then the tile can be occupied.
+	 * @see flags
+	 * @return True if the tile can be occupied, false if not.
+	 */
 	public boolean canOccupy() { 
 		return (flags & 0b10000000) != 0; 
 	}
 	
+	/**
+	 * Makes a tile focused when it was originally unfocused, or
+	 * unfocused when it was originally focused.
+	 */
 	void toggleFocused() {
 		isFocused = !isFocused;
 	}

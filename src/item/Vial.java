@@ -13,7 +13,7 @@ public class Vial extends Item {
 			//TESTING adding player parameter.
 			@Override
 			public void use(Combatant user) {
-				user.decreaseHealthBy(14);
+				user.adjustHealthBy(-12);
 			}
 		},
 		

@@ -48,6 +48,46 @@ public abstract class Combatant implements Occupant {
 	 * The maximum health of the combatant, as a non-zero positive integer.
 	 */
 	private int maximumHealth;
+
+	/**
+	 * The current momentum of the combatant, which represents a positive integer between 0 and 99 inclusively.
+	 */
+	private int momentum;
+	
+	/**
+	 * The current science of the combatant; the "mana" analogue.
+	 */
+	private int currentScience;
+	
+	/**
+	 * The maximum science of the combatant; the "mana" analogue.
+	 */
+	private int maximumScience;
+	
+	/**
+	 * 
+	 */
+	private int poise;
+	
+	/**
+	 * 
+	 */
+	private int subtlety;
+	
+	/**
+	 * 
+	 */
+	private int acumen;
+	
+	/**
+	 * 
+	 */
+	private int charisma;
+	
+	/**
+	 * 
+	 */
+	private int intuition;
 	
 	/**
 	 * The inventory of the combatant.
@@ -71,6 +111,21 @@ public abstract class Combatant implements Occupant {
 		this.currentHealth = max;
 		
 		this.inventory = new Catalog();
+	}
+	
+	Combatant(int id, String name, String title, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+		this(id, name, title, health);
+		
+		this.momentum = momentum;
+		
+		this.currentScience = science;
+		this.maximumScience = science;
+		
+		this.poise = pse;
+		this.subtlety = sub;
+		this.acumen = acu;
+		this.charisma = cha;
+		this.intuition = itt;
 	}
 	
 	/**
@@ -158,27 +213,78 @@ public abstract class Combatant implements Occupant {
 		return maximumHealth;
 	}
 	
+	public int getMomentum() {
+		return momentum;
+	}
+
+	public int getCurrentScience() {
+		return currentScience;
+	}
+
+	public int getMaximumScience() {
+		return maximumScience;
+	}
+
+	public int getPoise() {
+		return poise;
+	}
+
+	public int getSubtlety() {
+		return subtlety;
+	}
+
+	public int getAcumen() {
+		return acumen;
+	}
+
+	public int getCharisma() {
+		return charisma;
+	}
+
+	public int getIntuition() {
+		return intuition;
+	}
+	
 	/**
 	 * Decreases the amount of current health by a given amount.
-	 * @param healthLoss The amount of health to subtract.
+	 * @param healthAdjustment The amount of health to add to the current health.
 	 */
-	public void decreaseHealthBy(int healthLoss) {
-		if(healthLoss > currentHealth) {
+	public void adjustHealthBy(int healthAdjustment) {
+		if(healthAdjustment > currentHealth) {
 			currentHealth = 0;
+		} else if(currentHealth + healthAdjustment >= maximumHealth) {
+			currentHealth = maximumHealth;
 		} else {
-			currentHealth -= healthLoss;
+			currentHealth += healthAdjustment;
 		}
 	}
 	
 	/**
-	 * Increases the amount of current health by a given amount.
-	 * @param healthGain The amount of health to add.
+	 * Adjusts the current momentum of the combatant by a given amount. This adjusted amount cannot
+	 * exceed 99 or fall below 0.
+	 * @param momentumAdjustment The amount to add to the current momentum.
 	 */
-	public void increaseHealthBy(int healthGain) {
-		if(currentHealth + healthGain > maximumHealth) {
-			currentHealth = maximumHealth;
+	public void adjustMomentumBy(int momentumAdjustment) {
+		if(momentumAdjustment > momentum) {
+			momentum = 0;
+		} else if (momentum + momentumAdjustment >= 99) {
+			momentum = 99;
 		} else {
-			currentHealth += healthGain;
+			momentum += momentumAdjustment;
+		}
+	}
+	
+	/**
+	 * Decreases the amount of current science by a given amount.
+	 * @param scienceAdjustment The amount of science to add to the current science.
+	 */
+	public void adjustScienceBy(int scienceAdjustment) {
+		if(scienceAdjustment > currentScience) {
+			currentScience = 0;
+		} else if(currentScience + scienceAdjustment >= maximumScience) {
+			currentScience = maximumScience;
+		} else {
+			currentScience += scienceAdjustment;
 		}
 	}
 	

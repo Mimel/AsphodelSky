@@ -7,7 +7,6 @@ package control;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,12 +34,9 @@ public class ASControl {
 	 * You!
 	 */
 	private static Player p1;
-	
-	private static ArrayList<Combatant> enemyRoster;
-	
+
 	/**
 	 * The current grid on which the game currently operates.
-	 * Test
 	 */
 	private static Grid grid;
 	
@@ -74,18 +70,7 @@ public class ASControl {
 
 		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
 		
-		enemyRoster = new ArrayList<Combatant>();
-		
-		Combatant f1 = Flutter.AI_FLUTTER[0];
-		f1.setX(7);
-		f1.setY(7);
-		enemyRoster.add(f1);
-		
 		grid.getTileAt(1, 1).fillOccupant(p1);
-		//Temp
-		grid.getTileAt(7, 7).fillOccupant(f1);
-		grid.getTileAt(12, 12).fillOccupant(Rush.AI_RUSH[0]);
-		grid.getTileAt(3, 6).fillOccupant(Kite.AI_KITE[0]);
 		
 		grid.getTileAt(1, 4).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
@@ -328,6 +313,5 @@ public class ASControl {
 		//U = Use.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
 		game.getActionMap().put("use", use);
-
 	}
 }

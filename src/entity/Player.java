@@ -27,11 +27,4 @@ public class Player extends Combatant {
 	public void drawPlayer() {
 		combatantOutput.drawCombatantInfo(this);
 	}
-	
-	/**
-	 * The player does not get an act command; they are controlled by a person.
-	 */
-	public void act(Grid g) {
-		return;
-	}
 }

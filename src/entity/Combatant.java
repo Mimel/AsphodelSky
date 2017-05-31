@@ -2,6 +2,8 @@ package entity;
 
 import item.Catalog;
 
+import javax.naming.OperationNotSupportedException;
+
 /**
  * A combatant is an occupant that is able to fight; this implies that they have all the attributes that a typical player has,
  * such as health, momentum, an inventory, and equipment.
@@ -40,7 +42,7 @@ public abstract class Combatant implements Occupant {
 	/**
 	 * The current health of the combatant, as a positive integer. Must
 	 * be smaller or equal to the maximum health.
-	 * @see maximumHealth
+	 * @see #maximumHealth
 	 */
 	private int currentHealth;
 	
@@ -127,6 +129,11 @@ public abstract class Combatant implements Occupant {
 		this.charisma = cha;
 		this.intuition = itt;
 	}
+
+	Combatant(Combatant c) {
+		//TODO
+		throw new UnsupportedOperationException();
+	}
 	
 	/**
 	 * Gets the id of the combatant.
@@ -199,7 +206,7 @@ public abstract class Combatant implements Occupant {
 	/**
 	 * Retrieves the current health of the combatant.
 	 * @return The current health of the combatant.
-	 * @see getMaxHealth
+	 * @see #getMaxHealth
 	 */
 	public int getHealth() {
 		return currentHealth;

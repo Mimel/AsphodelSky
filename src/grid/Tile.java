@@ -95,7 +95,7 @@ public class Tile {
 	 * Loads the hashmap TerrainCharacterToTraits by scouring a file with the given
 	 * file name and adding the key-value pairs to the hashmap.
 	 * @param fileName The name of the file to find the key-value pairs in.
-	 * @see TerrainCharacterToTraits
+	 * @see #TerrainCharacterToTraits
 	 */
 	public static void loadTraitMapping(String fileName) {
 		
@@ -148,7 +148,6 @@ public class Tile {
 	
 	/**
 	 * Checks if the Traversible bit in the flags byte is on; if so, then the tile can be occupied.
-	 * @see flags
 	 * @return True if the tile can be occupied, false if not.
 	 */
 	public boolean canOccupy() { 

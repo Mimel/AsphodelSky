@@ -245,7 +245,6 @@ public class Grid {
 	 * @return True if the entity was successfully moved, False if not.
 	 */
 	public boolean moveEntity(int xOcc, int yOcc, int xOffset, int yOffset) {
-		
 		//Check if the tile that is currently occupied and the tile that will be occupied are valid.
 		if(yOcc >= 0 && yOcc < map.length && xOcc >= 0 && xOcc < map[yOcc].length &&
 		   (yOcc + yOffset) >= 0 && (yOcc + yOffset) < map.length && (xOcc + xOffset) >= 0 && (xOcc + xOffset) < map[yOcc + yOffset].length) {
@@ -287,8 +286,6 @@ public class Grid {
 	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
 	 * If there is no crosshair in the given tile, that tile becomes focused.
 	 * Else, the the "isFocused" flag switches between the given tile and the tile plus offsets.
-	 * @param xFocus The X-coordinate of the crosshair.
-	 * @param yFocus The Y-coordinate of the crosshair.
 	 * @param xOffset The X-shift where the entity will go.
 	 * @param yOffset The Y-shift where the entity will go.
 	 */

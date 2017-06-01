@@ -38,7 +38,6 @@ public final class ImageAssets {
 			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
 			charIdToImage = new HashMap<String, Image>();
 			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
-			//Incomplete TODO
 			miscIdToImage = new HashMap<Character, Image>();
 			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
 			
@@ -83,7 +82,8 @@ public final class ImageAssets {
 	 * [Character][X-margin],[Y-margin]\n
 	 * 
 	 * @param map The given hashmap to fill.
-	 * @param textFile The text file location to find the pairing data.
+	 * @param tileset
+	 * @param fileName
 	 */
 	private static void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
@@ -119,7 +119,8 @@ public final class ImageAssets {
 	 * [String]@[X-margin],[Y-margin]\n
 	 * 
 	 * @param map The given hashmap to fill.
-	 * @param textFile The text file location to find the pairing data.
+	 * @param tileset
+	 * @param fileName
 	 */
 	private static void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	

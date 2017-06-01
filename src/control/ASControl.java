@@ -61,17 +61,24 @@ public class ASControl {
 		
 		mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
-		
+
+		//Mapping/Images/Assets loading.
 		ImageAssets.load();
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		
-		//PLAYGROUND
+		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getFocus());
 
 		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
 		
 		grid.getTileAt(1, 1).fillOccupant(p1);
+
+		//TODO Issues: e, painted does not show image (This is due to enemy ids being 0; create ID assignment system). Revise grid fillOccupant so that no set?(?)'s are needed.
+		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");
+		e.setX(4);
+		e.setY(4);
+		grid.getTileAt(4, 4).fillOccupant(e);
 		
 		grid.getTileAt(1, 4).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);

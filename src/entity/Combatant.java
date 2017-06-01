@@ -2,8 +2,6 @@ package entity;
 
 import item.Catalog;
 
-import javax.naming.OperationNotSupportedException;
-
 /**
  * A combatant is an occupant that is able to fight; this implies that they have all the attributes that a typical player has,
  * such as health, momentum, an inventory, and equipment.
@@ -328,4 +326,6 @@ public abstract class Combatant implements Occupant {
 	public Catalog getInventory() {
 		return inventory;
 	}
+
+	public abstract void act(OperationAI opai);
 }

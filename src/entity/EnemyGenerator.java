@@ -22,8 +22,24 @@ public final class EnemyGenerator {
      */
     private EnemyGenerator(){}
 
-    public Combatant getEnemyByName(String name) {
-        return nameToCombatant.get(name);
+    public static Combatant getEnemyByName(String name) {
+        Combatant c = nameToCombatant.get(name);
+
+        if(c != null) {
+            if(c instanceof MindlessAI) {
+                return new MindlessAI((MindlessAI)c);
+            } else if(c instanceof AnimalisticAI) {
+                return new AnimalisticAI((AnimalisticAI)c);
+            } else if(c instanceof UnderdevelopedAI) {
+                return new UnderdevelopedAI((UnderdevelopedAI)c);
+            } else if(c instanceof SapientAI) {
+                return new SapientAI((SapientAI)c);
+            } else if(c instanceof BrilliantAI) {
+                return new BrilliantAI((BrilliantAI)c);
+            }
+        }
+
+        return null;
     }
 
     public static void loadEnemyMapping(String fileName) {

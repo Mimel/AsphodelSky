@@ -5,8 +5,8 @@ package entity;
  */
 public class MindlessAI extends Combatant implements EnemyAI {
 
-    public MindlessAI(int id, String name, String title, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
-        super(id, name, title, health, momentum, science, pse, sub, acu, cha, itt);
+    public MindlessAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+        super(name, title, desc, health, momentum, science, pse, sub, acu, cha, itt);
     }
 
     public void act(OperationAI opai) {

@@ -14,8 +14,8 @@ public class Player extends Combatant {
 	private SidebarComponent combatantOutput;
 	
 	public Player(String name, String title, int x, int y, int health, SidebarComponent sc) {
-		super(0, name, title, health);
-		
+		super(name, title, "", health, 0);
+
 		this.setX(x);
 		this.setY(y);
 		this.combatantOutput = sc;

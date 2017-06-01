@@ -33,14 +33,14 @@ public final class ImageAssets {
 			
 			// Initialize hashmaps.
 			terrIdToImage = new HashMap<Character, Image>();
-			fillCharHashmap(terrIdToImage, TILESET_TERR, "img/terrain/terrmap.dat");
+			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
 			itemIdToImage = new HashMap<String, Image>();
-			fillStringHashmap(itemIdToImage, TILESET_ITEM, "img/item/itemmap.dat");
+			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
 			charIdToImage = new HashMap<String, Image>();
-			fillStringHashmap(charIdToImage, TILESET_CHAR, "img/enemy/charmap.dat");
+			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
 			//Incomplete TODO
 			miscIdToImage = new HashMap<Character, Image>();
-			fillCharHashmap(miscIdToImage, TILESET_MISC, "img/misc/miscmap.dat");
+			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
 			
 		} catch(IOException ioe) {
 			ioe.printStackTrace();

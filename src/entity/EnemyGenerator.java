@@ -22,7 +22,11 @@ public final class EnemyGenerator {
      */
     private EnemyGenerator(){}
 
-    public void loadEnemyMapping(String fileName) {
+    public Combatant getEnemyByName(String name) {
+        return nameToCombatant.get(name);
+    }
+
+    public static void loadEnemyMapping(String fileName) {
         if(nameToCombatant == null) {
             nameToCombatant = new HashMap<String, Combatant>();
         }
@@ -41,26 +45,64 @@ public final class EnemyGenerator {
             int charisma = 0;
             int intuition = 0;
 
+            int arrowPos = 0; //The position of the '>' key in each line.
+
             while((currLine = br.readLine()) != null) {
-                if(name.equals("")) {
-                    name = currLine;
-                } else if(desc.equals("")) {
-                    desc = currLine;
-                } else if(currLine.equals("END")) { //Reset
-                    nameToCombatant.put(name, new MindlessAI(17, name, desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                arrowPos = currLine.indexOf('>');
+
+                if(name.equals("")) { //Line after the intelligence descriptor, where name and desc are found.
+                    name = currLine.substring(0, arrowPos);
+                    desc = currLine.substring(arrowPos + 1);
+
+                } else if(arrowPos == -1) { //The intelligence descriptor; Create new object based on character, add to map, and reset.
+                    //Acts as a compact factory of sorts.
+                    switch(currLine.charAt(0)) {
+                        case 'M':
+                            nameToCombatant.put(name, new MindlessAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            break;
+                        case 'A':
+                            nameToCombatant.put(name, new AnimalisticAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            break;
+                        case 'U':
+                            nameToCombatant.put(name, new UnderdevelopedAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            break;
+                        case 'S':
+                            nameToCombatant.put(name, new SapientAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            break;
+                        case 'B':
+                            nameToCombatant.put(name, new BrilliantAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            break;
+                    }
+
                     name = "";
                     desc = "";
-                } else { //Stat detailing
-                    String[] stats = currLine.split(" ");
-                    if(stats.length >= 7)  { //There are currently 7 stats TODO This is ridiculously assumptive. Revise.
-                        health = Integer.parseInt(stats[0]);
-                        science = Integer.parseInt(stats[1]);
 
-                        poise = Integer.parseInt(stats[2]);
-                        subtlety = Integer.parseInt(stats[3]);
-                        acumen = Integer.parseInt(stats[4]);
-                        charisma = Integer.parseInt(stats[5]);
-                        intuition = Integer.parseInt(stats[6]);
+                } else {
+
+                    int value = Integer.parseInt(currLine.substring(arrowPos + 1));
+
+                    switch(currLine.substring(0, arrowPos)) {
+                        case "HPP":
+                            health = value;
+                            break;
+                        case "SPP":
+                            science = value;
+                            break;
+                        case "PSE":
+                            poise = value;
+                            break;
+                        case "SUB":
+                            subtlety = value;
+                            break;
+                        case "ACU":
+                            acumen = value;
+                            break;
+                        case "CHA":
+                            charisma = value;
+                            break;
+                        case "ITT":
+                            intuition = value;
+                            break;
                     }
                 }
             }

@@ -23,6 +23,12 @@ public interface Entity {
 	 * @return The title of the entity.
 	 */
 	public String getTitle();
+
+	/**
+	 * Returns the description of a given entity. Implementors must declare a description global.
+	 * @return The description of the entity.
+	 */
+	public String getDesc();
 	
 	/**
 	 * Sets the name of a given entity. Implementors must declare a name global.

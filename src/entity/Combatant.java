@@ -28,6 +28,11 @@ public abstract class Combatant implements Occupant {
 	 * have a title, this field is an empty string.
 	 */
 	private String title;
+
+	/**
+	 * The description of the combatant. Liable to change during runtime.
+	 */
+	private String desc;
 	
 	/**
 	 * The location of the combatant, with regards to the x-position.
@@ -95,31 +100,46 @@ public abstract class Combatant implements Occupant {
 	 * The inventory of the combatant.
 	 */
 	private Catalog inventory;
-	
-	Combatant(int max) {
-		this.maximumHealth = max;
-		this.currentHealth = max;
-		
+
+	/**
+	 * Creates a default combatant with all fields zeroed.
+	 */
+	Combatant() {
+		this.name = "";
+		this.title = "";
+		this.desc = "";
 		this.inventory = new Catalog();
 	}
-	
-	//HUGE TODO, TEMP; id should be unique
-	Combatant(int id, String name, String title, int max) {
-		this.id = id;
+
+	/**
+	 * Creates a combatant with zeroed stats.
+	 * @param name
+	 * @param title
+	 * @param desc
+	 * @param health
+	 * @param science
+	 */
+	Combatant(String name, String title, String desc, int health, int science) {
 		this.name = name;
 		this.title = title;
-		
-		this.maximumHealth = max;
-		this.currentHealth = max;
-		
+		this.desc = desc;
+
+		this.maximumHealth = health;
+		this.currentHealth = health;
+		this.maximumScience = science;
+		this.currentScience = science;
+
 		this.inventory = new Catalog();
 	}
 	
-	Combatant(int id, String name, String title, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
-		this(id, name, title, health);
-		
+	Combatant(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+		this.name = name;
+		this.title = title;
+		this.desc = desc;
+
+		this.maximumHealth = health;
+		this.currentHealth = health;
 		this.momentum = momentum;
-		
 		this.currentScience = science;
 		this.maximumScience = science;
 		
@@ -158,6 +178,12 @@ public abstract class Combatant implements Occupant {
 	public String getTitle() {
 		return title;
 	}
+
+	/**
+	 * Gets the description of the combatant.
+	 * @return The description of the combatant.
+	 */
+	public String getDesc() { return desc; }
 	
 	/**
 	 * Sets the title of the combatant to the specified title.
@@ -257,7 +283,7 @@ public abstract class Combatant implements Occupant {
 	 * @param healthAdjustment The amount of health to add to the current health.
 	 */
 	public void adjustHealthBy(int healthAdjustment) {
-		if(healthAdjustment > currentHealth) {
+		if(healthAdjustment + currentHealth < 0) {
 			currentHealth = 0;
 		} else if(currentHealth + healthAdjustment >= maximumHealth) {
 			currentHealth = maximumHealth;
@@ -286,7 +312,7 @@ public abstract class Combatant implements Occupant {
 	 * @param scienceAdjustment The amount of science to add to the current science.
 	 */
 	public void adjustScienceBy(int scienceAdjustment) {
-		if(scienceAdjustment > currentScience) {
+		if(scienceAdjustment + currentScience < 0) {
 			currentScience = 0;
 		} else if(currentScience + scienceAdjustment >= maximumScience) {
 			currentScience = maximumScience;

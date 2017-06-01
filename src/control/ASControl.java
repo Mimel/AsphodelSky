@@ -63,7 +63,8 @@ public class ASControl {
 		threadList.execute(mm);
 		
 		ImageAssets.load();
-		Tile.loadTraitMapping("img/terrain/terr_CharToTraitsMap.dat");
+		Tile.loadTraitMapping("map/terr_infomap.dat");
+		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		
 		//PLAYGROUND
 		grid = new Grid(game.getFocus());

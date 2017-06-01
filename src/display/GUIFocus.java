@@ -86,7 +86,6 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 	
 	/**
 	 * Draws the grid, and all items within the grid.
-	 * TODO: test.
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {

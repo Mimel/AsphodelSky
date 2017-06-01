@@ -70,7 +70,7 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 			g2.drawString(combatantFocus.getTitle(), 35, 50);
 			g2.drawString("Health: " + combatantFocus.getHealth() + "/" + combatantFocus.getMaxHealth(), 35, 75);
 			
-			//TODO: Inventory takes 26 slots, one for each letter of the alphabet. 
+			//Inventory takes 26 slots, one for each letter of the alphabet.
 			//Also, get rid of all magic.
 			
 			List<Item> items = combatantFocus.getInventory().getItems();

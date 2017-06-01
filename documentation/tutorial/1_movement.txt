@@ -1,7 +1,0 @@
------------------------
-| Chapter 1: Movement |
------------------------
-
-Hello, and welcome to Asphodel Sky!
-
-To move your character around, 

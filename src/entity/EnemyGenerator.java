@@ -8,7 +8,6 @@ import java.util.HashMap;
 /**
  * Container for all enemy information. Distributes instances to other classes
  * via copy constructor and extracts from a hashmap which must be initialized.
- * TODO rename
  */
 public final class EnemyGenerator {
 

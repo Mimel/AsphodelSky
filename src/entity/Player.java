@@ -27,4 +27,13 @@ public class Player extends Combatant {
 	public void drawPlayer() {
 		combatantOutput.drawCombatantInfo(this);
 	}
+
+	/**
+	 * The player should never act. This method returns, doing nothing.
+	 * @param opai The operation to perform on this combatant.
+	 */
+	@Override
+	public void act(OperationAI opai) {
+		return;
+	}
 }

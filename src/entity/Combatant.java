@@ -2,12 +2,16 @@ package entity;
 
 import item.Catalog;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * A combatant is an occupant that is able to fight; this implies that they have all the attributes that a typical player has,
  * such as health, momentum, an inventory, and equipment.
  * @author Matt Imel
  */
 public abstract class Combatant implements Occupant {
+
+	private static final AtomicInteger auto_incr_id = new AtomicInteger(0);
 	
 	/**
 	 * The id of the combatant. Each instance of any enemy has a unique integer id,
@@ -118,6 +122,7 @@ public abstract class Combatant implements Occupant {
 	 * @param science
 	 */
 	Combatant(String name, String title, String desc, int health, int science) {
+		this.id = auto_incr_id.getAndIncrement(); //TODO causes error in grid drawing
 		this.name = name;
 		this.title = title;
 		this.desc = desc;
@@ -131,6 +136,7 @@ public abstract class Combatant implements Occupant {
 	}
 	
 	Combatant(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+		this.id = auto_incr_id.getAndIncrement();
 		this.name = name;
 		this.title = title;
 		this.desc = desc;

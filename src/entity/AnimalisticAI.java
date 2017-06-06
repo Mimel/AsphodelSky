@@ -5,11 +5,11 @@ package entity;
  */
 public class AnimalisticAI extends Combatant {
 
-    public AnimalisticAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+    AnimalisticAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
         super(name, title, desc, health, momentum, science, pse, sub, acu, cha, itt);
     }
 
-    public AnimalisticAI(AnimalisticAI aai) {
+    AnimalisticAI(AnimalisticAI aai) {
         super(aai.getName(), aai.getTitle(), aai.getDesc(),
                 aai.getMaxHealth(), aai.getMomentum(), aai.getMaximumScience(),
                 aai.getPoise(), aai.getSubtlety(), aai.getAcumen(), aai.getCharisma(), aai.getIntuition());

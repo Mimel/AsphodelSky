@@ -62,6 +62,9 @@ public class ASControl {
 		mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
 
+		//TODO: p1 must be instantiated before enemy map loading in order to ensure that p1 has id 0; fix.
+		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
+
 		//Mapping/Images/Assets loading.
 		ImageAssets.load();
 		Tile.loadTraitMapping("map/terr_infomap.dat");
@@ -69,12 +72,8 @@ public class ASControl {
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getFocus());
-
-		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
-		
 		grid.getTileAt(1, 1).fillOccupant(p1);
 
-		//TODO Issues: e, painted does not show image (This is due to enemy ids being 0; create ID assignment system). Revise grid fillOccupant so that no set?(?)'s are needed.
 		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");
 		e.setX(4);
 		e.setY(4);
@@ -84,6 +83,7 @@ public class ASControl {
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
 		grid.getTileAt(5, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(2, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
+		System.out.println(grid);
 		
 		grid.drawGrid(13,13);
 		p1.drawPlayer();

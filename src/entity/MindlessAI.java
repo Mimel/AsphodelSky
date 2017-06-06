@@ -5,11 +5,11 @@ package entity;
  */
 public class MindlessAI extends Combatant {
 
-    public MindlessAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
+    MindlessAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
         super(name, title, desc, health, momentum, science, pse, sub, acu, cha, itt);
     }
 
-    public MindlessAI(MindlessAI mai) {
+    MindlessAI(MindlessAI mai) {
         super(mai.getName(), mai.getTitle(), mai.getDesc(),
                 mai.getMaxHealth(), mai.getMomentum(), mai.getMaximumScience(),
                 mai.getPoise(), mai.getSubtlety(), mai.getAcumen(), mai.getCharisma(), mai.getIntuition());

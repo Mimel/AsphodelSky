@@ -1,9 +1,9 @@
 package control;
 
 //TODO LIST
-//5.15//Testing, documenting. Make absolutely sure mapping scheme works.
+//6.6//Clean up, document. Eliminate most warnings.
 //Persistent//Lag on startup - examine.
-//Persistent//Redundancy exists in coordinates. Perhaps revise.
+//Persistent//Redundancy exists in coordinates. Revise.
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

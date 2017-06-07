@@ -1,7 +1,10 @@
 package entity;
 
+import grid.Grid;
+
 /**
- * Created by Owner on 5/31/2017.
+ * A class of enemies that share the "Animalistic" intelligence. Their associated algorithms from OperationAI are more 'smart' than
+ * Mindless enemies and 'dumber' than Underdeveloped enemies.
  */
 public class AnimalisticAI extends Combatant {
 
@@ -15,7 +18,8 @@ public class AnimalisticAI extends Combatant {
                 aai.getPoise(), aai.getSubtlety(), aai.getAcumen(), aai.getCharisma(), aai.getIntuition());
     }
 
-    public void act(OperationAI opai) {
-        opai.useAnimalistic(this);
+    @Override
+    public void act(OperationAI opai, int time, Grid gr) {
+        opai.useAnimalistic(this, time, gr);
     }
 }

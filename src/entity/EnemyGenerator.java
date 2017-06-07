@@ -22,6 +22,11 @@ public final class EnemyGenerator {
      */
     private EnemyGenerator(){}
 
+    /**
+     * Returns a copy of an enemy in the mapping by name.
+     * @param name The name of the combatant to search for.
+     * @return A copy of the combatant if the name is present, or null if not.
+     */
     public static Combatant getEnemyByName(String name) {
         Combatant c = nameToCombatant.get(name);
 
@@ -42,6 +47,10 @@ public final class EnemyGenerator {
         return null;
     }
 
+    /**
+     * Loads the entire map of names to enemy stats, given a specific file name.
+     * @param fileName The .dat file to look up, containing all mapping information.
+     */
     public static void loadEnemyMapping(String fileName) {
         if(nameToCombatant == null) {
             nameToCombatant = new HashMap<String, Combatant>();

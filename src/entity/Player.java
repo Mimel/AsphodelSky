@@ -33,7 +33,7 @@ public class Player extends Combatant {
 	 * @param opai The operation to perform on this combatant.
 	 */
 	@Override
-	public void act(OperationAI opai) {
+	public void act(OperationAI opai, int time, Grid gr) {
 		return;
 	}
 }

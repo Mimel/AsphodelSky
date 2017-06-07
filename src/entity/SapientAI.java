@@ -1,7 +1,10 @@
 package entity;
 
+import grid.Grid;
+
 /**
- * Created by Owner on 5/31/2017.
+ * A class of enemies that share the "Sapient" intelligence. Their associated algorithms from OperationAI are more 'smart' than
+ * Underdeveloped enemies and 'dumber' than Brilliant enemies.
  */
 public class SapientAI extends Combatant {
     SapientAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
@@ -14,7 +17,7 @@ public class SapientAI extends Combatant {
                 sai.getPoise(), sai.getSubtlety(), sai.getAcumen(), sai.getCharisma(), sai.getIntuition());
     }
 
-    public void act(OperationAI opai) {
-        opai.useSapient(this);
+    public void act(OperationAI opai, int time, Grid gr) {
+        opai.useSapient(this, time, gr);
     }
 }

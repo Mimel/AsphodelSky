@@ -1,7 +1,10 @@
 package entity;
 
+import grid.Grid;
+
 /**
- * Created by Owner on 5/31/2017.
+ * A class of enemies that share the "Mindless" intelligence. Their associated algorithms from OperationAI are the 'dumbest'
+ * of the five intelligence classes.
  */
 public class MindlessAI extends Combatant {
 
@@ -15,7 +18,7 @@ public class MindlessAI extends Combatant {
                 mai.getPoise(), mai.getSubtlety(), mai.getAcumen(), mai.getCharisma(), mai.getIntuition());
     }
 
-    public void act(OperationAI opai) {
-        opai.useMindless(this);
+    public void act(OperationAI opai, int time, Grid gr) {
+        opai.useMindless(this, time, gr);
     }
 }

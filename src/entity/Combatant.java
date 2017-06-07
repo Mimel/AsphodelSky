@@ -1,5 +1,6 @@
 package entity;
 
+import grid.Grid;
 import item.Catalog;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,8 +21,8 @@ public abstract class Combatant implements Occupant {
 	private int id;
 	
 	/**
-	 * The name of the combatant. Can be a uniquish name (e.g. Matt, Joselyn) or
-	 * a description (Fighter, Kivian Stag Beetle). 
+	 * The name of the combatant. Can be a unique name (e.g. Matt, Joselyn) or
+	 * a description (Fighter, Stag Beetle).
 	 */
 	private String name;
 	
@@ -74,27 +75,27 @@ public abstract class Combatant implements Occupant {
 	private int maximumScience;
 	
 	/**
-	 * 
+	 * The fighting prowess of the combatant. Primarily determines melee and heavier weapon efficacy.
 	 */
 	private int poise;
 	
 	/**
-	 * 
+	 * The ability to be unseen and do the unseen. Primarily determines smaller weapon efficacy, as well as a modicum of charisma's job.
 	 */
 	private int subtlety;
 	
 	/**
-	 * 
+	 * The mental capability of the combatant. Primarily determines efficacy of all science.
 	 */
 	private int acumen;
 	
 	/**
-	 * 
+	 * The glibness of the combatant. Primarily affects efficacy of allies, as well as enemy manipulation.
 	 */
 	private int charisma;
 	
 	/**
-	 * 
+	 * The intuition of the combatant. All-rounder.
 	 */
 	private int intuition;
 	
@@ -104,22 +105,12 @@ public abstract class Combatant implements Occupant {
 	private Catalog inventory;
 
 	/**
-	 * Creates a default combatant with all fields zeroed.
-	 */
-	Combatant() {
-		this.name = "";
-		this.title = "";
-		this.desc = "";
-		this.inventory = new Catalog();
-	}
-
-	/**
 	 * Creates a combatant with zeroed stats.
-	 * @param name
-	 * @param title
-	 * @param desc
-	 * @param health
-	 * @param science
+	 * @param name The name of the combatant.
+	 * @param title The title of the combatant.
+	 * @param desc The visual description of the combatant.
+	 * @param health The health of the combatant.
+	 * @param science The science of the combatant.
 	 */
 	Combatant(String name, String title, String desc, int health, int science) {
 		this.id = auto_incr_id.getAndIncrement(); //TODO causes error in grid drawing
@@ -134,7 +125,21 @@ public abstract class Combatant implements Occupant {
 
 		this.inventory = new Catalog();
 	}
-	
+
+	/**
+	 * Creates a complete combatant.
+	 * @param name The name.
+	 * @param title The title.
+	 * @param desc The visual description.
+	 * @param health The health.
+	 * @param momentum The momentum.
+	 * @param science The science.
+	 * @param pse The poise.
+	 * @param sub The subtlety.
+	 * @param acu The acumen.
+	 * @param cha The charisma.
+	 * @param itt The intuition.
+	 */
 	Combatant(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
 		this.id = auto_incr_id.getAndIncrement();
 		this.name = name;
@@ -152,11 +157,6 @@ public abstract class Combatant implements Occupant {
 		this.acumen = acu;
 		this.charisma = cha;
 		this.intuition = itt;
-	}
-
-	Combatant(Combatant c) {
-		//TODO
-		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -333,5 +333,5 @@ public abstract class Combatant implements Occupant {
 		return inventory;
 	}
 
-	public abstract void act(OperationAI opai);
+	public abstract void act(OperationAI opai, int time, Grid gr);
 }

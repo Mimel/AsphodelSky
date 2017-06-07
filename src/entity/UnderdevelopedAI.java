@@ -1,7 +1,10 @@
 package entity;
 
+import grid.Grid;
+
 /**
- * Created by Owner on 5/31/2017.
+ * A class of enemies that share the "Underdeveloped" intelligence. Their associated algorithms from OperationAI are more 'smart' than
+ * Animalistic enemies and 'dumber' than Sapient enemies.
  */
 public class UnderdevelopedAI extends Combatant {
     UnderdevelopedAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
@@ -14,7 +17,7 @@ public class UnderdevelopedAI extends Combatant {
                 uai.getPoise(), uai.getSubtlety(), uai.getAcumen(), uai.getCharisma(), uai.getIntuition());
     }
 
-    public void act(OperationAI opai) {
-        opai.useUnderdeveloped(this);
+    public void act(OperationAI opai, int time, Grid gr) {
+        opai.useUnderdeveloped(this, time, gr);
     }
 }

@@ -1,6 +1,7 @@
 package grid;
 
 import display.FocusComponent;
+import entity.Combatant;
 import entity.Occupant;
 import generator.EmptyShipGenerator;
 
@@ -216,7 +217,7 @@ public class Grid {
 		if(y >= 0 && y < map.length && x >= 0 && x < map[y].length) {
 			return map[y][x];
 		} else {
-			return (Tile)null;
+			return null;
 		}	
 	}
 	
@@ -279,6 +280,10 @@ public class Grid {
 			}
 		}
 		
+		return null;
+	}
+
+	public Combatant searchForCombatant(int id) {
 		return null;
 	}
 	

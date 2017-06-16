@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.Combatant;
 import org.javatuples.Triplet;
 
 import entity.Occupant;
@@ -15,8 +16,6 @@ import item.Catalog;
  * The makeup of a grid, that may contain items, the player, and enemy, or otherwise;
  * All data is stored in each tile.
  * @author Matt Imel
- *
- * TODO: May require a restructure, if flags are to be a thing.
  */
 public class Tile {
 	
@@ -150,8 +149,8 @@ public class Tile {
 	 * Checks if the Traversible bit in the flags byte is on; if so, then the tile can be occupied.
 	 * @return True if the tile can be occupied, false if not.
 	 */
-	public boolean canOccupy() { 
-		return (flags & 0b10000000) != 0; 
+	public boolean canOccupy() {
+		return (flags & 0b10000000) != 0;
 	}
 	
 	/**
@@ -160,6 +159,14 @@ public class Tile {
 	 */
 	void toggleFocused() {
 		isFocused = !isFocused;
+	}
+
+	/**
+	 * Checks if the occupant in the tile is a combatant.
+	 * @return True if the occupant is a Combatant, false if not.
+	 */
+	public boolean isCombatant() {
+		return this.getOccupant() != null && this.getOccupant() instanceof Combatant;
 	}
 	
 	/**
@@ -180,7 +187,7 @@ public class Tile {
 	 * @return True if the occupant is successfully inserted, false if not.
 	 */
 	public boolean fillOccupant(Occupant newOccupant) {
-		//If the tile is traversable, and there is no occupant...
+		//If the tile is can be traversed, and there is no occupant...
 		if(canOccupy() && occupant == null) {
 			occupant = newOccupant;
 			return true;

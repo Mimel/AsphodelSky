@@ -20,6 +20,7 @@ import comm.MessageManager;
 import display.Display;
 import display.ImageAssets;
 import entity.*;
+import event.Instruction;
 import grid.*;
 import item.Item;
 import item.Vial;
@@ -69,10 +70,13 @@ public class ASControl {
 		ImageAssets.load();
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
+		Instruction.loadInstructionSet();
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getFocus());
 		grid.getTileAt(1, 1).fillOccupant(p1);
+
+		Instruction.execute("hello", 0, 0, grid);
 
 		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");
 		e.setX(4);

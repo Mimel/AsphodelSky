@@ -17,9 +17,9 @@ public class Event {
      */
     private int priority;
 
-    private Action act;
+    private Instruction act;
 
-    public Event(int time, int priority, Action act) {
+    public Event(int time, int priority, Instruction act) {
         this.triggerTime = time;
         this.priority = priority;
         this.act = act;

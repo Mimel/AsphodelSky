@@ -1,5 +1,7 @@
 package event;
 
+import grid.Grid;
+
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
  */
@@ -17,12 +19,32 @@ public class Event {
      */
     private int priority;
 
-    private Instruction act;
+    /**
+     * The id parameter to use in the instruction.
+     * Does NOT refer to the id of the event.
+     */
+    private int id;
 
-    public Event(int time, int priority, Instruction act) {
+    /**
+     * The secondary parameter to use in the instruction.
+     */
+    private int sec;
+
+    /**
+     * The instruction to perform.
+     */
+    private String opcode;
+
+    public Event(int time, int priority, String opcode, int id, int sec) {
         this.triggerTime = time;
-        this.priority = priority;
-        this.act = act;
+
+        if(priority >= 0) {
+            this.priority = priority;
+        }
+
+        this.opcode = opcode;
+        this.id = id;
+        this.sec = sec;
     }
 
     public int getTime() {
@@ -31,5 +53,9 @@ public class Event {
 
     public int getPriority() {
         return priority;
+    }
+
+    public void execute(Grid gr) {
+        Instruction.execute(opcode, id, sec, gr);
     }
 }

@@ -71,7 +71,7 @@ public class EventQueue {
      */
     public int progressTimeBy(int timeOffset, Grid gr) {
         while(timeOffset > 0) {
-            if(eventQueue.peek().getTime() > time) {
+            if(eventQueue.isEmpty() || eventQueue.peek().getTime() > time) {
                 time++;
                 timeOffset--;
             } else {

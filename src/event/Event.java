@@ -20,6 +20,11 @@ public class Event {
     private int priority;
 
     /**
+     * The instruction to perform.
+     */
+    private String opcode;
+
+    /**
      * The id parameter to use in the instruction.
      * Does NOT refer to the id of the event.
      */
@@ -29,11 +34,6 @@ public class Event {
      * The secondary parameter to use in the instruction.
      */
     private int sec;
-
-    /**
-     * The instruction to perform.
-     */
-    private String opcode;
 
     public Event(int time, int priority, String opcode, int id, int sec) {
         this.triggerTime = time;
@@ -47,14 +47,27 @@ public class Event {
         this.sec = sec;
     }
 
+    /**
+     * Gets the time in which the event is executed.
+     * @return The time.
+     */
     public int getTime() {
         return triggerTime;
     }
 
+    /**
+     * Gets the priority of the event. In cases where two events execute at the same time, the event with
+     * the higher priority is executed first.
+     * @return The priority of the event.
+     */
     public int getPriority() {
         return priority;
     }
 
+    /**
+     * Executes the instruction in this event.
+     * @param gr The grid to impose the instruction on.
+     */
     public void execute(Grid gr) {
         Instruction.execute(opcode, id, sec, gr);
     }

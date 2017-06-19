@@ -20,6 +20,7 @@ import comm.MessageManager;
 import display.Display;
 import display.ImageAssets;
 import entity.*;
+import event.EventQueue;
 import event.Instruction;
 import grid.*;
 import item.Item;
@@ -67,7 +68,7 @@ public class ASControl {
 		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
-		ImageAssets.load();
+		ImageAssets.loadImageMapping();
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
@@ -76,7 +77,11 @@ public class ASControl {
 		grid = new Grid(game.getFocus());
 		grid.getTileAt(1, 1).fillOccupant(p1);
 
-		Instruction.execute("hello", 0, 0, grid);
+		EventQueue eq = new EventQueue();
+		eq.addEvent(4, 100, "echo", 0, 100);
+		eq.addEvent(4, 50, "echo", 1, 50);
+		eq.addEvent(3, 100, "echo", 2, 6);
+		eq.progressTimeBy(5, grid);
 
 		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");
 		e.setX(4);
@@ -87,7 +92,7 @@ public class ASControl {
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
 		grid.getTileAt(5, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(2, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
-		System.out.println(grid);
+		//System.out.println(grid);
 		
 		grid.drawGrid(13,13);
 		p1.drawPlayer();

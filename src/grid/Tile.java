@@ -50,7 +50,7 @@ public class Tile {
 	 * that there can be an occupant on this tile, and that occupants can move into
 	 * and out of this tile. Only one occupant can be in a tile.
 	 * 
-	 * TODO ...
+	 * TODO Add more
 	 */
 	private byte flags;
 	

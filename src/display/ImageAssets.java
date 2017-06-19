@@ -15,37 +15,13 @@ import javax.imageio.ImageIO;
  * @author Matt Imel
  */
 public final class ImageAssets {
-	private static final int SPRITE_DIMENSION_PX;
+	private static final int SPRITE_DIMENSION_PX = 48;
 	
 	private static HashMap<Character, Image> terrIdToImage;
 	private static HashMap<String, Image> itemIdToImage;
 	private static HashMap<String, Image> charIdToImage;
 	private static HashMap<Character, Image> miscIdToImage;
-	
-	static {
-		SPRITE_DIMENSION_PX = 48;
-		try {
-			// Initialize tilesets.
-			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
-			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/vials.png"));
-			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/enemies.png"));
-			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/selector_generic.png"));
-			
-			// Initialize hashmaps.
-			terrIdToImage = new HashMap<Character, Image>();
-			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
-			itemIdToImage = new HashMap<String, Image>();
-			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
-			charIdToImage = new HashMap<String, Image>();
-			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
-			miscIdToImage = new HashMap<Character, Image>();
-			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
-			
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		}
-	}
-	
+
 	/**
 	 * Private constructor used to prevent instantiation of this utility class.
 	 */
@@ -55,7 +31,28 @@ public final class ImageAssets {
 	 * Forces class initialization. Must be called anywhere at least once in order to begin initialization
 	 * and use the class assets. May be a touch hacky in implementation, and will possibly be temporary.
 	 */
-	public static void load() {}
+	public static void loadImageMapping() {
+		try {
+			// Initialize tilesets.
+			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
+			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/vials.png"));
+			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/enemies.png"));
+			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/selector_generic.png"));
+
+			// Initialize hashmaps.
+			terrIdToImage = new HashMap<Character, Image>();
+			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
+			itemIdToImage = new HashMap<String, Image>();
+			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
+			charIdToImage = new HashMap<String, Image>();
+			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
+			miscIdToImage = new HashMap<Character, Image>();
+			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
+
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Gets the image in the tileset that is bound to the given character.

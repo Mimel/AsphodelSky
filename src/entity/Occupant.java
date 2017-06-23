@@ -3,6 +3,7 @@ package entity;
 /**
  * An occupant is an extension of an entity that is able to occupy a tile on the grid.
  * @author Matt Imel
+ * TODO consider deleting.
  */
 public interface Occupant extends Entity {
 	

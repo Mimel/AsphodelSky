@@ -2,6 +2,7 @@ package grid;
 
 import display.FocusComponent;
 import entity.Combatant;
+import entity.EnemyRoster;
 import entity.Occupant;
 import generator.EmptyShipGenerator;
 
@@ -41,6 +42,11 @@ public class Grid {
 	 * The Y-Coordinate of the focused tile, if any exist. If there are no focused tiles, this becomes -1.
 	 */
 	private int yFocusedTile;
+
+	/**
+	 * The set of enemies on this level.
+	 */
+	private EnemyRoster roster;
 	
 	/**
 	 * The output of the grid.

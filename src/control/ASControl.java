@@ -1,7 +1,6 @@
 package control;
 
 //TODO LIST
-//6.6//Clean up, document. Eliminate most warnings.
 //Persistent//Lag on startup - examine.
 //Persistent//Redundancy exists in coordinates. Revise.
 
@@ -46,6 +45,11 @@ public class ASControl {
 	 * Manager for the message service.
 	 */
 	private static MessageManager mm;
+
+	/**
+	 * The queue of events to take place.
+	 */
+	private static EventQueue eq;
 	
 	public static void main(String args[]) {
 		JFrame gameWindow = new JFrame("Asphodel Sky");
@@ -58,9 +62,9 @@ public class ASControl {
 		initKeyBinds(game);
 		
 		gameWindow.add(game);
-		
+
+		//Initialize message manager.
 		ExecutorService threadList = Executors.newFixedThreadPool(2);
-		
 		mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
 
@@ -72,12 +76,14 @@ public class ASControl {
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
+
+		//Initializing Event Queue.
+		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getFocus());
 		grid.getTileAt(1, 1).fillOccupant(p1);
 
-		EventQueue eq = new EventQueue();
 		eq.addEvent(4, 100, "echo", 0, 100);
 		eq.addEvent(4, 50, "echo", 1, 50);
 		eq.addEvent(3, 100, "echo", 2, 6);

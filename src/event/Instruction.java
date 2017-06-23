@@ -37,7 +37,7 @@ public class Instruction
     /**
      * A map that connects strings to their associated operation.
      */
-    public static Map<String, TriConsumer<Integer, Integer, Grid>> instructionSet;
+    private static Map<String, TriConsumer<Integer, Integer, Grid>> instructionSet;
 
     /**
      * Private constructor used to prevent instantiation.

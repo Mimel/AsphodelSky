@@ -45,7 +45,7 @@ public class EventQueue {
      * @param id The id that the operation will affect.
      * @param sec A secondary variable that supports the operation.
      */
-    public void addEvent(int delay, int priority, String opcode, int id, int sec) {
+    public void addEvent(int delay, int priority, Opcode opcode, int id, int sec) {
         if(delay >= 0) {
             eventQueue.add(new Event(time + delay, priority, opcode, id, sec));
         }

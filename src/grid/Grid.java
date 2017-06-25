@@ -288,10 +288,6 @@ public class Grid {
 		return null;
 	}
 
-	public Combatant searchForCombatant(int id) {
-		return null;
-	}
-	
 	/**
 	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
 	 * If there is no crosshair in the given tile, that tile becomes focused.
@@ -315,11 +311,7 @@ public class Grid {
 	 * @return True if the location exists on the grid, false otherwise.
 	 */
 	private boolean isValidLocation(int xCoord, int yCoord) {
-		if(xCoord >= 0 && yCoord >= 0 && yCoord < map.length && xCoord < map[yCoord].length) {
-			return true;
-		}
-		
-		return false;
+		return xCoord >= 0 && yCoord >= 0 && yCoord < map.length && xCoord < map[yCoord].length;
 	}
 	
 	@Override

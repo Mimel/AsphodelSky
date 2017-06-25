@@ -22,7 +22,7 @@ public class Event {
     /**
      * The instruction to perform.
      */
-    private String opcode;
+    private Opcode opcode;
 
     /**
      * The id parameter to use in the instruction.
@@ -35,7 +35,7 @@ public class Event {
      */
     private int sec;
 
-    public Event(int time, int priority, String opcode, int id, int sec) {
+    public Event(int time, int priority, Opcode opcode, int id, int sec) {
         this.triggerTime = time;
 
         if(priority >= 0) {

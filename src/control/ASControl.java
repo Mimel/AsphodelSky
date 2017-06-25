@@ -21,6 +21,7 @@ import display.ImageAssets;
 import entity.*;
 import event.EventQueue;
 import event.Instruction;
+import event.Opcode;
 import grid.*;
 import item.Item;
 import item.Vial;
@@ -84,9 +85,10 @@ public class ASControl {
 		grid = new Grid(game.getFocus());
 		grid.getTileAt(1, 1).fillOccupant(p1);
 
-		eq.addEvent(4, 100, "echo", 0, 100);
-		eq.addEvent(4, 50, "echo", 1, 50);
-		eq.addEvent(3, 100, "echo", 2, 6);
+		eq.addEvent(4, 100, Opcode.ECHO, 0, 100);
+		eq.addEvent(4, 50, Opcode.ECHO, 1, 50);
+		eq.addEvent(3, 100, Opcode.ECHO, 2, 6);
+		eq.addEvent(2, 400, Opcode.ADJH, 0, -4);
 		eq.progressTimeBy(5, grid);
 
 		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");

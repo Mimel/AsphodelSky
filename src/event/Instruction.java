@@ -34,7 +34,7 @@ public class Instruction
     /**
      * A map that connects strings to their associated operation.
      */
-    private static Map<String, TriConsumer<Integer, Integer, Grid>> instructionSet;
+    private static Map<Opcode, TriConsumer<Integer, Integer, Grid>> instructionSet;
 
     /**
      * Private constructor used to prevent instantiation.
@@ -50,11 +50,16 @@ public class Instruction
         if(instructionSet != null) {
             return;
         } else {
-            instructionSet = new HashMap<String, TriConsumer<Integer, Integer, Grid>>();
+            instructionSet = new HashMap<Opcode, TriConsumer<Integer, Integer, Grid>>();
 
-            //Prints the id and sec to output.
-            instructionSet.put("echo", (id, sec, grid) -> {
+            //Prints the ID and SEC to output.
+            instructionSet.put(Opcode.ECHO, (id, sec, grid) -> {
                 System.out.println("Hello! id = " + id + " sec = " + sec);
+            });
+
+            //Adjusts health by SEC for combatant with given ID.
+            instructionSet.put(Opcode.ADJH, (id, sec, grid) -> {
+                grid.searchForOccupant(id).adjustHealthBy(sec);
             });
         }
     }
@@ -66,7 +71,7 @@ public class Instruction
      * @param sec The secondary variable used in the operation.
      * @param gr The grid to impose the operation on.
      */
-    public static void execute(String opcode, int id, int sec, Grid gr) {
+    public static void execute(Opcode opcode, int id, int sec, Grid gr) {
         if(instructionSet.containsKey(opcode)) {
             instructionSet.get(opcode).accept(id, sec, gr);
         }

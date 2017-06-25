@@ -27,7 +27,7 @@ public class MessageManager implements Runnable {
 	/**
 	 * Lock, ensures no busywaiting for the MM thread.
 	 */
-	private Object lock;
+	private final Object lock = new Object();
 	
 	/**
 	 * The output.
@@ -39,8 +39,6 @@ public class MessageManager implements Runnable {
 		
 		this.messageBuffer = new String[MESSAGEMAX];
 		this.messageHead = 0;
-		
-		this.lock = new Object();
 	}
 
 	/**

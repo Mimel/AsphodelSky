@@ -9,6 +9,10 @@ import java.awt.Graphics;
  * @author Matt Imel
  */
 public class GUIHeader extends GUIComponent implements HeaderComponent {
+
+	private String title;
+
+	private String time;
 	
 	public GUIHeader(int x, int y, int w, int h) {
 		super(x, y, w, h);
@@ -21,6 +25,26 @@ public class GUIHeader extends GUIComponent implements HeaderComponent {
 	protected void paintComponent(Graphics g) {
 		g.setColor(new Color(0, 0, 200));
 		g.fillRect(xPos, yPos, width, height);
+
+		if(title != null && time != null) {
+			g.setColor(new Color(255, 255, 255));
+			g.drawString(title, 30, 30);
+			g.drawString(time, 200, 30);
+		}
 	}
 
+	@Override
+	public void drawHeader() {
+		this.repaint();
+	}
+
+	@Override
+	public void setTitle(String newTitle) {
+		this.title = newTitle;
+	}
+
+	@Override
+	public void setTime(int newTime) {
+		this.time = ((Integer)newTime).toString() + "s";
+	}
 }

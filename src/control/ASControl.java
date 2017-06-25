@@ -1,6 +1,10 @@
 package control;
 
 //TODO LIST
+//Grid must be heavily edited, to accompany for EnemyRoster. Complete methods for EnemyRoster.
+//AI operations must return array of Events.
+//Determine frequent Display states, change states from Strings to enums.
+//General cleanup, resolve TODOs.
 //Persistent//Lag on startup - examine.
 //Persistent//Redundancy exists in coordinates. Revise.
 
@@ -82,7 +86,7 @@ public class ASControl {
 		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
-		grid = new Grid(game.getFocus());
+		grid = new Grid(game.getHeader(), game.getFocus());
 		grid.getTileAt(1, 1).fillOccupant(p1);
 
 		eq.addEvent(4, 100, Opcode.ECHO, 0, 100);
@@ -101,7 +105,8 @@ public class ASControl {
 		grid.getTileAt(5, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(2, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		//System.out.println(grid);
-		
+
+		grid.drawHeader(eq.getTime());
 		grid.drawGrid(13,13);
 		p1.drawPlayer();
 		//END PLAYGROUND

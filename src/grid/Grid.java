@@ -1,6 +1,7 @@
 package grid;
 
 import display.FocusComponent;
+import display.HeaderComponent;
 import entity.Combatant;
 import entity.EnemyRoster;
 import generator.EmptyShipGenerator;
@@ -31,6 +32,11 @@ public class Grid {
 	 * The current map of the game.
 	 */
 	private Tile[][] map;
+
+	/**
+	 * The name of the map.
+	 */
+	private String name;
 	
 	/**
 	 * The X-Coordinate of the focused tile, if any exist. If there are no focused tiles, this becomes -1.
@@ -51,15 +57,24 @@ public class Grid {
 	 * The output of the grid.
 	 */
 	private FocusComponent gridOutput;
+
+	/**
+	 * The output for the map information.
+	 */
+	private HeaderComponent headerOutput;
 	
 	/**
 	 * Creates an empty grid with default dimensions.
 	 */
-	public Grid(FocusComponent fc) {
+	public Grid(HeaderComponent hc, FocusComponent fc) {
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
 		this.map = new EmptyShipGenerator().generateGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
 		this.xFocusedTile = -1;
 		this.yFocusedTile = -1;
+
+		this.name = "<NO TITLE>";
+
+		this.headerOutput = hc;
 		this.gridOutput = fc;
 	}
 	
@@ -68,42 +83,33 @@ public class Grid {
 	 * @param height The height of the grid.
 	 * @param width The width of the grid.
 	 */
-	public Grid(int height, int width, FocusComponent fc) {
+	public Grid(String name, int height, int width, HeaderComponent hc, FocusComponent fc) {
 		this.map = new Tile[width][height];
 		this.xFocusedTile = -1;
 		this.yFocusedTile = -1;
+
+		this.name = name;
+
+		this.headerOutput = hc;
 		this.gridOutput = fc;
 	}
-	
-	/**
-	 * Gets the height of the map.
-	 * @return The height of the map.
-	 */
+
+	public String getName() {
+		return name;
+	}
+
 	public int getHeight() {
 		return map.length;
 	}
-	
-	/**
-	 * Gets the width, in tiles, of a row.
-	 * @param row The row.
-	 * @return The length of stated row.
-	 */
+
 	public int getWidth(int row) {
 		return map[row].length;
 	}
-	
-	/**
-	 * Gets the X position of the focused tile.
-	 * @return -1 if there is no focused tile, any zero/positive integer otherwise, indicating the X position.
-	 */
+
 	public int getXFocus() {
 		return xFocusedTile;
 	}
-	
-	/**
-	 * Gets the Y position of the focused tile.
-	 * @return -1 if there is no focused tile, any zero/positive integer otherwise, indicating the Y position.
-	 */
+
 	public int getYFocus() {
 		return yFocusedTile;
 	}
@@ -129,19 +135,20 @@ public class Grid {
 		else if(yStart > map.length - height) { yStart = map.length - height; }
 		
 		Tile[][] truncatedMap = new Tile[width][height];
+
 		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
-				truncatedMap[y][x] = map[yStart + y][xStart + x];
-			}
+			System.arraycopy(map[yStart + y], xStart, truncatedMap[y], 0, width);
 		}
 		
 		gridOutput.drawGrid(truncatedMap);
 	}
-	
-	/**
-	 * Gets the tile that is currently being focused. If there is no focused tile, returns null.
-	 * @return The focused tile, or null if there is none.
-	 */
+
+	public void drawHeader(int time) {
+		headerOutput.setTitle(name);
+		headerOutput.setTime(time);
+		headerOutput.drawHeader();
+	}
+
 	public Tile getFocusedTile() {
 		if(xFocusedTile != -1 && yFocusedTile != -1) {
 			return map[yFocusedTile][xFocusedTile];
@@ -149,12 +156,7 @@ public class Grid {
 			return null;
 		}
 	}
-	
-	/**
-	 * Sets the current focus, if there exists no focused tile.
-	 * @param newX
-	 * @param newY
-	 */
+
 	public void setFocusedTile(int newX, int newY) {
 		if(xFocusedTile == -1 && yFocusedTile == -1) {
 			map[newY][newX].toggleFocused();
@@ -170,23 +172,6 @@ public class Grid {
 		map[yFocusedTile][xFocusedTile].toggleFocused();
 		xFocusedTile = -1;
 		yFocusedTile = -1;
-	}
-	
-	/**
-	 * Resets the grid to a clean state consisting of empty tiles (?).
-	 */
-	public void resetGrid() {
-		for(int y = 0; y < map.length; y++) {
-			for(int x = 0; x < map[y].length; x++) {
-				//TEMP TODO
-				if((x+y)%2 == 1) {
-					map[y][x] = new Tile('?');
-				} else {
-					map[y][x] = new Tile('!');
-				}
-				
-			}
-		}
 	}
 	
 	/**
@@ -277,10 +262,10 @@ public class Grid {
 	 * @return The entity if it can be found, or null if it can't.
 	 */
 	public Combatant searchForOccupant(int id) {
-		for(int y = 0; y < map.length; y++) {
-			for(int x = 0; x < map[y].length; x++) {
-				if(map[y][x].getOccupant() != null && map[y][x].getOccupant().getId() == id) {
-					return map[y][x].getOccupant();
+		for (Tile[] row : map) {
+			for (Tile space : row) {
+				if (space.getOccupant() != null && space.getOccupant().getId() == id) {
+					return space.getOccupant();
 				}
 			}
 		}
@@ -317,12 +302,12 @@ public class Grid {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		
-		for(int y = 0; y < map.length; y++) {
-			for(int x = 0; x < map[y].length; x++) {
-				sb.append(map[y][x].getTerrain());
+
+		for (Tile[] row : map) {
+			for (Tile space : row) {
+				sb.append(space.getTerrain());
 			}
-			
+
 			sb.append('\n');
 		}
 		

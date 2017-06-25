@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * such as health, momentum, an inventory, and equipment.
  * @author Matt Imel
  */
-public abstract class Combatant implements Occupant {
+public abstract class Combatant implements Entity {
 
 	private static final AtomicInteger auto_incr_id = new AtomicInteger(0);
 	

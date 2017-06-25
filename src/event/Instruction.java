@@ -1,9 +1,6 @@
 package event;
 
-import entity.Combatant;
-import entity.Occupant;
 import grid.Grid;
-import grid.Tile;
 
 import java.util.HashMap;
 import java.util.Map;

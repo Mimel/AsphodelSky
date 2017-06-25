@@ -3,7 +3,6 @@ package grid;
 import display.FocusComponent;
 import entity.Combatant;
 import entity.EnemyRoster;
-import entity.Occupant;
 import generator.EmptyShipGenerator;
 
 /**
@@ -277,7 +276,7 @@ public class Grid {
 	 * @param id The id to look up.
 	 * @return The entity if it can be found, or null if it can't.
 	 */
-	public Occupant searchForOccupant(int id) {
+	public Combatant searchForOccupant(int id) {
 		for(int y = 0; y < map.length; y++) {
 			for(int x = 0; x < map[y].length; x++) {
 				if(map[y][x].getOccupant() != null && map[y][x].getOccupant().getId() == id) {

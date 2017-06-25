@@ -9,7 +9,6 @@ import java.util.Map;
 import entity.Combatant;
 import org.javatuples.Triplet;
 
-import entity.Occupant;
 import item.Catalog;
 
 /**
@@ -63,7 +62,7 @@ public class Tile {
 	 * The occupant of this tile. Null indicates that it either does not have an occupant
 	 * or it cannot occupy an entity.
 	 */
-	private Occupant occupant;
+	private Combatant occupant;
 	
 	/**
 	 * The set of items on this tile.
@@ -141,7 +140,7 @@ public class Tile {
 	public char getTerrain() { return terrain; }
 	public String getName() { return name; }
 	public String getDesc() { return description; }
-	public Occupant getOccupant() { return occupant; }
+	public Combatant getOccupant() { return occupant; }
 	public boolean isFocused() { return isFocused; }
 	public Catalog getCatalog() { return catalog; }
 	
@@ -160,21 +159,13 @@ public class Tile {
 	void toggleFocused() {
 		isFocused = !isFocused;
 	}
-
-	/**
-	 * Checks if the occupant in the tile is a combatant.
-	 * @return True if the occupant is a Combatant, false if not.
-	 */
-	public boolean isCombatant() {
-		return this.getOccupant() != null && this.getOccupant() instanceof Combatant;
-	}
 	
 	/**
 	 * Removes the occupant from a tile.
 	 * @return The occupant.
 	 */
-	public Occupant vacateOccupant() {
-		Occupant temp = occupant;
+	public Combatant vacateOccupant() {
+		Combatant temp = occupant;
 		occupant = null;
 		return temp;
 	}
@@ -186,7 +177,7 @@ public class Tile {
 	 * @param newOccupant The new occupant.
 	 * @return True if the occupant is successfully inserted, false if not.
 	 */
-	public boolean fillOccupant(Occupant newOccupant) {
+	public boolean fillOccupant(Combatant newOccupant) {
 		//If the tile is can be traversed, and there is no occupant...
 		if(canOccupy() && occupant == null) {
 			occupant = newOccupant;

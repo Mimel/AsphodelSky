@@ -183,7 +183,7 @@ public class ASControl {
 					//The following if-else chain searches a tile by order of priority; First for occupants, then items, then floor features, then floor types.
 					if(grid.getFocusedTile().getOccupant() != null) {
 						//If the crosshair overlaps an occupant, prints their name, title, and description to the Message manager.
-						Occupant o = grid.getFocusedTile().getOccupant();
+						Combatant o = grid.getFocusedTile().getOccupant();
 						mm.loadSourceDescPair(o.getName() + " the " + o.getTitle(), o.getX() + "," + o.getY());
 					} else if(!grid.getFocusedTile().getCatalog().isEmpty()) {
 						//If the crosshair overlaps an item, prints the items name and description to the Message manager.

@@ -26,7 +26,7 @@ public class Catalog {
 	private int focusedItemIndex;
 	
 	public Catalog() {
-		catalog = new ArrayList<Pair<Item, Integer>>();
+		catalog = new ArrayList<>();
 		focusedItemIndex = 0;
 	}
 	
@@ -72,7 +72,7 @@ public class Catalog {
 	 * @return A List of items.
 	 */
 	public List<Item> getItems() {
-		List<Item> items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<>();
 		
 		for(Pair<Item, Integer> inList : catalog) {
 			items.add(inList.getValue0());
@@ -86,7 +86,7 @@ public class Catalog {
 	 * @return A List of amounts.
 	 */
 	public List<Integer> getAmounts() {
-		List<Integer> amts = new ArrayList<Integer>();
+		List<Integer> amts = new ArrayList<>();
 		
 		for(Pair<Item, Integer> inList : catalog) {
 			amts.add(inList.getValue1());
@@ -108,7 +108,7 @@ public class Catalog {
 			}
 		}
 		
-		catalog.add(new Pair<Item, Integer>(i, 1));
+		catalog.add(new Pair<>(i, 1));
 	}
 	
 	/**
@@ -121,17 +121,17 @@ public class Catalog {
 		for(int x = 0; x < catalog.size(); x++) {
 			Pair<Item, Integer> entry = catalog.get(x);
 			if(entry.getValue0().getId() == i.getId()) {
-				catalog.set(x, new Pair<Item, Integer>(entry.getValue0(), entry.getValue1() + amt));
+				catalog.set(x, new Pair<>(entry.getValue0(), entry.getValue1() + amt));
 				return;
 			}
 		}
 		
-		catalog.add(new Pair<Item, Integer>(i, amt));
+		catalog.add(new Pair<>(i, amt));
 	}
 	
 	/**
 	 * Consumes an item, reducing its associated amount by one. If this brings the item's amount to zero, the item and it's associated amount are both removed.
-	 * @param ID The Item id.
+	 * @param itemID The Item id.
 	 * @return The item removed if the item can be found in the catalog, null otherwise.
 	 */
 	public Item consumeItem(int itemID) {
@@ -140,7 +140,7 @@ public class Catalog {
 				if(catalog.get(x).getValue1() == 1) {
 					return catalog.remove(x).getValue0();
 				} else {
-					catalog.set(x, new Pair<Item, Integer>(catalog.get(x).getValue0(), catalog.get(x).getValue1() - 1));
+					catalog.set(x, new Pair<>(catalog.get(x).getValue0(), catalog.get(x).getValue1() - 1));
 					return catalog.get(x).getValue0();
 				}	
 			}
@@ -180,7 +180,7 @@ public class Catalog {
 	 * @return The catalog.
 	 */
 	public List<Pair<Item, Integer>> clearCatalog() {
-		List<Pair<Item, Integer>> tempCatalog = new ArrayList<Pair<Item, Integer>>(catalog);
+		List<Pair<Item, Integer>> tempCatalog = new ArrayList<>(catalog);
 		
 		catalog.clear();
 		
@@ -196,9 +196,7 @@ public class Catalog {
 	}
 	
 	/**
-	 * Sorts the given catalog by id in ascending order.
-	 * @param catalog The catalog.
-	 * @return A sorted list.
+	 * Sorts the catalog by id in ascending order.
 	 */
 	public void sortCatalogById() {
 		Collections.sort(catalog);
@@ -206,8 +204,8 @@ public class Catalog {
 	
 	/**
 	 * Gets the entirety of all items in the game, with amounts set to one.
-	 * TODO: A bit obtrusive, since the method must be updated every time a new class is created.
-	 * @return
+	 * TODO: Obtrusive, since the method must be updated every time a new class is created.
+	 * @return A catalog containing every single item in the game.
 	 */
 	public static List<Item> getEntireItemCatalog() {
 		return Arrays.asList(mergeCatalogs(Vial.CATALOG_VIAL));
@@ -215,7 +213,7 @@ public class Catalog {
 	
 	/**
 	 * Merges a number of catalogs together.
-	 * @param items The catalogs to merge. Null-safe.
+	 * @param catalogs The catalogs to merge. Null-safe.
 	 * @return The merged catalog.
 	 */
 	private static Item[] mergeCatalogs(Item[]... catalogs) {
@@ -239,11 +237,11 @@ public class Catalog {
 	
 	@Override
 	public String toString() {
-		String cat = "";
+		StringBuilder cat = new StringBuilder();
 		for(Pair<Item, Integer> entry : catalog) {
-			cat += entry.getValue0() + " (" + entry.getValue1() + "),\n";
+			cat.append(entry.getValue0()).append(" (").append(entry.getValue1()).append("),\n");
 		}
-		cat +="END";
-		return cat;
+		cat.append("END");
+		return cat.toString();
 	}
 }

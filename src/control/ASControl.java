@@ -1,7 +1,9 @@
 package control;
 
 //TODO LIST
+//Update Tile/Enemy tilesets.
 //Grid must be heavily edited, to accompany for EnemyRoster. Complete methods for EnemyRoster.
+//Update Item with the introduction of events.
 //AI operations must return array of Events.
 //Determine frequent Display states, change states from Strings to enums.
 //General cleanup, resolve TODOs.

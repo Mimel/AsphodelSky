@@ -76,6 +76,8 @@ public class Grid {
 
 		this.headerOutput = hc;
 		this.gridOutput = fc;
+
+		this.roster = new EnemyRoster();
 	}
 	
 	/**
@@ -92,6 +94,8 @@ public class Grid {
 
 		this.headerOutput = hc;
 		this.gridOutput = fc;
+
+		this.roster = new EnemyRoster();
 	}
 
 	public String getName() {

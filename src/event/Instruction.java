@@ -47,20 +47,14 @@ public class Instruction
      * TODO: Consider using enum instead of strings as the opcodes.
      */
     public static void loadInstructionSet() {
-        if(instructionSet != null) {
-            return;
-        } else {
-            instructionSet = new HashMap<Opcode, TriConsumer<Integer, Integer, Grid>>();
+        if(instructionSet == null) {
+            instructionSet = new HashMap<>();
 
             //Prints the ID and SEC to output.
-            instructionSet.put(Opcode.ECHO, (id, sec, grid) -> {
-                System.out.println("Hello! id = " + id + " sec = " + sec);
-            });
+            instructionSet.put(Opcode.ECHO, (id, sec, grid) -> System.out.println("Hello! id = " + id + " sec = " + sec));
 
             //Adjusts health by SEC for combatant with given ID.
-            instructionSet.put(Opcode.ADJH, (id, sec, grid) -> {
-                grid.searchForOccupant(id).adjustHealthBy(sec);
-            });
+            instructionSet.put(Opcode.ADJH, (id, sec, grid) -> grid.searchForOccupant(id).adjustHealthBy(sec));
         }
     }
 

@@ -25,7 +25,7 @@ public class EventQueue {
         this.time = 0;
 
         Comparator<Event> c = new EventComparator();
-        this.eventQueue = new PriorityQueue<Event>(20, c);
+        this.eventQueue = new PriorityQueue<>(20, c);
     }
 
     /**

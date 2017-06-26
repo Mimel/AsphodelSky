@@ -112,51 +112,27 @@ public abstract class Item implements Comparable<Item> {
 	public int getYOffset() {
 		return Y_OFFSET;
 	}
-	
-	/**
-	 * Gets the id of the item.
-	 * @return The id.
-	 */
+
 	public int getId() {
 		return ID;
 	}
-	
-	/**
-	 * Gets the name of the item.
-	 * @return The name.
-	 */
+
 	public String getName() {
 		return name;
 	}
-	
-	/**
-	 * Gets the visual description of the item.
-	 * @return The visual description.
-	 */
+
 	public String getVisualDescription() {
 		return descVis;
 	}
-	
-	/**
-	 * Gets the use description of the item
-	 * @return The usage description.
-	 */
+
 	public String getUseDescription() {
 		return descUse;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
+
 	public int getXMargin() {
 		return xMargin;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
+
 	public int getYMargin() {
 		return yMargin;
 	}

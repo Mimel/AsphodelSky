@@ -99,7 +99,7 @@ public class Tile {
 		
 		//Initializes the map if this is the first time loading.
 		if(TerrainCharacterToTraits == null) {
-			TerrainCharacterToTraits = new HashMap<Character, Triplet<String, String, Byte>>();
+			TerrainCharacterToTraits = new HashMap<>();
 		}
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -113,7 +113,7 @@ public class Tile {
 			while((currLine = br.readLine()) != null) {
 				//Adds the association to the map. Clears flags and primes another entry.
 				if(currLine.equals("!END")) {
-					TerrainCharacterToTraits.put(terr, new Triplet<String, String, Byte>(name, desc, flags));
+					TerrainCharacterToTraits.put(terr, new Triplet<>(name, desc, flags));
 					flags = 0b00000000;
 					newFlag = true;
 				} else {

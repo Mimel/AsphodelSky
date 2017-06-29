@@ -209,15 +209,15 @@ public class ASControl {
 			}
 		};
 		
-	/*	Action get = new AbstractAction() {
+		Action get = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//If the tile the player is on contains at least one item,
 				//then the item is transfered into the player's inventory.
-				if(!grid.getTileAt(p1.getX(), p1.getY()).getCatalog().isEmpty()) {
-					p1.getInventory().transferFrom(grid.getTileAt(p1.getX(), p1.getY()).getCatalog());
+				if(!grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog().isEmpty()) {
+					p1.getInventory().transferFrom(grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog());
 					mm.insertMessage("Picked up items.");
 					game.repaint();
 				} else {
@@ -235,7 +235,7 @@ public class ASControl {
 				if(game.inDefaultState()) {
 					game.switchGridState("crosshair");
 					game.switchFooterState("descript");
-					grid.setFocusedTile(p1.getX(), p1.getY());
+					grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 					mm.insertMessage("Arise!");
 				} else if(game.getGridState().equals("crosshair")) {
 					game.switchGridState("player");
@@ -247,7 +247,7 @@ public class ASControl {
 				grid.drawGrid(13,13);
 				p1.drawPlayer();
 			}
-		}; */
+		};
 		
 		Action inventory = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
@@ -325,7 +325,7 @@ public class ASControl {
 		
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('c'), "moveSE");
 		game.getActionMap().put("moveSE", move);
-		/*
+
 		//G = Get.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
 		game.getActionMap().put("get", get);
@@ -333,7 +333,7 @@ public class ASControl {
 		//R = Recon.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('r'), "recon");
 		game.getActionMap().put("recon", recon);
-		*/
+
 		//I = Inventory.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "inventory");
 		game.getActionMap().put("inventory", inventory);

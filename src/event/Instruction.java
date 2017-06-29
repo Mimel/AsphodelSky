@@ -66,7 +66,7 @@ public class Instruction
      * @param sec The secondary variable used in the operation.
      * @param gr The grid to impose the operation on.
      */
-    public static void execute(Opcode opcode, int id, int sec, Grid gr) {
+    static void execute(Opcode opcode, int id, int sec, Grid gr) {
         if(instructionSet.containsKey(opcode)) {
             instructionSet.get(opcode).accept(id, sec, gr);
         }

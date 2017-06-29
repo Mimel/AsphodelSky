@@ -3,8 +3,10 @@ package grid;
 import display.FocusComponent;
 import display.HeaderComponent;
 import entity.Combatant;
+import entity.EnemyGenerator;
 import entity.EnemyRoster;
 import generator.EmptyShipGenerator;
+import org.javatuples.Pair;
 
 /**
  * A map of the game, containing a set of tiles and all objects within.
@@ -126,8 +128,8 @@ public class Grid {
 	 * @param height The height of the tile array to draw.
 	 */
 	public void drawGrid(int width, int height) {		
-		int xFocus = (xFocusedTile == -1 ? searchForOccupant(0).getX() : xFocusedTile); 
-		int yFocus = (yFocusedTile == -1 ? searchForOccupant(0).getY() : yFocusedTile);
+		int xFocus = (xFocusedTile == -1 ? roster.getPlayerLocation().getValue0() : xFocusedTile);
+		int yFocus = (yFocusedTile == -1 ? roster.getPlayerLocation().getValue1() : yFocusedTile);
 		
 		int xStart = xFocus - width/2;
 		int yStart = yFocus - height/2;
@@ -230,34 +232,60 @@ public class Grid {
 			return false;
 		}		
 	}
-	
+
+	/**
+	 * Adds a combatant onto the grid.
+	 * @param name The name of the combatant.
+	 * @param x The x-coordinate to place the combatant on.
+	 * @param y The y-coordinate to place the combatant on.
+	 */
+	public void addCombatant(String name, int x, int y) {
+		if(isValidLocation(x, y) && !map[y][x].isOccupied()) {
+			Combatant c = EnemyGenerator.getEnemyByName(name);
+			map[y][x].fillOccupant(c);
+			roster.addCombatant(x, y, name);
+		}
+	}
+
+	public void addCombatant(Combatant c, int x, int y) {
+		if(isValidLocation(x, y) && !map[y][x].isOccupied()) {
+			map[y][x].fillOccupant(c);
+			roster.addCombatant(x, y, c);
+		}
+	}
+
+	public int getXOfCombatant(int id) {
+		return roster.getCombatantLocation(id).getValue0();
+	}
+
+	public int getYOfCombatant(int id) {
+		return roster.getCombatantLocation(id).getValue1();
+	}
+
 	/**
 	 * Attempts to move an entity from one tile to another.
-	 * @param xOcc The X-coordinate of the tile the entity is occupying.
-	 * @param yOcc The Y-coordinate of the tile the entity is occupying.
-	 * @param xOffset The X-shift where the entity will go.
-	 * @param yOffset The Y-shift where the entity will go.
-	 * @return True if the entity was successfully moved, False if not.
+	 * @param x The X-coordinate of the tile the entity is occupying.
+	 * @param y The Y-coordinate of the tile the entity is occupying.
+	 * @param newX The X-shift where the entity will go.
+	 * @param newY The Y-shift where the entity will go.
 	 */
-	public boolean moveEntity(int xOcc, int yOcc, int xOffset, int yOffset) {
-		//Check if the tile that is currently occupied and the tile that will be occupied are valid.
-		if(yOcc >= 0 && yOcc < map.length && xOcc >= 0 && xOcc < map[yOcc].length &&
-		   (yOcc + yOffset) >= 0 && (yOcc + yOffset) < map.length && (xOcc + xOffset) >= 0 && (xOcc + xOffset) < map[yOcc + yOffset].length) {
-			//Check if tile IS occupied.
-			if(map[yOcc][xOcc].getOccupant() != null) {
-				//Check if tile to move to ISN'T occupied.
-				if(map[yOcc + yOffset][xOcc + xOffset].canOccupy() && map[yOcc + yOffset][xOcc + xOffset].getOccupant() == null) {
-					//Move occupant.
-					map[yOcc + yOffset][xOcc + xOffset].fillOccupant(map[yOcc][xOcc].vacateOccupant());
-					
-					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setX(xOffset);
-					map[yOcc + yOffset][xOcc + xOffset].getOccupant().setY(yOffset);
-					
-					return true;
-				}
+	public void moveCombatant(int x, int y, int newX, int newY) {
+		if(isValidLocation(x, y) && isValidLocation(newX, newY)) {
+			if(map[y][x].isOccupied() && !map[newY][newX].isOccupied()) {
+				Combatant c = map[y][x].vacateOccupant();
+				map[newY][newX].fillOccupant(c);
+				roster.moveCombatant(x, y, newX, newY);
 			}
 		}
-		return false;
+	}
+
+	public void moveCombatant(int id, int newX, int newY) {
+		if(isValidLocation(newX, newY) && !map[newY][newX].isOccupied()) {
+			Pair<Integer, Integer> coords = roster.getCombatantLocation(id);
+			Combatant c = map[coords.getValue1()][coords.getValue0()].vacateOccupant();
+			map[newY][newX].fillOccupant(c);
+			roster.moveCombatant(id, newX, newY);
+		}
 	}
 	
 	/**
@@ -266,15 +294,7 @@ public class Grid {
 	 * @return The entity if it can be found, or null if it can't.
 	 */
 	public Combatant searchForOccupant(int id) {
-		for (Tile[] row : map) {
-			for (Tile space : row) {
-				if (space.getOccupant() != null && space.getOccupant().getId() == id) {
-					return space.getOccupant();
-				}
-			}
-		}
-		
-		return null;
+		return roster.getCombatant(id);
 	}
 
 	/**

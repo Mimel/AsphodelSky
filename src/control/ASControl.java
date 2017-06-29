@@ -1,8 +1,6 @@
 package control;
 
 //TODO LIST
-//Update Tile/Enemy tilesets.
-//Grid must be heavily edited, to accompany for EnemyRoster. Complete methods for EnemyRoster.
 //Update Item with the introduction of events.
 //AI operations must return array of Events.
 //Determine frequent Display states, change states from Strings to enums.
@@ -76,7 +74,7 @@ public class ASControl {
 		threadList.execute(mm);
 
 		//TODO: p1 must be instantiated before enemy map loading in order to ensure that p1 has id 0; fix.
-		p1 = new Player("Place Holder", "Apprentice", 1, 1, 16, game.getSidebar());
+		p1 = new Player("Place Holder", "Apprentice",  16, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -89,7 +87,7 @@ public class ASControl {
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getHeader(), game.getFocus());
-		grid.getTileAt(1, 1).fillOccupant(p1);
+		grid.addCombatant(p1, 1, 1);
 
 		eq.addEvent(4, 100, Opcode.ECHO, 0, 100);
 		eq.addEvent(4, 50, Opcode.ECHO, 1, 50);
@@ -97,10 +95,7 @@ public class ASControl {
 		eq.addEvent(2, 400, Opcode.ADJH, 0, -4);
 		eq.progressTimeBy(5, grid);
 
-		Combatant e = EnemyGenerator.getEnemyByName("Kelstar Dervish");
-		e.setX(4);
-		e.setY(4);
-		grid.getTileAt(4, 4).fillOccupant(e);
+		grid.addCombatant("Kelstar Dervish", 6, 6);
 		
 		grid.getTileAt(1, 4).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
 		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
@@ -182,8 +177,8 @@ public class ASControl {
 				} else if(game.getGridState().equals("player")) {
 					
 					//Moves the player.					
-					grid.moveEntity(p1.getX(), p1.getY(), xOffset, yOffset);
-					mm.insertMessage(p1.getX() + "," + p1.getY());
+					grid.moveCombatant(0, grid.getXOfCombatant(0) + xOffset, grid.getYOfCombatant(0) + yOffset);
+					mm.insertMessage("Move!");
 				} else if(game.getGridState().equals("crosshair")) {
 					
 					//Moves the crosshair.
@@ -193,7 +188,8 @@ public class ASControl {
 					if(grid.getFocusedTile().getOccupant() != null) {
 						//If the crosshair overlaps an occupant, prints their name, title, and description to the Message manager.
 						Combatant o = grid.getFocusedTile().getOccupant();
-						mm.loadSourceDescPair(o.getName() + " the " + o.getTitle(), o.getX() + "," + o.getY());
+
+						mm.loadSourceDescPair(o.getName() + " the " + o.getTitle(), "A description placeholder");
 					} else if(!grid.getFocusedTile().getCatalog().isEmpty()) {
 						//If the crosshair overlaps an item, prints the items name and description to the Message manager.
 						Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
@@ -213,7 +209,7 @@ public class ASControl {
 			}
 		};
 		
-		Action get = new AbstractAction() {
+	/*	Action get = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -251,7 +247,7 @@ public class ASControl {
 				grid.drawGrid(13,13);
 				p1.drawPlayer();
 			}
-		};
+		}; */
 		
 		Action inventory = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
@@ -329,7 +325,7 @@ public class ASControl {
 		
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('c'), "moveSE");
 		game.getActionMap().put("moveSE", move);
-		
+		/*
 		//G = Get.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
 		game.getActionMap().put("get", get);
@@ -337,7 +333,7 @@ public class ASControl {
 		//R = Recon.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('r'), "recon");
 		game.getActionMap().put("recon", recon);
-		
+		*/
 		//I = Inventory.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "inventory");
 		game.getActionMap().put("inventory", inventory);

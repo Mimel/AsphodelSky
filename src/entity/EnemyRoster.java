@@ -1,5 +1,7 @@
 package entity;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import org.javatuples.Pair;
 
 import java.util.HashMap;
@@ -13,18 +15,33 @@ public class EnemyRoster {
     /**
      * Map that maps coordinates to the combatant located at that set of coordinates.
      */
-    private Map<Pair<Integer, Integer>, Combatant> roster;
+    private Map<Pair<Integer, Integer>, Combatant> coordToOccupant;
+
+    /**
+     * Map that maps the id of the combatant to the location of that combatant.
+     */
+    private Map<Integer, Pair<Integer, Integer>> idToCoord;
 
     public EnemyRoster() {
-        roster = new HashMap<>();
+        coordToOccupant = new HashMap<>();
+        idToCoord = new HashMap();
     }
 
     public void addCombatant(int x, int y, String enemyName) {
-        roster.put(new Pair<>(x, y), EnemyGenerator.getEnemyByName(enemyName));
+        addCombatant(x, y, EnemyGenerator.getEnemyByName(enemyName));
     }
 
     public void addCombatant(int x, int y, Combatant c) {
-        roster.put(new Pair<>(x, y), c);
+        coordToOccupant.put(new Pair<>(x, y), c);
+        idToCoord.put(c.getId(), new Pair<>(x, y));
+    }
+
+    public Pair<Integer, Integer> getPlayerLocation() {
+        return getCombatantLocation(0);
+    }
+
+    public Pair<Integer, Integer> getCombatantLocation(int id) {
+        return idToCoord.get(id);
     }
 
     /**
@@ -35,11 +52,11 @@ public class EnemyRoster {
      * @return The combatant if one exists, or null if not.
      */
     public Combatant getCombatant(int x, int y) {
-        return roster.get(new Pair<>(x, y));
+        return coordToOccupant.get(new Pair<>(x, y));
     }
 
     public Combatant getCombatant(int id) {
-        for(Combatant c : roster.values()) {
+        for(Combatant c : coordToOccupant.values()) {
             if(id == c.getId()) {
                 return c;
             }
@@ -49,15 +66,24 @@ public class EnemyRoster {
     }
 
     public void moveCombatant(int x, int y, int newX, int newY) {
-        Combatant c = roster.remove(new Pair<>(x, y));
-        roster.put(new Pair<>(newX, newY), c);
+        Combatant c = coordToOccupant.remove(new Pair<>(x, y));
+        coordToOccupant.put(new Pair<>(newX, newY), c);
+        idToCoord.put(c.getId(), new Pair<>(newX, newY));
+    }
+
+    public void moveCombatant(int id, int newX, int newY) {
+        Pair<Integer, Integer> prevCoords = idToCoord.get(id);
+        moveCombatant(prevCoords.getValue0(), prevCoords.getValue1(), newX, newY);
     }
 
     public Combatant removeCombatant(int x, int y) {
-        return roster.remove(new Pair<>(x, y));
+        Combatant c = coordToOccupant.remove(new Pair<>(x, y));
+        idToCoord.remove(c.getId());
+        return c;
     }
 
     public void emptyRoster() {
-        roster.clear();
+        coordToOccupant.clear();
+        idToCoord.clear();
     }
 }

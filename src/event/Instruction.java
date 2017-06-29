@@ -48,6 +48,7 @@ public class Instruction
      */
     public static void loadInstructionSet() {
         if(instructionSet == null) {
+            //TODO switch to enummap
             instructionSet = new HashMap<>();
 
             //Prints the ID and SEC to output.

@@ -38,16 +38,6 @@ public abstract class Combatant implements Entity {
 	private String desc;
 	
 	/**
-	 * The location of the combatant, with regards to the x-position.
-	 */
-	private int xPos;
-	
-	/**
-	 * The location of the combatant, with regards to the y-position.
-	 */
-	private int yPos;
-	
-	/**
 	 * The current health of the combatant, as a positive integer. Must
 	 * be smaller or equal to the maximum health.
 	 * @see #maximumHealth
@@ -196,43 +186,7 @@ public abstract class Combatant implements Entity {
 	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
-	
-	/**
-	 * Gets the x-location of this combatant.
-	 * @return The x-location of the combatant.
-	 */
-	public int getX() {
-		return xPos;
-	}
-	
-	/**
-	 * Gets the y-location of this combatant.
-	 * @return The y-location of the combatant.
-	 */
-	public int getY() {
-		return yPos;
-	}
-	
-	/**
-	 * Sets the x-location of the combatant by adding the specified
-	 * offset to the current y-location.
-	 * @param offset The value to add to the current x-location to make
-	 * the new x-location.
-	 */
-	public void setX(int offset) {
-		xPos += offset;
-	}
-	
-	/**
-	 * Sets the y-location of the combatant by adding the specified
-	 * offset to the current y-location.
-	 * @param offset The value to add to the current y-location to make
-	 * the new y-location.
-	 */
-	public void setY(int offset) {
-		yPos += offset;
-	}
-	
+
 	/**
 	 * Retrieves the current health of the combatant.
 	 * @return The current health of the combatant.

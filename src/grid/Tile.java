@@ -159,6 +159,10 @@ public class Tile {
 	void toggleFocused() {
 		isFocused = !isFocused;
 	}
+
+	boolean isOccupied() {
+		return occupant != null;
+	}
 	
 	/**
 	 * Removes the occupant from a tile.

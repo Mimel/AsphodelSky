@@ -1,13 +1,14 @@
 package item;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.imageio.ImageIO;
-
 import entity.Combatant;
+import event.Event;
+import grid.Grid;
 
 /**
  * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
@@ -19,13 +20,12 @@ import entity.Combatant;
  * @author Matt Imel
  *
  */
-public abstract class Item implements Comparable<Item> {
-	
+public class Item implements Comparable<Item> {
+
 	/**
-	 * The width of an item, in accordance to the tileset.
+	 * Map that maps the item's name to the item as an object.
 	 */
-	public static final int ITEM_WIDTH = 48;
-	
+	private static Map<String, Item> itemNameToItemMap;
 	/**
 	 * Keeps track of the current id number when a new item is created.
 	 * Thread-safe, on the off-chance that the individual item catalogs are created concurrently.
@@ -35,23 +35,7 @@ public abstract class Item implements Comparable<Item> {
 	/**
 	 * The id of the item. Each item's id is unique.
 	 */
-	private final int ID;
-	
-	/**
-	 * The tileset the image belongs to. Each category must have a singluar image
-	 * used to represent it's images.
-	 */
-	private final Image TILESET;
-	
-	/**
-	 * The X-offset from the tileset used to determine where the image set begins.
-	 */
-	private final int X_OFFSET;
-	
-	/**
-	 * The Y-offset from the tileset used to determine where the image set begins.
-	 */
-	private final int Y_OFFSET;
+	private final int id;
 	
 	/**
 	 * The name of the item.
@@ -67,54 +51,26 @@ public abstract class Item implements Comparable<Item> {
 	 * A description of the item shown on use.
 	 */
 	protected String descUse;
-	
-	/**
-	 * The margin (in the context of the X variable) needed to reach the coordinate that begins the item's image.
-	 */
-	protected int xMargin;
-	
-	/**
-	 * The margin (in the context of the Y variable) needed to reach the coordinate that begins the item's image.
-	 */
-	protected int yMargin;
-	
-	/**
-	 * Creates the properties of an item set, where all properties hold true for all instances of that set.
-	 * @param tileset The tileset to use.
-	 * @param xoff The X-offset.
-	 * @param yoff The Y-offset.
-	 */
-	protected Item(String tileset, int xoff, int yoff) {
-		this.ID = AUTO_INCR_ID.incrementAndGet();
-		
-		Image tempimg;	
-		try {
-			tempimg = ImageIO.read(new File(tileset));
-		} catch(IOException ioe) {
-			System.out.println("What?");
-			tempimg = null;
-		}
-		
-		this.TILESET = tempimg;
 
-		this.X_OFFSET = xoff;
-		this.Y_OFFSET = yoff;
+	private Event[] useEffects;
+
+	protected Item(String name, String vDesc, String uDesc, String effects) {
+		id = AUTO_INCR_ID.getAndIncrement();
+		this.name = name;
+		this.descVis = vDesc;
+		this.descUse = uDesc;
 	}
-	
-	public Image getTileset() {
-		return TILESET;
-	}
-	
-	public int getXOffset() {
-		return X_OFFSET;
-	}
-	
-	public int getYOffset() {
-		return Y_OFFSET;
+
+	/**
+	 * Copy constructor used to preserve the id of the item, in order to maintain sameness across identical items.
+	 * @param i The item to duplicate.
+	 */
+	private Item(Item i) {
+		id = i.getId();
 	}
 
 	public int getId() {
-		return ID;
+		return id;
 	}
 
 	public String getName() {
@@ -129,30 +85,63 @@ public abstract class Item implements Comparable<Item> {
 		return descUse;
 	}
 
-	public int getXMargin() {
-		return xMargin;
+	public static void loadItemMapping(String fileName) {
+
+		if(itemNameToItemMap == null) {
+			itemNameToItemMap = new HashMap<>();
+		}
+
+		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			String name = "";
+			String vDesc = "";
+			String uDesc = "";
+			String effects = "";
+
+			String line;
+
+			while((line = br.readLine()) != null) {
+				if(name.equals("")) {
+					name = line;
+				} else if(vDesc.equals("")) {
+					vDesc = line;
+				} else if(uDesc.equals("")) {
+					uDesc = line;
+				} else if(line.equals("!END")) {
+					itemNameToItemMap.put(name, new Item(name, vDesc, uDesc, effects));
+					name = "";
+					vDesc = "";
+					uDesc = "";
+					effects = "";
+				} else {
+					effects += line;
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public int getYMargin() {
-		return yMargin;
+	public static Item getItem(String itemName) {
+		return new Item(itemNameToItemMap.get(itemName));
 	}
-	
+
 	/**
 	 * Uses the item.
+	 * TODO: mess with sec variable.
+	 * @param c The user of the item.
+	 * @param g The grid the item will affect.
+	 * @return A set of events that occur after usage.
 	 */
-	public abstract void use();
-	
-	/**
-	 * Uses the item that affects the user.
-	 */
-	public abstract void use(Combatant user);
+	public Event[] use(Combatant c, Grid g) {
+		return null;
+	}
 	
 	/**
 	 * Compares two items by id.
 	 */
 	@Override
 	public int compareTo(Item i) {
-		return ((Integer) this.ID).compareTo((Integer) i.ID);
+		return ((Integer) this.id).compareTo(i.id);
 	}
 	
 	@Override

@@ -203,15 +203,6 @@ public class Catalog {
 	}
 	
 	/**
-	 * Gets the entirety of all items in the game, with amounts set to one.
-	 * TODO: Obtrusive, since the method must be updated every time a new class is created.
-	 * @return A catalog containing every single item in the game.
-	 */
-	public static List<Item> getEntireItemCatalog() {
-		return Arrays.asList(mergeCatalogs(Vial.CATALOG_VIAL));
-	}
-	
-	/**
 	 * Merges a number of catalogs together.
 	 * @param catalogs The catalogs to merge. Null-safe.
 	 * @return The merged catalog.

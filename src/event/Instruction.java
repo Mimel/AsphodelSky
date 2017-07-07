@@ -52,10 +52,16 @@ public class Instruction
             instructionSet = new HashMap<>();
 
             //Prints the ID and SEC to output.
-            instructionSet.put(Opcode.ECHO, (id, sec, grid) -> System.out.println("Hello! id = " + id + " sec = " + sec));
+            instructionSet.put(Opcode.ECHOPARAM, (id, sec, grid) -> System.out.println("Hello! id = " + id + " sec = " + sec));
 
             //Adjusts health by SEC for combatant with given ID.
-            instructionSet.put(Opcode.ADJH, (id, sec, grid) -> grid.searchForOccupant(id).adjustHealthBy(sec));
+            instructionSet.put(Opcode.ADJUSTHP, (id, sec, grid) -> grid.searchForOccupant(id).adjustHealthBy(sec));
+
+            //Adjusts momentum by SEC for combatant with given ID.
+            instructionSet.put(Opcode.ADJUSTMP, (id, sec, grid) -> grid.searchForOccupant(id).adjustMomentumBy(sec));
+
+            //Adjusts science by SEC for combatant with given ID.
+            instructionSet.put(Opcode.ADJUSTSCI, (id, sec, grid) -> grid.searchForOccupant(id).adjustScienceBy(sec));
         }
     }
 

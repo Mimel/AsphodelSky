@@ -63,6 +63,21 @@ public class EventQueue {
     }
 
     /**
+     * Adds an event to the queue, where the time in the event is the delay to add to the time, instead
+     * of the actual trigger time.
+     * @param e The event to add.
+     */
+    public void addOffsetEvent(Event e) {
+
+    }
+
+    public void addEvents(Event[] eSet) {
+        for(Event ev : eSet) {
+            eventQueue.add(ev);
+        }
+    }
+
+    /**
      * Increments the time by the specified time, executing all events in order that exist before the
      * new time.
      * TODO: Test.

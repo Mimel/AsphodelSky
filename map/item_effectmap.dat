@@ -1,0 +1,10 @@
+!END
+Cardiotic Fluid
+Crimson flakes seem to levitate in this unpleasantly oily concoction.
+Restores a small amount of health.
+ADJUST_HP(0, 200);
+!END
+Solution of Finesse
+ADJUST_HP(0, 200);
+ADJUST_HP(5, 200);
+!END

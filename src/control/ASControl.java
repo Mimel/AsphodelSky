@@ -28,7 +28,6 @@ import event.Instruction;
 import event.Opcode;
 import grid.*;
 import item.Item;
-import item.Vial;
 
 /**
  * The executing class.
@@ -78,30 +77,25 @@ public class ASControl {
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
+		Item.loadItemMapping("map/item_effectmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
 
 		//Initializing Event Queue.
-		EventQueue eq = new EventQueue();
+		eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getHeader(), game.getFocus());
 		grid.addCombatant(p1, 1, 1);
 
-		eq.addEvent(4, 100, Opcode.ECHO, 0, 100);
-		eq.addEvent(4, 50, Opcode.ECHO, 1, 50);
-		eq.addEvent(3, 100, Opcode.ECHO, 2, 6);
-		eq.addEvent(2, 400, Opcode.ADJH, 0, -4);
+		eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100);
+		eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50);
+		eq.addEvent(3, 100, Opcode.ECHOPARAM, 2, 6);
+		eq.addEvent(2, 400, Opcode.ADJUSTHP, 0, -4);
 		eq.progressTimeBy(5, grid);
 
-		grid.addCombatant("Kelstar Dervish", 6, 6);
-		
-		grid.getTileAt(1, 4).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
-		grid.getTileAt(1, 3).getCatalog().insertItem(Vial.CATALOG_VIAL[1]);
-		grid.getTileAt(5, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
-		grid.getTileAt(2, 6).getCatalog().insertItem(Vial.CATALOG_VIAL[0]);
-		//System.out.println(grid);
+		grid.addCombatant("Khweiri Dervish", 6, 6);
 
 		grid.drawHeader(eq.getTime());
 		grid.drawGrid(13,13);
@@ -282,7 +276,8 @@ public class ASControl {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(game.getSidebarState().equals("inventory")) {
-					p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1);
+					System.out.println(eq);
+					eq.addEvents(p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1, grid));
 					p1.getInventory().resetFocusIndex();
 					
 					mm.insertMessage("Consumed.");

@@ -34,11 +34,6 @@ public class GUIHeader extends GUIComponent implements HeaderComponent {
 	}
 
 	@Override
-	public void drawHeader() {
-		this.repaint();
-	}
-
-	@Override
 	public void setTitle(String newTitle) {
 		this.title = newTitle;
 	}

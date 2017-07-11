@@ -22,8 +22,8 @@ public class Player extends Combatant {
 	/**
 	 * TODO: add description, move to Combatant.java.
 	 */
-	public void drawPlayer() {
-		combatantOutput.drawCombatantInfo(this);
+	public void updatePlayer() {
+		combatantOutput.updateCombatantInfo(this);
 	}
 
 	/**

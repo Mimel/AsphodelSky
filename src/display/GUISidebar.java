@@ -48,9 +48,8 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 	}
 	
 	@Override
-	public void drawCombatantInfo(Combatant c) {
+	public void updateCombatantInfo(Combatant c) {
 		this.combatantFocus = c;
-		this.repaint();
 	}
 	
 	/**

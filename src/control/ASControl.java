@@ -1,27 +1,28 @@
 package control;
 
 //TODO LIST
+//Test redraw methods.
 //AI operations must return array of Events.
+//Maybe add different methods for item select/tile select.
 //Event queue testing, AI operation testing (NOT implementation)
 //General cleanup, resolve TODOs.
+//Consider moving mapping to display.
 //Persistent//Lag on startup - examine.
+
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import comm.MessageManager;
 import display.Display;
 import display.DisplayConfiguration;
 import display.ImageAssets;
 import entity.*;
+import event.Event;
 import event.EventQueue;
 import event.Instruction;
 import event.Opcode;
@@ -53,7 +54,19 @@ public class ASControl {
 	 * The queue of events to take place.
 	 */
 	private static EventQueue eq;
-	
+
+	/**
+	 * An event that is pushed onto the event queue as a result of a key press.
+	 */
+	private static Event pendingEvent;
+
+	/**
+	 * The Input map that is
+	 */
+	private static InputMap restrictedSelectInputMap;
+
+	private static ActionMap restrictedSelectActionMap;
+
 	public static void main(String args[]) {
 		JFrame gameWindow = new JFrame("Asphodel Sky");
 		gameWindow.setMinimumSize(new Dimension(1200, 900));
@@ -65,6 +78,9 @@ public class ASControl {
 		initKeyBinds(game);
 		
 		gameWindow.add(game);
+
+		restrictedSelectInputMap = new InputMap();
+		restrictedSelectActionMap = new ActionMap();
 
 		//Initialize message manager.
 		ExecutorService threadList = Executors.newFixedThreadPool(2);
@@ -100,9 +116,8 @@ public class ASControl {
 
 		grid.addCombatant("Khweiri Dervish", 6, 6);
 
-		grid.drawHeader(eq.getTime());
-		grid.drawGrid(13,13);
-		p1.drawPlayer();
+		updateOutput();
+		game.repaint();
 		//END PLAYGROUND
 		
 		gameWindow.pack();
@@ -167,7 +182,7 @@ public class ASControl {
 					
 					//Moves the cursor over the inventory. TODO: Magic.
 					if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
-						p1.drawPlayer();
+						p1.updatePlayer();
 						mm.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
 					}
 					
@@ -175,19 +190,20 @@ public class ASControl {
 					
 					//Moves the player.					
 					grid.moveCombatant(0, grid.getXOfCombatant(0) + xOffset, grid.getYOfCombatant(0) + yOffset);
-					mm.insertMessage("Move!");
+					eq.progressTimeBy(1, grid);
+
 				} else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
-					
+
 					//Moves the crosshair.
 					grid.switchFocus(xOffset, yOffset);
-					
+
 					//The following if-else chain searches a tile by order of priority; First for occupants, then items, then floor features, then floor types.
-					if(grid.getFocusedTile().getOccupant() != null) {
+					if (grid.getFocusedTile().getOccupant() != null) {
 						//If the crosshair overlaps an occupant, prints their name, title, and description to the Message manager.
 						Combatant o = grid.getFocusedTile().getOccupant();
 
-						mm.loadSourceDescPair(o.getName() + " the " + o.getTitle(), "A description placeholder");
-					} else if(!grid.getFocusedTile().getCatalog().isEmpty()) {
+						mm.loadSourceDescPair(o.toString(), o.getDesc());
+					} else if (!grid.getFocusedTile().getCatalog().isEmpty()) {
 						//If the crosshair overlaps an item, prints the items name and description to the Message manager.
 						Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
 						mm.loadSourceDescPair(i.getName(), i.getVisualDescription());
@@ -197,12 +213,16 @@ public class ASControl {
 						mm.loadSourceDescPair(t.getName(), t.getDesc());
 					}
 				}
-				
-				//TODO: Magic, for now; adjust to suit multiple viewport dimensions.
-				//We draw grid instead of repainting to adjust the center point of the viewport;
-				//either you, the player, or the crosshair.	
-				grid.drawGrid(13,13);
-				p1.drawPlayer();
+
+				updateOutput();
+				game.repaint();
+			}
+		};
+
+		Action confirm = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
 			}
 		};
 		
@@ -216,6 +236,9 @@ public class ASControl {
 				if(!grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog().isEmpty()) {
 					p1.getInventory().transferFrom(grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog());
 					mm.insertMessage("Picked up items.");
+
+					eq.progressTimeBy(10, grid);
+					updateOutput();
 					game.repaint();
 				} else {
 					mm.insertMessage("There are no items to pick up.");
@@ -228,19 +251,23 @@ public class ASControl {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//Goes to recon if in default player mode (every non-grid state is free)
+
 				if(game.getConfig() == DisplayConfiguration.DEFAULT) {
+
 					game.switchState(DisplayConfiguration.TILE_SELECT);
 					grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
-					mm.insertMessage("Arise!");
+					mm.loadSourceDescPair(p1.toString(), p1.getDesc());
+
 				} else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
+
 					game.switchState(DisplayConfiguration.DEFAULT);
 					grid.clearFocusedTile();
-					mm.insertMessage("Fallen!");
+					mm.insertMessage("Exiting Recon mode.");
+
 				}
-				
-				grid.drawGrid(13,13);
-				p1.drawPlayer();
+
+				updateOutput();
+				game.repaint();
 			}
 		};
 		
@@ -257,14 +284,15 @@ public class ASControl {
 					}
 
 					game.switchState(DisplayConfiguration.INVENTORY_SELECT);
-					
 					String name = p1.getInventory().getFocusedItem().getName();
 					String desc = p1.getInventory().getFocusedItem().getVisualDescription();
-					
 					mm.loadSourceDescPair(name, desc);
+
 				} else if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
 					game.switchState(DisplayConfiguration.DEFAULT);
 				}
+
+				updateOutput();
 				game.repaint();
 			}
 		};
@@ -275,19 +303,28 @@ public class ASControl {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
-					System.out.println(eq.getTime());
 					eq.addEvents(p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1, grid));
 					p1.getInventory().resetFocusIndex();
 
-					eq.progressTimeInstantaneous(grid);
-					
 					mm.insertMessage("Consumed.");
-					
+
+					eq.progressTimeInstantaneous(grid);
 					game.switchState(DisplayConfiguration.DEFAULT);
-					
+					updateOutput();
 					game.repaint();
 				} else {
-					mm.insertMessage("Not implemented.");
+					inventory.actionPerformed(null);
+				}
+			}
+		};
+
+		Action toss = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(game.getConfig() == DisplayConfiguration.DEFAULT) {
+
 				}
 			}
 		};
@@ -321,6 +358,17 @@ public class ASControl {
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('c'), "moveSE");
 		game.getActionMap().put("moveSE", move);
 
+		//ENTER = yes.
+		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "confirm");
+		game.getActionMap().put("confirm", confirm);
+
+		//All keybinds needed for restricted set are above.
+		for(KeyStroke key : game.getInputMap().keys()) {
+			Object value = game.getInputMap().get(key);
+			restrictedSelectInputMap.put(key, value);
+			restrictedSelectActionMap.put(value, game.getActionMap().get(value));
+		}
+
 		//G = Get.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
 		game.getActionMap().put("get", get);
@@ -336,5 +384,23 @@ public class ASControl {
 		//U = Use.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
 		game.getActionMap().put("use", use);
+
+		//T = Toss.
+		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('t'), "toss");
+		game.getActionMap().put("toss", toss);
+	}
+
+	private static void updateOutput() {
+		grid.updateHeader(eq.getTime());
+		//TODO magic
+		grid.updateGrid(13, 13);
+		p1.updatePlayer();
+	}
+
+	/**
+	 *
+	 */
+	private static void pushPendingEvent() {
+
 	}
 }

@@ -288,4 +288,13 @@ public abstract class Combatant implements Entity {
 	}
 
 	public abstract void act(OperationAI opai, int time, Grid gr);
+
+	@Override
+	public String toString() {
+		if(title == "") {
+			return name;
+		} else {
+			return name + " the " + title;
+		}
+	}
 }

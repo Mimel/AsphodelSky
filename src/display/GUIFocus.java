@@ -79,9 +79,8 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 	}
 	
 	@Override
-	public void drawGrid(Tile[][] grid) {
+	public void updateGrid(Tile[][] grid) {
 		this.grid = grid;
-		this.repaint();
 	}
 	
 	/**

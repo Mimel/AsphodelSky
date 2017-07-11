@@ -89,7 +89,7 @@ public class MessageManager implements Runnable {
 				} catch(Exception e) {
 					
 				}
-				messageOutput.drawMessages(messageBuffer);
+				messageOutput.updateMessages(messageBuffer);
 			}
 		}
 	}

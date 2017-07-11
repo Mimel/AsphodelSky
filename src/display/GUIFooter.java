@@ -81,9 +81,8 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 	}
 	
 	@Override
-	public void drawMessages(String[] msgs) {
+	public void updateMessages(String[] msgs) {
 		this.messages = msgs;
-		this.repaint();
 	}
 	
 	public void insertItem(String name, String desc) {
@@ -146,7 +145,5 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 			g2.drawString(description, 50, 119);
 			
 		}
-		
 	}
-	
 }

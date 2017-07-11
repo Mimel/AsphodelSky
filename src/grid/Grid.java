@@ -128,7 +128,7 @@ public class Grid {
 	 * @param width The width of the tile array to draw.
 	 * @param height The height of the tile array to draw.
 	 */
-	public void drawGrid(int width, int height) {		
+	public void updateGrid(int width, int height) {
 		int xFocus = (xFocusedTile == -1 ? roster.getPlayerLocation().getValue0() : xFocusedTile);
 		int yFocus = (yFocusedTile == -1 ? roster.getPlayerLocation().getValue1() : yFocusedTile);
 		
@@ -147,13 +147,12 @@ public class Grid {
 			System.arraycopy(map[yStart + y], xStart, truncatedMap[y], 0, width);
 		}
 		
-		gridOutput.drawGrid(truncatedMap);
+		gridOutput.updateGrid(truncatedMap);
 	}
 
-	public void drawHeader(int time) {
+	public void updateHeader(int time) {
 		headerOutput.setTitle(name);
 		headerOutput.setTime(time);
-		headerOutput.drawHeader();
 	}
 
 	public Tile getFocusedTile() {

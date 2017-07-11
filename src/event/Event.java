@@ -72,6 +72,14 @@ public class Event {
         return sec;
     }
 
+    public void setId(int newId) {
+        this.id = newId;
+    }
+
+    public void setSec(int newSec) {
+        this.sec = newSec;
+    }
+
     /**
      * Reads a phrase and interprets and creates an event based on the parameters given, with invalid id and sec parameters.
      * All phrases must be in the format "NAME(time,priority)", where the name is one of the
@@ -90,7 +98,7 @@ public class Event {
 
         name = Opcode.valueOf(phrase.substring(0, parenPos));
         time = Integer.parseInt(phrase.substring(parenPos + 1, commaPos));
-        priority = Integer.parseInt(phrase.substring(commaPos, phrase.indexOf(')')));
+        priority = Integer.parseInt(phrase.substring(commaPos + 1, phrase.indexOf(')')));
 
         return new Event(time, priority, name, -1, -1);
     }

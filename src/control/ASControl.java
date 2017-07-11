@@ -1,7 +1,7 @@
 package control;
 
 //TODO LIST
-//Update Item with the introduction of events.
+//Test item/event interaction.
 //AI operations must return array of Events.
 //Determine frequent Display states, change states from Strings to enums.
 //General cleanup, resolve TODOs.
@@ -87,7 +87,10 @@ public class ASControl {
 		
 		//PLAYGROUND TEMPORARY
 		grid = new Grid(game.getHeader(), game.getFocus());
+
 		grid.addCombatant(p1, 1, 1);
+
+		grid.addItem("Cardiotic Fluid", 4, 4);
 
 		eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100);
 		eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50);
@@ -276,9 +279,11 @@ public class ASControl {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(game.getSidebarState().equals("inventory")) {
-					System.out.println(eq);
 					eq.addEvents(p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1, grid));
 					p1.getInventory().resetFocusIndex();
+
+					//TODO remove, add proper function.
+					eq.progressTimeBy(1, grid);
 					
 					mm.insertMessage("Consumed.");
 					

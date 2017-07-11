@@ -6,6 +6,7 @@ import entity.Combatant;
 import entity.EnemyGenerator;
 import entity.EnemyRoster;
 import generator.EmptyShipGenerator;
+import item.Item;
 import org.javatuples.Pair;
 
 /**
@@ -295,6 +296,22 @@ public class Grid {
 	 */
 	public Combatant searchForOccupant(int id) {
 		return roster.getCombatant(id);
+	}
+
+	/**
+	 * Adds an item to the given tile.
+	 * @param itemName The item to add.
+	 * @param x The x-coordinate of the tile to add the item.
+	 * @param y The y-coordinate of the tile to add the item.
+	 * @return True if the item was successfully added, false otherwise.
+	 */
+	public boolean addItem(String itemName, int x, int y) {
+		if(isValidLocation(x, y)) {
+			map[y][x].getCatalog().insertItem(Item.getItem(itemName));
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

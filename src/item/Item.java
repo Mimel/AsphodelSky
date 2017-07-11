@@ -52,6 +52,9 @@ public class Item implements Comparable<Item> {
 	 */
 	protected String descUse;
 
+	/**
+	 * The events to perform upon use.
+	 */
 	private Event[] useEffects;
 
 	protected Item(String name, String vDesc, String uDesc, String effects) {
@@ -59,6 +62,19 @@ public class Item implements Comparable<Item> {
 		this.name = name;
 		this.descVis = vDesc;
 		this.descUse = uDesc;
+
+		int semicolons = 0;
+		for(int letter = 0; letter < effects.length(); letter++) {
+			if(effects.charAt(letter) == ';') {
+				semicolons++;
+			}
+		}
+
+		useEffects = new Event[semicolons];
+		int eventPos = 0;
+		for(String phrase : effects.split(";")) {
+			useEffects[eventPos++] = Event.interpretEvent(phrase);
+		}
 	}
 
 	/**
@@ -67,6 +83,10 @@ public class Item implements Comparable<Item> {
 	 */
 	private Item(Item i) {
 		id = i.getId();
+		this.name = i.getName();
+		this.descVis = i.getVisualDescription();
+		this.descUse = i.getUseDescription();
+		this.useEffects = i.getEffects();
 	}
 
 	public int getId() {
@@ -85,8 +105,9 @@ public class Item implements Comparable<Item> {
 		return descUse;
 	}
 
-	public static void loadItemMapping(String fileName) {
+	public Event[] getEffects() { return useEffects; }
 
+	public static void loadItemMapping(String fileName) {
 		if(itemNameToItemMap == null) {
 			itemNameToItemMap = new HashMap<>();
 		}
@@ -127,13 +148,18 @@ public class Item implements Comparable<Item> {
 
 	/**
 	 * Uses the item.
-	 * TODO: mess with sec variable.
+	 * TODO: Heavy edits needed; distinguish different ids, implement proper sec usage.
 	 * @param c The user of the item.
 	 * @param g The grid the item will affect.
 	 * @return A set of events that occur after usage.
 	 */
 	public Event[] use(Combatant c, Grid g) {
-		return null;
+		for(Event ev : useEffects) {
+			ev.setId(c.getId());
+			ev.setSec(-15);
+		}
+
+		return useEffects;
 	}
 	
 	/**

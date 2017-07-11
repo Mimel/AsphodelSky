@@ -2,10 +2,9 @@ package control;
 
 //TODO LIST
 //AI operations must return array of Events.
-//Determine frequent Display states, change states from Strings to enums.
+//Event queue testing, AI operation testing (NOT implementation)
 //General cleanup, resolve TODOs.
 //Persistent//Lag on startup - examine.
-//Persistent//Redundancy exists in coordinates. Revise.
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import javax.swing.KeyStroke;
 
 import comm.MessageManager;
 import display.Display;
+import display.DisplayConfiguration;
 import display.ImageAssets;
 import entity.*;
 import event.EventQueue;
@@ -90,6 +90,7 @@ public class ASControl {
 		grid.addCombatant(p1, 1, 1);
 
 		grid.addItem("Cardiotic Fluid", 4, 4);
+		grid.addItem("Solution of Finesse", 5, 5);
 
 		eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100);
 		eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50);
@@ -162,7 +163,7 @@ public class ASControl {
 						break;
 				}
 				
-				if(game.getSidebarState().equals("inventory")) {
+				if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
 					
 					//Moves the cursor over the inventory. TODO: Magic.
 					if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
@@ -170,12 +171,12 @@ public class ASControl {
 						mm.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
 					}
 					
-				} else if(game.getGridState().equals("player")) {
+				} else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
 					
 					//Moves the player.					
 					grid.moveCombatant(0, grid.getXOfCombatant(0) + xOffset, grid.getYOfCombatant(0) + yOffset);
 					mm.insertMessage("Move!");
-				} else if(game.getGridState().equals("crosshair")) {
+				} else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
 					
 					//Moves the crosshair.
 					grid.switchFocus(xOffset, yOffset);
@@ -228,14 +229,12 @@ public class ASControl {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Goes to recon if in default player mode (every non-grid state is free)
-				if(game.inDefaultState()) {
-					game.switchGridState("crosshair");
-					game.switchFooterState("descript");
+				if(game.getConfig() == DisplayConfiguration.DEFAULT) {
+					game.switchState(DisplayConfiguration.TILE_SELECT);
 					grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 					mm.insertMessage("Arise!");
-				} else if(game.getGridState().equals("crosshair")) {
-					game.switchGridState("player");
-					game.switchFooterState("free");
+				} else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
+					game.switchState(DisplayConfiguration.DEFAULT);
 					grid.clearFocusedTile();
 					mm.insertMessage("Fallen!");
 				}
@@ -250,23 +249,21 @@ public class ASControl {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(game.inDefaultState()) {
+				if(game.getConfig() == DisplayConfiguration.DEFAULT) {
 					
 					if(p1.getInventory().isEmpty()) {
 						mm.insertMessage("You do not have any items.");
 						return;
 					}
-					
-					game.switchFooterState("descript");
-					game.switchSidebarState("inventory");
+
+					game.switchState(DisplayConfiguration.INVENTORY_SELECT);
 					
 					String name = p1.getInventory().getFocusedItem().getName();
 					String desc = p1.getInventory().getFocusedItem().getVisualDescription();
 					
 					mm.loadSourceDescPair(name, desc);
-				} else if(game.getGridState().equals("free") && game.getFooterState().equals("descript")) {
-					game.switchFooterState("free");
-					game.switchSidebarState("free");
+				} else if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
+					game.switchState(DisplayConfiguration.DEFAULT);
 				}
 				game.repaint();
 			}
@@ -277,7 +274,7 @@ public class ASControl {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(game.getSidebarState().equals("inventory")) {
+				if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
 					System.out.println(eq.getTime());
 					eq.addEvents(p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1, grid));
 					p1.getInventory().resetFocusIndex();
@@ -286,8 +283,7 @@ public class ASControl {
 					
 					mm.insertMessage("Consumed.");
 					
-					game.switchFooterState("free");
-					game.switchSidebarState("free");
+					game.switchState(DisplayConfiguration.DEFAULT);
 					
 					game.repaint();
 				} else {

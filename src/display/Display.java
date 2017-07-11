@@ -33,6 +33,11 @@ public class Display extends JPanel {
 	 * Header component, based on the top of the window.
 	 */
 	private GUIHeader hc;
+
+	/**
+	 * The current display configuration.
+	 */
+	private DisplayConfiguration currentConfig;
 	
 	public Display(int winWidth, int winHeight) {
 		this.setLayout(new BorderLayout());
@@ -47,66 +52,38 @@ public class Display extends JPanel {
 		this.add(gc, BorderLayout.WEST);
 		this.add(sc, BorderLayout.EAST);
 		this.add(fc, BorderLayout.SOUTH);
+
+		this.currentConfig = DisplayConfiguration.DEFAULT;
 	}
 	
 	public GUIHeader getHeader() { return hc; }
 	public GUIFocus getFocus() { return gc; }
 	public GUISidebar getSidebar() { return sc;}
 	public GUIFooter getFooter() { return fc; }
-	
-	/**
-	 * Retrieves the current state of the grid.
-	 * @return The grid state.
-	 */
-	public String getGridState() {
-		return gc.selectedMode;
+	public DisplayConfiguration getConfig() {
+		return currentConfig;
 	}
-	
-	/**
-	 * Switches the grid state with another. If the entered state is invalid, nothing happens.
-	 * @param newState The new grid state to switch to.
-	 */
-	public void switchGridState(String newState) {
-		gc.setCurrentMode(newState);
-	}
-	
-	/**
-	 * Retrieves the current state of the sidebar.
-	 * @return The sidebar state.
-	 */
-	public String getSidebarState() {
-		return sc.selectedMode;
-	}
-	
-	/**
-	 * Switches the sidebar state with another. If the entered state is invalid, nothing happens.
-	 * @param newState The new sidebar state to switch to.
-	 */
-	public void switchSidebarState(String newState) {
-		sc.setCurrentMode(newState);
-	}
-	
-	/**
-	 * Retrieves the current state of the footer.
-	 * @return The footer state.
-	 */
-	public String getFooterState() {
-		return fc.selectedMode;
-	}
-	
-	/**
-	 * Switches the footer state with another. If the entered state is invalid, nothing happens.
-	 * @param newState The new footer state to switch to.
-	 */
-	public void switchFooterState(String newState) {
-		fc.setCurrentMode(newState);
-	}
-	
-	/**
-	 * The default game state represents the state where the player can freely move about the grid.
-	 * @return True if the user is in the default state, false otherwise.
-	 */
-	public boolean inDefaultState() {
-		return (gc.selectedMode.equals("player") && sc.selectedMode.equals("free") && fc.selectedMode.equals("free"));
+
+	public void switchState(DisplayConfiguration newConfig) {
+		switch(newConfig) {
+			case DEFAULT:
+				gc.setCurrentMode("player");
+				sc.setCurrentMode("free");
+				fc.setCurrentMode("free");
+				break;
+
+			case TILE_SELECT:
+				gc.setCurrentMode("crosshair");
+				fc.setCurrentMode("descript");
+				break;
+
+			case INVENTORY_SELECT:
+				gc.setCurrentMode("player");
+				sc.setCurrentMode("inventory");
+				fc.setCurrentMode("descript");
+				break;
+		}
+
+		currentConfig = newConfig;
 	}
 }

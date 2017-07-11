@@ -72,6 +72,10 @@ public class Event {
         return sec;
     }
 
+    void setTime(int newTime) {
+        this.triggerTime = newTime;
+    }
+
     public void setId(int newId) {
         this.id = newId;
     }

@@ -1,7 +1,7 @@
 Cardiotic Fluid
 Crimson flakes seem to levitate in this unpleasantly oily concoction.
 Restores a small amount of health.
-ADJUSTHP(0,200);
+ADJUSTHP(0,353);
 !END
 Solution of Finesse
 Something.

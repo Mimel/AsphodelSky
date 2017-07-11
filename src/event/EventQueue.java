@@ -52,28 +52,23 @@ public class EventQueue {
     }
 
     /**
-     * Adds an event to the queue. The time of the event must not be smaller than the current time, otherwise
-     * the event is not added.
+     * Adds an event to the queue.
      * @param e The event to add.
      */
-    public void addEvent(Event e) {
-        if(e.getTime() >= time) {
+    private void addEvent(Event e) {
+        if(e.getTime() >= 0) {
+            e.setTime(e.getTime() + time);
             eventQueue.add(e);
         }
     }
 
     /**
-     * Adds an event to the queue, where the time in the event is the delay to add to the time, instead
-     * of the actual trigger time.
-     * @param e The event to add.
+     * Adds a set of events to the queue.
+     * @param eSet The set of events to add.
      */
-    public void addOffsetEvent(Event e) {
-
-    }
-
     public void addEvents(Event[] eSet) {
         for(Event ev : eSet) {
-            eventQueue.add(ev);
+            addEvent(ev);
         }
     }
 
@@ -95,5 +90,15 @@ public class EventQueue {
         }
 
         return time;
+    }
+
+    /**
+     * Checks if there are events that fire at the current time. If so, fire all such events.
+     * @param gr The grid to affect.
+     */
+    public void progressTimeInstantaneous(Grid gr) {
+        while(!eventQueue.isEmpty() && eventQueue.peek().getTime() == time) {
+            eventQueue.remove().execute(gr);
+        }
     }
 }

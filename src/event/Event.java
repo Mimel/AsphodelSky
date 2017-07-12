@@ -33,9 +33,14 @@ public class Event {
     /**
      * The secondary parameter to use in the instruction.
      */
-    private int sec;
+    private int x;
 
-    public Event(int time, int priority, Opcode opcode, int id, int sec) {
+    /**
+     * The ternary parameter to use in the instruction.
+     */
+    private int y;
+
+    public Event(int time, int priority, Opcode opcode, int id, int x, int y) {
         this.triggerTime = time;
 
         if(priority >= 0) {
@@ -44,7 +49,8 @@ public class Event {
 
         this.opcode = opcode;
         this.id = id;
-        this.sec = sec;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -68,8 +74,10 @@ public class Event {
         return id;
     }
 
-    public int getSec() {
-        return sec;
+    public int getX() { return x; }
+
+    public int getY() {
+        return y;
     }
 
     void setTime(int newTime) {
@@ -80,8 +88,12 @@ public class Event {
         this.id = newId;
     }
 
-    public void setSec(int newSec) {
-        this.sec = newSec;
+    public void setX(int newX) {
+        this.x = newX;
+    }
+
+    public void setY(int newY) {
+        this.y = newY;
     }
 
     /**
@@ -104,7 +116,7 @@ public class Event {
         time = Integer.parseInt(phrase.substring(parenPos + 1, commaPos));
         priority = Integer.parseInt(phrase.substring(commaPos + 1, phrase.indexOf(')')));
 
-        return new Event(time, priority, name, -1, -1);
+        return new Event(time, priority, name, -1, -1, -1);
     }
 
     /**
@@ -112,6 +124,6 @@ public class Event {
      * @param gr The grid to impose the instruction on.
      */
     public void execute(Grid gr) {
-        Instruction.execute(opcode, id, sec, gr);
+        Instruction.execute(opcode, id, x, y, gr);
     }
 }

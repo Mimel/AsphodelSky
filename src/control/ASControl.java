@@ -108,10 +108,10 @@ public class ASControl {
 		grid.addItem("Cardiotic Fluid", 4, 4);
 		grid.addItem("Solution of Finesse", 5, 5);
 
-		eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100);
-		eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50);
-		eq.addEvent(3, 100, Opcode.ECHOPARAM, 2, 6);
-		eq.addEvent(2, 400, Opcode.ADJUSTHP, 0, -4);
+		eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100, 30);
+		eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50, 40);
+		eq.addEvent(3, 100, Opcode.ECHOPARAM, 2, 6, 20);
+		eq.addEvent(2, 400, Opcode.ADJUSTHP, 0, -4, 2);
 		eq.progressTimeBy(5, grid);
 
 		grid.addCombatant("Khweiri Dervish", 6, 6);
@@ -362,12 +362,12 @@ public class ASControl {
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "confirm");
 		game.getActionMap().put("confirm", confirm);
 
-		//All keybinds needed for restricted set are above.
+		/*//All keybinds needed for restricted set are above.
 		for(KeyStroke key : game.getInputMap().keys()) {
 			Object value = game.getInputMap().get(key);
 			restrictedSelectInputMap.put(key, value);
 			restrictedSelectActionMap.put(value, game.getActionMap().get(value));
-		}
+		}*/
 
 		//G = Get.
 		game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");

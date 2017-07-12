@@ -43,11 +43,12 @@ public class EventQueue {
      * @param priority The priority of the event. Used as a secondary sorting mechanism in the case of ties in time.
      * @param opcode The operation to execute.
      * @param id The id that the operation will affect.
-     * @param sec A secondary variable that supports the operation.
+     * @param x A secondary variable that supports the operation.
+     * @param y
      */
-    public void addEvent(int delay, int priority, Opcode opcode, int id, int sec) {
+    public void addEvent(int delay, int priority, Opcode opcode, int id, int x, int y) {
         if(delay >= 0) {
-            eventQueue.add(new Event(time + delay, priority, opcode, id, sec));
+            eventQueue.add(new Event(time + delay, priority, opcode, id, x, y));
         }
     }
 

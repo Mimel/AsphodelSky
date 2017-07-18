@@ -21,6 +21,8 @@ public class EventQueue {
      */
     private Queue<Event> eventQueue;
 
+    private MacroEvent pendingEvent;
+
     public EventQueue() {
         this.time = 0;
 
@@ -36,19 +38,31 @@ public class EventQueue {
         return time;
     }
 
+    public void createPendingEvent(int priority, MacroOperation mo) {
+        pendingEvent = new MacroEvent(time, priority, mo);
+    }
+
+    public MacroEvent getPendingEvent() {
+        return pendingEvent;
+    }
+
+    public void executePendingEvent() {
+        if(pendingEvent.isValid()) {
+            addEvents(pendingEvent.performMacroEvent());
+        }
+    }
 
     /**
      * Adds an event to the queue. If the delay is negative, the event is not added..
      * @param delay Time before the event is executed. Must be greater than or equal to zero.
      * @param priority The priority of the event. Used as a secondary sorting mechanism in the case of ties in time.
      * @param opcode The operation to execute.
-     * @param id The id that the operation will affect.
      * @param x A secondary variable that supports the operation.
      * @param y
      */
-    public void addEvent(int delay, int priority, Opcode opcode, int id, int x, int y) {
+    public void addEvent(int delay, int priority, Opcode opcode, int actorId, int affectedId, int x, int y) {
         if(delay >= 0) {
-            eventQueue.add(new Event(time + delay, priority, opcode, id, x, y));
+            eventQueue.add(new Event(time + delay, priority, opcode, actorId, affectedId, x, y));
         }
     }
 
@@ -56,7 +70,7 @@ public class EventQueue {
      * Adds an event to the queue.
      * @param e The event to add.
      */
-    private void addEvent(Event e) {
+    public void addEvent(Event e) {
         if(e.getTime() >= 0) {
             e.setTime(e.getTime() + time);
             eventQueue.add(e);

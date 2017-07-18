@@ -119,7 +119,7 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 					}
 					
 					//Focus crosshair, if used.
-					if(currentTile.isFocused()) {
+					if(selectedMode.equals("crosshair") && currentTile.isFocused()) {
 						drawImageFromTileset(g, SELECTOR_YELLOW, x * squareSize, y * squareSize, 0, 0, squareSize);
 					}
 				}

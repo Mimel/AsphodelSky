@@ -19,14 +19,14 @@ public class Instruction
      * @param <C> The third parameter (In the context of the instruction set, the Grid).
      */
     @FunctionalInterface
-    interface QuadConsumer<A, B, C, D> {
-        public void accept(A a, B b, C c, D d);
+    interface QuintConsumer<A, B, C, D, E> {
+        public void accept(A a, B b, C c, D d, E e);
 
-        public default QuadConsumer<A, B, C, D> andThen(QuadConsumer<? super A, ? super B, ? super C, ? super D> after) {
+        public default QuintConsumer<A, B, C, D, E> andThen(QuintConsumer<? super A, ? super B, ? super C, ? super D, ? super E> after) {
             Objects.requireNonNull(after);
-            return (a, b, c, d) -> {
-                accept(a, b, c, d);
-                after.accept(a, b, c, d);
+            return (a, b, c, d, e) -> {
+                accept(a, b, c, d, e);
+                after.accept(a, b, c, d, e);
             };
         }
     }
@@ -34,7 +34,7 @@ public class Instruction
     /**
      * A map that connects strings to their associated operation.
      */
-    private static Map<Opcode, QuadConsumer<Integer, Integer, Integer, Grid>> instructionSet;
+    private static Map<Opcode, QuintConsumer<Integer, Integer, Integer, Integer, Grid>> instructionSet;
 
     /**
      * Private constructor used to prevent instantiation.
@@ -52,30 +52,25 @@ public class Instruction
             instructionSet = new HashMap<>();
 
             //Prints the ID and SEC to output.
-            instructionSet.put(Opcode.ECHOPARAM, (id, x, y, grid) -> System.out.println("Hello! id = " + id + " x = " + x));
+            instructionSet.put(Opcode.ECHOPARAM, (actorId, affectedId, x, y, grid) -> System.out.println("Hello! id = " + actorId + " x = " + x));
 
             //Adjusts health by SEC for combatant with given ID.
-            instructionSet.put(Opcode.ADJUSTHP, (id, x, y, grid) -> grid.searchForOccupant(id).adjustHealthBy(x));
-
-            //Adjusts momentum by SEC for combatant with given ID.
-            instructionSet.put(Opcode.ADJUSTMP, (id, x, y, grid) -> grid.searchForOccupant(id).adjustMomentumBy(x));
-
-            //Adjusts science by SEC for combatant with given ID.
-            instructionSet.put(Opcode.ADJUSTSCI, (id, x, y, grid) -> grid.searchForOccupant(id).adjustScienceBy(x));
+            instructionSet.put(Opcode.ADJUSTHP, (actorId, affectedId, x, y, grid) -> grid.searchForOccupant(actorId).adjustHealthBy(x));
         }
     }
 
     /**
      * Executes the specified instruction.
      * @param opcode The operation to use.
-     * @param id The id that the operation affects.
+     * @param actorId The user id.
+     * @param affectedId The id of the object of affection.
      * @param x The secondary variable used in the operation, or the x-coordinate of a given tile.
      * @param y The ternary variable used in the operation, or the y-coordinate of a given tile.
      * @param gr The grid to impose the operation on.
      */
-    static void execute(Opcode opcode, int id, int x, int y, Grid gr) {
+    static void execute(Opcode opcode, int actorId, int affectedId, int x, int y, Grid gr) {
         if(instructionSet.containsKey(opcode)) {
-            instructionSet.get(opcode).accept(id, x, y, gr);
+            instructionSet.get(opcode).accept(actorId, affectedId, x, y, gr);
         }
     }
 }

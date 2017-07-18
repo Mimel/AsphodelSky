@@ -8,6 +8,4 @@ public enum Opcode {
     ADJUSTHP,
     ADJUSTMP,
     ADJUSTSCI,
-    USEITEM,
-    THROWITEM,
 }

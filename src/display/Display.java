@@ -1,8 +1,10 @@
 package display;
 
 import java.awt.BorderLayout;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * The whole of the GUI of Asphodel Sky. Contains one instance of each subclass of the DisplayComponent class,
@@ -38,7 +40,22 @@ public class Display extends JPanel {
 	 * The current display configuration.
 	 */
 	private DisplayConfiguration currentConfig;
-	
+
+	/**
+	 * A queue of required requests that must be fulfilled before the configuration resets to default.
+	 */
+	private Queue<DisplayPrompt> promptQueue;
+
+	/**
+	 * The unused input map. Contains either the restricted or unrestricted keybinds, opposite of the current set.
+	 */
+	private InputMap unusedInputMap;
+
+	/**
+	 * The unused action map. Contains either the restricted or unrestricted keybinds, opposite of the current set.
+	 */
+	private ActionMap unusedActionMap;
+
 	public Display(int winWidth, int winHeight) {
 		this.setLayout(new BorderLayout());
 		
@@ -54,6 +71,8 @@ public class Display extends JPanel {
 		this.add(fc, BorderLayout.SOUTH);
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
+
+		this.promptQueue = new LinkedList<DisplayPrompt>();
 	}
 	
 	public GUIHeader getHeader() { return hc; }
@@ -74,6 +93,7 @@ public class Display extends JPanel {
 
 			case TILE_SELECT:
 				gc.setCurrentMode("crosshair");
+				sc.setCurrentMode("free");
 				fc.setCurrentMode("descript");
 				break;
 
@@ -85,5 +105,69 @@ public class Display extends JPanel {
 		}
 
 		currentConfig = newConfig;
+	}
+
+	public void initializeRestrictedCharacterSet(InputMap im, ActionMap am) {
+		unusedInputMap = im;
+		unusedActionMap = am;
+	}
+
+	private void toggleCharacterSet() {
+		InputMap swapIM = getInputMap();
+		ActionMap swapAM = getActionMap();
+
+		this.setInputMap(JComponent.WHEN_FOCUSED, unusedInputMap);
+		this.setActionMap(unusedActionMap);
+
+		this.unusedInputMap = swapIM;
+		this.unusedActionMap = swapAM;
+	}
+
+	public boolean isPromptQueueEmpty() {
+		return promptQueue.isEmpty();
+	}
+
+	public void enqueuePrompt(DisplayPrompt dp) {
+		if(promptQueue.isEmpty()) {
+			toggleCharacterSet();
+			switch(dp) {
+				case ITEM_PROMPT:
+					switchState(DisplayConfiguration.INVENTORY_SELECT);
+					break;
+				case TILE_PROMPT:
+					switchState(DisplayConfiguration.TILE_SELECT);
+					break;
+			}
+		}
+
+		promptQueue.add(dp);
+	}
+
+	public DisplayPrompt peekPrompt() {
+		return promptQueue.peek();
+	}
+
+	public DisplayPrompt dequeuePrompt() {
+		DisplayPrompt dp = promptQueue.remove();
+
+		if(promptQueue.isEmpty()) {
+			toggleCharacterSet();
+			switchState(DisplayConfiguration.DEFAULT);
+		} else {
+			switch(promptQueue.peek()) {
+				case ITEM_PROMPT:
+					switchState(DisplayConfiguration.INVENTORY_SELECT);
+					break;
+				case TILE_PROMPT:
+					switchState(DisplayConfiguration.TILE_SELECT);
+					break;
+			}
+		}
+
+		return dp;
+	}
+
+	public void clearPromptQueue() {
+		promptQueue.clear();
 	}
 }

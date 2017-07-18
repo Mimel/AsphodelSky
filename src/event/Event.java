@@ -24,11 +24,9 @@ public class Event {
      */
     private Opcode opcode;
 
-    /**
-     * The id parameter to use in the instruction.
-     * Does NOT refer to the id of the event.
-     */
-    private int id;
+    private int actorId;
+
+    private int affectedId;
 
     /**
      * The secondary parameter to use in the instruction.
@@ -40,7 +38,7 @@ public class Event {
      */
     private int y;
 
-    public Event(int time, int priority, Opcode opcode, int id, int x, int y) {
+    public Event(int time, int priority, Opcode opcode, int actorId, int affectedId, int x, int y) {
         this.triggerTime = time;
 
         if(priority >= 0) {
@@ -48,7 +46,8 @@ public class Event {
         }
 
         this.opcode = opcode;
-        this.id = id;
+        this.actorId = actorId;
+        this.affectedId = affectedId;
         this.x = x;
         this.y = y;
     }
@@ -70,8 +69,12 @@ public class Event {
         return priority;
     }
 
-    public int getId() {
-        return id;
+    public int getActorId() {
+        return actorId;
+    }
+
+    public int getAffectedId() {
+        return affectedId;
     }
 
     public int getX() { return x; }
@@ -84,8 +87,10 @@ public class Event {
         this.triggerTime = newTime;
     }
 
-    public void setId(int newId) {
-        this.id = newId;
+    public void setActorId(int newId) { this.actorId = newId; }
+
+    public void setAffectedId(int newId) {
+        this.affectedId = newId;
     }
 
     public void setX(int newX) {
@@ -94,6 +99,18 @@ public class Event {
 
     public void setY(int newY) {
         this.y = newY;
+    }
+
+    public boolean lacksAffectedId() {
+        return affectedId < 0;
+    }
+
+    public boolean lacksX() {
+        return x < 0;
+    }
+
+    public boolean lacksY() {
+        return y < 0;
     }
 
     /**
@@ -116,7 +133,7 @@ public class Event {
         time = Integer.parseInt(phrase.substring(parenPos + 1, commaPos));
         priority = Integer.parseInt(phrase.substring(commaPos + 1, phrase.indexOf(')')));
 
-        return new Event(time, priority, name, -1, -1, -1);
+        return new Event(time, priority, name, -1, -1, -1, -1);
     }
 
     /**
@@ -124,6 +141,6 @@ public class Event {
      * @param gr The grid to impose the instruction on.
      */
     public void execute(Grid gr) {
-        Instruction.execute(opcode, id, x, y, gr);
+        Instruction.execute(opcode, actorId, affectedId, x, y, gr);
     }
 }

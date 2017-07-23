@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Created by Owner on 7/11/2017.
+ * The set of keybinds used for the game.
  */
 public class DisplayKeyBindings {
     /**
@@ -115,7 +115,7 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 switch(game.dequeuePrompt()) {
                     case ITEM_PROMPT:
-                        eq.getPendingEvent().setAffectedId(grid.searchForOccupant(0).getInventory().getFocusIndex());
+                        eq.getPendingEvent().setAffectedId(grid.searchForOccupant(0).getInventory().getFocusedItem().getId());
                         grid.searchForOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
@@ -127,7 +127,10 @@ public class DisplayKeyBindings {
 
                 if(game.isPromptQueueEmpty()) {
                     eq.executePendingEvent();
+                    eq.progressTimeInstantaneous(grid);
                 }
+
+                //System.out.println(p1.getInventory().getFocusedItem().toString());
 
                 updateOutput(grid, p1, eq);
                 game.repaint();
@@ -159,20 +162,10 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                game.enqueuePrompt(DisplayPrompt.TILE_PROMPT);
+                eq.createPendingEvent(0, MacroOperation.NO_OP);
 
-                if(game.getConfig() == DisplayConfiguration.DEFAULT) {
-
-                    game.switchState(DisplayConfiguration.TILE_SELECT);
-                    grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
-                    mm.loadSourceDescPair(p1.toString(), p1.getDesc());
-
-                } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
-
-                    game.switchState(DisplayConfiguration.DEFAULT);
-                    grid.clearFocusedTile();
-                    mm.insertMessage("Exiting Recon mode.");
-
-                }
+                grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
                 updateOutput(grid, p1, eq);
                 game.repaint();
@@ -185,6 +178,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
+                eq.createPendingEvent(0, MacroOperation.NO_OP);
 
                 updateOutput(grid, p1, eq);
                 game.repaint();
@@ -196,19 +190,12 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
-                    eq.addEvents(p1.getInventory().consumeItem(p1.getInventory().getFocusedItem().getId()).use(p1, grid));
-                    p1.getInventory().resetFocusIndex();
+                game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
+                eq.createPendingEvent(0, MacroOperation.USE_ITEM);
+                eq.getPendingEvent().setActorId(0);
 
-                    mm.insertMessage("Consumed.");
-
-                    eq.progressTimeInstantaneous(grid);
-                    game.switchState(DisplayConfiguration.DEFAULT);
-                    updateOutput(grid, p1, eq);
-                    game.repaint();
-                } else {
-                    inventory.actionPerformed(null);
-                }
+                updateOutput(grid, p1, eq);
+                game.repaint();
             }
         };
 
@@ -223,47 +210,46 @@ public class DisplayKeyBindings {
                 eq.getPendingEvent().setActorId(0);
 
                 //TODO 7/16, 4:11am; This works, but rework focusedTile on grid.
-                grid.setFocusedTile(2, 2);
+                grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
                 updateOutput(grid, p1, eq);
                 game.repaint();
             }
         };
 
+        game.getInputMap().setParent(new InputMap());
+
         //ESC = Exits the program.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ESCAPE"), "exitProgram");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ESCAPE"), "exitProgram");
         game.getActionMap().put("exitProgram", exitProgram);
 
         //Q,W,E,A,D,Z,X,C = Move. The following eight binds reflect moving.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('a'), "moveLeft");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('a'), "moveLeft");
         game.getActionMap().put("moveLeft", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('w'), "moveUp");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('w'), "moveUp");
         game.getActionMap().put("moveUp", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('d'), "moveRight");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('d'), "moveRight");
         game.getActionMap().put("moveRight", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('x'), "moveDown");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('x'), "moveDown");
         game.getActionMap().put("moveDown", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('q'), "moveNW");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('q'), "moveNW");
         game.getActionMap().put("moveNW", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('e'), "moveNE");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('e'), "moveNE");
         game.getActionMap().put("moveNE", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('z'), "moveSW");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('z'), "moveSW");
         game.getActionMap().put("moveSW", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('c'), "moveSE");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('c'), "moveSE");
         game.getActionMap().put("moveSE", move);
 
         //ENTER = yes.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "confirm");
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ENTER"), "confirm");
         game.getActionMap().put("confirm", confirm);
-
-		//All keybinds needed for restricted set are above.
-		game.initializeRestrictedCharacterSet(game.getInputMap(), game.getActionMap());
 
         //G = Get.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");

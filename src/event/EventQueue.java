@@ -3,6 +3,7 @@ package event;
 import grid.Grid;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -39,7 +40,7 @@ public class EventQueue {
     }
 
     public void createPendingEvent(int priority, MacroOperation mo) {
-        pendingEvent = new MacroEvent(time, priority, mo);
+        pendingEvent = new MacroEvent(0, priority, mo);
     }
 
     public MacroEvent getPendingEvent() {
@@ -47,9 +48,7 @@ public class EventQueue {
     }
 
     public void executePendingEvent() {
-        if(pendingEvent.isValid()) {
-            addEvents(pendingEvent.performMacroEvent());
-        }
+        addEvents(pendingEvent.performMacroEvent());
     }
 
     /**
@@ -81,7 +80,7 @@ public class EventQueue {
      * Adds a set of events to the queue.
      * @param eSet The set of events to add.
      */
-    public void addEvents(Event[] eSet) {
+    public void addEvents(List<Event> eSet) {
         for(Event ev : eSet) {
             addEvent(ev);
         }
@@ -113,7 +112,17 @@ public class EventQueue {
      */
     public void progressTimeInstantaneous(Grid gr) {
         while(!eventQueue.isEmpty() && eventQueue.peek().getTime() == time) {
+            System.out.println(eventQueue.peek().getAffectedId());
             eventQueue.remove().execute(gr);
         }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Time: " + time);
+        for(Event e : eventQueue) {
+            sb.append(e.toString() + ":::At time " + e.getTime() + "s \n");
+        }
+        return sb.toString();
     }
 }

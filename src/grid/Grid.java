@@ -313,6 +313,15 @@ public class Grid {
 		return false;
 	}
 
+	public boolean addItem(int itemId, int x, int y) {
+		if(isValidLocation(x, y)) {
+			map[y][x].getCatalog().insertItem(Item.getItemById(itemId));
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
 	 * If there is no crosshair in the given tile, that tile becomes focused.

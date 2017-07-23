@@ -1,7 +1,7 @@
 package control;
 
 //TODO LIST
-/////////// THE NEW SYSTEM WORKS; RESET ALL KEYBINDS TO FIT WITH NEW SYSTEM, ADD SWITCH TO MACRO EVENT, CONDENSE INTO ABSTRACT CLASS, AND DO FINAL TESTING.
+/////////// THE NEW SYSTEM WORKS; RESET ALL KEYBINDS TO FIT WITH NEW SYSTEM, CONDENSE INTO ABSTRACT CLASS, AND DO FINAL TESTING.
 //AI operations must return array of Events.
 //Maybe add different methods for item select/tile select.
 //Event queue testing, AI operation testing (NOT implementation)
@@ -23,7 +23,6 @@ import entity.*;
 import event.Event;
 import event.EventQueue;
 import event.Instruction;
-import event.Opcode;
 import grid.*;
 import item.Item;
 
@@ -75,7 +74,7 @@ public class ASControl {
 		threadList.execute(mm);
 
 		//TODO: p1 must be instantiated before enemy map loading in order to ensure that p1 has id 0; fix.
-		p1 = new Player("Place Holder", "Apprentice",  16, game.getSidebar());
+		p1 = new Player("Place Holder", "Apprentice",  16, 22, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -93,12 +92,9 @@ public class ASControl {
 		grid.addCombatant(p1, 1, 1);
 
 		grid.addItem("Cardiotic Fluid", 4, 4);
+		grid.addItem("Solution of Finesse", 3, 4);
 		grid.addItem("Solution of Finesse", 5, 5);
 
-		//eq.addEvent(4, 100, Opcode.ECHOPARAM, 0, 100, 30);
-		//eq.addEvent(4, 50, Opcode.ECHOPARAM, 1, 50, 40);
-		//eq.addEvent(3, 100, Opcode.ECHOPARAM, 2, 6, 20);
-		//eq.addEvent(2, 400, Opcode.ADJUSTHP, 0, -4, 2);
 		eq.progressTimeBy(5, grid);
 
 		grid.addCombatant("Khweiri Dervish", 6, 6);

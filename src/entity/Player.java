@@ -13,9 +13,8 @@ public class Player extends Combatant {
 	 */
 	private SidebarComponent combatantOutput;
 	
-	public Player(String name, String title, int health, SidebarComponent sc) {
-		super(name, title, "", health, 0);
-
+	public Player(String name, String title, int health, int science, SidebarComponent sc) {
+		super(name, title, "", health, science);
 		this.combatantOutput = sc;
 	}
 	

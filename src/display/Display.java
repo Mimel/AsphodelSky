@@ -46,15 +46,7 @@ public class Display extends JPanel {
 	 */
 	private Queue<DisplayPrompt> promptQueue;
 
-	/**
-	 * The unused input map. Contains either the restricted or unrestricted keybinds, opposite of the current set.
-	 */
-	private InputMap unusedInputMap;
-
-	/**
-	 * The unused action map. Contains either the restricted or unrestricted keybinds, opposite of the current set.
-	 */
-	private ActionMap unusedActionMap;
+	private InputMap keyBindings;
 
 	public Display(int winWidth, int winHeight) {
 		this.setLayout(new BorderLayout());
@@ -107,29 +99,13 @@ public class Display extends JPanel {
 		currentConfig = newConfig;
 	}
 
-	public void initializeRestrictedCharacterSet(InputMap im, ActionMap am) {
-		unusedInputMap = im;
-		unusedActionMap = am;
-	}
-
-	private void toggleCharacterSet() {
-		InputMap swapIM = getInputMap();
-		ActionMap swapAM = getActionMap();
-
-		this.setInputMap(JComponent.WHEN_FOCUSED, unusedInputMap);
-		this.setActionMap(unusedActionMap);
-
-		this.unusedInputMap = swapIM;
-		this.unusedActionMap = swapAM;
-	}
-
 	public boolean isPromptQueueEmpty() {
 		return promptQueue.isEmpty();
 	}
 
 	public void enqueuePrompt(DisplayPrompt dp) {
 		if(promptQueue.isEmpty()) {
-			toggleCharacterSet();
+			restrictKeyBindings();
 			switch(dp) {
 				case ITEM_PROMPT:
 					switchState(DisplayConfiguration.INVENTORY_SELECT);
@@ -151,8 +127,8 @@ public class Display extends JPanel {
 		DisplayPrompt dp = promptQueue.remove();
 
 		if(promptQueue.isEmpty()) {
-			toggleCharacterSet();
 			switchState(DisplayConfiguration.DEFAULT);
+			expandKeyBindings();
 		} else {
 			switch(promptQueue.peek()) {
 				case ITEM_PROMPT:
@@ -169,5 +145,19 @@ public class Display extends JPanel {
 
 	public void clearPromptQueue() {
 		promptQueue.clear();
+	}
+
+	private void restrictKeyBindings() {
+		if(keyBindings == null) {
+			keyBindings = getInputMap();
+		}
+
+		setInputMap(JComponent.WHEN_FOCUSED, getInputMap().getParent());
+	}
+
+	private void expandKeyBindings() {
+		if(keyBindings != null) {
+			setInputMap(JComponent.WHEN_FOCUSED, keyBindings);
+		}
 	}
 }

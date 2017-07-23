@@ -1,6 +1,7 @@
 package event;
 
 import grid.Grid;
+import item.Item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,14 +49,28 @@ public class Instruction
      */
     public static void loadInstructionSet() {
         if(instructionSet == null) {
-            //TODO switch to enummap
             instructionSet = new HashMap<>();
 
-            //Prints the ID and SEC to output.
-            instructionSet.put(Opcode.ECHOPARAM, (actorId, affectedId, x, y, grid) -> System.out.println("Hello! id = " + actorId + " x = " + x));
+            //Prints the parameter values to standard input.
+            instructionSet.put(Opcode.ECHOPARAM, (actorId, affectedId, x, y, grid) -> System.out.println("Echoing parameters:\nActor ID = " + actorId + "\nAffected ID = " + affectedId + "\nX = " + x + "\nY = " + y));
 
-            //Adjusts health by SEC for combatant with given ID.
+            //Adjusts health by AFFECTEDID for combatant with given ACTORID.
             instructionSet.put(Opcode.ADJUSTHP, (actorId, affectedId, x, y, grid) -> grid.searchForOccupant(actorId).adjustHealthBy(x));
+
+            //Adds item with given AFFECTEDID to ACTORID's inventory.
+            instructionSet.put(Opcode.PICKUP_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId));
+            });
+
+            //Discards item with given AFFECTEDID from ACTORID's inventory.
+            instructionSet.put(Opcode.DISCARD_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).getInventory().consumeItem(affectedId);
+            });
+
+            //Spawns item with given ACTORID on tile at position (X, Y).
+            instructionSet.put(Opcode.SPAWN_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.addItem(actorId, x, y);
+            });
         }
     }
 

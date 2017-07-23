@@ -1,5 +1,10 @@
 package event;
 
+import item.Item;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * An event, that when executed, performs multiple events.
  */
@@ -36,6 +41,10 @@ public class MacroEvent {
         this.affectedId = affectedId;
         this.xTile = x;
         this.yTile = y;
+    }
+
+    public int getTriggerTime() {
+        return time;
     }
 
     public MacroOperation getOp() {
@@ -82,8 +91,19 @@ public class MacroEvent {
         return actorId != -1 && affectedId != -1 && xTile != -1 && yTile != -1;
     }
 
-    public Event[] performMacroEvent() {
-        System.out.println("Success!");
-        return null;
+    public List<Event> performMacroEvent() {
+        List<Event> eventList = new LinkedList<>();
+        switch(op) {
+            case USE_ITEM:
+                eventList.add(new Event(time, priority, Opcode.DISCARD_ITEM, actorId, affectedId, xTile, yTile));
+                eventList.addAll(Item.getItemById(affectedId).use(actorId));
+                break;
+            case DROP_ITEM:
+                eventList.add(new Event(time, priority, Opcode.DISCARD_ITEM, actorId, affectedId, xTile, yTile));
+                eventList.add(new Event(time, priority, Opcode.SPAWN_ITEM, affectedId, affectedId, xTile, yTile));
+                break;
+        }
+
+        return eventList;
     }
 }

@@ -143,4 +143,8 @@ public class Event {
     public void execute(Grid gr) {
         Instruction.execute(opcode, actorId, affectedId, x, y, gr);
     }
+
+    public String toString() {
+        return "Event " + opcode + ": User=" + actorId + " Affectee=" + affectedId + " x=" + x + " y=" + y + ".";
+    }
 }

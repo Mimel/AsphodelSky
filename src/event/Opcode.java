@@ -8,4 +8,9 @@ public enum Opcode {
     ADJUSTHP,
     ADJUSTMP,
     ADJUSTSCI,
+
+    //TODO new instructions used in MacroEvents.
+    PICKUP_ITEM,
+    DISCARD_ITEM,
+    SPAWN_ITEM
 }

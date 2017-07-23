@@ -3,6 +3,8 @@ package item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -55,7 +57,7 @@ public class Item implements Comparable<Item> {
 	/**
 	 * The events to perform upon use.
 	 */
-	private Event[] useEffects;
+	private List<Event> useEffects;
 
 	protected Item(String name, String vDesc, String uDesc, String effects) {
 		id = AUTO_INCR_ID.getAndIncrement();
@@ -70,10 +72,9 @@ public class Item implements Comparable<Item> {
 			}
 		}
 
-		useEffects = new Event[semicolons];
-		int eventPos = 0;
+		useEffects = new LinkedList<>();
 		for(String phrase : effects.split(";")) {
-			useEffects[eventPos++] = Event.interpretEvent(phrase);
+			useEffects.add(Event.interpretEvent(phrase));
 		}
 	}
 
@@ -105,7 +106,7 @@ public class Item implements Comparable<Item> {
 		return descUse;
 	}
 
-	public Event[] getEffects() { return useEffects; }
+	public List<Event> getEffects() { return useEffects; }
 
 	public static void loadItemMapping(String fileName) {
 		if(itemNameToItemMap == null) {
@@ -146,16 +147,24 @@ public class Item implements Comparable<Item> {
 		return new Item(itemNameToItemMap.get(itemName));
 	}
 
+	public static Item getItemById(int id) {
+		for(Item i : itemNameToItemMap.values()) {
+			if(id == i.getId()) {
+				return new Item(i);
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * Uses the item.
 	 * TODO: Heavy edits needed; distinguish different ids, implement proper sec usage.
-	 * @param c The user of the item.
-	 * @param g The grid the item will affect.
 	 * @return A set of events that occur after usage.
 	 */
-	public Event[] use(Combatant c, Grid g) {
+	public List<Event> use(int combatantId) {
 		for(Event ev : useEffects) {
-			ev.setActorId(c.getId());
+			ev.setActorId(combatantId);
 			ev.setX(-15);
 		}
 

@@ -1,7 +1,7 @@
 package control;
 
 //TODO LIST
-/////////// THE NEW SYSTEM WORKS; RESET ALL KEYBINDS TO FIT WITH NEW SYSTEM, CONDENSE INTO ABSTRACT CLASS, AND DO FINAL TESTING.
+//Final testing with events, keybinds, and document everything untouched.
 //AI operations must return array of Events.
 //Maybe add different methods for item select/tile select.
 //Event queue testing, AI operation testing (NOT implementation)

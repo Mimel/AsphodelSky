@@ -165,7 +165,7 @@ public class Item implements Comparable<Item> {
 	public List<Event> use(int combatantId) {
 		for(Event ev : useEffects) {
 			ev.setActorId(combatantId);
-			ev.setX(-15);
+			ev.setxTile(-15);
 		}
 
 		return useEffects;

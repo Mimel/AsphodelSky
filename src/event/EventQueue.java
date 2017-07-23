@@ -70,8 +70,8 @@ public class EventQueue {
      * @param e The event to add.
      */
     public void addEvent(Event e) {
-        if(e.getTime() >= 0) {
-            e.setTime(e.getTime() + time);
+        if(e.getTriggerDelay() >= 0) {
+            e.setTriggerDelay(e.getTriggerDelay() + time);
             eventQueue.add(e);
         }
     }
@@ -95,7 +95,7 @@ public class EventQueue {
      */
     public int progressTimeBy(int timeOffset, Grid gr) {
         while(timeOffset > 0) {
-            if(eventQueue.isEmpty() || eventQueue.peek().getTime() > time) {
+            if(eventQueue.isEmpty() || eventQueue.peek().getTriggerDelay() > time) {
                 time++;
                 timeOffset--;
             } else {
@@ -111,7 +111,7 @@ public class EventQueue {
      * @param gr The grid to affect.
      */
     public void progressTimeInstantaneous(Grid gr) {
-        while(!eventQueue.isEmpty() && eventQueue.peek().getTime() == time) {
+        while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
             System.out.println(eventQueue.peek().getAffectedId());
             eventQueue.remove().execute(gr);
         }
@@ -121,7 +121,7 @@ public class EventQueue {
         StringBuilder sb = new StringBuilder();
         sb.append("Time: " + time);
         for(Event e : eventQueue) {
-            sb.append(e.toString() + ":::At time " + e.getTime() + "s \n");
+            sb.append(e.toString() + ":::At time " + e.getTriggerDelay() + "s \n");
         }
         return sb.toString();
     }

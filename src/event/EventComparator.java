@@ -15,12 +15,12 @@ class EventComparator implements Comparator<Event> {
      */
     @Override
     public int compare(Event e1, Event e2) {
-        if(e1.getTime() == e2.getTime()) {
+        if(e1.getTriggerDelay() == e2.getTriggerDelay()) {
             //Higher arbitrary priorities are higher priorities.
             return e2.getPriority() - e1.getPriority();
         } else {
             //Lower times are higher priority.
-            return e1.getTime() - e2.getTime();
+            return e1.getTriggerDelay() - e2.getTriggerDelay();
         }
     }
 }

@@ -6,8 +6,10 @@ import entity.Combatant;
 import entity.EnemyGenerator;
 import entity.EnemyRoster;
 import generator.EmptyShipGenerator;
+import item.Catalog;
 import item.Item;
 import org.javatuples.Pair;
+import org.javatuples.Tuple;
 
 /**
  * A map of the game, containing a set of tiles and all objects within.
@@ -279,6 +281,13 @@ public class Grid {
 		}
 	}
 
+	/**
+	 * Moves the combatant with given id to a new location on the grid given by the
+	 * coordinates given.
+	 * @param id The id of the combatant to move.
+	 * @param newX The X-coordinate to move the combatant to.
+	 * @param newY The Y-coordinate to move the combatant to.
+	 */
 	public void moveCombatant(int id, int newX, int newY) {
 		if(isValidLocation(newX, newY) && !map[newY][newX].isOccupied()) {
 			Pair<Integer, Integer> coords = roster.getCombatantLocation(id);
@@ -313,15 +322,45 @@ public class Grid {
 		return false;
 	}
 
+	/**
+	 * Spawns a copy of an item with given id on the given tile.
+	 * @param itemId The id of the item to spawn.
+	 * @param x The X-coordinate of the tile to spawn the item in.
+	 * @param y The Y-coordinate of the tile to spawn the item in.
+	 * @return True if the item was successfully placed, false otherwise.
+	 */
 	public boolean addItem(int itemId, int x, int y) {
 		if(isValidLocation(x, y)) {
-			map[y][x].getCatalog().insertItem(Item.getItemById(itemId));
+			map[y][x].getCatalog().insertItem(Item.getItemById(itemId), 1);
 			return true;
 		}
 
 		return false;
 	}
 
+	/**
+	 * Gets the catalog located on the tile that the given combatant is occupying.
+	 * @param combatantId The id of the combatant.
+	 * @return The catalog of the tile that the combatant is occupying.
+	 */
+	public Catalog getItemsOnTile(int combatantId) {
+		Pair<Integer, Integer> coords = roster.getCombatantLocation(combatantId);
+		return map[coords.getValue1()][coords.getValue0()].getCatalog();
+	}
+
+	/**
+	 * Gets the catalog of the tile indicated by the coordinates.
+	 * @param x The X-coordinate of the tile.
+	 * @param y The Y-coordinate of the tile.
+	 * @return The catalog of the tile, or null if the tile is invalid.
+	 */
+	public Catalog getItemsOnTile(int x, int y) {
+		if(isValidLocation(x, y)) {
+			return map[y][x].getCatalog();
+		}
+
+		return null;
+	}
 	/**
 	 * Removes an item from the given tile.
 	 * @param itemId The id of the item to remove.
@@ -331,6 +370,12 @@ public class Grid {
 	public void removeItem(int itemId, int x, int y) {
 		if(isValidLocation(x, y)) {
 			map[y][x].getCatalog().consumeItem(itemId);
+		}
+	}
+
+	public void removeItem(int itemId, int numberToRemove, int x, int y) {
+		if(isValidLocation(x, y)) {
+			map[y][x].getCatalog().consumeItem(itemId, numberToRemove);
 		}
 	}
 

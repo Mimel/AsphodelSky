@@ -1,7 +1,8 @@
 package control;
 
 //TODO LIST
-//Final testing with events, keybinds, and document everything untouched.
+//Test with events, keybinds, and document everything untouched.
+//Incorporate Message Manager to events.
 //AI operations must return array of Events.
 //Maybe add different methods for item select/tile select.
 //Event queue testing, AI operation testing (NOT implementation)

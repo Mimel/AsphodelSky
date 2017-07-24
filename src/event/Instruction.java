@@ -1,7 +1,9 @@
 package event;
 
 import grid.Grid;
+import item.Catalog;
 import item.Item;
+import org.javatuples.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,30 +53,46 @@ public class Instruction
         if(instructionSet == null) {
             instructionSet = new HashMap<>();
 
-            //Prints the parameter values to standard input.
-            instructionSet.put(Opcode.ECHOPARAM, (actorId, affectedId, x, y, grid) -> System.out.println("Echoing parameters:\nActor ID = " + actorId + "\nAffected ID = " + affectedId + "\nX = " + x + "\nY = " + y));
-
-            //Adjusts health by AFFECTEDID for combatant with given ACTORID.
-            instructionSet.put(Opcode.ADJUSTHP, (actorId, affectedId, x, y, grid) -> grid.searchForOccupant(actorId).adjustHealthBy(x));
-
-            //Adds item with given AFFECTEDID to ACTORID's inventory.
-            instructionSet.put(Opcode.PICKUP_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId), 1);
+            instructionSet.put(Opcode.TILE_SPAWN, (actorId, affectedId, x, y, grid) -> {
+                grid.addItem(actorId, x, y);
             });
 
-            //Discards item with given AFFECTEDID from ACTORID's inventory.
-            instructionSet.put(Opcode.DISCARD_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().consumeItem(affectedId);
+            instructionSet.put(Opcode.TILE_REMOVE, (actorId, affectedId, x, y, grid) -> {
+                grid.removeItem(actorId, affectedId, x, y);
             });
 
-            //Removes item with given ACTORID from tile at position (X, Y).
-            instructionSet.put(Opcode.REMOVE_ITEM, (actorId, affectedId, x, y, grid) -> {
+            instructionSet.put(Opcode.TILE_REMOVEALL, (actorId, affectedId, x, y, grid) -> {
                 grid.removeItem(actorId, x, y);
             });
 
-            //Spawns item with given ACTORID on tile at position (X, Y).
-            instructionSet.put(Opcode.SPAWN_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.addItem(actorId, x, y);
+            instructionSet.put(Opcode.TILE_CLEAR, (actorId, affectedId, x, y, grid) -> {
+                grid.getTileAt(x, y).getCatalog().clearCatalog();
+            });
+
+            instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).adjustHealthBy(affectedId);
+            });
+
+            instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId), x);
+            });
+
+            instructionSet.put(Opcode.COMBATANT_REMOVE_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).getInventory().consumeItem(affectedId, x);
+            });
+
+            instructionSet.put(Opcode.COMBATANT_REMOVEALL_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.searchForOccupant(actorId).getInventory().consumeAll(affectedId);
+            });
+
+            instructionSet.put(Opcode.TRANSFER_ITEM, (actorId, affectedId, x, y, grid) -> {
+                Pair<Item, Integer> tileItems = grid.getItemsOnTile(actorId).consumeItem(affectedId, x);
+                grid.searchForOccupant(actorId).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
+            });
+
+            instructionSet.put(Opcode.TRANSFER_ITEMALL, (actorId, affectedId, x, y, grid) -> {
+                Pair<Item, Integer> tileItems = grid.getItemsOnTile(actorId).consumeAll(affectedId);
+                grid.searchForOccupant(actorId).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
             });
         }
     }

@@ -34,17 +34,13 @@ public class MacroEvent extends Executable {
     public List<Event> performMacroEvent() {
         List<Event> eventList = new LinkedList<>();
         switch(op) {
-            case GET_ITEM:
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.REMOVE_ITEM, getAffectedId(), getAffectedId(), getxTile(), getyTile()));
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.PICKUP_ITEM, getActorId(), getAffectedId(), getxTile(), getyTile()));
-                break;
             case USE_ITEM:
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.DISCARD_ITEM, getActorId(), getAffectedId(), getxTile(), getyTile()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, getActorId(), getAffectedId(), 1, getyTile()));
                 eventList.addAll(Item.getItemById(getAffectedId()).use(getActorId()));
                 break;
             case DROP_ITEM:
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.DISCARD_ITEM, getActorId(), getAffectedId(), getxTile(), getyTile()));
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.SPAWN_ITEM, getAffectedId(), getAffectedId(), getxTile(), getyTile()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, getActorId(), getAffectedId(), 1, getyTile()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.TILE_SPAWN, getAffectedId(), getAffectedId(), getxTile(), getyTile()));
                 break;
         }
 

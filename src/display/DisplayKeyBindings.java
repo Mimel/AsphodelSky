@@ -5,6 +5,7 @@ import entity.Combatant;
 import entity.Player;
 import event.EventQueue;
 import event.MacroOperation;
+import event.Opcode;
 import grid.Grid;
 import grid.Tile;
 import item.Item;
@@ -142,15 +143,9 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                    eq.createPendingEvent(0, MacroOperation.GET_ITEM);
-                    eq.getPendingEvent().setActorId(0);
-                    eq.getPendingEvent().setAffectedId(grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog().getFocusedItem().getId());
-                    eq.getPendingEvent().setxTile(grid.getXOfCombatant(0));
-                    eq.getPendingEvent().setyTile(grid.getYOfCombatant(0));
-
-                    eq.executePendingEvent();
+                    eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL, 0, grid.getItemsOnTile(0).getFocusedItem().getId(), -1, -1);
                     eq.progressTimeInstantaneous(grid);
-                    System.out.println("YO!");
+
                     updateOutput(grid, p1, eq);
                     game.repaint();
             }

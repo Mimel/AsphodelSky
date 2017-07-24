@@ -4,13 +4,16 @@ package event;
  * A set of opcodes that are used in the Instruction class.
  */
 public enum Opcode {
-    ECHOPARAM,
-    ADJUSTHP,
-    ADJUSTMP,
-    ADJUSTSCI,
+    TILE_SPAWN,
+    TILE_REMOVE,
+    TILE_REMOVEALL,
+    TILE_CLEAR,
 
-    PICKUP_ITEM,
-    DISCARD_ITEM,
-    REMOVE_ITEM,
-    SPAWN_ITEM
+    COMBATANT_ADJUSTHP,
+    COMBATANT_ADD_ITEM,
+    COMBATANT_REMOVE_ITEM,
+    COMBATANT_REMOVEALL_ITEM,
+
+    TRANSFER_ITEM,
+    TRANSFER_ITEMALL
 }

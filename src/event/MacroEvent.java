@@ -34,6 +34,10 @@ public class MacroEvent extends Executable {
     public List<Event> performMacroEvent() {
         List<Event> eventList = new LinkedList<>();
         switch(op) {
+            case GET_ITEM:
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.REMOVE_ITEM, getAffectedId(), getAffectedId(), getxTile(), getyTile()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.PICKUP_ITEM, getActorId(), getAffectedId(), getxTile(), getyTile()));
+                break;
             case USE_ITEM:
                 eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.DISCARD_ITEM, getActorId(), getAffectedId(), getxTile(), getyTile()));
                 eventList.addAll(Item.getItemById(getAffectedId()).use(getActorId()));

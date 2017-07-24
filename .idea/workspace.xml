@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/event/Executable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/control/ASControl.java" afterPath="$PROJECT_DIR$/src/control/ASControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/Event.java" afterPath="$PROJECT_DIR$/src/event/Event.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/EventComparator.java" afterPath="$PROJECT_DIR$/src/event/EventComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/EventQueue.java" afterPath="$PROJECT_DIR$/src/event/EventQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/Instruction.java" afterPath="$PROJECT_DIR$/src/event/Instruction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/MacroEvent.java" afterPath="$PROJECT_DIR$/src/event/MacroEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/item/Item.java" afterPath="$PROJECT_DIR$/src/item/Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/MacroOperation.java" afterPath="$PROJECT_DIR$/src/event/MacroOperation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/Opcode.java" afterPath="$PROJECT_DIR$/src/event/Opcode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/Grid.java" afterPath="$PROJECT_DIR$/src/grid/Grid.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,11 +26,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ASControl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ASControl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="3" column="73" lean-forward="false" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
+              <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -39,94 +38,92 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventQueue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/event/EventQueue.java">
+      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventComparator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/event/EventComparator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/item/Item.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2499">
-              <caret line="167" column="24" lean-forward="false" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Executable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/event/Executable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="49" column="9" lean-forward="false" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+            <state relative-caret-position="498">
+              <caret line="150" column="31" lean-forward="false" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
               <folding>
-                <element signature="e#1477#1478#0" expanded="true" />
-                <element signature="e#1512#1513#0" expanded="true" />
-                <element signature="e#1565#1566#0" expanded="true" />
-                <element signature="e#1613#1614#0" expanded="true" />
-                <element signature="e#1645#1646#0" expanded="true" />
-                <element signature="e#1676#1677#0" expanded="true" />
-                <element signature="e#1721#1722#0" expanded="true" />
-                <element signature="e#1761#1762#0" expanded="true" />
-                <element signature="e#1792#1793#0" expanded="true" />
-                <element signature="e#1822#1823#0" expanded="true" />
-                <element signature="e#1865#1866#0" expanded="true" />
-                <element signature="e#1903#1904#0" expanded="true" />
-                <element signature="e#1937#1938#0" expanded="true" />
-                <element signature="e#1970#1971#0" expanded="true" />
-                <element signature="e#2019#2020#0" expanded="true" />
-                <element signature="e#2063#2064#0" expanded="true" />
-                <element signature="e#2092#2093#0" expanded="true" />
-                <element signature="e#2120#2121#0" expanded="true" />
-                <element signature="e#2159#2160#0" expanded="true" />
-                <element signature="e#2193#2194#0" expanded="true" />
-                <element signature="e#2222#2223#0" expanded="true" />
-                <element signature="e#2250#2251#0" expanded="true" />
-                <element signature="e#2289#2290#0" expanded="true" />
-                <element signature="e#2323#2324#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#563#782#0" expanded="true" />
+                <element signature="e#725#726#0" expanded="false" />
+                <element signature="e#771#772#0" expanded="false" />
+                <element signature="e#781#782#0" expanded="true" />
+                <element signature="e#807#4283#0" expanded="true" />
+                <element signature="e#4282#4283#0" expanded="true" />
+                <element signature="e#4311#5380#0" expanded="true" />
+                <element signature="e#5379#5380#0" expanded="true" />
+                <element signature="e#5404#6267#0" expanded="true" />
+                <element signature="e#6266#6267#0" expanded="true" />
+                <element signature="e#6293#6775#0" expanded="true" />
+                <element signature="e#6774#6775#0" expanded="true" />
+                <element signature="e#6805#7199#0" expanded="true" />
+                <element signature="e#7198#7199#0" expanded="true" />
+                <element signature="e#7223#7672#0" expanded="true" />
+                <element signature="e#7671#7672#0" expanded="true" />
+                <element signature="e#7697#8378#0" expanded="true" />
+                <element signature="e#8377#8378#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Event.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/event/Event.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-              <folding>
-                <element signature="e#1462#1463#0" expanded="true" />
-                <element signature="e#1560#1561#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MacroEvent.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MacroEvent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/event/MacroEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#607#608#0" expanded="true" />
-                <element signature="e#632#633#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="464">
+              <caret line="38" column="11" lean-forward="false" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Catalog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/item/Catalog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="97" column="7" lean-forward="true" selection-start-line="97" selection-start-column="7" selection-end-line="97" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Opcode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/event/Opcode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="678">
+              <caret line="331" column="35" lean-forward="true" selection-start-line="331" selection-start-column="35" selection-end-line="331" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Instruction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/event/Instruction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="46" column="34" lean-forward="true" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MacroOperation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/event/MacroOperation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -154,8 +151,8 @@
       <find>time</find>
       <find>priority</find>
       <find>actorId</find>
-      <find>affectedId</find>
       <find>getTime()</find>
+      <find>affectedId</find>
     </findStrings>
     <replaceStrings>
       <replace>aai</replace>
@@ -167,9 +164,9 @@
       <replace>getTriggerDelay</replace>
       <replace>getPriority()</replace>
       <replace>getActorId()</replace>
-      <replace>getAffectedId()</replace>
       <replace>get()</replace>
       <replace>getTriggerDelay()</replace>
+      <replace>getAffectedId()</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -217,23 +214,23 @@
         <option value="$PROJECT_DIR$/src/entity/Combatant.java" />
         <option value="$PROJECT_DIR$/src/display/DisplayPrompt.java" />
         <option value="$PROJECT_DIR$/src/display/GUIFocus.java" />
-        <option value="$PROJECT_DIR$/src/event/MacroOperation.java" />
-        <option value="$PROJECT_DIR$/src/event/Opcode.java" />
         <option value="$PROJECT_DIR$/src/item/Catalog.java" />
-        <option value="$PROJECT_DIR$/src/grid/Grid.java" />
-        <option value="$PROJECT_DIR$/src/event/Instruction.java" />
         <option value="$PROJECT_DIR$/src/display/GUISidebar.java" />
         <option value="$PROJECT_DIR$/src/entity/Player.java" />
         <option value="$PROJECT_DIR$/map/item_effectmap.dat" />
-        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
         <option value="$PROJECT_DIR$/src/display/Display.java" />
         <option value="$PROJECT_DIR$/src/event/Executable.java" />
         <option value="$PROJECT_DIR$/src/event/Event.java" />
-        <option value="$PROJECT_DIR$/src/event/MacroEvent.java" />
         <option value="$PROJECT_DIR$/src/event/EventQueue.java" />
         <option value="$PROJECT_DIR$/src/event/EventComparator.java" />
         <option value="$PROJECT_DIR$/src/item/Item.java" />
         <option value="$PROJECT_DIR$/src/control/ASControl.java" />
+        <option value="$PROJECT_DIR$/src/event/MacroOperation.java" />
+        <option value="$PROJECT_DIR$/src/event/Opcode.java" />
+        <option value="$PROJECT_DIR$/src/grid/Grid.java" />
+        <option value="$PROJECT_DIR$/src/event/MacroEvent.java" />
+        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
+        <option value="$PROJECT_DIR$/src/event/Instruction.java" />
       </list>
     </option>
   </component>
@@ -243,7 +240,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
+    <option name="width" value="1924" />
     <option name="height" value="1176" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -262,8 +259,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -304,7 +302,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="event" />
+              <option name="myItemId" value="item" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -318,13 +316,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="map" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -781,7 +782,14 @@
       <option name="project" value="LOCAL" />
       <updated>1500797159249</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Created Executable superclass to condense (Macro)Event data.">
+      <created>1500798867521</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1500798867521</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView">
@@ -794,7 +802,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="-8" width="1924" height="1176" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -804,15 +812,15 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20274241" sideWeight="0.47441363" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20372184" sideWeight="0.48229614" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6772429" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20274241" sideWeight="0.52558637" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20372184" sideWeight="0.5177039" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24832214" sideWeight="0.48933902" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23106425" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13219616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27682403" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15938166" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="top" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -872,7 +880,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="AI system implemented a la Visitor" />
     <MESSAGE value="EnemyGenerator created, basic load function implemented." />
     <MESSAGE value="Conventionalized map names, removed a few TODOs." />
     <MESSAGE value="Combatant class revisions, first EnemyGenerator completion." />
@@ -897,7 +904,8 @@
     <MESSAGE value="Changed TriConsumer to QuadConsumer" />
     <MESSAGE value="Added new system to work with groups of instructions on keypress, incredibly rough" />
     <MESSAGE value="Implemented key binding restriction/expansion in Display" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented key binding restriction/expansion in Display" />
+    <MESSAGE value="Created Executable superclass to condense (Macro)Event data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Executable superclass to condense (Macro)Event data." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1114,21 +1122,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/Opcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="321" column="21" lean-forward="false" selection-start-line="321" selection-start-column="21" selection-end-line="321" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="755">
@@ -1154,41 +1147,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/MacroOperation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="68" lean-forward="false" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/Instruction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="66" column="66" lean-forward="false" selection-start-line="66" selection-start-column="63" selection-end-line="66" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/item/Catalog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="136" column="41" lean-forward="false" selection-start-line="136" selection-start-column="41" selection-end-line="136" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#807#808#0" expanded="false" />
-            <element signature="e#837#838#0" expanded="false" />
-            <element signature="e#872#873#0" expanded="false" />
-            <element signature="e#899#900#0" expanded="false" />
-            <element signature="e#5079#5080#0" expanded="false" />
-            <element signature="e#5110#5111#0" expanded="false" />
-            <element signature="e#5203#5204#0" expanded="false" />
-            <element signature="e#5235#5236#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1196,83 +1154,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="16" column="46" lean-forward="false" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="228" column="105" lean-forward="true" selection-start-line="228" selection-start-column="105" selection-end-line="228" selection-end-column="105" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="101" column="41" lean-forward="true" selection-start-line="101" selection-start-column="41" selection-end-line="101" selection-end-column="41" />
-          <folding>
-            <element signature="e#2594#2595#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-          <folding>
-            <element signature="e#1462#1463#0" expanded="true" />
-            <element signature="e#1560#1561#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/MacroEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#607#608#0" expanded="true" />
-            <element signature="e#632#633#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/Executable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="9" lean-forward="false" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
-          <folding>
-            <element signature="e#1477#1478#0" expanded="true" />
-            <element signature="e#1512#1513#0" expanded="true" />
-            <element signature="e#1565#1566#0" expanded="true" />
-            <element signature="e#1613#1614#0" expanded="true" />
-            <element signature="e#1645#1646#0" expanded="true" />
-            <element signature="e#1676#1677#0" expanded="true" />
-            <element signature="e#1721#1722#0" expanded="true" />
-            <element signature="e#1761#1762#0" expanded="true" />
-            <element signature="e#1792#1793#0" expanded="true" />
-            <element signature="e#1822#1823#0" expanded="true" />
-            <element signature="e#1865#1866#0" expanded="true" />
-            <element signature="e#1903#1904#0" expanded="true" />
-            <element signature="e#1937#1938#0" expanded="true" />
-            <element signature="e#1970#1971#0" expanded="true" />
-            <element signature="e#2019#2020#0" expanded="true" />
-            <element signature="e#2063#2064#0" expanded="true" />
-            <element signature="e#2092#2093#0" expanded="true" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2159#2160#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2250#2251#0" expanded="true" />
-            <element signature="e#2289#2290#0" expanded="true" />
-            <element signature="e#2323#2324#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1280,7 +1161,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1288,6 +1168,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/Executable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="745">
+          <caret line="49" column="9" lean-forward="false" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="162" column="1" lean-forward="false" selection-start-line="162" selection-start-column="1" selection-end-line="162" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1300,13 +1202,89 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/MacroOperation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/item/Catalog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="97" column="7" lean-forward="true" selection-start-line="97" selection-start-column="7" selection-end-line="97" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/Opcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="331" column="35" lean-forward="true" selection-start-line="331" selection-start-column="35" selection-end-line="331" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="46" column="34" lean-forward="true" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="3" column="73" lean-forward="false" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
+          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="150" column="31" lean-forward="false" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#563#782#0" expanded="true" />
+            <element signature="e#725#726#0" expanded="false" />
+            <element signature="e#771#772#0" expanded="false" />
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#807#4283#0" expanded="true" />
+            <element signature="e#4282#4283#0" expanded="true" />
+            <element signature="e#4311#5380#0" expanded="true" />
+            <element signature="e#5379#5380#0" expanded="true" />
+            <element signature="e#5404#6267#0" expanded="true" />
+            <element signature="e#6266#6267#0" expanded="true" />
+            <element signature="e#6293#6775#0" expanded="true" />
+            <element signature="e#6774#6775#0" expanded="true" />
+            <element signature="e#6805#7199#0" expanded="true" />
+            <element signature="e#7198#7199#0" expanded="true" />
+            <element signature="e#7223#7672#0" expanded="true" />
+            <element signature="e#7671#7672#0" expanded="true" />
+            <element signature="e#7697#8378#0" expanded="true" />
+            <element signature="e#8377#8378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/MacroEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="38" column="11" lean-forward="false" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -59,12 +59,17 @@ public class Instruction
 
             //Adds item with given AFFECTEDID to ACTORID's inventory.
             instructionSet.put(Opcode.PICKUP_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId));
+                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId), 1);
             });
 
             //Discards item with given AFFECTEDID from ACTORID's inventory.
             instructionSet.put(Opcode.DISCARD_ITEM, (actorId, affectedId, x, y, grid) -> {
                 grid.searchForOccupant(actorId).getInventory().consumeItem(affectedId);
+            });
+
+            //Removes item with given ACTORID from tile at position (X, Y).
+            instructionSet.put(Opcode.REMOVE_ITEM, (actorId, affectedId, x, y, grid) -> {
+                grid.removeItem(actorId, x, y);
             });
 
             //Spawns item with given ACTORID on tile at position (X, Y).

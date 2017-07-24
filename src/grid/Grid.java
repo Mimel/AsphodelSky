@@ -323,6 +323,18 @@ public class Grid {
 	}
 
 	/**
+	 * Removes an item from the given tile.
+	 * @param itemId The id of the item to remove.
+	 * @param x The x-coordinate of the tile to remove the item from.
+	 * @param y The y-coordinate of the tile to remove the item from.
+	 */
+	public void removeItem(int itemId, int x, int y) {
+		if(isValidLocation(x, y)) {
+			map[y][x].getCatalog().consumeItem(itemId);
+		}
+	}
+
+	/**
 	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
 	 * If there is no crosshair in the given tile, that tile becomes focused.
 	 * Else, the the "isFocused" flag switches between the given tile and the tile plus offsets.

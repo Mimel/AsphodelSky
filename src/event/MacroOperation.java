@@ -10,6 +10,13 @@ public enum MacroOperation {
     NO_OP,
 
     /**
+     * Grabs an item from the ground.
+     * Discards the item from the player's tile.
+     * Adds the item to the user's inventory.
+     */
+    GET_ITEM,
+
+    /**
      * Uses an item.
      * Discards the item from the user's inventory.
      * Performs the item's use() events.

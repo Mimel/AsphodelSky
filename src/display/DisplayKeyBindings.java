@@ -142,18 +142,17 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                //If the tile the player is on contains at least one item,
-                //then the item is transfered into the player's inventory.
-                if(!grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog().isEmpty()) {
-                    p1.getInventory().transferFrom(grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog());
-                    mm.insertMessage("Picked up items.");
+                    eq.createPendingEvent(0, MacroOperation.GET_ITEM);
+                    eq.getPendingEvent().setActorId(0);
+                    eq.getPendingEvent().setAffectedId(grid.getTileAt(grid.getXOfCombatant(0), grid.getYOfCombatant(0)).getCatalog().getFocusedItem().getId());
+                    eq.getPendingEvent().setxTile(grid.getXOfCombatant(0));
+                    eq.getPendingEvent().setyTile(grid.getYOfCombatant(0));
 
-                    eq.progressTimeBy(10, grid);
+                    eq.executePendingEvent();
+                    eq.progressTimeInstantaneous(grid);
+                    System.out.println("YO!");
                     updateOutput(grid, p1, eq);
                     game.repaint();
-                } else {
-                    mm.insertMessage("There are no items to pick up.");
-                }
             }
         };
 

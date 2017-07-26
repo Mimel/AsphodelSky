@@ -159,16 +159,17 @@ public class Item implements Comparable<Item> {
 
 	/**
 	 * Uses the item.
-	 * TODO: Heavy edits needed; distinguish different ids, implement proper sec usage.
 	 * @return A set of events that occur after usage.
 	 */
 	public List<Event> use(int combatantId) {
+		List<Event> eventsDeepCopy = new LinkedList<>();
 		for(Event ev : useEffects) {
-			ev.setActorId(combatantId);
-			ev.setxTile(-15);
+			Event temporarilyRevisedEvent = new Event(ev, ev.getOpcode());
+			temporarilyRevisedEvent.setActorId(combatantId);
+			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 
-		return useEffects;
+		return eventsDeepCopy;
 	}
 	
 	/**

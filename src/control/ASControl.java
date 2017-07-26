@@ -93,6 +93,7 @@ public class ASControl {
 		grid.addCombatant(p1, 1, 1);
 
 		grid.addItem("Cardiotic Fluid", 4, 4);
+		grid.addItem("Cardiotic Fluid", 4, 5);
 		grid.addItem("Solution of Finesse", 3, 4);
 		grid.addItem("Solution of Finesse", 5, 5);
 

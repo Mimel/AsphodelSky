@@ -15,6 +15,16 @@ public class Event extends Executable {
         this.op = opcode;
     }
 
+    public Event(Event e, Opcode opcode) {
+        super(e.getTriggerDelay(), e.getPriority(), e.getActorId(), e.getAffectedId(), e.getxTile(), e.getyTile());
+
+        this.op = opcode;
+    }
+
+    public Opcode getOpcode() {
+        return op;
+    }
+
     /**
      * Reads a phrase and interprets and creates an event based on the parameters given, with invalid id and sec parameters.
      * All phrases must be in the format "NAME(time,priority)", where the name is one of the
@@ -27,15 +37,50 @@ public class Event extends Executable {
         Opcode name;
         int time;
         int priority;
+        int id = -1;
+        int sec = -1;
+        int x = -1;
+        int y = -1;
 
-        int parenPos = phrase.indexOf('(');
+        int sParenPos = phrase.indexOf('(');
         int commaPos = phrase.indexOf(',');
+        int eParenPos = phrase.indexOf(')');
 
-        name = Opcode.valueOf(phrase.substring(0, parenPos));
-        time = Integer.parseInt(phrase.substring(parenPos + 1, commaPos));
-        priority = Integer.parseInt(phrase.substring(commaPos + 1, phrase.indexOf(')')));
+        name = Opcode.valueOf(phrase.substring(0, sParenPos));
+        time = Integer.parseInt(phrase.substring(sParenPos + 1, commaPos));
+        priority = Integer.parseInt(phrase.substring(commaPos + 1, eParenPos));
 
-        return new Event(time, priority, name, -1, -1, -1, -1);
+        int counter = eParenPos;
+        String flag_name;
+        int flag_val;
+        int flag_end;
+        while((counter = phrase.indexOf('~', counter)) != -1) {
+            System.out.println(counter);
+            flag_name = phrase.substring(counter + 1, (counter = phrase.indexOf('=', counter)));
+            if(phrase.indexOf('~', counter) == -1) {
+                flag_val = Integer.parseInt(phrase.substring(counter + 1));
+            } else {
+                flag_val = Integer.parseInt(phrase.substring(counter + 1, (counter = phrase.indexOf('~', counter))));
+            }
+
+
+            switch(flag_name) {
+                case "id":
+                    id = flag_val;
+                    break;
+                case "sec":
+                    sec = flag_val;
+                    break;
+                case "x":
+                    x = flag_val;
+                    break;
+                case "y":
+                    y = flag_val;
+                    break;
+            }
+        }
+
+        return new Event(time, priority, name, id, sec, x, y);
     }
 
     /**

@@ -111,7 +111,6 @@ public class EventQueue {
      */
     public void progressTimeInstantaneous(Grid gr) {
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
-            System.out.println(eventQueue.peek().getAffectedId());
             eventQueue.remove().execute(gr);
         }
     }

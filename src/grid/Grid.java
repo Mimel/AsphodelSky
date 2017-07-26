@@ -9,7 +9,6 @@ import generator.EmptyShipGenerator;
 import item.Catalog;
 import item.Item;
 import org.javatuples.Pair;
-import org.javatuples.Tuple;
 
 /**
  * A map of the game, containing a set of tiles and all objects within.

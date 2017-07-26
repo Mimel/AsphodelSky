@@ -47,7 +47,6 @@ public class Instruction
     /**
      * Loads the current instruction set.
      * All commands are hardcoded.
-     * TODO: Consider using enum instead of strings as the opcodes.
      */
     public static void loadInstructionSet() {
         if(instructionSet == null) {

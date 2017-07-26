@@ -103,7 +103,7 @@ public abstract class Combatant implements Entity {
 	 * @param science The science of the combatant.
 	 */
 	Combatant(String name, String title, String desc, int health, int science) {
-		this.id = auto_incr_id.getAndIncrement(); //TODO causes error in grid drawing
+		this.id = auto_incr_id.getAndIncrement();
 		this.name = name;
 		this.title = title;
 		this.desc = desc;

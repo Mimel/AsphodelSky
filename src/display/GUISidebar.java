@@ -4,12 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import entity.Combatant;
 import item.Item;
@@ -19,12 +14,7 @@ import item.Item;
  * @author Matt Imel
  */
 public class GUISidebar extends GUIComponent implements SidebarComponent {
-	
-	/**
-	 * The crosshair to use.
-	 */
-	private Image SELECTOR_YELLOW;
-	
+
 	/**
 	 * The combatant that is being focused on. If the component is
 	 * in mode "CombatantDisplay", this combatant's stats is shown
@@ -39,12 +29,6 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 		
 		modes = new String[]{"free", "inventory"};
 		selectedMode = modes[0];
-		
-		try {
-			SELECTOR_YELLOW = ImageIO.read(new File("img/misc/selector_generic.png"));
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		}
 	}
 	
 	@Override
@@ -95,9 +79,9 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 				}
 				
 				//Draw crosshair over focused slot, if applicable.
-				if(selectedMode == modes[1]) {
+				if(selectedMode.equals(modes[1])) {
 					if(slot == combatantFocus.getInventory().getFocusIndex()) {
-						g2.drawImage(SELECTOR_YELLOW, 35 + (slot/3)*48, 250 + (slot%3)*48, null);
+						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot/3)*48, 250 + (slot%3)*48, null);
 					}
 				}
 			}

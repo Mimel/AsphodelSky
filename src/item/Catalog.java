@@ -30,8 +30,6 @@ public class Catalog {
 		focusedItemIndex = 0;
 	}
 	
-	//TODO: consider one get method instead of two
-	
 	public int getFocusIndex() {
 		return focusedItemIndex;
 	}
@@ -154,7 +152,6 @@ public class Catalog {
 	 * The amount given must be an integer greater than zero. If the amount is greater
 	 * than the actual number associated with the given item, then all copies of the item are
 	 * consumed, as if <code>consumeAll()</code> were called.
-	 * TODO: Make this more efficient: Worst case, get is called several times.
 	 * @param itemID The item to consume from the catalog.
 	 * @param amountToConsume The number of items to consume from the catalog.
 	 * @return A Pair containing the item consumed and the number of items consumed.
@@ -162,11 +159,11 @@ public class Catalog {
 	public Pair<Item, Integer> consumeItem(int itemID, int amountToConsume) {
 		for(int item = 0; item < catalog.size(); item++) {
 			if(catalog.get(item).getValue0().getId() == itemID) {
-				if(catalog.get(item).getValue1() <= amountToConsume) {
+				int numOfItems = catalog.get(item).getValue1();
+				if(numOfItems <= amountToConsume) {
 					return catalog.remove(item);
 				} else {
-					catalog.get(item).setAt1(catalog.get(item).getValue1() - amountToConsume);
-					catalog.set(item, catalog.get(item).setAt1(catalog.get(item).getValue1() - amountToConsume));
+					catalog.set(item, catalog.get(item).setAt1(numOfItems - amountToConsume));
 					return new Pair<>(catalog.get(item).getValue0(), amountToConsume);
 				}
 			}

@@ -89,7 +89,6 @@ public class EventQueue {
     /**
      * Increments the time by the specified time, executing all events in order that exist before the
      * new time.
-     * TODO: Test.
      * @param timeOffset The amount of time to progress.
      * @return The new time.
      */

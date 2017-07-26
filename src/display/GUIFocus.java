@@ -2,15 +2,6 @@ package display;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-
-import org.javatuples.Pair;
 
 import grid.Tile;
 import item.Item;
@@ -21,17 +12,6 @@ import item.Item;
  *
  */
 public class GUIFocus extends GUIComponent implements FocusComponent {
-	
-	/**
-	 * Hash table that links characters to their representative tile images within the
-	 * given tileset.
-	 */
-	private Map<Character, Pair<Integer, Integer>> tileMargins;
-	
-	/**
-	 * The crosshair to use.
-	 */
-	private Image SELECTOR_YELLOW;
 	
 	/**
 	 * The grid component used as a basis for updating the display. Most (not all) of the time,
@@ -56,26 +36,9 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 		super(x, y, w, h);
 		
 		this.squareSize = sqsize;
-		
-		///
-		// MOVEGRID: Directional keys move the player. All button commands are, by default, enabled.
-		//
-		// SCANGRID: Directional keys move the screen, focused on a crosshair. Some button commands
-		//           are disabled.
-		///
+
 		modes = new String[]{"player", "crosshair"};
 		selectedMode = modes[0];
-		
-		try {
-			SELECTOR_YELLOW = ImageIO.read(new File("img/misc/selector_generic.png"));
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
-		tileMargins = new HashMap<Character, Pair<Integer, Integer>>();
-		
-		//Initialize hashmap.
-		tileMargins.put('.', new Pair<Integer, Integer>(0, 0));
 	}
 	
 	@Override
@@ -120,26 +83,10 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 					
 					//Focus crosshair, if used.
 					if(selectedMode.equals("crosshair") && currentTile.isFocused()) {
-						drawImageFromTileset(g, SELECTOR_YELLOW, x * squareSize, y * squareSize, 0, 0, squareSize);
+						g.drawImage(ImageAssets.getMiscImage('+'), x*squareSize, y*squareSize, null);
 					}
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Draws an image from a given tileset on a specific region.
-	 * @param g Graphics object.
-	 * @param tileset The tileset to take the image from.
-	 * @param xSrc The X-coordinate of the top-left corner of the source image to use.
-	 * @param ySrc The Y-coordinate of the top-left corner of the source image to use.
-	 * @param xDest The X-coordinate of the top-left corner of the destination.
-	 * @param yDest The Y-coordinate of the top-left corner of the destination.
-	 * @param squareSize The length/width of the tile to draw.
-	 * 
-	 * TODO: swap Src, Dest.
-	 */
-	private void drawImageFromTileset(Graphics g, Image tileset, int xSrc, int ySrc, int xDest, int yDest, int squareSize) {
-		g.drawImage(tileset, xSrc, ySrc, xSrc + squareSize, ySrc + squareSize, xDest, yDest, xDest + squareSize, yDest + squareSize, null);
 	}
 }

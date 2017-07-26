@@ -70,6 +70,8 @@ public final class ImageAssets {
 	static Image getCharImage(String key) {
 		return charIdToImage.get(key);
 	}
+
+	static Image getMiscImage(char key) { return miscIdToImage.get(key); }
 	
 	/**
 	 * Fills a given hashmap with keys (Specified characters) and values (x, y margins) by parsing a 

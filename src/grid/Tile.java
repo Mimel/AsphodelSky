@@ -48,6 +48,9 @@ public class Tile {
 	 * T = Traversable: When on, the tile is able to be traversed. This implies
 	 * that there can be an occupant on this tile, and that occupants can move into
 	 * and out of this tile. Only one occupant can be in a tile.
+	 *
+	 * If the tile is not traversible, then the tile counts as having an occupant, for the sake of
+	 * dissuading Combatant collision.
 	 */
 	private byte flags;
 	

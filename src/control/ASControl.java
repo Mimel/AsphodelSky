@@ -1,15 +1,5 @@
 package control;
 
-//TODO LIST
-//Test with events, keybinds, and document everything untouched.
-//Incorporate Message Manager to events.
-//AI operations must return array of Events.
-//Maybe add different methods for item select/tile select.
-//Event queue testing, AI operation testing (NOT implementation)
-//General cleanup, resolve TODOs.
-//Persistent//Lag on startup - examine.
-
-
 import java.awt.Dimension;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

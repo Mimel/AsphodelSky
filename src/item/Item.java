@@ -163,6 +163,7 @@ public class Item implements Comparable<Item> {
 	 */
 	public List<Event> use(int combatantId) {
 		List<Event> eventsDeepCopy = new LinkedList<>();
+
 		for(Event ev : useEffects) {
 			Event temporarilyRevisedEvent = new Event(ev, ev.getOpcode());
 			temporarilyRevisedEvent.setActorId(combatantId);

@@ -241,7 +241,7 @@ public class Grid {
 	 * @param y The y-coordinate to place the combatant on.
 	 */
 	public void addCombatant(String name, int x, int y) {
-		if(isValidLocation(x, y) && !map[y][x].isOccupied()) {
+		if(isValidLocation(x, y) && map[y][x].canOccupy() && !map[y][x].isOccupied()) {
 			Combatant c = EnemyGenerator.getEnemyByName(name);
 			map[y][x].fillOccupant(c);
 			roster.addCombatant(x, y, name);
@@ -249,7 +249,7 @@ public class Grid {
 	}
 
 	public void addCombatant(Combatant c, int x, int y) {
-		if(isValidLocation(x, y) && !map[y][x].isOccupied()) {
+		if(isValidLocation(x, y) && map[y][x].canOccupy() && !map[y][x].isOccupied()) {
 			map[y][x].fillOccupant(c);
 			roster.addCombatant(x, y, c);
 		}
@@ -272,7 +272,7 @@ public class Grid {
 	 */
 	public void moveCombatant(int x, int y, int newX, int newY) {
 		if(isValidLocation(x, y) && isValidLocation(newX, newY)) {
-			if(map[y][x].isOccupied() && !map[newY][newX].isOccupied()) {
+			if(map[y][x].isOccupied() && map[newY][newX].canOccupy() &&!map[newY][newX].isOccupied()) {
 				Combatant c = map[y][x].vacateOccupant();
 				map[newY][newX].fillOccupant(c);
 				roster.moveCombatant(x, y, newX, newY);
@@ -288,7 +288,7 @@ public class Grid {
 	 * @param newY The Y-coordinate to move the combatant to.
 	 */
 	public void moveCombatant(int id, int newX, int newY) {
-		if(isValidLocation(newX, newY) && !map[newY][newX].isOccupied()) {
+		if(isValidLocation(newX, newY) && map[newY][newX].canOccupy() && !map[newY][newX].isOccupied()) {
 			Pair<Integer, Integer> coords = roster.getCombatantLocation(id);
 			Combatant c = map[coords.getValue1()][coords.getValue0()].vacateOccupant();
 			map[newY][newX].fillOccupant(c);

@@ -75,35 +75,16 @@ public class DisplayKeyBindings {
                     //Moves the cursor over the inventory. TODO: Magic.
                     if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
                         p1.updatePlayer();
-                        mm.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                        updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                     }
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
-
-                    //Moves the player.
                     grid.moveCombatant(0, grid.getXOfCombatant(0) + xOffset, grid.getYOfCombatant(0) + yOffset);
                     eq.progressTimeBy(1, grid);
 
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
-
-                    //Moves the crosshair.
-                    grid.switchFocus(xOffset, yOffset);
-
-                    //The following if-else chain searches a tile by order of priority; First for occupants, then items, then floor features, then floor types.
-                    if (grid.getFocusedTile().getOccupant() != null) {
-                        //If the crosshair overlaps an occupant, prints their name, title, and description to the Message manager.
-                        Combatant o = grid.getFocusedTile().getOccupant();
-
-                        mm.loadSourceDescPair(o.toString(), o.getDesc());
-                    } else if (!grid.getFocusedTile().getCatalog().isEmpty()) {
-                        //If the crosshair overlaps an item, prints the items name and description to the Message manager.
-                        Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
-                        mm.loadSourceDescPair(i.getName(), i.getVisualDescription());
-                    } else {
-                        //If the crosshair overlaps nothing, prints the tile name and description.
-                        Tile t = grid.getFocusedTile();
-                        mm.loadSourceDescPair(t.getName(), t.getDesc());
-                    }
+                    grid.shiftFocus(xOffset, yOffset);
+                    updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 }
 
                 updateOutput(grid, p1, eq);
@@ -122,13 +103,15 @@ public class DisplayKeyBindings {
                     case TILE_PROMPT:
                         eq.getPendingEvent().setxTile(grid.getXFocus());
                         eq.getPendingEvent().setyTile(grid.getYFocus());
-                        grid.clearFocusedTile();
+                        grid.bindFocusToPlayer();
                         break;
                 }
 
                 if(game.isPromptQueueEmpty()) {
                     eq.executePendingEvent();
                     eq.progressTimeInstantaneous(grid);
+                } else {
+                    updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 }
 
                 //System.out.println(p1.getInventory().getFocusedItem().toString());
@@ -161,6 +144,7 @@ public class DisplayKeyBindings {
 
                 grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
+                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 updateOutput(grid, p1, eq);
                 game.repaint();
             }
@@ -174,6 +158,7 @@ public class DisplayKeyBindings {
                 game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
                 eq.createPendingEvent(0, MacroOperation.NO_OP);
 
+                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 updateOutput(grid, p1, eq);
                 game.repaint();
             }
@@ -188,6 +173,7 @@ public class DisplayKeyBindings {
                 eq.createPendingEvent(0, MacroOperation.USE_ITEM);
                 eq.getPendingEvent().setActorId(0);
 
+                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 updateOutput(grid, p1, eq);
                 game.repaint();
             }
@@ -203,8 +189,7 @@ public class DisplayKeyBindings {
                 eq.createPendingEvent(0, MacroOperation.DROP_ITEM);
                 eq.getPendingEvent().setActorId(0);
 
-                //TODO 7/16, 4:11am; This works, but rework focusedTile on grid.
-                grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
+                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
                 updateOutput(grid, p1, eq);
                 game.repaint();
             }
@@ -273,5 +258,34 @@ public class DisplayKeyBindings {
         //TODO magic
         grid.updateGrid(13, 13);
         p1.updatePlayer();
+    }
+
+    private static void adjustDisplayBasedOnPrompt(DisplayPrompt currentPrompt, Grid gr, Player p1, MessageManager mm) {
+        updateSourceDescPair(currentPrompt, gr, p1, mm);
+        switch(currentPrompt) {
+            case TILE_PROMPT:
+
+                break;
+        }
+    }
+
+    private static void updateSourceDescPair(DisplayPrompt currentPrompt, Grid grid, Player p1, MessageManager mm) {
+        switch(currentPrompt) {
+            case ITEM_PROMPT:
+                mm.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                break;
+            case TILE_PROMPT:
+                if (grid.getFocusedTile().getOccupant() != null) {
+                    Combatant o = grid.getFocusedTile().getOccupant();
+                    mm.loadSourceDescPair(o.toString(), o.getDesc());
+                } else if (!grid.getFocusedTile().getCatalog().isEmpty()) {
+                    Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
+                    mm.loadSourceDescPair(i.getName(), i.getVisualDescription());
+                } else {
+                    Tile t = grid.getFocusedTile();
+                    mm.loadSourceDescPair(t.getName(), t.getDesc());
+                }
+                break;
+        }
     }
 }

@@ -81,6 +81,7 @@ public class ASControl {
 		grid = new Grid(game.getHeader(), game.getFocus());
 
 		grid.addCombatant(p1, 1, 1);
+		grid.bindFocusToPlayer();
 
 		grid.addItem("Cardiotic Fluid", 4, 4);
 		grid.addItem("Cardiotic Fluid", 4, 5);

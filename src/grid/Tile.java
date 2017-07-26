@@ -53,12 +53,7 @@ public class Tile {
 	 * dissuading Combatant collision.
 	 */
 	private byte flags;
-	
-	/**
-	 * If this tile is being focused for either search or selection, this is true.
-	 */
-	private boolean isFocused;
-	
+
 	/**
 	 * The occupant of this tile. Null indicates that it either does not have an occupant
 	 * or it cannot occupy an entity.
@@ -72,9 +67,6 @@ public class Tile {
 	
 	public Tile(char terr) {
 		this.terrain = terr;
-		
-		//By default, a newly-created tile cannot be focused.
-		this.isFocused = false;
 		
 		if(TerrainCharacterToTraits != null) {
 			Triplet<String, String, Byte> traits = TerrainCharacterToTraits.get(terr);
@@ -142,7 +134,6 @@ public class Tile {
 	public String getName() { return name; }
 	public String getDesc() { return description; }
 	public Combatant getOccupant() { return occupant; }
-	public boolean isFocused() { return isFocused; }
 	public Catalog getCatalog() { return catalog; }
 	
 	/**
@@ -151,14 +142,6 @@ public class Tile {
 	 */
 	public boolean canOccupy() {
 		return (flags & 0b10000000) != 0;
-	}
-	
-	/**
-	 * Makes a tile focused when it was originally unfocused, or
-	 * unfocused when it was originally focused.
-	 */
-	void toggleFocused() {
-		isFocused = !isFocused;
 	}
 
 	boolean isOccupied() {

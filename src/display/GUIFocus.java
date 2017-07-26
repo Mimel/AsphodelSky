@@ -18,7 +18,10 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 	 * this exactly reflects the grid that is in the control.
 	 */
 	private Tile[][] grid;
-	
+
+	private int gridFocusX;
+	private int gridFocusY;
+
 	/**
 	 * The size of each individual square when it is drawn, in pixels.
 	 */
@@ -42,8 +45,10 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 	}
 	
 	@Override
-	public void updateGrid(Tile[][] grid) {
+	public void updateGrid(Tile[][] grid, int xFocus, int yFocus) {
 		this.grid = grid;
+		this.gridFocusX = xFocus;
+		this.gridFocusY = yFocus;
 	}
 	
 	/**
@@ -82,7 +87,7 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 					}
 					
 					//Focus crosshair, if used.
-					if(selectedMode.equals("crosshair") && currentTile.isFocused()) {
+					if(selectedMode.equals("crosshair") && x == gridFocusX && y == gridFocusY) {
 						g.drawImage(ImageAssets.getMiscImage('+'), x*squareSize, y*squareSize, null);
 					}
 				}

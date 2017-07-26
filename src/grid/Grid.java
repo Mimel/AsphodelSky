@@ -41,16 +41,8 @@ public class Grid {
 	 * The name of the map.
 	 */
 	private String name;
-	
-	/**
-	 * The X-Coordinate of the focused tile, if any exist. If there are no focused tiles, this becomes -1.
-	 */
-	private int xFocusedTile;
-	
-	/**
-	 * The Y-Coordinate of the focused tile, if any exist. If there are no focused tiles, this becomes -1.
-	 */
-	private int yFocusedTile;
+
+	private GridFocus gridCenter;
 
 	/**
 	 * The set of enemies on this level.
@@ -73,8 +65,7 @@ public class Grid {
 	public Grid(HeaderComponent hc, FocusComponent fc) {
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
 		this.map = new EmptyShipGenerator().generateGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
-		this.xFocusedTile = -1;
-		this.yFocusedTile = -1;
+		this.gridCenter = new GridFocus(0, 0);
 
 		this.name = "<NO TITLE>";
 
@@ -91,8 +82,7 @@ public class Grid {
 	 */
 	public Grid(String name, int height, int width, HeaderComponent hc, FocusComponent fc) {
 		this.map = new Tile[width][height];
-		this.xFocusedTile = -1;
-		this.yFocusedTile = -1;
+		this.gridCenter = new GridFocus(0, 0);
 
 		this.name = name;
 
@@ -115,11 +105,11 @@ public class Grid {
 	}
 
 	public int getXFocus() {
-		return xFocusedTile;
+		return gridCenter.getxPosition();
 	}
 
 	public int getYFocus() {
-		return yFocusedTile;
+		return gridCenter.getyPosition();
 	}
 	
 	/**
@@ -130,8 +120,8 @@ public class Grid {
 	 * @param height The height of the tile array to draw.
 	 */
 	public void updateGrid(int width, int height) {
-		int xFocus = (xFocusedTile == -1 ? roster.getPlayerLocation().getValue0() : xFocusedTile);
-		int yFocus = (yFocusedTile == -1 ? roster.getPlayerLocation().getValue1() : yFocusedTile);
+		int xFocus = gridCenter.getxPosition();
+		int yFocus = gridCenter.getyPosition();
 		
 		int xStart = xFocus - width/2;
 		int yStart = yFocus - height/2;
@@ -148,7 +138,7 @@ public class Grid {
 			System.arraycopy(map[yStart + y], xStart, truncatedMap[y], 0, width);
 		}
 		
-		gridOutput.updateGrid(truncatedMap);
+		gridOutput.updateGrid(truncatedMap, xFocus - xStart, yFocus - yStart);
 	}
 
 	public void updateHeader(int time) {
@@ -157,28 +147,27 @@ public class Grid {
 	}
 
 	public Tile getFocusedTile() {
-		if(xFocusedTile != -1 && yFocusedTile != -1) {
-			return map[yFocusedTile][xFocusedTile];
-		} else {
-			return null;
-		}
+		return map[gridCenter.getyPosition()][gridCenter.getxPosition()];
 	}
 
 	public void setFocusedTile(int newX, int newY) {
-		if(xFocusedTile == -1 && yFocusedTile == -1) {
-			map[newY][newX].toggleFocused();
-			xFocusedTile = newX;
-			yFocusedTile = newY;
+		if(isValidLocation(newX, newY)) {
+			gridCenter.setxPosition(newX);
+			gridCenter.setyPosition(newY);
 		}
 	}
-	
-	/**
-	 * Clears the focused tile by setting the focused tile to a location out of bounds.
-	 */
-	public void clearFocusedTile() {
-		map[yFocusedTile][xFocusedTile].toggleFocused();
-		xFocusedTile = -1;
-		yFocusedTile = -1;
+
+	public void bindFocusToPlayer() {
+		int playerId = 0;
+		if(roster.getCombatant(playerId) != null) {
+			gridCenter.bindToCombatant(playerId);
+			gridCenter.setxPosition(roster.getCombatantLocation(playerId).getValue0());
+			gridCenter.setyPosition(roster.getCombatantLocation(playerId).getValue1());
+		}
+	}
+
+	public void unbindFocus() {
+		gridCenter.unbind();
 	}
 	
 	/**
@@ -276,6 +265,11 @@ public class Grid {
 				Combatant c = map[y][x].vacateOccupant();
 				map[newY][newX].fillOccupant(c);
 				roster.moveCombatant(x, y, newX, newY);
+
+				if(gridCenter.isBoundToCombatant() && gridCenter.getFocusedCombatantId() == c.getId()) {
+					gridCenter.setxPosition(newX);
+					gridCenter.setyPosition(newY);
+				}
 			}
 		}
 	}
@@ -293,6 +287,11 @@ public class Grid {
 			Combatant c = map[coords.getValue1()][coords.getValue0()].vacateOccupant();
 			map[newY][newX].fillOccupant(c);
 			roster.moveCombatant(id, newX, newY);
+
+			if(gridCenter.isBoundToCombatant() && gridCenter.getFocusedCombatantId() == id) {
+				gridCenter.setxPosition(newX);
+				gridCenter.setyPosition(newY);
+			}
 		}
 	}
 	
@@ -385,12 +384,12 @@ public class Grid {
 	 * @param xOffset The X-shift where the entity will go.
 	 * @param yOffset The Y-shift where the entity will go.
 	 */
-	public void switchFocus(int xOffset, int yOffset) {
-		if(isValidLocation(xFocusedTile, yFocusedTile) && isValidLocation(xFocusedTile + xOffset, yFocusedTile + yOffset)) {
-			map[yFocusedTile][xFocusedTile].toggleFocused();
-			map[yFocusedTile + yOffset][xFocusedTile + xOffset].toggleFocused();
-			xFocusedTile += xOffset;
-			yFocusedTile += yOffset;
+	public void shiftFocus(int xOffset, int yOffset) {
+		int newxPosition = gridCenter.getxPosition() + xOffset;
+		int newyPosition = gridCenter.getyPosition() + yOffset;
+		if(isValidLocation(newxPosition, newyPosition)) {
+			gridCenter.setxPosition(newxPosition);
+			gridCenter.setyPosition(newyPosition);
 		}
 	}
 	

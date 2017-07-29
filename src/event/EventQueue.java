@@ -2,10 +2,7 @@ package event;
 
 import grid.Grid;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * A set of all events to be executed, as well as the contextual time.
@@ -108,11 +105,18 @@ public class EventQueue {
     /**
      * Checks if there are events that fire at the current time. If so, fire all such events.
      * @param gr The grid to affect.
+     * @return The entire set of event messages that occured.
      */
-    public void progressTimeInstantaneous(Grid gr) {
+    public List<String> progressTimeInstantaneous(Grid gr) {
+        List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
-            eventQueue.remove().execute(gr);
+            String message = eventQueue.remove().execute(gr);
+            if(message != null) {
+                messageList.add(message);
+            }
         }
+
+        return messageList;
     }
 
     public String toString() {

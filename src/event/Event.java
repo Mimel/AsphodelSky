@@ -53,7 +53,6 @@ public class Event extends Executable {
         int counter = eParenPos;
         String flag_name;
         int flag_val;
-        int flag_end;
         while((counter = phrase.indexOf('~', counter)) != -1) {
             System.out.println(counter);
             flag_name = phrase.substring(counter + 1, (counter = phrase.indexOf('=', counter)));
@@ -87,8 +86,8 @@ public class Event extends Executable {
      * Executes the instruction in this event.
      * @param gr The grid to impose the instruction on.
      */
-    void execute(Grid gr) {
-        Instruction.execute(op, getActorId(), getAffectedId(), getxTile(), getyTile(), gr);
+    String execute(Grid gr) {
+        return Instruction.execute(op, getActorId(), getAffectedId(), getxTile(), getyTile(), gr);
     }
 
     public String toString() {

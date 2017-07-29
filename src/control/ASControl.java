@@ -14,6 +14,7 @@ import entity.*;
 import event.Event;
 import event.EventQueue;
 import event.Instruction;
+import event.Response;
 import grid.*;
 import item.Item;
 
@@ -73,6 +74,7 @@ public class ASControl {
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
+		Response.loadResponseTable("map/responsemap.dat");
 
 		//Initializing Event Queue.
 		eq = new EventQueue();

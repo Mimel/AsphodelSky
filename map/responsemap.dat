@@ -1,0 +1,7 @@
+!COMBATANT_ADJUSTHP
+POSITIVE: "%s restores %s health."
+NEGATIVE: "%s takes %s damage."
+--------------------------------
+!TRANSFER_ITEMALL
+SUCCESS: "%s picks up %s."
+--------------------------------

@@ -112,16 +112,16 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 		AffineTransform stdXY = g2.getTransform();
 		g2.rotate(-Math.PI/32);
 		
-		if(selectedMode == modes[0]) {
+		if(selectedMode.equals(modes[0])) {
 			g2.drawString("Current Feed", 0, 70);
-		} else if(selectedMode == modes[1]) {
+		} else if(selectedMode.equals(modes[1])) {
 			g2.drawString("Inventory", 0, 70);
 		}
 		
 		g2.setTransform(stdXY);
 		
 		//Draw message feed.
-		if(selectedMode == modes[0]) {
+		if(selectedMode.equals(modes[0])) {
 			
 			//Font
 			g2.setColor(new Color(0, 0, 0));
@@ -134,7 +134,7 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 				}
 			}
 			
-		} else if(selectedMode == modes[1]) { //Draws item description.
+		} else if(selectedMode.equals(modes[1])) { //Draws item description.
 			
 			//Font
 			g2.setColor(new Color(0, 0, 0));

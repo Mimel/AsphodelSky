@@ -48,8 +48,14 @@ public class Response {
 
     static String getResponse(Opcode op, ResponseCondition outcome, String[] resInserts) {
         String response = responseTable.get(op).get(outcome);
+
         if(response != null) {
-            response = String.format(response, resInserts);
+            for(int ch = 0, insertToUse = 0; ch < response.length(); ch++) {
+                if(response.charAt(ch) == '~') {
+                    response = response.substring(0, response.indexOf('~')) + resInserts[insertToUse] + response.substring(response.indexOf('~') + 1);
+                    ch += resInserts[insertToUse++].length();
+                }
+            }
         }
         return response;
     }

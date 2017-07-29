@@ -89,6 +89,9 @@ public class ASControl {
 		grid.addItem("Cardiotic Fluid", 4, 5);
 		grid.addItem("Solution of Finesse", 3, 4);
 		grid.addItem("Solution of Finesse", 5, 5);
+		for(int x = 2; x < 12; x++) {
+			grid.addItem("Solution of Finesse", 3, x);
+		}
 
 		eq.progressTimeBy(5, grid);
 

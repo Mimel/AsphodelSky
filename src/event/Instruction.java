@@ -76,6 +76,11 @@ public class Instruction
 
             instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (actorId, affectedId, x, y, grid) -> {
                 grid.searchForOccupant(actorId).adjustHealthBy(affectedId);
+                if(affectedId < 0) {
+                    return new ResponseDetails(ResponseCondition.NEGATIVE, grid.searchForOccupant(actorId).getName(), actorId.toString());
+                } else if(affectedId > 0) {
+                    return new ResponseDetails(ResponseCondition.POSITIVE, grid.searchForOccupant(actorId).getName(), actorId.toString());
+                }
                 return null;
             });
 
@@ -119,8 +124,13 @@ public class Instruction
      */
     static String execute(Opcode opcode, int actorId, int affectedId, int x, int y, Grid gr) {
         if(instructionSet.containsKey(opcode)) {
+
             ResponseDetails rd = instructionSet.get(opcode).apply(actorId, affectedId, x, y, gr);
-            return Response.getResponse(opcode, rd);
+            if(rd != null) {
+                String resp = Response.getResponse(opcode, rd);
+                return resp;
+            }
+
         }
 
         return null;

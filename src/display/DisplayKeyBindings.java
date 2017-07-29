@@ -111,14 +111,12 @@ public class DisplayKeyBindings {
                     eq.executePendingEvent();
                     eq.progressTimeInstantaneous(grid);
                 } else {
-        updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
-    }
+                    updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
+                }
 
-    //System.out.println(p1.getInventory().getFocusedItem().toString());
-
-    updateOutput(grid, p1, eq);
+                updateOutput(grid, p1, eq);
                 game.repaint();
-}
+            }
         };
 
         Action get = new AbstractAction() {
@@ -126,11 +124,14 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                    long z = System.nanoTime();
                     eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL, 0, grid.getItemsOnTile(0).getFocusedItem().getId(), -1, -1);
                     mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
 
                     updateOutput(grid, p1, eq);
                     game.repaint();
+                    z = System.nanoTime() - z;
+                    System.out.println(z);
             }
         };
 

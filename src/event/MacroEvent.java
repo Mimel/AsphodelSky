@@ -31,7 +31,7 @@ public class MacroEvent extends Executable {
     }
 
 
-    public List<Event> performMacroEvent() {
+    public List<Event> decomposeMacroEvent() {
         List<Event> eventList = new LinkedList<>();
         switch(op) {
             case USE_ITEM:

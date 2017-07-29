@@ -67,9 +67,7 @@ public class MessageManager implements Runnable {
 	 * @param msg The message to insert.
 	 */
 	private void shiftBuffer(String msg) {
-		for(int x = 1; x < MESSAGEMAX; x++) {
-			messageBuffer[x - 1] = messageBuffer[x];
-		}
+		System.arraycopy(messageBuffer, 1, messageBuffer, 0, MESSAGEMAX - 1);
 		messageBuffer[MESSAGEMAX - 1] = msg;
 	}
 	
@@ -77,7 +75,7 @@ public class MessageManager implements Runnable {
 	 * Wipes the buffer, replacing all entries with NULL.
 	 */
 	public synchronized void clearBuffer() {
-		//TODO
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import entity.Combatant;
 import event.Event;
-import grid.Grid;
 
 /**
  * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
@@ -117,7 +115,7 @@ public class Item implements Comparable<Item> {
 			String name = "";
 			String vDesc = "";
 			String uDesc = "";
-			String effects = "";
+			StringBuilder effects = new StringBuilder();
 
 			String line;
 
@@ -129,13 +127,13 @@ public class Item implements Comparable<Item> {
 				} else if(uDesc.equals("")) {
 					uDesc = line;
 				} else if(line.equals("!END")) {
-					itemNameToItemMap.put(name, new Item(name, vDesc, uDesc, effects));
+					itemNameToItemMap.put(name, new Item(name, vDesc, uDesc, effects.toString()));
 					name = "";
 					vDesc = "";
 					uDesc = "";
-					effects = "";
+					effects = new StringBuilder();
 				} else {
-					effects += line;
+					effects.append(line);
 				}
 			}
 		} catch(Exception e) {

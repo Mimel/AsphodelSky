@@ -1,7 +1,4 @@
 package entity;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import org.javatuples.Pair;
 
 import java.util.HashMap;
@@ -24,7 +21,7 @@ public class EnemyRoster {
 
     public EnemyRoster() {
         coordToOccupant = new HashMap<>();
-        idToCoord = new HashMap();
+        idToCoord = new HashMap<>();
     }
 
     public void addCombatant(int x, int y, String enemyName) {
@@ -34,10 +31,6 @@ public class EnemyRoster {
     public void addCombatant(int x, int y, Combatant c) {
         coordToOccupant.put(new Pair<>(x, y), c);
         idToCoord.put(c.getId(), new Pair<>(x, y));
-    }
-
-    public Pair<Integer, Integer> getPlayerLocation() {
-        return getCombatantLocation(0);
     }
 
     public Pair<Integer, Integer> getCombatantLocation(int id) {

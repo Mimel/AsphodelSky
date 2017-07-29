@@ -31,6 +31,6 @@ public class Player extends Combatant {
 	 */
 	@Override
 	public void act(OperationAI opai, int time, Grid gr) {
-		return;
+
 	}
 }

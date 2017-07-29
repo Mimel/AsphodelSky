@@ -9,5 +9,5 @@ import grid.Tile;
  * @author Matt Imel
  */
 public interface GridGenerator {
-	public Tile[][] generateGrid(int width, int height);
+	Tile[][] generateGrid(int width, int height);
 }

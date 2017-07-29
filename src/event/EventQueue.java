@@ -45,7 +45,7 @@ public class EventQueue {
     }
 
     public void executePendingEvent() {
-        addEvents(pendingEvent.performMacroEvent());
+        addEvents(pendingEvent.decomposeMacroEvent());
     }
 
     /**
@@ -121,9 +121,9 @@ public class EventQueue {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Time: " + time);
+        sb.append("Time: ").append(time);
         for(Event e : eventQueue) {
-            sb.append(e.toString() + ":::At time " + e.getTriggerDelay() + "s \n");
+            sb.append(e.toString()).append(":::At time ").append(e.getTriggerDelay()).append("s \n");
         }
         return sb.toString();
     }

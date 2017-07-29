@@ -64,7 +64,7 @@ public class Display extends JPanel {
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
-		this.promptQueue = new LinkedList<DisplayPrompt>();
+		this.promptQueue = new LinkedList<>();
 	}
 	
 	public GUIHeader getHeader() { return hc; }

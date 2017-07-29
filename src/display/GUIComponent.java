@@ -56,9 +56,9 @@ abstract class GUIComponent extends JComponent {
 	 * @param newMode The mode to switch to, verbatim.
 	 */
 	void setCurrentMode(String newMode) {
-		for(int x = 0; x < modes.length; x++) {
-			if(newMode.equals(modes[x])) {
-				selectedMode = modes[x];
+		for (String mode : modes) {
+			if (newMode.equals(mode)) {
+				selectedMode = mode;
 				return;
 			}
 		}

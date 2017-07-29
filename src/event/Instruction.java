@@ -127,8 +127,7 @@ public class Instruction
 
             ResponseDetails rd = instructionSet.get(opcode).apply(actorId, affectedId, x, y, gr);
             if(rd != null) {
-                String resp = Response.getResponse(opcode, rd);
-                return resp;
+                return Response.getResponse(opcode, rd);
             }
 
         }

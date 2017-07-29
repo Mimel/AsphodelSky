@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 
 /**
@@ -15,8 +16,8 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public void useMindless(MindlessAI mai, int time, Grid gr) {
-
+    public Event[] useMindless(MindlessAI mai, int time, Grid gr) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -26,8 +27,8 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public void useAnimalistic(AnimalisticAI aai, int time, Grid gr) {
-
+    public Event[] useAnimalistic(AnimalisticAI aai, int time, Grid gr) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -37,8 +38,8 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public void useUnderdeveloped(UnderdevelopedAI uai, int time, Grid gr) {
-
+    public Event[] useUnderdeveloped(UnderdevelopedAI uai, int time, Grid gr) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -48,8 +49,8 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public void useSapient(SapientAI sai, int time, Grid gr) {
-
+    public Event[] useSapient(SapientAI sai, int time, Grid gr) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -59,7 +60,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public void useBrilliant(BrilliantAI bai, int time, Grid gr) {
-
+    public Event[] useBrilliant(BrilliantAI bai, int time, Grid gr) {
+        throw new UnsupportedOperationException();
     }
 }

@@ -11,7 +11,6 @@ import display.Display;
 import display.DisplayKeyBindings;
 import display.ImageAssets;
 import entity.*;
-import event.Event;
 import event.EventQueue;
 import event.Instruction;
 import event.Response;
@@ -23,31 +22,6 @@ import item.Item;
  * @author Matt Imel
  */
 public class ASControl {
-	
-	/**
-	 * You!
-	 */
-	private static Player p1;
-
-	/**
-	 * The current grid on which the game currently operates.
-	 */
-	private static Grid grid;
-	
-	/**
-	 * Manager for the message service.
-	 */
-	private static MessageManager mm;
-
-	/**
-	 * The queue of events to take place.
-	 */
-	private static EventQueue eq;
-
-	/**
-	 * An event that is pushed onto the event queue as a result of a key press.
-	 */
-	private static Event pendingEvent;
 
 	public static void main(String args[]) {
 		JFrame gameWindow = new JFrame("Asphodel Sky");
@@ -62,11 +36,11 @@ public class ASControl {
 
 		//Initialize message manager.
 		ExecutorService threadList = Executors.newFixedThreadPool(2);
-		mm = new MessageManager(game.getFooter());
+		MessageManager mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
 
 		//TODO: p1 must be instantiated before enemy map loading in order to ensure that p1 has id 0; fix.
-		p1 = new Player("Place Holder", "Apprentice",  16, 22, game.getSidebar());
+		Player p1 = new Player("Place Holder", "Apprentice", 16, 22, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -77,10 +51,10 @@ public class ASControl {
 		Response.loadResponseTable("map/responsemap.dat");
 
 		//Initializing Event Queue.
-		eq = new EventQueue();
+		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
-		grid = new Grid(game.getHeader(), game.getFocus());
+		Grid grid = new Grid(game.getHeader(), game.getFocus());
 
 		grid.addCombatant(p1, 1, 1);
 		grid.bindFocusToPlayer();
@@ -89,8 +63,8 @@ public class ASControl {
 		grid.addItem("Cardiotic Fluid", 4, 5);
 		grid.addItem("Solution of Finesse", 3, 4);
 		grid.addItem("Solution of Finesse", 5, 5);
-		for(int x = 2; x < 12; x++) {
-			grid.addItem("Solution of Finesse", 3, x);
+		for(int y = 2; y < 12; y++) {
+			grid.addItem("Solution of Finesse", 3, y);
 		}
 
 		eq.progressTimeBy(5, grid);

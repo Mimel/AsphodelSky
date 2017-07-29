@@ -291,7 +291,7 @@ public abstract class Combatant implements Entity {
 
 	@Override
 	public String toString() {
-		if(title == "") {
+		if(title.equals("")) {
 			return name;
 		} else {
 			return name + " the " + title;

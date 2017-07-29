@@ -53,7 +53,7 @@ public final class EnemyGenerator {
      */
     public static void loadEnemyMapping(String fileName) {
         if(nameToCombatant == null) {
-            nameToCombatant = new HashMap<String, Combatant>();
+            nameToCombatant = new HashMap<>();
         }
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -70,7 +70,7 @@ public final class EnemyGenerator {
             int charisma = 0;
             int intuition = 0;
 
-            int arrowPos = 0; //The position of the '>' key in each line.
+            int arrowPos; //The position of the '>' key in each line.
 
             while((currLine = br.readLine()) != null) {
                 arrowPos = currLine.indexOf('>');

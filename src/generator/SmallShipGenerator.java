@@ -58,70 +58,70 @@ public class SmallShipGenerator implements GridGenerator {
 		}
 		
 		//Expands all rooms.
-		for(int room = 0; room < ship.length; room++) {
-			
+		for (RoomSquare aShip : ship) {
+
 			do {
 				//Expand North end.
-				if(!ship[room].canGoNorth() || ship[room].getY() == 0) {
-					ship[room].stopExpansionNorth();
-				} else if(!checkHorizontalSwath(ship[room].getY()-1, ship[room].getX(), ship[room].getX() + ship[room].getWidth() - 1)) {
-					ship[room].stopExpansionNorth();
+				if (!aShip.canGoNorth() || aShip.getY() == 0) {
+					aShip.stopExpansionNorth();
+				} else if (!checkHorizontalSwath(aShip.getY() - 1, aShip.getX(), aShip.getX() + aShip.getWidth() - 1)) {
+					aShip.stopExpansionNorth();
 				} else {
-					ship[room].expandNorth();
-					fillHorizontalSwath(ship[room].getY(), ship[room].getX(), ship[room].getX() + ship[room].getWidth() - 1);
+					aShip.expandNorth();
+					fillHorizontalSwath(aShip.getY(), aShip.getX(), aShip.getX() + aShip.getWidth() - 1);
 				}
-				
+
 				//Expand West end.
-				if(!ship[room].canGoWest() || ship[room].getX() == 0) {
-					ship[room].stopExpansionWest();
-				} else if(!checkVerticalSwath(ship[room].getX()-1, ship[room].getY(), ship[room].getY() + ship[room].getHeight() - 1)) {
-					ship[room].stopExpansionWest();
+				if (!aShip.canGoWest() || aShip.getX() == 0) {
+					aShip.stopExpansionWest();
+				} else if (!checkVerticalSwath(aShip.getX() - 1, aShip.getY(), aShip.getY() + aShip.getHeight() - 1)) {
+					aShip.stopExpansionWest();
 				} else {
-					ship[room].expandWest();
-					fillVerticalSwath(ship[room].getX(), ship[room].getY(), ship[room].getY() + ship[room].getHeight() - 1);
+					aShip.expandWest();
+					fillVerticalSwath(aShip.getX(), aShip.getY(), aShip.getY() + aShip.getHeight() - 1);
 				}
-				
+
 				//Expand South end.
-				if(!ship[room].canGoSouth() || ship[room].getY() + ship[room].getHeight() >= height) {
-					ship[room].stopExpansionSouth();
-				} else if(!checkHorizontalSwath(ship[room].getY() + ship[room].getHeight(), ship[room].getX(), ship[room].getX() + ship[room].getWidth() - 1)) {
-					ship[room].stopExpansionSouth();
+				if (!aShip.canGoSouth() || aShip.getY() + aShip.getHeight() >= height) {
+					aShip.stopExpansionSouth();
+				} else if (!checkHorizontalSwath(aShip.getY() + aShip.getHeight(), aShip.getX(), aShip.getX() + aShip.getWidth() - 1)) {
+					aShip.stopExpansionSouth();
 				} else {
-					ship[room].expandSouth(height);
-					fillHorizontalSwath(ship[room].getY() + ship[room].getHeight() - 1, ship[room].getX(), ship[room].getX() + ship[room].getWidth() - 1);
+					aShip.expandSouth(height);
+					fillHorizontalSwath(aShip.getY() + aShip.getHeight() - 1, aShip.getX(), aShip.getX() + aShip.getWidth() - 1);
 				}
-				
+
 				//Expand East end.
-				if(!ship[room].canGoEast() || ship[room].getX() + ship[room].getWidth() >= width) {
-					ship[room].stopExpansionEast();
-				} else if(!checkVerticalSwath(ship[room].getX() + ship[room].getWidth(), ship[room].getY(), ship[room].getY() + ship[room].getHeight() - 1)) {
-					ship[room].stopExpansionEast();
+				if (!aShip.canGoEast() || aShip.getX() + aShip.getWidth() >= width) {
+					aShip.stopExpansionEast();
+				} else if (!checkVerticalSwath(aShip.getX() + aShip.getWidth(), aShip.getY(), aShip.getY() + aShip.getHeight() - 1)) {
+					aShip.stopExpansionEast();
 				} else {
-					ship[room].expandEast(width);
-					fillVerticalSwath(ship[room].getX() + ship[room].getWidth() - 1, ship[room].getY(), ship[room].getY() + ship[room].getHeight() - 1);
+					aShip.expandEast(width);
+					fillVerticalSwath(aShip.getX() + aShip.getWidth() - 1, aShip.getY(), aShip.getY() + aShip.getHeight() - 1);
 				}
-			} while(ship[room].canExpand());
+			} while (aShip.canExpand());
 		}
 		
 		//Place rooms into grid.
-		for(int room = 0; room < ship.length; room++) {
-			System.out.println("Y:" + ship[room].getY() + ", H:" + ship[room].getHeight() + ", X:" 
-					+ ship[room].getX() + ", W:" + ship[room].getWidth());
-			
-			if(ship[room].getWidth() > 1 && ship[room].getHeight() > 1) {
-				for(int y = ship[room].getY(); y < ship[room].getY() + ship[room].getHeight(); y++) {
-					for(int x = ship[room].getX(); x < ship[room].getX() + ship[room].getWidth(); x++) {
+		for (RoomSquare aShip : ship) {
+			System.out.println("Y:" + aShip.getY() + ", H:" + aShip.getHeight() + ", X:"
+					+ aShip.getX() + ", W:" + aShip.getWidth());
+
+			if (aShip.getWidth() > 1 && aShip.getHeight() > 1) {
+				for (int y = aShip.getY(); y < aShip.getY() + aShip.getHeight(); y++) {
+					for (int x = aShip.getX(); x < aShip.getX() + aShip.getWidth(); x++) {
 						//map[y][x] = new Tile((char)(97 + room)); //DEBUG: ROOMS BY LETTERS
-						
-						
+
+
 						//TODO: shoddy way to wall a room.
-						if(x != ship[room].getX() && y != ship[room].getY() &&
+						if (x != aShip.getX() && y != aShip.getY() &&
 								x != width - 1 && y != height - 1) {
 							map[y][x] = new Tile('.');
 						}
 					}
 				}
-			}		
+			}
 		}
 		
 		return map;

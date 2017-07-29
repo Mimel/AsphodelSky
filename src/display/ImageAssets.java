@@ -40,13 +40,13 @@ public final class ImageAssets {
 			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/selector_generic.png"));
 
 			// Initialize hashmaps.
-			terrIdToImage = new HashMap<Character, Image>();
+			terrIdToImage = new HashMap<>();
 			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
-			itemIdToImage = new HashMap<String, Image>();
+			itemIdToImage = new HashMap<>();
 			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
-			charIdToImage = new HashMap<String, Image>();
+			charIdToImage = new HashMap<>();
 			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
-			miscIdToImage = new HashMap<Character, Image>();
+			miscIdToImage = new HashMap<>();
 			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
 
 		} catch(IOException ioe) {

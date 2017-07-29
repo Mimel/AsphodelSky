@@ -24,14 +24,7 @@ import org.javatuples.Pair;
  * @author Matt Imel
  */
 public class Grid {
-	
-	/**
-	 * The dimension of the grid.
-	 * The grid is created with the assumption that the 2D array acts like a square
-	 * if the constant is used.
-	 */
-	private final int DEFAULT_DIMENSION = 20;
-	
+
 	/**
 	 * The current map of the game.
 	 */
@@ -63,6 +56,7 @@ public class Grid {
 	 * Creates an empty grid with default dimensions.
 	 */
 	public Grid(HeaderComponent hc, FocusComponent fc) {
+		int DEFAULT_DIMENSION = 20;
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
 		this.map = new EmptyShipGenerator().generateGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
 		this.gridCenter = new GridFocus(0, 0);

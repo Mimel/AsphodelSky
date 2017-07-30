@@ -81,8 +81,9 @@ public final class ImageAssets {
 	 * [Character][X-margin],[Y-margin]\n
 	 * 
 	 * @param map The given hashmap to fill.
-	 * @param tileset
-	 * @param fileName
+	 * @param tileset The image to use to represent the tileset. All coordinates read in from the text file will be
+	 *                based off of this file.
+	 * @param fileName The name of the text file to read.
 	 */
 	private static void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
@@ -118,8 +119,9 @@ public final class ImageAssets {
 	 * [String]@[X-margin],[Y-margin]\n
 	 * 
 	 * @param map The given hashmap to fill.
-	 * @param tileset
-	 * @param fileName
+	 * @param tileset The image to use to represent the tileset. All coordinates read in from the text file will be
+	 *                based off of this file.
+	 * @param fileName The name of the text file to read.
 	 */
 	private static void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	

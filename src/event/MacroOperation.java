@@ -1,7 +1,7 @@
 package event;
 
 /**
- * Created by Owner on 7/17/2017.
+ * The Opcode of an operation that represents a set of events.
  */
 public enum MacroOperation {
     /**

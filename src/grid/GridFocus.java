@@ -1,7 +1,7 @@
 package grid;
 
 /**
- * Created by Owner on 7/26/2017.
+ * The focus of the grid.
  */
 public class GridFocus {
     private int xPosition;

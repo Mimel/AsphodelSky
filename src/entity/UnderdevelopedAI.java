@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 
 /**
@@ -17,7 +18,7 @@ public class UnderdevelopedAI extends Combatant {
                 uai.getPoise(), uai.getSubtlety(), uai.getAcumen(), uai.getCharisma(), uai.getIntuition());
     }
 
-    public void act(OperationAI opai, int time, Grid gr) {
-        opai.useUnderdeveloped(this, time, gr);
+    public Event[] act(OperationAI opai, int time, Grid gr) {
+        return opai.useUnderdeveloped(this, time, gr);
     }
 }

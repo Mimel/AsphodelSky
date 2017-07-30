@@ -78,6 +78,9 @@ public class MessageManager implements Runnable {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Runs the manager.
+	 */
 	@Override
 	public void run() {
 		while(true) {
@@ -91,7 +94,13 @@ public class MessageManager implements Runnable {
 			}
 		}
 	}
-	
+
+	/**
+	 * Forwards both an Object's name (src) and description to the message manager. These are displayed
+	 * separately from the usual feed, during certain display modes.
+	 * @param src The name of the object (Item, Combatant, etc.) to use.
+	 * @param desc The description of said object.
+	 */
 	public void loadSourceDescPair(String src, String desc) {
 		messageOutput.insertItem(src, desc);
 	}

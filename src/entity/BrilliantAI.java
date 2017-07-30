@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 
 /**
@@ -17,7 +18,7 @@ public class BrilliantAI extends Combatant {
                 bai.getPoise(), bai.getSubtlety(), bai.getAcumen(), bai.getCharisma(), bai.getIntuition());
     }
 
-    public void act(OperationAI opai, int time, Grid gr) {
-        opai.useBrilliant(this, time, gr);
+    public Event[] act(OperationAI opai, int time, Grid gr) {
+        return opai.useBrilliant(this, time, gr);
     }
 }

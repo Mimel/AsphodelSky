@@ -23,23 +23,23 @@ abstract class GUIComponent extends JComponent {
 	/**
 	 * X-Position of element relative to the upper-left corner.
 	 */
-	protected int xPos;
+	int xPos;
 	
 	/**
 	 * Y-Position of element relative to the upper-left corner.
 	 */
-	protected int yPos;
+	int yPos;
 	
 	/**
 	 * A list of all possible modes that a component can take.
 	 * The default mode is always the first element in this list.
 	 */
-	protected String[] modes;
+	String[] modes;
 	
 	/**
 	 * The current mode.
 	 */
-	protected String selectedMode;
+	String selectedMode;
 	
 	GUIComponent(int x, int y, int w, int h) {
 		this.xPos = x;

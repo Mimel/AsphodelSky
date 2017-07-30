@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 
 /**
@@ -17,7 +18,7 @@ public class SapientAI extends Combatant {
                 sai.getPoise(), sai.getSubtlety(), sai.getAcumen(), sai.getCharisma(), sai.getIntuition());
     }
 
-    public void act(OperationAI opai, int time, Grid gr) {
-        opai.useSapient(this, time, gr);
+    public Event[] act(OperationAI opai, int time, Grid gr) {
+        return opai.useSapient(this, time, gr);
     }
 }

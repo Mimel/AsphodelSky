@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 import item.Catalog;
 
@@ -287,7 +288,14 @@ public abstract class Combatant implements Entity {
 		return inventory;
 	}
 
-	public abstract void act(OperationAI opai, int time, Grid gr);
+	/**
+	 * Performs a set of actions based on the Combatant's AI, the time given to act, and the grid
+	 * state to act on.
+	 * @param opai The AI to use when acting.
+	 * @param time The time given for this Combatant to act.
+	 * @param gr The grid to act upon.
+	 */
+	public abstract Event[] act(OperationAI opai, int time, Grid gr);
 
 	@Override
 	public String toString() {

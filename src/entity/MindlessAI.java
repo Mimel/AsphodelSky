@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import grid.Grid;
 
 /**
@@ -18,7 +19,7 @@ public class MindlessAI extends Combatant {
                 mai.getPoise(), mai.getSubtlety(), mai.getAcumen(), mai.getCharisma(), mai.getIntuition());
     }
 
-    public void act(OperationAI opai, int time, Grid gr) {
-        opai.useMindless(this, time, gr);
+    public Event[] act(OperationAI opai, int time, Grid gr) {
+        return opai.useMindless(this, time, gr);
     }
 }

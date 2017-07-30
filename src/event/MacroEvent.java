@@ -30,8 +30,12 @@ public class MacroEvent extends Executable {
         this.op = op;
     }
 
-
-    public List<Event> decomposeMacroEvent() {
+    /**
+     * Reduces this MacroEvent into a set of smaller events based on the Macro opcode and returns those
+     * events.
+     * @return The list of events that this MacroEvent decomposes to.
+     */
+    List<Event> decomposeMacroEvent() {
         List<Event> eventList = new LinkedList<>();
         switch(op) {
             case USE_ITEM:

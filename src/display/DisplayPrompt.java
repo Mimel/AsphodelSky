@@ -1,7 +1,8 @@
 package display;
 
 /**
- * Created by Owner on 7/15/2017.
+ * The display prompt to use, which determines the selection to make. Similar to DisplayConfiguration, this
+ * alters the display of the game.
  */
 public enum DisplayPrompt {
     ITEM_PROMPT,

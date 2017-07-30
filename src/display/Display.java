@@ -46,6 +46,9 @@ public class Display extends JPanel {
 	 */
 	private Queue<DisplayPrompt> promptQueue;
 
+	/**
+	 * The set of key bindings to use.
+	 */
 	private InputMap keyBindings;
 
 	public Display(int winWidth, int winHeight) {
@@ -71,11 +74,16 @@ public class Display extends JPanel {
 	public GUIFocus getFocus() { return gc; }
 	public GUISidebar getSidebar() { return sc;}
 	public GUIFooter getFooter() { return fc; }
-	public DisplayConfiguration getConfig() {
+	DisplayConfiguration getConfig() {
 		return currentConfig;
 	}
 
-	public void switchState(DisplayConfiguration newConfig) {
+	/**
+	 * Switches the configuration of the display. The configuration determines the information that is
+	 * displayed on the screen. When switching the state, the previous state is overridden.
+	 * @param newConfig The new configuration to use.
+	 */
+	private void switchState(DisplayConfiguration newConfig) {
 		switch(newConfig) {
 			case DEFAULT:
 				gc.setCurrentMode("player");
@@ -99,11 +107,16 @@ public class Display extends JPanel {
 		currentConfig = newConfig;
 	}
 
-	public boolean isPromptQueueEmpty() {
+	boolean isPromptQueueEmpty() {
 		return promptQueue.isEmpty();
 	}
 
-	public void enqueuePrompt(DisplayPrompt dp) {
+	/**
+	 * Enqueues a prompt onto this display's prompt queue. If a prompt is added when there are no prompts on the
+	 * queue, the key binds are restricted, allowing only arrow key movements, yes, no, and game exit commands.
+	 * @param dp The display prompt to add to the queue.
+	 */
+	void enqueuePrompt(DisplayPrompt dp) {
 		if(promptQueue.isEmpty()) {
 			restrictKeyBindings();
 			switch(dp) {
@@ -119,11 +132,16 @@ public class Display extends JPanel {
 		promptQueue.add(dp);
 	}
 
-	public DisplayPrompt peekPrompt() {
+	DisplayPrompt peekPrompt() {
 		return promptQueue.peek();
 	}
 
-	public DisplayPrompt dequeuePrompt() {
+	/**
+	 * Dequeues a prompt from this display's prompt queue. If there are no prompts left after removal, then
+	 * the key binds are unrestricted, allowing for complete control of the game.
+	 * @return The prompt that was removed.
+	 */
+	DisplayPrompt dequeuePrompt() {
 		DisplayPrompt dp = promptQueue.remove();
 
 		if(promptQueue.isEmpty()) {
@@ -143,10 +161,21 @@ public class Display extends JPanel {
 		return dp;
 	}
 
-	public void clearPromptQueue() {
-		promptQueue.clear();
+	/**
+	 * Clears the prompt queue, and unrestricts keybinds if there are any removed prompts.
+	 */
+	void clearPromptQueue() {
+		if(!isPromptQueueEmpty()) {
+			expandKeyBindings();
+			promptQueue.clear();
+		}
+
 	}
 
+	/**
+	 * Restricts the set of key bindings to just the arrow keys, exit, yes, and no. This is used in
+	 * many selections, such as item select, tile select, and skill select.
+	 */
 	private void restrictKeyBindings() {
 		if(keyBindings == null) {
 			keyBindings = getInputMap();
@@ -155,6 +184,9 @@ public class Display extends JPanel {
 		setInputMap(JComponent.WHEN_FOCUSED, getInputMap().getParent());
 	}
 
+	/**
+	 * Expands the set of key bindings to every single set bind.
+	 */
 	private void expandKeyBindings() {
 		if(keyBindings != null) {
 			setInputMap(JComponent.WHEN_FOCUSED, keyBindings);

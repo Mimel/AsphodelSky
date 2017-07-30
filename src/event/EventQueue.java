@@ -19,6 +19,9 @@ public class EventQueue {
      */
     private Queue<Event> eventQueue;
 
+    /**
+     * An event that will eventually be added to the queue.
+     */
     private MacroEvent pendingEvent;
 
     public EventQueue() {
@@ -53,8 +56,11 @@ public class EventQueue {
      * @param delay Time before the event is executed. Must be greater than or equal to zero.
      * @param priority The priority of the event. Used as a secondary sorting mechanism in the case of ties in time.
      * @param opcode The operation to execute.
-     * @param x A secondary variable that supports the operation.
-     * @param y
+     * @param actorId The id of the actor that calls this event.
+     * @param affectedId A secondary variable that supports the operation, usually representing the id of an Object
+     *                   that the command affects.
+     * @param x A ternary variable that supports the operation, usually representing the X-coordinate of a grid.
+     * @param y A quaternary variable that supports the operation, usually representing the Y-coordinate of a grid.
      */
     public void addEvent(int delay, int priority, Opcode opcode, int actorId, int affectedId, int x, int y) {
         if(delay >= 0) {

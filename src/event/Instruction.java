@@ -13,25 +13,6 @@ import java.util.Map;
  */
 public class Instruction
 {
-    /**
-     * An interface used to allow lambda functions that take three inputs and provide no outputs.
-     * @param <A> The first parameter (In the context of the instruction set, the id).
-     * @param <B> The second parameter (In the context of the instruction set, the secondary variable (int)).
-     * @param <C> The third parameter (In the context of the instruction set, the Grid).
-     */
-  /*  @FunctionalInterface
-    interface QuintFunction<A, B, C, D, E, R> {
-        R apply(A a, B b, C c, D d, E e);
-
-        default <S> QuintFunction<A, B, C, D, E, S> andThen(QuintFunction<? super R, ? super S> after) {
-            Objects.requireNonNull(after);
-            return (a, b, c, d, e) -> {
-                apply(a, b, c, d, e);
-                after.apply(a, b, c, d, e);
-            };
-        }
-    } */
-
     @FunctionalInterface
     interface QuintFunction<A, B, C, D, E, R> {
         R apply(A a, B b, C c, D d, E e);

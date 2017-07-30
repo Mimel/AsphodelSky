@@ -1,7 +1,7 @@
 package grid;
 
 /**
- * Created by Owner on 7/26/2017.
+ * Determines the range the Grid Focus can go in the grid.
  */
 public enum FocusRange {
     ANY,

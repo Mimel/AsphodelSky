@@ -10,12 +10,12 @@ import java.util.Map;
  * The entire set of string messages that can be returned on event completion.
  */
 public class Response {
-    static Map<Opcode, Map<ResponseCondition, String>> responseTable;
+    private static Map<Opcode, Map<ResponseCondition, String>> responseTable;
 
     /**
      * Loads the responseTable from the set of strings in the given .dat file with the given filename.
      * Subsequent calls to this method after the first will immediately return.
-     * @param fileName
+     * @param fileName The name of the file to load the table from.
      */
     public static void loadResponseTable(String fileName) {
         if(responseTable == null) {
@@ -60,6 +60,15 @@ public class Response {
         return response;
     }
 
+    /**
+     * Gets the string response based on the opcode, the condition, and the set of
+     * parameters to add to the string.
+     * @param op The opcode that determines the set of responses to use.
+     * @param outcome A compound object consisting of a Response Condition, which determines the
+     *                response out of the set to use, and a variable amount of parameters,
+     *                which will be added to the response template.
+     * @return The formatted response.
+     */
     static String getResponse(Opcode op, ResponseDetails outcome) {
         return getResponse(op, outcome.getCondition(), outcome.getInserts());
     }

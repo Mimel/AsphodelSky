@@ -132,6 +132,29 @@ public class DisplayKeyBindings {
             }
         };
 
+        Action go_back = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!game.isPromptQueueEmpty()) {
+                    if(game.isUsedStackEmpty()) {
+                        game.clearPromptQueue();
+                    } else {
+                        game.requeuePrompt();
+                    }
+                }
+
+                game.repaint();
+            }
+        };
+
+        Action go_to_default = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.clearPromptQueue();
+                game.repaint();
+            }
+        };
+
         Action get = new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
@@ -213,6 +236,13 @@ public class DisplayKeyBindings {
             }
         };
 
+        Action test = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
+
         game.getInputMap().setParent(new InputMap());
 
         //ESC = Exits the program.
@@ -248,6 +278,14 @@ public class DisplayKeyBindings {
         game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ENTER"), "confirm");
         game.getActionMap().put("confirm", confirm);
 
+        //n = no.
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('n'), "go_back");
+        game.getActionMap().put("go_back", go_back);
+
+        //BACK_SPACE = go to default.
+        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("BACK_SPACE"), "go_to_default");
+        game.getActionMap().put("go_to_default", go_to_default);
+
         //G = Get.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
         game.getActionMap().put("get", get);
@@ -267,6 +305,11 @@ public class DisplayKeyBindings {
         //T = Toss.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('t'), "toss");
         game.getActionMap().put("toss", toss);
+
+        //J = TESTING FUNCTION.
+        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('j'), "test");
+        game.getActionMap().put("test", test);
+
 
         updateOutput();
     }

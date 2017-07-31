@@ -1,8 +1,10 @@
 package display;
 
 import java.awt.BorderLayout;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 import javax.swing.*;
 
@@ -44,7 +46,12 @@ public class Display extends JPanel {
 	/**
 	 * A queue of required requests that must be fulfilled before the configuration resets to default.
 	 */
-	private Queue<DisplayPrompt> promptQueue;
+	private Deque<DisplayPrompt> promptQueue;
+
+	/**
+	 * A stack of requests that have been fulfilled.
+	 */
+	private Stack<DisplayPrompt> usedPromptStack;
 
 	/**
 	 * The set of key bindings to use.
@@ -68,6 +75,7 @@ public class Display extends JPanel {
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
 		this.promptQueue = new LinkedList<>();
+		this.usedPromptStack = new Stack<>();
 	}
 	
 	public GUIHeader getHeader() { return hc; }
@@ -111,6 +119,10 @@ public class Display extends JPanel {
 		return promptQueue.isEmpty();
 	}
 
+	boolean isUsedStackEmpty() {
+		return usedPromptStack.isEmpty();
+	}
+
 	/**
 	 * Enqueues a prompt onto this display's prompt queue. If a prompt is added when there are no prompts on the
 	 * queue, the key binds are restricted, allowing only arrow key movements, yes, no, and game exit commands.
@@ -129,11 +141,28 @@ public class Display extends JPanel {
 			}
 		}
 
-		promptQueue.add(dp);
+		promptQueue.addLast(dp);
 	}
 
 	DisplayPrompt peekPrompt() {
-		return promptQueue.peek();
+		return promptQueue.peekFirst();
+	}
+
+	/**
+	 * Adds the prompt on the top of the used prompt stack back to the head of the queue.
+	 */
+	void requeuePrompt() {
+		if(!usedPromptStack.isEmpty()) {
+			promptQueue.addFirst(usedPromptStack.pop());
+			switch(promptQueue.peek()) {
+				case ITEM_PROMPT:
+					switchState(DisplayConfiguration.INVENTORY_SELECT);
+					break;
+				case TILE_PROMPT:
+					switchState(DisplayConfiguration.TILE_SELECT);
+					break;
+			}
+		}
 	}
 
 	/**
@@ -142,10 +171,12 @@ public class Display extends JPanel {
 	 * @return The prompt that was removed.
 	 */
 	DisplayPrompt dequeuePrompt() {
-		DisplayPrompt dp = promptQueue.remove();
+		DisplayPrompt dp = promptQueue.pollFirst();
+		usedPromptStack.push(dp);
 
 		if(promptQueue.isEmpty()) {
 			switchState(DisplayConfiguration.DEFAULT);
+			usedPromptStack.clear();
 			expandKeyBindings();
 		} else {
 			switch(promptQueue.peek()) {
@@ -168,8 +199,9 @@ public class Display extends JPanel {
 		if(!isPromptQueueEmpty()) {
 			expandKeyBindings();
 			promptQueue.clear();
+			usedPromptStack.clear();
+			switchState(DisplayConfiguration.DEFAULT);
 		}
-
 	}
 
 	/**

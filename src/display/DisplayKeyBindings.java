@@ -17,11 +17,24 @@ import java.awt.event.ActionEvent;
  * The set of keybinds used for the game.
  */
 public class DisplayKeyBindings {
+
+    private static Display game;
+    private static Grid grid;
+    private static Player p1;
+    private static MessageManager messageManager;
+    private static EventQueue eventQueue;
     /**
      * Creates keybinds for the game.
      * @param game The GUI.
      */
     public static void initKeyBinds(Display game, Grid grid, Player p1, MessageManager mm, EventQueue eq) {
+
+        DisplayKeyBindings.game = game;
+        DisplayKeyBindings.grid = grid;
+        DisplayKeyBindings.p1 = p1;
+        DisplayKeyBindings.messageManager = mm;
+        DisplayKeyBindings.eventQueue = eq;
+
         Action exitProgram = new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
@@ -75,7 +88,7 @@ public class DisplayKeyBindings {
                     //Moves the cursor over the inventory. TODO: Magic.
                     if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
                         p1.updatePlayer();
-                        updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
+                        updateSourceDescPair(game.peekPrompt());
                     }
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
@@ -84,10 +97,10 @@ public class DisplayKeyBindings {
 
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
-                    updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
+                    updateSourceDescPair(game.peekPrompt());
                 }
 
-                updateOutput(grid, p1, eq);
+                updateOutput();
                 game.repaint();
             }
         };
@@ -111,10 +124,10 @@ public class DisplayKeyBindings {
                     eq.executePendingEvent();
                     eq.progressTimeInstantaneous(grid);
                 } else {
-                    updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
+                    updateSourceDescPair(game.peekPrompt());
                 }
 
-                updateOutput(grid, p1, eq);
+                updateOutput();
                 game.repaint();
             }
         };
@@ -124,11 +137,16 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                if(!grid.getItemsOnTile(0).isEmpty()) {
                     eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL, 0, grid.getItemsOnTile(0).getFocusedItem().getId(), -1, -1);
                     mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
 
-                    updateOutput(grid, p1, eq);
-                    game.repaint();
+                    updateOutput();
+                } else {
+                    mm.insertMessage("There are no items on this tile.");
+                }
+
+                game.repaint();
             }
         };
 
@@ -142,8 +160,8 @@ public class DisplayKeyBindings {
 
                 grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
-                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
-                updateOutput(grid, p1, eq);
+                updateSourceDescPair(game.peekPrompt());
+                updateOutput();
                 game.repaint();
             }
         };
@@ -153,12 +171,13 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
-                eq.createPendingEvent(0, MacroOperation.NO_OP);
+                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
+                    eq.createPendingEvent(0, MacroOperation.NO_OP);
 
-                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
-                updateOutput(grid, p1, eq);
-                game.repaint();
+                    updateSourceDescPair(game.peekPrompt());
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -167,13 +186,14 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
-                eq.createPendingEvent(0, MacroOperation.USE_ITEM);
-                eq.getPendingEvent().setActorId(0);
+                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
+                    eq.createPendingEvent(0, MacroOperation.USE_ITEM);
+                    eq.getPendingEvent().setActorId(0);
 
-                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
-                updateOutput(grid, p1, eq);
-                game.repaint();
+                    updateSourceDescPair(game.peekPrompt());
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -182,14 +202,14 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                game.enqueuePrompt(DisplayPrompt.ITEM_PROMPT);
-                game.enqueuePrompt(DisplayPrompt.TILE_PROMPT);
-                eq.createPendingEvent(0, MacroOperation.DROP_ITEM);
-                eq.getPendingEvent().setActorId(0);
+                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
+                    eq.createPendingEvent(0, MacroOperation.DROP_ITEM);
+                    eq.getPendingEvent().setActorId(0);
 
-                updateSourceDescPair(game.peekPrompt(), grid, p1, mm);
-                updateOutput(grid, p1, eq);
-                game.repaint();
+                    updateSourceDescPair(game.peekPrompt());
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -248,31 +268,56 @@ public class DisplayKeyBindings {
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('t'), "toss");
         game.getActionMap().put("toss", toss);
 
-        updateOutput(grid, p1, eq);
+        updateOutput();
     }
 
-    private static void updateOutput(Grid grid, Player p1, EventQueue eq) {
-        grid.updateHeader(eq.getTime());
+    /**
+     * Adds a given prompt(s) to the queue in the display. If one of the prompts fails to be added, then all prompts are
+     * removed, and this method returns false. For prompt safety reasons, all additions to the queue must go through this
+     * method first, rather than directly through the key binding methods.
+     * @param prompts 0 or more prompts to add to the queue.
+     * @return True if all prompts were successfully added, false otherwise.
+     */
+    private static boolean addPromptsToDisplayQueue(DisplayPrompt... prompts) {
+        for(DisplayPrompt prompt : prompts) {
+            switch(prompt) {
+                case ITEM_PROMPT:
+                    if(p1.getInventory().isEmpty()) {
+                        game.clearPromptQueue();
+                        return false;
+                    }
+                    break;
+                case TILE_PROMPT:
+                    grid.unbindFocus();
+                    break;
+            }
+            game.enqueuePrompt(prompt);
+        }
+        return true;
+    }
+
+    private static void updateOutput() {
+        grid.updateHeader(eventQueue.getTime());
         //TODO magic
         grid.updateGrid(13, 13);
         p1.updatePlayer();
     }
 
-    private static void updateSourceDescPair(DisplayPrompt currentPrompt, Grid grid, Player p1, MessageManager mm) {
+    private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:
-                mm.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
             case TILE_PROMPT:
                 if (grid.getFocusedTile().getOccupant() != null) {
                     Combatant o = grid.getFocusedTile().getOccupant();
-                    mm.loadSourceDescPair(o.toString(), o.getDesc());
+                    messageManager.loadSourceDescPair(o.toString(), o.getDesc());
                 } else if (!grid.getFocusedTile().getCatalog().isEmpty()) {
                     Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
-                    mm.loadSourceDescPair(i.getName(), i.getVisualDescription());
+                    messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
                 } else {
                     Tile t = grid.getFocusedTile();
-                    mm.loadSourceDescPair(t.getName(), t.getDesc());
+                    messageManager.loadSourceDescPair(t.getName(), t.getDesc());
                 }
                 break;
         }

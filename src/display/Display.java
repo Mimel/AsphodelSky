@@ -150,11 +150,12 @@ public class Display extends JPanel {
 
 	/**
 	 * Adds the prompt on the top of the used prompt stack back to the head of the queue.
+	 * @return The prompt that was added to the head of the queue.
 	 */
-	void requeuePrompt() {
+	DisplayPrompt requeuePrompt() {
 		if(!usedPromptStack.isEmpty()) {
 			promptQueue.addFirst(usedPromptStack.pop());
-			switch(promptQueue.peek()) {
+			switch(promptQueue.peekFirst()) {
 				case ITEM_PROMPT:
 					switchState(DisplayConfiguration.INVENTORY_SELECT);
 					break;
@@ -163,6 +164,8 @@ public class Display extends JPanel {
 					break;
 			}
 		}
+
+		return promptQueue.peekFirst();
 	}
 
 	/**

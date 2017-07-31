@@ -37,7 +37,7 @@ public final class ImageAssets {
 			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
 			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/vials.png"));
 			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/enemies.png"));
-			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/selector_generic.png"));
+			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/misc.png"));
 
 			// Initialize hashmaps.
 			terrIdToImage = new HashMap<>();

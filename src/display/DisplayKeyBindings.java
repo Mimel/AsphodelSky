@@ -136,13 +136,26 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!game.isPromptQueueEmpty()) {
+                    //Undo initialization.
+                    switch(game.peekPrompt()) {
+                        case TILE_PROMPT:
+                            grid.bindFocusToPlayer();
+                            break;
+                    }
+
                     if(game.isUsedStackEmpty()) {
                         game.clearPromptQueue();
                     } else {
-                        game.requeuePrompt();
+                        switch(game.requeuePrompt()) {
+                            case TILE_PROMPT:
+                                grid.bindFocusToPlayer();
+                                grid.unbindFocus();
+                                break;
+                        }
                     }
                 }
 
+                updateOutput();
                 game.repaint();
             }
         };
@@ -150,8 +163,13 @@ public class DisplayKeyBindings {
         Action go_to_default = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.clearPromptQueue();
-                game.repaint();
+                if(!game.isPromptQueueEmpty()) {
+                    game.clearPromptQueue();
+                    grid.bindFocusToPlayer();
+
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -183,7 +201,6 @@ public class DisplayKeyBindings {
 
                 grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
-                updateSourceDescPair(game.peekPrompt());
                 updateOutput();
                 game.repaint();
             }
@@ -197,7 +214,6 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     eq.createPendingEvent(0, MacroOperation.NO_OP);
 
-                    updateSourceDescPair(game.peekPrompt());
                     updateOutput();
                     game.repaint();
                 }
@@ -213,7 +229,6 @@ public class DisplayKeyBindings {
                     eq.createPendingEvent(0, MacroOperation.USE_ITEM);
                     eq.getPendingEvent().setActorId(0);
 
-                    updateSourceDescPair(game.peekPrompt());
                     updateOutput();
                     game.repaint();
                 }
@@ -229,7 +244,6 @@ public class DisplayKeyBindings {
                     eq.createPendingEvent(0, MacroOperation.DROP_ITEM);
                     eq.getPendingEvent().setActorId(0);
 
-                    updateSourceDescPair(game.peekPrompt());
                     updateOutput();
                     game.repaint();
                 }
@@ -239,7 +253,12 @@ public class DisplayKeyBindings {
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT, DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT, DisplayPrompt.TILE_PROMPT)) {
+                    eq.createPendingEvent(0, MacroOperation.NO_OP);
 
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -336,6 +355,8 @@ public class DisplayKeyBindings {
             }
             game.enqueuePrompt(prompt);
         }
+
+        updateSourceDescPair(game.peekPrompt());
         return true;
     }
 

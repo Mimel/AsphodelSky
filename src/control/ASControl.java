@@ -54,7 +54,7 @@ public class ASControl {
 		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
-		Grid grid = new Grid(game.getHeader(), game.getFocus());
+		Grid grid = new Grid(game.getFocus());
 
 		grid.addCombatant(p1, 1, 1);
 		grid.bindFocusToPlayer();

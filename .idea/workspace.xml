@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/misc/misc.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/img/misc/selector_generic.png" afterPath="$PROJECT_DIR$/img/misc/selector_generic.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/display/GUIHeader.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/display/HeaderComponent.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map/misc_imagemap.dat" afterPath="$PROJECT_DIR$/map/misc_imagemap.dat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/Display.java" afterPath="$PROJECT_DIR$/src/display/Display.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/ImageAssets.java" afterPath="$PROJECT_DIR$/src/display/ImageAssets.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/Grid.java" afterPath="$PROJECT_DIR$/src/grid/Grid.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,11 +25,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1833">
-              <caret line="146" column="48" lean-forward="true" selection-start-line="146" selection-start-column="48" selection-end-line="146" selection-end-column="48" />
+            <state relative-caret-position="375">
+              <caret line="362" column="40" lean-forward="false" selection-start-line="362" selection-start-column="40" selection-end-line="362" selection-end-column="40" />
               <folding>
                 <element signature="e#8520#8959#0" expanded="true" />
                 <element signature="e#8958#8959#0" expanded="true" />
@@ -39,14 +38,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Display.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Display.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/display/Display.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,8 +51,8 @@
       <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="153" column="23" lean-forward="false" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="23" />
+            <state relative-caret-position="34">
+              <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -101,8 +98,8 @@
       <find>isOccup</find>
       <find>grid, p1, eq</find>
       <find>bind</find>
-      <find>bindFo</find>
       <find>bindFoc</find>
+      <find>bindFo</find>
     </findStrings>
     <replaceStrings>
       <replace>aai</replace>
@@ -178,9 +175,9 @@
         <option value="$PROJECT_DIR$/src/entity/Player.java" />
         <option value="$PROJECT_DIR$/src/display/ImageAssets.java" />
         <option value="$PROJECT_DIR$/map/misc_imagemap.dat" />
+        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
         <option value="$PROJECT_DIR$/src/display/Display.java" />
         <option value="$PROJECT_DIR$/src/grid/Grid.java" />
-        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
       </list>
     </option>
   </component>
@@ -258,42 +255,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AsphodelSky" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AsphodelSky" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AsphodelSky" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AsphodelSky" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="display" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -875,7 +836,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501464359824</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Grid focus now snaps to player when backing into a Tile Prompt or exiting a series of prompts.">
+      <created>1501545311834</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1501545311834</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView">
@@ -889,7 +857,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1223" height="1167" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18181819" sideWeight="0.46481878" order="6" side_tool="false" content_ui="tabs" />
@@ -900,15 +867,15 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2806324" sideWeight="0.28113064" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6772429" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21541502" sideWeight="0.46535182" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21541502" sideWeight="0.46535182" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24703558" sideWeight="0.48081023" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22924902" sideWeight="0.4936034" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19604471" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19518487" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2826087" sideWeight="0.7188694" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32027423" sideWeight="0.4824094" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3201581" sideWeight="0.4824094" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15938166" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="top" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -967,7 +934,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Added proper Opcode enum" />
     <MESSAGE value="Grid cleanup" />
     <MESSAGE value="Methods filled for EnemyRoster, general readability improvements." />
     <MESSAGE value="Revised grid/roster methods to accompany dual maps." />
@@ -992,7 +958,8 @@
     <MESSAGE value="Added comments to most methods." />
     <MESSAGE value="Fixed key input issues throwing exceptions in improper conditions (typing 'g' when there are no items on the tile, e.g.)" />
     <MESSAGE value="Added functionality for backing out of prompts, as well as escaping&#10;them altogether." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added functionality for backing out of prompts, as well as escaping&#10;them altogether." />
+    <MESSAGE value="Grid focus now snaps to player when backing into a Tile Prompt or exiting a series of prompts." />
+    <option name="LAST_COMMIT_MESSAGE" value="Grid focus now snaps to player when backing into a Tile Prompt or exiting a series of prompts." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1110,22 +1077,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-106">
           <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GUIHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="32" column="9" lean-forward="false" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/HeaderComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -1428,32 +1379,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
+    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="362" column="40" lean-forward="false" selection-start-line="362" selection-start-column="40" selection-end-line="362" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#8520#8959#0" expanded="true" />
+            <element signature="e#8958#8959#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GUIHeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="32" column="9" lean-forward="false" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="153" column="23" lean-forward="false" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="23" />
+        <state relative-caret-position="34">
+          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
+    <entry file="file://$PROJECT_DIR$/src/display/HeaderComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1833">
-          <caret line="146" column="48" lean-forward="true" selection-start-line="146" selection-start-column="48" selection-end-line="146" selection-end-column="48" />
-          <folding>
-            <element signature="e#8520#8959#0" expanded="true" />
-            <element signature="e#8958#8959#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

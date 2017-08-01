@@ -361,7 +361,6 @@ public class DisplayKeyBindings {
     }
 
     private static void updateOutput() {
-        grid.updateHeader(eventQueue.getTime());
         //TODO magic
         grid.updateGrid(13, 13);
         p1.updatePlayer();

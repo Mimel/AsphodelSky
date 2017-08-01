@@ -1,7 +1,6 @@
 package grid;
 
 import display.FocusComponent;
-import display.HeaderComponent;
 import entity.Combatant;
 import entity.EnemyGenerator;
 import entity.EnemyRoster;
@@ -46,16 +45,11 @@ public class Grid {
 	 * The output of the grid.
 	 */
 	private FocusComponent gridOutput;
-
-	/**
-	 * The output for the map information.
-	 */
-	private HeaderComponent headerOutput;
 	
 	/**
 	 * Creates an empty grid with default dimensions.
 	 */
-	public Grid(HeaderComponent hc, FocusComponent fc) {
+	public Grid(FocusComponent fc) {
 		int DEFAULT_DIMENSION = 20;
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
 		this.map = new EmptyShipGenerator().generateGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
@@ -63,7 +57,6 @@ public class Grid {
 
 		this.name = "<NO TITLE>";
 
-		this.headerOutput = hc;
 		this.gridOutput = fc;
 
 		this.roster = new EnemyRoster();
@@ -74,13 +67,12 @@ public class Grid {
 	 * @param height The height of the grid.
 	 * @param width The width of the grid.
 	 */
-	public Grid(String name, int height, int width, HeaderComponent hc, FocusComponent fc) {
+	public Grid(String name, int height, int width, FocusComponent fc) {
 		this.map = new Tile[width][height];
 		this.gridCenter = new GridFocus(0, 0);
 
 		this.name = name;
 
-		this.headerOutput = hc;
 		this.gridOutput = fc;
 
 		this.roster = new EnemyRoster();
@@ -133,11 +125,6 @@ public class Grid {
 		}
 		
 		gridOutput.updateGrid(truncatedMap, xFocus - xStart, yFocus - yStart);
-	}
-
-	public void updateHeader(int time) {
-		headerOutput.setTitle(name);
-		headerOutput.setTime(time);
 	}
 
 	public Tile getFocusedTile() {

@@ -3,7 +3,6 @@ package display;
 import java.awt.BorderLayout;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 import javax.swing.*;
@@ -32,11 +31,6 @@ public class Display extends JPanel {
 	 * Footer component, based on the bottom of the window.
 	 */
 	private GUIFooter fc;
-	
-	/**
-	 * Header component, based on the top of the window.
-	 */
-	private GUIHeader hc;
 
 	/**
 	 * The current display configuration.
@@ -62,12 +56,10 @@ public class Display extends JPanel {
 		this.setLayout(new BorderLayout());
 		
 		//Magic numbers soon to be replaced
-		this.hc = new GUIHeader(0, 0, winWidth, 50);
-		this.gc = new GUIFocus(0, 50, 624, 624, 48);
+		this.gc = new GUIFocus(0, 0, 624, 624, 48);
 		this.sc = new GUISidebar(624, 50, winWidth - 624, 624);
-		this.fc = new GUIFooter(0, 50 + 624, winWidth, winHeight - 624 - 50);
-		
-		this.add(hc, BorderLayout.NORTH);
+		this.fc = new GUIFooter(0, 624, winWidth, winHeight - 624);
+
 		this.add(gc, BorderLayout.WEST);
 		this.add(sc, BorderLayout.EAST);
 		this.add(fc, BorderLayout.SOUTH);
@@ -77,8 +69,7 @@ public class Display extends JPanel {
 		this.promptQueue = new LinkedList<>();
 		this.usedPromptStack = new Stack<>();
 	}
-	
-	public GUIHeader getHeader() { return hc; }
+
 	public GUIFocus getFocus() { return gc; }
 	public GUISidebar getSidebar() { return sc;}
 	public GUIFooter getFooter() { return fc; }

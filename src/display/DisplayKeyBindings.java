@@ -253,7 +253,7 @@ public class DisplayKeyBindings {
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT, DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT, DisplayPrompt.TILE_PROMPT)) {
+                if(addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT)) {
                     eq.createPendingEvent(0, MacroOperation.NO_OP);
 
                     updateOutput();

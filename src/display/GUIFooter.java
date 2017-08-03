@@ -21,23 +21,6 @@ import javax.imageio.ImageIO;
  *
  */
 public class GUIFooter extends GUIComponent implements FooterComponent {
-	
-	/**
-	 * The list of messages to write to the component.
-	 */
-	private String[] messages;
-	
-	/**
-	 * When displaying items or people, the name of the item or person.
-	 */
-	private String source;
-	
-	/**
-	 * When displaying items or people, the description of the item or the
-	 * quotation of the person.
-	 */
-	private String description;
-	
 	/**
 	 * The horizontal banner, used to more easily differentiate the footer from its
 	 * higher peers.
@@ -49,17 +32,13 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 	 */
 	private Image upperLeft;
 
+	private GUIFooter_Switch contentSwitch;
+
 	public GUIFooter(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		
-		this.messages = new String[1];
-		
-		this.source = "No source given.";
-		
-		this.description = "No description given.";
-		
 		//2 possible displays.
-		modes = new String[]{"free", "descript"};
+		modes = new String[]{"free", "descript", "dialogue"};
 		
 		//Starting mode displays messages.
 		selectedMode = modes[0];
@@ -78,18 +57,17 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 		} catch (IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
+
+		this.contentSwitch = new GUIFooter_Switch();
 	}
 	
 	@Override
 	public void updateMessages(String[] msgs) {
-		this.messages = msgs;
+		contentSwitch.updateMessages(msgs);
 	}
 	
 	public void insertItem(String name, String desc) {
-		source = name;
-		description = desc;
-		
-		this.repaint();
+		contentSwitch.updateDescription(name, desc);
 	}
 	
 	/**
@@ -120,30 +98,6 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 		
 		g2.setTransform(stdXY);
 		
-		//Draw message feed.
-		if(selectedMode.equals(modes[0])) {
-			
-			//Font
-			g2.setColor(new Color(0, 0, 0));
-			g2.setFont(new Font("SH Pinscher", Font.PLAIN, 22));
-			
-			//Messages
-			for(int x = 0; x < messages.length; x++) {
-				if(messages[x] != null) {
-					g2.drawString(messages[x], 50, (-24 * x) + 215);
-				}
-			}
-			
-		} else if(selectedMode.equals(modes[1])) { //Draws item description.
-			
-			//Font
-			g2.setColor(new Color(0, 0, 0));
-			g2.setFont(new Font("SH Pinscher", Font.PLAIN, 22));
-			
-			//Messages
-			g2.drawString(source, 50, 95);
-			g2.drawString(description, 50, 119);
-			
-		}
+		contentSwitch.sendTo(g2, selectedMode);
 	}
 }

@@ -6,5 +6,6 @@ package display;
  */
 public enum DisplayPrompt {
     ITEM_PROMPT,
-    TILE_PROMPT
+    TILE_PROMPT,
+    DIALOGUE_PROMPT
 }

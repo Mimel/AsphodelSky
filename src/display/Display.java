@@ -101,6 +101,12 @@ public class Display extends JPanel {
 				sc.setCurrentMode("inventory");
 				fc.setCurrentMode("descript");
 				break;
+
+			case DIALOGUE:
+				gc.setCurrentMode("player");
+				sc.setCurrentMode("free");
+				fc.setCurrentMode("dialogue");
+				break;
 		}
 
 		currentConfig = newConfig;
@@ -128,6 +134,9 @@ public class Display extends JPanel {
 					break;
 				case TILE_PROMPT:
 					switchState(DisplayConfiguration.TILE_SELECT);
+					break;
+				case DIALOGUE_PROMPT:
+					switchState(DisplayConfiguration.DIALOGUE);
 					break;
 			}
 		}

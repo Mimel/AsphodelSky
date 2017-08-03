@@ -13,7 +13,7 @@ import item.Item;
  * A component of the Asphodel Sky GUI containing player information.
  * @author Matt Imel
  */
-public class GUISidebar extends GUIComponent implements SidebarComponent {
+public class GUISidebar extends GUIComponent<SidebarMode> implements SidebarComponent {
 
 	/**
 	 * The combatant that is being focused on. If the component is
@@ -26,9 +26,8 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 
 	public GUISidebar(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		
-		modes = new String[]{"free", "inventory"};
-		selectedMode = modes[0];
+
+		selectedMode = SidebarMode.COMBATANT;
 	}
 	
 	@Override
@@ -79,7 +78,7 @@ public class GUISidebar extends GUIComponent implements SidebarComponent {
 				}
 				
 				//Draw crosshair over focused slot, if applicable.
-				if(selectedMode.equals(modes[1])) {
+				if(selectedMode == SidebarMode.SELECTION) {
 					if(slot == combatantFocus.getInventory().getFocusIndex()) {
 						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot/3)*48, 250 + (slot%3)*48, null);
 					}

@@ -8,7 +8,7 @@ import javax.swing.JComponent;
  * Abstract class that is a superclass of any GUI section in Asphodel Sky.
  * @author Matt Imel
  */
-abstract class GUIComponent extends JComponent {
+abstract class GUIComponent<M> extends JComponent {
 
 	/**
 	 * The height of the component.
@@ -31,15 +31,9 @@ abstract class GUIComponent extends JComponent {
 	int yPos;
 	
 	/**
-	 * A list of all possible modes that a component can take.
-	 * The default mode is always the first element in this list.
-	 */
-	String[] modes;
-	
-	/**
 	 * The current mode.
 	 */
-	String selectedMode;
+	M selectedMode;
 	
 	GUIComponent(int x, int y, int w, int h) {
 		this.xPos = x;
@@ -55,14 +49,7 @@ abstract class GUIComponent extends JComponent {
 	 * If no mode with the string name is found, the default mode is used.
 	 * @param newMode The mode to switch to, verbatim.
 	 */
-	void setCurrentMode(String newMode) {
-		for (String mode : modes) {
-			if (newMode.equals(mode)) {
-				selectedMode = mode;
-				return;
-			}
-		}
-		
-		selectedMode = modes[0];
+	void setCurrentMode(M newMode) {
+		selectedMode = newMode;
 	}
 }

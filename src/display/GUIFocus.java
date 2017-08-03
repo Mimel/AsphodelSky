@@ -11,7 +11,7 @@ import item.Item;
  * @author Matt Imel
  *
  */
-public class GUIFocus extends GUIComponent implements FocusComponent {
+public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent {
 	
 	/**
 	 * The grid component used as a basis for updating the display. Most (not all) of the time,
@@ -40,8 +40,7 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 		
 		this.squareSize = sqsize;
 
-		modes = new String[]{"player", "crosshair"};
-		selectedMode = modes[0];
+		selectedMode = FocusMode.PLAYER_FOCUS;
 	}
 	
 	@Override
@@ -87,7 +86,7 @@ public class GUIFocus extends GUIComponent implements FocusComponent {
 					}
 					
 					//Focus crosshair, if used.
-					if(selectedMode.equals("crosshair") && x == gridFocusX && y == gridFocusY) {
+					if((selectedMode == FocusMode.SELECTION) && (x == gridFocusX) && (y == gridFocusY)) {
 						g.drawImage(ImageAssets.getMiscImage('+'), x*squareSize, y*squareSize, null);
 					}
 				}

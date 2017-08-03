@@ -85,27 +85,27 @@ public class Display extends JPanel {
 	private void switchState(DisplayConfiguration newConfig) {
 		switch(newConfig) {
 			case DEFAULT:
-				gc.setCurrentMode("player");
-				sc.setCurrentMode("free");
-				fc.setCurrentMode("free");
+				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
+				sc.setCurrentMode(SidebarMode.COMBATANT);
+				fc.setCurrentMode(FooterMode.MESSAGES);
 				break;
 
 			case TILE_SELECT:
-				gc.setCurrentMode("crosshair");
-				sc.setCurrentMode("free");
-				fc.setCurrentMode("descript");
+				gc.setCurrentMode(FocusMode.SELECTION);
+				sc.setCurrentMode(SidebarMode.COMBATANT);
+				fc.setCurrentMode(FooterMode.DESCRIPTION);
 				break;
 
 			case INVENTORY_SELECT:
-				gc.setCurrentMode("player");
-				sc.setCurrentMode("inventory");
-				fc.setCurrentMode("descript");
+				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
+				sc.setCurrentMode(SidebarMode.SELECTION);
+				fc.setCurrentMode(FooterMode.DESCRIPTION);
 				break;
 
 			case DIALOGUE:
-				gc.setCurrentMode("player");
-				sc.setCurrentMode("free");
-				fc.setCurrentMode("dialogue");
+				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
+				sc.setCurrentMode(SidebarMode.COMBATANT);
+				fc.setCurrentMode(FooterMode.DIALOGUE);
 				break;
 		}
 

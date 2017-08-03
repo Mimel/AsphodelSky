@@ -19,12 +19,6 @@ public class GUIFooter_Switch {
     GUIFooter_Description descDisplay;
     GUIFooter_Dialogue dialogueDisplay;
 
-    public enum FooterDrawPath {
-        MESSAGES,
-        DESCRIPTION,
-        DIALOGUE
-    }
-
     GUIFooter_Switch() {
         msgDisplay = new GUIFooter_Messages();
         descDisplay = new GUIFooter_Description();
@@ -49,15 +43,15 @@ public class GUIFooter_Switch {
 
     }
 
-    void sendTo(Graphics g, String path) {
+    void sendTo(Graphics g, FooterMode path) {
         switch(path) {
-            case "free":
+            case MESSAGES:
                 msgDisplay.drawMessages(g, messages);
                 break;
-            case "descript":
+            case DESCRIPTION:
                 descDisplay.drawDescription(g, title, description);
                 break;
-            case "dialogue":
+            case DIALOGUE:
                 dialogueDisplay.drawDialogue(g, "what", "temp", "temp");
                 break;
         }

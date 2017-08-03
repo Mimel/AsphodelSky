@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dialogue/DialogueTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dialogue/Statement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/GUIFooter_Description.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/GUIFooter_Dialogue.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/GUIFooter_Messages.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/GUIFooter_Switch.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/FocusMode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/FooterMode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/display/SidebarMode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/Display.java" afterPath="$PROJECT_DIR$/src/display/Display.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayConfiguration.java" afterPath="$PROJECT_DIR$/src/display/DisplayConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayPrompt.java" afterPath="$PROJECT_DIR$/src/display/DisplayPrompt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/GUIComponent.java" afterPath="$PROJECT_DIR$/src/display/GUIComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/GUIFocus.java" afterPath="$PROJECT_DIR$/src/display/GUIFocus.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/GUIFooter.java" afterPath="$PROJECT_DIR$/src/display/GUIFooter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/GUIFooter_Switch.java" afterPath="$PROJECT_DIR$/src/display/GUIFooter_Switch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/GUISidebar.java" afterPath="$PROJECT_DIR$/src/display/GUISidebar.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,42 +44,25 @@
       <file leaf-file-name="Display.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/display/Display.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="74" column="36" lean-forward="false" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
+            <state relative-caret-position="277">
+              <caret line="89" column="55" lean-forward="true" selection-start-line="89" selection-start-column="55" selection-end-line="89" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1501798070890" expanded="true" signature="3564:3705" ph="{...}" />
+                <marker date="1501802289268" expanded="true" signature="3715:3856" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIFooter_Dialogue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Dialogue.java">
+      <file leaf-file-name="GUIComponent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/GUIComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GUIFooter_Description.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Description.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GUIFooter_Messages.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Messages.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="10" selection-end-column="35" />
-              <folding />
+            <state relative-caret-position="590">
+              <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+              <folding>
+                <element signature="e#1000#1001#0" expanded="true" />
+                <element signature="e#1029#1030#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,11 +70,71 @@
       <file leaf-file-name="GUIFooter_Switch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Switch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="51" column="42" lean-forward="false" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
+            <state relative-caret-position="765">
+              <caret line="45" column="28" lean-forward="false" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIFocus.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/display/GUIFocus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUISidebar.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/GUISidebar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="80" column="56" lean-forward="false" selection-start-line="80" selection-start-column="56" selection-end-line="80" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SidebarMode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/SidebarMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FocusMode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/FocusMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIFooter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/GUIFooter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1241">
+              <caret line="89" column="48" lean-forward="false" selection-start-line="89" selection-start-column="48" selection-end-line="89" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FooterMode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/FooterMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="12" lean-forward="false" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -103,9 +144,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -157,11 +198,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/display/GUIFocus.java" />
-        <option value="$PROJECT_DIR$/src/event/Opcode.java" />
-        <option value="$PROJECT_DIR$/src/event/Event.java" />
-        <option value="$PROJECT_DIR$/src/event/ResponseDetails.java" />
-        <option value="$PROJECT_DIR$/map/responsemap.dat" />
         <option value="$PROJECT_DIR$/src/entity/Entity.java" />
         <option value="$PROJECT_DIR$/src/generator/GridGenerator.java" />
         <option value="$PROJECT_DIR$/src/item/Catalog.java" />
@@ -174,7 +210,6 @@
         <option value="$PROJECT_DIR$/src/comm/MessageManager.java" />
         <option value="$PROJECT_DIR$/src/display/FocusComponent.java" />
         <option value="$PROJECT_DIR$/src/display/FooterComponent.java" />
-        <option value="$PROJECT_DIR$/src/display/GUIComponent.java" />
         <option value="$PROJECT_DIR$/src/display/HeaderComponent.java" />
         <option value="$PROJECT_DIR$/src/display/SidebarComponent.java" />
         <option value="$PROJECT_DIR$/src/entity/MindlessAI.java" />
@@ -204,10 +239,16 @@
         <option value="$PROJECT_DIR$/src/display/DisplayPrompt.java" />
         <option value="$PROJECT_DIR$/src/display/DisplayConfiguration.java" />
         <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
-        <option value="$PROJECT_DIR$/src/display/Display.java" />
+        <option value="$PROJECT_DIR$/src/display/GUIFooter_Description.java" />
+        <option value="$PROJECT_DIR$/src/display/GUIComponent.java" />
+        <option value="$PROJECT_DIR$/src/display/FocusMode.java" />
+        <option value="$PROJECT_DIR$/src/display/SidebarMode.java" />
+        <option value="$PROJECT_DIR$/src/display/GUISidebar.java" />
+        <option value="$PROJECT_DIR$/src/display/FooterMode.java" />
         <option value="$PROJECT_DIR$/src/display/GUIFooter.java" />
         <option value="$PROJECT_DIR$/src/display/GUIFooter_Switch.java" />
-        <option value="$PROJECT_DIR$/src/display/GUIFooter_Description.java" />
+        <option value="$PROJECT_DIR$/src/display/Display.java" />
+        <option value="$PROJECT_DIR$/src/display/GUIFocus.java" />
       </list>
     </option>
   </component>
@@ -871,7 +912,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501553746436</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Added proper state swapping for GUIFooter.">
+      <created>1501798460697</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1501798460697</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -890,13 +938,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18181819" sideWeight="0.46481878" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16007905" sideWeight="0.44083154" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15866797" sideWeight="0.44083154" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2806324" sideWeight="0.28113064" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6772429" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21351616" sideWeight="0.46535182" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2144956" sideWeight="0.46535182" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24703558" sideWeight="0.48081023" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22924902" sideWeight="0.4936034" order="11" side_tool="false" content_ui="tabs" />
@@ -963,7 +1011,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Methods filled for EnemyRoster, general readability improvements." />
     <MESSAGE value="Revised grid/roster methods to accompany dual maps." />
     <MESSAGE value="Refactored item classes." />
     <MESSAGE value="Item classes functional." />
@@ -988,7 +1035,8 @@
     <MESSAGE value="Added functionality for backing out of prompts, as well as escaping&#10;them altogether." />
     <MESSAGE value="Grid focus now snaps to player when backing into a Tile Prompt or exiting a series of prompts." />
     <MESSAGE value="Removed Header from the display." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed Header from the display." />
+    <MESSAGE value="Added proper state swapping for GUIFooter." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added proper state swapping for GUIFooter." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1001,52 +1049,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFocus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="57" column="19" lean-forward="false" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GUIComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-106">
-          <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/SidebarComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/Act.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/OperationAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/MindlessAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="15" lean-forward="true" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/AnimalisticAI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1121,6 +1123,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1207">
           <caret line="14" column="1" lean-forward="false" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1246,6 +1251,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1282,14 +1288,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="40" column="58" lean-forward="false" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/DisplayPrompt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1316,17 +1314,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="74" column="36" lean-forward="false" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1501798070890" expanded="true" signature="3564:3705" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Messages.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1335,13 +1322,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Switch.java">
+    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Description.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="51" column="42" lean-forward="false" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1353,10 +1338,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Description.java">
+    <entry file="file://$PROJECT_DIR$/src/display/GUIComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="590">
+          <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+          <folding>
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1029#1030#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/SidebarMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GUISidebar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="80" column="56" lean-forward="false" selection-start-line="80" selection-start-column="56" selection-end-line="80" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/FocusMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/FooterMode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
+          <caret line="8" column="12" lean-forward="false" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Switch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="45" column="28" lean-forward="false" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="89" column="48" lean-forward="false" selection-start-line="89" selection-start-column="48" selection-end-line="89" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/Display.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="89" column="55" lean-forward="true" selection-start-line="89" selection-start-column="55" selection-end-line="89" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1501802289268" expanded="true" signature="3715:3856" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GUIFocus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
           <folding />
         </state>
       </provider>

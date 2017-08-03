@@ -20,10 +20,9 @@ import javax.imageio.ImageIO;
  * @author Matt Imel
  *
  */
-public class GUIFooter extends GUIComponent implements FooterComponent {
+public class GUIFooter extends GUIComponent<FooterMode> implements FooterComponent {
 	/**
-	 * The horizontal banner, used to more easily differentiate the footer from its
-	 * higher peers.
+	 * The horizontal banner, used to more easily differentiate the footer from its* higher peers.
 	 */
 	private Image tiledHorizontal;
 	
@@ -37,11 +36,7 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 	public GUIFooter(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		
-		//2 possible displays.
-		modes = new String[]{"free", "descript", "dialogue"};
-		
-		//Starting mode displays messages.
-		selectedMode = modes[0];
+		selectedMode = FooterMode.MESSAGES;
 		
 		//Initialize images.
 		try {
@@ -90,9 +85,9 @@ public class GUIFooter extends GUIComponent implements FooterComponent {
 		AffineTransform stdXY = g2.getTransform();
 		g2.rotate(-Math.PI/32);
 		
-		if(selectedMode.equals(modes[0])) {
+		if(selectedMode.equals(FooterMode.MESSAGES)) {
 			g2.drawString("Current Feed", 0, 70);
-		} else if(selectedMode.equals(modes[1])) {
+		} else if(selectedMode.equals(FooterMode.DESCRIPTION)) {
 			g2.drawString("Inventory", 0, 70);
 		}
 		

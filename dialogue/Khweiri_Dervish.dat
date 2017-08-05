@@ -2,18 +2,18 @@
 |1>This is the second line.
 |3>This is the third line. There are three possible routes.
 {
-    ?0_Response 1
+    ?Response 1
     |2>There are now two possible lines to take.
     {
-        ?0_Reply 1.1
+        ?Reply 1.1
         |0>This is the end. Ending 1.
-        ?1_Reply 1.2
+        ?Reply 1.2
         |1>One more to go now.
         |0>Now it's the end. Ending 2.
     }
-    ?1_Response 2
+    ?Response 2
     |0>This concludes the conversation. Ending 3.
-    ?2_Response 3
+    ?Response 3
     |1>Let's get one more chain going.
     |1>Almost there...
     |0>There we go. Ending 4.

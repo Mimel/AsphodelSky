@@ -7,8 +7,6 @@ import java.util.concurrent.Executors;
 import javax.swing.*;
 
 import comm.MessageManager;
-import dialogue.DialogueParser;
-import dialogue.Statement;
 import display.Display;
 import display.DisplayKeyBindings;
 import display.ImageAssets;
@@ -72,9 +70,6 @@ public class ASControl {
 		eq.progressTimeBy(5, grid);
 
 		grid.addCombatant("Khweiri Dervish", 6, 6);
-
-		Statement treeRoot = DialogueParser.loadDialogueTree("dialogue/TestLine.dat");
-		System.out.println(treeRoot.getPath(0).getPath(0).getPath(1).getDialogue());
 
 		game.repaint();
 		//END PLAYGROUND

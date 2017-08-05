@@ -33,12 +33,16 @@ public class Statement {
         return replies;
     }
 
-    boolean isEndOfDialogue() {
+    public boolean isEndOfDialogue() {
         return (numOfPaths == 0);
     }
 
     boolean isLinear() {
         return (numOfPaths == 1);
+    }
+
+    boolean isMultipath() {
+        return (numOfPaths > 1);
     }
 
     Statement addPath(String reply, String nextDialogue, int nextNumOfPaths) {

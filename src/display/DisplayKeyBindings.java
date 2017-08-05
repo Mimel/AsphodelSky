@@ -1,6 +1,7 @@
 package display;
 
 import comm.MessageManager;
+import dialogue.DialogueParser;
 import entity.Combatant;
 import entity.Player;
 import event.EventQueue;
@@ -98,6 +99,8 @@ public class DisplayKeyBindings {
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
                     updateSourceDescPair(game.peekPrompt());
+                } else if(game.getConfig() == DisplayConfiguration.DIALOGUE) {
+                    game.getFooter().shiftDialogueChoice(yOffset);
                 }
 
                 updateOutput();
@@ -117,6 +120,12 @@ public class DisplayKeyBindings {
                         eq.getPendingEvent().setxTile(grid.getXFocus());
                         eq.getPendingEvent().setyTile(grid.getYFocus());
                         grid.bindFocusToPlayer();
+                        break;
+                    case DIALOGUE_PROMPT:
+                        if(!game.getFooter().isDialogueEnded()) {
+                            game.getFooter().progressDialogue();
+                            addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
+                        }
                         break;
                 }
 
@@ -254,6 +263,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT)) {
+                    game.getFooter().insertDialogue(DialogueParser.loadDialogueTree("dialogue/Khweiri_Dervish.dat"));
                     eq.createPendingEvent(0, MacroOperation.NO_OP);
 
                     updateOutput();

@@ -1,5 +1,7 @@
 package display;
 
+import dialogue.Statement;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -64,6 +66,22 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 	public void insertItem(String name, String desc) {
 		contentSwitch.updateDescription(name, desc);
 	}
+
+	public void insertDialogue(Statement root) {
+		contentSwitch.loadDialogueTree(root);
+	}
+
+	public void shiftDialogueChoice(int adjustAddend) {
+		contentSwitch.shiftChoice(adjustAddend);
+	}
+
+	public void progressDialogue() {
+		contentSwitch.progressDialogueTree();
+	}
+
+	public boolean isDialogueEnded() {
+		return contentSwitch.isDialogueEnded();
+	}
 	
 	/**
 	 * Draws the footer.
@@ -92,7 +110,8 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 		}
 		
 		g2.setTransform(stdXY);
-		
+
+		g2.setFont(new Font("SH Pinscher", Font.PLAIN, 22));
 		contentSwitch.sendTo(g2, selectedMode);
 	}
 }

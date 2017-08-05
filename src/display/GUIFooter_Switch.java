@@ -8,16 +8,17 @@ import java.awt.*;
  * Created by Owner on 8/3/2017.
  */
 public class GUIFooter_Switch {
-    String[] messages;
+    private String[] messages;
 
-    String title;
-    String description;
+    private String title;
+    private String description;
 
-    Statement dialogue;
+    private Statement dialogue;
+    private int dialogueChoice;
 
-    GUIFooter_Messages msgDisplay;
-    GUIFooter_Description descDisplay;
-    GUIFooter_Dialogue dialogueDisplay;
+    private GUIFooter_Messages msgDisplay;
+    private GUIFooter_Description descDisplay;
+    private GUIFooter_Dialogue dialogueDisplay;
 
     GUIFooter_Switch() {
         msgDisplay = new GUIFooter_Messages();
@@ -36,11 +37,22 @@ public class GUIFooter_Switch {
     }
 
     void loadDialogueTree(Statement root) {
-
+        this.dialogue = root;
     }
 
-    void progressDialogueTree(String reply) {
+    void shiftChoice(int choiceAddend) {
+        if(dialogueChoice + choiceAddend >= 0 && dialogueChoice + choiceAddend < dialogue.getNumOfPaths()) {
+            dialogueChoice += choiceAddend;
+        }
+    }
 
+    void progressDialogueTree() {
+        this.dialogue = dialogue.getPath(dialogueChoice);
+        dialogueChoice = 0;
+    }
+
+    boolean isDialogueEnded() {
+        return dialogue.isEndOfDialogue();
     }
 
     void sendTo(Graphics g, FooterMode path) {
@@ -52,7 +64,7 @@ public class GUIFooter_Switch {
                 descDisplay.drawDescription(g, title, description);
                 break;
             case DIALOGUE:
-                dialogueDisplay.drawDialogue(g, "what", "temp", "temp");
+                dialogueDisplay.drawDialogue(g, dialogue.getDialogue(), dialogueChoice, dialogue.getReplies());
                 break;
         }
     }

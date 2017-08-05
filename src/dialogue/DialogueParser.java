@@ -6,50 +6,57 @@ import java.io.IOException;
 import java.util.Stack;
 
 /**
- * Created by Owner on 8/3/2017.
+ * Static utility class used to create dialogue trees from .dat files.
  */
 public class DialogueParser {
     private DialogueParser(){}
 
+    /**
+     * Loads a dialogue tree from a given file.
+     * @param fileName The .dat file to extract the dialogue tree from.
+     * @return The root of the dialogue tree.
+     */
     public static Statement loadDialogueTree(String fileName) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             Statement root = null;
-            Statement pointer = null;
             String line;
-            String[] split_line;
             String pending_reply = "";
             Stack<Statement> previousJunctions = new Stack<>();
-            previousJunctions.add(root);
 
             while((line = br.readLine()) != null) {
                 line = line.trim();
                 switch(line.charAt(0)) {
                     case '|':
-                        split_line = line.substring(1).split(">");
+                        int numOfPaths = Integer.parseInt(line.substring(1, line.indexOf('>')));
+                        String dialogue = line.substring(line.indexOf('>') + 1);
+
                         if(root == null) {
-                            root = new Statement(split_line[1], Byte.parseByte(split_line[0]));
-                            pointer = root;
+                            root = new Statement(dialogue, numOfPaths);
+                            previousJunctions.add(root);
                         } else {
-                            pointer = pointer.addPath(pending_reply, split_line[1], Byte.parseByte(split_line[0]));
-                            if(Byte.parseByte(split_line[0]) == 0) {
-                                pointer = previousJunctions.peek();
+                            root = root.addPath(pending_reply, dialogue, numOfPaths);
+                            if(numOfPaths == 0) {
+                                root = previousJunctions.peek();
                             }
                         }
                         break;
                     case '?':
-                        split_line = line.substring(1).split("_");
-                        pending_reply = split_line[1];
+                        pending_reply = line.substring(1);
                         break;
                     case '{':
-                        previousJunctions.push(pointer);
+                        previousJunctions.push(root);
                         break;
                     case '}':
                         previousJunctions.pop();
-                        pointer = previousJunctions.peek();
+                        root = previousJunctions.peek();
                         break;
                     default:
-                        throw new IOException("What?");
+                        throw new IOException("Unknown starting character found.");
                 }
+            }
+
+            if(!previousJunctions.isEmpty()) {
+                root = previousJunctions.pop();
             }
             return root;
         } catch(IOException ioe) {

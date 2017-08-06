@@ -19,22 +19,20 @@ import java.awt.event.ActionEvent;
  */
 public class DisplayKeyBindings {
 
-    private static Display game;
+    private static PromptManager promptManager;
     private static Grid grid;
     private static Player p1;
     private static MessageManager messageManager;
-    private static EventQueue eventQueue;
     /**
      * Creates keybinds for the game.
      * @param game The GUI.
      */
     public static void initKeyBinds(Display game, Grid grid, Player p1, MessageManager mm, EventQueue eq) {
 
-        DisplayKeyBindings.game = game;
+        DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;
         DisplayKeyBindings.p1 = p1;
         DisplayKeyBindings.messageManager = mm;
-        DisplayKeyBindings.eventQueue = eq;
 
         Action exitProgram = new AbstractAction() {
             private static final long serialVersionUID = 1L;
@@ -89,7 +87,7 @@ public class DisplayKeyBindings {
                     //Moves the cursor over the inventory. TODO: Magic.
                     if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
                         p1.updatePlayer();
-                        updateSourceDescPair(game.peekPrompt());
+                        updateSourceDescPair(promptManager.peekPrompt());
                     }
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
@@ -98,7 +96,7 @@ public class DisplayKeyBindings {
 
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
-                    updateSourceDescPair(game.peekPrompt());
+                    updateSourceDescPair(promptManager.peekPrompt());
                 } else if(game.getConfig() == DisplayConfiguration.DIALOGUE) {
                     game.getFooter().shiftDialogueChoice(yOffset);
                 }
@@ -111,7 +109,7 @@ public class DisplayKeyBindings {
         Action confirm = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                switch(game.dequeuePrompt()) {
+                switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
                         eq.getPendingEvent().setAffectedId(grid.searchForOccupant(0).getInventory().getFocusedItem().getId());
                         grid.searchForOccupant(0).getInventory().resetFocusIndex();
@@ -129,11 +127,11 @@ public class DisplayKeyBindings {
                         break;
                 }
 
-                if(game.isPromptQueueEmpty()) {
+                if(promptManager.isPromptQueueEmpty()) {
                     eq.executePendingEvent();
                     eq.progressTimeInstantaneous(grid);
                 } else {
-                    updateSourceDescPair(game.peekPrompt());
+                    updateSourceDescPair(promptManager.peekPrompt());
                 }
 
                 updateOutput();
@@ -144,18 +142,18 @@ public class DisplayKeyBindings {
         Action go_back = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!game.isPromptQueueEmpty()) {
+                if(!promptManager.isPromptQueueEmpty()) {
                     //Undo initialization.
-                    switch(game.peekPrompt()) {
+                    switch(promptManager.peekPrompt()) {
                         case TILE_PROMPT:
                             grid.bindFocusToPlayer();
                             break;
                     }
 
-                    if(game.isUsedStackEmpty()) {
-                        game.clearPromptQueue();
+                    if(promptManager.isUsedStackEmpty()) {
+                        promptManager.clearPromptQueue();
                     } else {
-                        switch(game.requeuePrompt()) {
+                        switch(promptManager.requeuePrompt()) {
                             case TILE_PROMPT:
                                 grid.bindFocusToPlayer();
                                 grid.unbindFocus();
@@ -172,8 +170,8 @@ public class DisplayKeyBindings {
         Action go_to_default = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!game.isPromptQueueEmpty()) {
-                    game.clearPromptQueue();
+                if(!promptManager.isPromptQueueEmpty()) {
+                    promptManager.clearPromptQueue();
                     grid.bindFocusToPlayer();
 
                     updateOutput();
@@ -205,13 +203,13 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                game.enqueuePrompt(DisplayPrompt.TILE_PROMPT);
-                eq.createPendingEvent(0, MacroOperation.NO_OP);
+                if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
+                    eq.createPendingEvent(0, MacroOperation.NO_OP);
+                    grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
-                grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
-
-                updateOutput();
-                game.repaint();
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 
@@ -355,7 +353,7 @@ public class DisplayKeyBindings {
             switch(prompt) {
                 case ITEM_PROMPT:
                     if(p1.getInventory().isEmpty()) {
-                        game.clearPromptQueue();
+                        promptManager.clearPromptQueue();
                         return false;
                     }
                     break;
@@ -363,10 +361,10 @@ public class DisplayKeyBindings {
                     grid.unbindFocus();
                     break;
             }
-            game.enqueuePrompt(prompt);
+            promptManager.enqueuePrompt(prompt);
         }
 
-        updateSourceDescPair(game.peekPrompt());
+        updateSourceDescPair(promptManager.peekPrompt());
         return true;
     }
 

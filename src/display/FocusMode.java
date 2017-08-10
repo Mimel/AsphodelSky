@@ -1,7 +1,7 @@
 package display;
 
 /**
- * Created by Owner on 8/3/2017.
+ * The current mode the Focus is in. Determines the items drawn.
  */
 public enum FocusMode {
     PLAYER_FOCUS,

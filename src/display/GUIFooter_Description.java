@@ -3,7 +3,7 @@ package display;
 import java.awt.*;
 
 /**
- * Created by Owner on 8/3/2017.
+ * Draws the title and description of a combatant, item, or tile.
  */
 public class GUIFooter_Description {
     void drawDescription(Graphics g, String title, String desc) {

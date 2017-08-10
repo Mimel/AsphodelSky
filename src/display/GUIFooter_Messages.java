@@ -3,7 +3,7 @@ package display;
 import java.awt.*;
 
 /**
- * Created by Owner on 8/3/2017.
+ * Draws a set of messages.
  */
 public class GUIFooter_Messages {
     void drawMessages(Graphics g, String[] messages) {

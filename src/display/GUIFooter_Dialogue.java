@@ -3,7 +3,7 @@ package display;
 import java.awt.*;
 
 /**
- * Created by Owner on 8/3/2017.
+ * Draws the dialogue of a given statement, including replies to that statement.
  */
 public class GUIFooter_Dialogue {
     void drawDialogue(Graphics g, String dialogue, int pathChoice, String... replies) {

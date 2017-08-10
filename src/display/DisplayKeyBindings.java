@@ -1,10 +1,8 @@
 package display;
 
 import comm.MessageManager;
-import dialogue.DialogueParser;
 import entity.Combatant;
 import entity.EnemyGenerator;
-import entity.EnemyRoster;
 import entity.Player;
 import event.EventQueue;
 import event.MacroOperation;

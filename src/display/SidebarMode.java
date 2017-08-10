@@ -1,7 +1,7 @@
 package display;
 
 /**
- * Created by Owner on 8/3/2017.
+ * The current mode the sidebar is in. Determines the content drawn.
  */
 public enum SidebarMode {
     COMBATANT,

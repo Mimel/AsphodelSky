@@ -14,9 +14,7 @@ public class MindlessAI extends Combatant {
     }
 
     MindlessAI(MindlessAI mai) {
-        super(mai.getName(), mai.getTitle(), mai.getDesc(),
-                mai.getMaxHealth(), mai.getMomentum(), mai.getMaximumScience(),
-                mai.getPoise(), mai.getSubtlety(), mai.getAcumen(), mai.getCharisma(), mai.getIntuition());
+        super(mai);
     }
 
     public Event[] act(OperationAI opai, int time, Grid gr) {

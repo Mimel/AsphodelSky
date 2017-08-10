@@ -4,7 +4,6 @@ import dialogue.DialogueParser;
 import dialogue.Statement;
 import grid.Grid;
 
-import java.nio.file.OpenOption;
 import java.util.*;
 
 /**

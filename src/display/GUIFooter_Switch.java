@@ -5,19 +5,53 @@ import dialogue.Statement;
 import java.awt.*;
 
 /**
- * Created by Owner on 8/3/2017.
+ * Determinator of the mode the footer is in, and manages the content drawn.
  */
 public class GUIFooter_Switch {
+
+    /**
+     * A set of messages.
+     * Drawn on msgDisplay.
+     */
     private String[] messages;
 
+    /**
+     * The title of an object.
+     * Drawn on descDisplay.
+     */
     private String title;
+
+    /**
+     * The description of an object.
+     * Drawn on descDisplay.
+     */
     private String description;
 
+    /**
+     * A statement, with text and reply options.
+     * Drawn on dialogueDisplay.
+     */
     private Statement dialogue;
+
+    /**
+     * The reply to choose.
+     * Drawn on dialogueDisplay.
+     */
     private int dialogueChoice;
 
+    /**
+     * The display that draws a set of messages.
+     */
     private GUIFooter_Messages msgDisplay;
+
+    /**
+     * The display that draws a title and description of an object.
+     */
     private GUIFooter_Description descDisplay;
+
+    /**
+     * The display that draws a line(s) of dialogue and its' replies.
+     */
     private GUIFooter_Dialogue dialogueDisplay;
 
     GUIFooter_Switch() {
@@ -28,7 +62,6 @@ public class GUIFooter_Switch {
 
     void updateMessages(String[] newMessages) {
         this.messages = newMessages;
-        //System.arraycopy(newMessages, 0, this.messages, 0, this.messages.length);
     }
 
     void updateDescription(String newTitle, String newDesc) {
@@ -40,12 +73,20 @@ public class GUIFooter_Switch {
         this.dialogue = root;
     }
 
+    /**
+     * Adjusts the choice by the given addend. Note that the dialogueChoice is not replaced, but
+     * altered by the given addend.
+     * @param choiceAddend Addend to add to the given choice to get the new choice.
+     */
     void shiftChoice(int choiceAddend) {
         if(dialogueChoice + choiceAddend >= 0 && dialogueChoice + choiceAddend < dialogue.getNumOfPaths()) {
             dialogueChoice += choiceAddend;
         }
     }
 
+    /**
+     * Continues the dialogue tree.
+     */
     void progressDialogueTree() {
         this.dialogue = dialogue.getPath(dialogueChoice);
         dialogueChoice = 0;
@@ -55,6 +96,11 @@ public class GUIFooter_Switch {
         return dialogue.isEndOfDialogue();
     }
 
+    /**
+     * Draws the content of the footer based on the path chosen.
+     * @param g The graphics object to draw to.
+     * @param path The mode to write to.
+     */
     void sendTo(Graphics g, FooterMode path) {
         switch(path) {
             case MESSAGES:

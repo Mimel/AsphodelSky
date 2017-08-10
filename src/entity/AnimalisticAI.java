@@ -14,9 +14,7 @@ public class AnimalisticAI extends Combatant {
     }
 
     AnimalisticAI(AnimalisticAI aai) {
-        super(aai.getName(), aai.getTitle(), aai.getDesc(),
-                aai.getMaxHealth(), aai.getMomentum(), aai.getMaximumScience(),
-                aai.getPoise(), aai.getSubtlety(), aai.getAcumen(), aai.getCharisma(), aai.getIntuition());
+        super(aai);
     }
 
     @Override

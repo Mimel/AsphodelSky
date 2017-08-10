@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 /**
- * Created by Owner on 8/5/2017.
+ * Manager of the prompt queue. Works in conjunction with the controller and the display to adjusts the display output
+ * based on the inputs given.
  */
 public class PromptManager {
 
@@ -99,6 +100,9 @@ public class PromptManager {
         }
     }
 
+    /**
+     * Adjusts the display according to the prompt in the front of the queue.
+     */
     private void adjustDisplayByCurrentPrompt() {
         if(promptQueue.isEmpty()) {
             screen.switchState(DisplayConfiguration.DEFAULT);

@@ -13,9 +13,7 @@ public class BrilliantAI extends Combatant {
     }
 
     BrilliantAI(BrilliantAI bai) {
-        super(bai.getName(), bai.getTitle(), bai.getDesc(),
-                bai.getMaxHealth(), bai.getMomentum(), bai.getMaximumScience(),
-                bai.getPoise(), bai.getSubtlety(), bai.getAcumen(), bai.getCharisma(), bai.getIntuition());
+        super(bai);
     }
 
     public Event[] act(OperationAI opai, int time, Grid gr) {

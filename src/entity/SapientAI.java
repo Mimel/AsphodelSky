@@ -13,9 +13,7 @@ public class SapientAI extends Combatant {
     }
 
     SapientAI(SapientAI sai) {
-        super(sai.getName(), sai.getTitle(), sai.getDesc(),
-                sai.getMaxHealth(), sai.getMomentum(), sai.getMaximumScience(),
-                sai.getPoise(), sai.getSubtlety(), sai.getAcumen(), sai.getCharisma(), sai.getIntuition());
+        super(sai);
     }
 
     public Event[] act(OperationAI opai, int time, Grid gr) {

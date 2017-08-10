@@ -3,6 +3,8 @@ package display;
 import comm.MessageManager;
 import dialogue.DialogueParser;
 import entity.Combatant;
+import entity.EnemyGenerator;
+import entity.EnemyRoster;
 import entity.Player;
 import event.EventQueue;
 import event.MacroOperation;
@@ -130,6 +132,11 @@ public class DisplayKeyBindings {
                 if(promptManager.isPromptQueueEmpty()) {
                     eq.executePendingEvent();
                     eq.progressTimeInstantaneous(grid);
+
+                    if(eq.isDialogueTreePending()) {
+                        addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
+                        game.getFooter().insertDialogue(eq.getPendingDialogueTree());
+                    }
                 } else {
                     updateSourceDescPair(promptManager.peekPrompt());
                 }
@@ -260,13 +267,14 @@ public class DisplayKeyBindings {
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT)) {
-                    game.getFooter().insertDialogue(DialogueParser.loadDialogueTree("dialogue/Khweiri_Dervish.dat"));
-                    eq.createPendingEvent(0, MacroOperation.NO_OP);
+                eq.addEvent(0, 100, Opcode.START_DIALOGUE, EnemyGenerator.getEnemyByName("Khweiri Dervish").getId(), 252, 0, 0);
 
-                    updateOutput();
-                    game.repaint();
-                }
+                addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT);
+                eq.createPendingEvent(0, MacroOperation.NO_OP);
+
+
+                updateOutput();
+                game.repaint();
             }
         };
 

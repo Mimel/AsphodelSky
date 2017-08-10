@@ -1,5 +1,6 @@
 package event;
 
+import entity.EnemyGenerator;
 import grid.Grid;
 import item.Item;
 import org.javatuples.Pair;
@@ -90,6 +91,10 @@ public class Instruction
                 Pair<Item, Integer> tileItems = grid.getItemsOnTile(actorId).consumeAll(affectedId);
                 grid.searchForOccupant(actorId).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
                 return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(actorId).getName(), tileItems.getValue0().getName());
+            });
+
+            instructionSet.put(Opcode.START_DIALOGUE, (actorId, affectedId, x, y, grid) -> {
+                return new ResponseDetails(ResponseCondition.SUCCESS, EnemyGenerator.getEnemyById(actorId) + "_" + affectedId + ".dat");
             });
         }
     }

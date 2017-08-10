@@ -48,6 +48,21 @@ public final class EnemyGenerator {
     }
 
     /**
+     * TODO: slow.
+     * @param id
+     * @return
+     */
+    public static Combatant getEnemyById(int id) {
+        for(Combatant value : nameToCombatant.values()) {
+            if(value.getId() == id) {
+                return getEnemyByName(value.getName());
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Loads the entire map of names to enemy stats, given a specific file name.
      * @param fileName The .dat file to look up, containing all mapping information.
      */

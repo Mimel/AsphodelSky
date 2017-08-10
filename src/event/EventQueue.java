@@ -1,7 +1,10 @@
 package event;
 
+import dialogue.DialogueParser;
+import dialogue.Statement;
 import grid.Grid;
 
+import java.nio.file.OpenOption;
 import java.util.*;
 
 /**
@@ -24,11 +27,17 @@ public class EventQueue {
      */
     private MacroEvent pendingEvent;
 
+    private Statement pendingDialogueTree;
+
+    private boolean dialogueTreePending;
+
     public EventQueue() {
         this.time = 0;
 
         Comparator<Event> c = new EventComparator();
         this.eventQueue = new PriorityQueue<>(20, c);
+
+        dialogueTreePending = false;
     }
 
     /**
@@ -49,6 +58,24 @@ public class EventQueue {
 
     public void executePendingEvent() {
         addEvents(pendingEvent.decomposeMacroEvent());
+    }
+
+    public Statement getPendingDialogueTree() {
+        if(dialogueTreePending) {
+            dialogueTreePending = false;
+            return pendingDialogueTree;
+        } else {
+            return null;
+        }
+    }
+
+    private void setPendingDialogueTree(Statement newTree) {
+        this.pendingDialogueTree = newTree;
+        dialogueTreePending = true;
+    }
+
+    public boolean isDialogueTreePending() {
+        return dialogueTreePending;
     }
 
     /**
@@ -91,7 +118,7 @@ public class EventQueue {
 
     /**
      * Increments the time by the specified time, executing all events in order that exist before the
-     * new time.
+     * new time. TODO: update.
      * @param timeOffset The amount of time to progress.
      * @return The new time.
      */
@@ -116,9 +143,15 @@ public class EventQueue {
     public List<String> progressTimeInstantaneous(Grid gr) {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
+            Opcode op = eventQueue.peek().getOpcode();
             String message = eventQueue.remove().execute(gr);
+
             if(message != null) {
-                messageList.add(message);
+                if(op == Opcode.START_DIALOGUE) {
+                    setPendingDialogueTree(DialogueParser.loadDialogueTree(message));
+                } else {
+                    messageList.add(message);
+                }
             }
         }
 

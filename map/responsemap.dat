@@ -5,3 +5,6 @@ NEGATIVE: "~ takes ~ damage."
 !TRANSFER_ITEMALL
 SUCCESS: "~ picks up ~."
 --------------------------------
+!START_DIALOGUE
+SUCCESS: "dialogue/~"
+--------------------------------

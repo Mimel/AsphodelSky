@@ -149,6 +149,29 @@ public abstract class Combatant implements Entity {
 		this.charisma = cha;
 		this.intuition = itt;
 	}
+
+	/**
+	 * Deep-copies a combatant. Copying a combatant does not raise the id.
+	 * @param c The combatant to copy.
+	 */
+	Combatant(Combatant c) {
+		this.id = c.getId();
+		this.name = c.getName();
+		this.title = c.getTitle();
+		this.desc = c.getDesc();
+
+		this.currentHealth = c.getHealth();
+		this.maximumHealth = c.getMaxHealth();
+		this.momentum = c.getMomentum();
+		this.currentScience = c.getCurrentScience();
+		this.maximumScience = c.getMaximumScience();
+
+		this.poise = c.getPoise();
+		this.subtlety = c.getSubtlety();
+		this.acumen = c.getAcumen();
+		this.charisma = c.getCharisma();
+		this.intuition = c.getIntuition();
+	}
 	
 	/**
 	 * Gets the id of the combatant.

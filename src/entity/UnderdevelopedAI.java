@@ -13,9 +13,7 @@ public class UnderdevelopedAI extends Combatant {
     }
 
     UnderdevelopedAI(UnderdevelopedAI uai) {
-        super(uai.getName(), uai.getTitle(), uai.getDesc(),
-                uai.getMaxHealth(), uai.getMomentum(), uai.getMaximumScience(),
-                uai.getPoise(), uai.getSubtlety(), uai.getAcumen(), uai.getCharisma(), uai.getIntuition());
+        super(uai);
     }
 
     public Event[] act(OperationAI opai, int time, Grid gr) {

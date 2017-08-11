@@ -4,7 +4,7 @@ package event;
  * Describes an event that can be executed, either by executing a raw instruction (see SimpleEvent)
  * or by returning a set of Events (see CompoundEvent).
  */
-public class Event {
+public class Event<A> {
     /**
      * The amount of time between the current time and the time the event triggers.
      */
@@ -16,9 +16,11 @@ public class Event {
      */
     private int priority;
 
+    private A operation;
+
     private InstructionData data;
 
-    Event(int delay, int priority, InstructionData data) {
+    Event(int delay, int priority, A op, InstructionData data) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {
@@ -31,6 +33,7 @@ public class Event {
             this.priority = 0;
         }
 
+        this.operation = op;
         this.data = data;
     }
 
@@ -48,6 +51,14 @@ public class Event {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public A getOperation() {
+        return operation;
+    }
+
+    public void setOperation(A newOp) {
+        this.operation = newOp;
     }
 
     public InstructionData getData() {

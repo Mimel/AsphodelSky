@@ -5,24 +5,14 @@ import grid.Grid;
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
  */
-public class SimpleEvent extends Event {
-
-    private Opcode op;
+public class SimpleEvent extends Event<Opcode> {
 
     public SimpleEvent(int time, int priority, Opcode opcode, InstructionData data) {
-        super(time, priority, data);
-
-        this.op = opcode;
+        super(time, priority, opcode, data);
     }
 
     public SimpleEvent(SimpleEvent e, Opcode opcode) {
-        super(e.getTriggerDelay(), e.getPriority(), e.getData());
-
-        this.op = opcode;
-    }
-
-    public Opcode getOpcode() {
-        return op;
+        super(e.getTriggerDelay(), e.getPriority(), opcode, e.getData());
     }
 
     /**
@@ -89,10 +79,10 @@ public class SimpleEvent extends Event {
      * @param gr The grid to impose the instruction on.
      */
     String execute(Grid gr) {
-        return Instruction.execute(op, getData(), gr);
+        return Instruction.execute(getOperation(), getData(), gr);
     }
 
     public String toString() {
-        return "SimpleEvent " + op + " at time " + getTriggerDelay() + "s past the current.";
+        return "SimpleEvent " + getOperation() + " at time " + getTriggerDelay() + "s past the current.";
     }
 }

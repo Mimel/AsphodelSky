@@ -138,7 +138,7 @@ public class EventQueue {
     public List<String> progressTimeInstantaneous(Grid gr) {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
-            Opcode op = eventQueue.peek().getOpcode();
+            Opcode op = eventQueue.peek().getOperation();
             String message = eventQueue.remove().execute(gr);
 
             if(message != null) {

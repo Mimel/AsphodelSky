@@ -15,13 +15,13 @@ import java.util.Map;
 public class Instruction
 {
     @FunctionalInterface
-    interface QuintFunction<A, B, C, D, E, R> {
-        R apply(A a, B b, C c, D d, E e);
+    interface TriFunction<A, B, R> {
+        R apply(A a, B b);
     }
     /**
      * A map that connects strings to their associated operation.
      */
-    private static Map<Opcode, QuintFunction<Integer, Integer, Integer, Integer, Grid, ResponseDetails>> instructionSet;
+    private static Map<Opcode, TriFunction<InstructionData, Grid, ResponseDetails>> instructionSet;
 
     /**
      * Private constructor used to prevent instantiation.
@@ -36,65 +36,60 @@ public class Instruction
         if(instructionSet == null) {
             instructionSet = new HashMap<>();
 
-            instructionSet.put(Opcode.TILE_SPAWN, (actorId, affectedId, x, y, grid) -> {
-                grid.addItem(actorId, x, y);
+            instructionSet.put(Opcode.TILE_SPAWN, (opData, grid) -> {
+                grid.addItem(opData.getItemID(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
-            instructionSet.put(Opcode.TILE_REMOVE, (actorId, affectedId, x, y, grid) -> {
-                grid.removeItem(actorId, affectedId, x, y);
+            instructionSet.put(Opcode.TILE_REMOVE, (opData, grid) -> {
+                grid.removeItem(opData.getItemID(), opData.getSecondary(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
-            instructionSet.put(Opcode.TILE_REMOVEALL, (actorId, affectedId, x, y, grid) -> {
-                grid.removeItem(actorId, x, y);
+            instructionSet.put(Opcode.TILE_REMOVEALL, (opData, grid) -> {
+                grid.removeItem(opData.getItemID(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
-            instructionSet.put(Opcode.TILE_CLEAR, (actorId, affectedId, x, y, grid) -> {
-                grid.getTileAt(x, y).getCatalog().clearCatalog();
+            instructionSet.put(Opcode.TILE_CLEAR, (opData, grid) -> {
+                grid.getTileAt(opData.getTileX(), opData.getTileY()).getCatalog().clearCatalog();
                 return null;
             });
 
-            instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).adjustHealthBy(affectedId);
-                if(affectedId < 0) {
-                    return new ResponseDetails(ResponseCondition.NEGATIVE, grid.searchForOccupant(actorId).getName(), actorId.toString());
-                } else if(affectedId > 0) {
-                    return new ResponseDetails(ResponseCondition.POSITIVE, grid.searchForOccupant(actorId).getName(), actorId.toString());
-                }
+            instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (opData, grid) -> {
+                grid.searchForOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
                 return null;
             });
 
-            instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().insertItem(Item.getItemById(affectedId), x);
+            instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (opData, grid) -> {
+                grid.searchForOccupant(opData.getTargetID()).getInventory().insertItem(Item.getItemById(opData.getItemID()), opData.getSecondary());
                 return null;
             });
 
-            instructionSet.put(Opcode.COMBATANT_REMOVE_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().consumeItem(affectedId, x);
+            instructionSet.put(Opcode.COMBATANT_REMOVE_ITEM, (opData, grid) -> {
+                grid.searchForOccupant(opData.getTargetID()).getInventory().consumeItem(opData.getItemID(), opData.getSecondary());
                 return null;
             });
 
-            instructionSet.put(Opcode.COMBATANT_REMOVEALL_ITEM, (actorId, affectedId, x, y, grid) -> {
-                grid.searchForOccupant(actorId).getInventory().consumeAll(affectedId);
+            instructionSet.put(Opcode.COMBATANT_REMOVEALL_ITEM, (opData, grid) -> {
+                grid.searchForOccupant(opData.getTargetID()).getInventory().consumeAll(opData.getItemID());
                 return null;
             });
 
-            instructionSet.put(Opcode.TRANSFER_ITEM, (actorId, affectedId, x, y, grid) -> {
-                Pair<Item, Integer> tileItems = grid.getItemsOnTile(actorId).consumeItem(affectedId, x);
-                grid.searchForOccupant(actorId).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
+            instructionSet.put(Opcode.TRANSFER_ITEM, (opData, grid) -> {
+                Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTargetID()).consumeItem(opData.getItemID(), opData.getSecondary());
+                grid.searchForOccupant(opData.getTargetID()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
                 return null;
             });
 
-            instructionSet.put(Opcode.TRANSFER_ITEMALL, (actorId, affectedId, x, y, grid) -> {
-                Pair<Item, Integer> tileItems = grid.getItemsOnTile(actorId).consumeAll(affectedId);
-                grid.searchForOccupant(actorId).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
-                return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(actorId).getName(), tileItems.getValue0().getName());
+            instructionSet.put(Opcode.TRANSFER_ITEMALL, (opData, grid) -> {
+                Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTargetID()).consumeAll(opData.getItemID());
+                grid.searchForOccupant(opData.getTargetID()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
+                return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(opData.getTargetID()).getName(), tileItems.getValue0().getName());
             });
 
-            instructionSet.put(Opcode.START_DIALOGUE, (actorId, affectedId, x, y, grid) -> {
-                return new ResponseDetails(ResponseCondition.SUCCESS, EnemyGenerator.getEnemyById(actorId) + "_" + affectedId + ".dat");
+            instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> {
+                return new ResponseDetails(ResponseCondition.SUCCESS, EnemyGenerator.getEnemyById(opData.getTargetID()) + "_" + opData.getSecondary() + ".dat");
             });
         }
     }
@@ -102,16 +97,13 @@ public class Instruction
     /**
      * Executes the specified instruction.
      * @param opcode The operation to use.
-     * @param actorId The user id.
-     * @param affectedId The id of the object of affection.
-     * @param x The secondary variable used in the operation, or the x-coordinate of a given tile.
-     * @param y The ternary variable used in the operation, or the y-coordinate of a given tile.
+     * @param data The instruction data to execute the instruction with.
      * @param gr The grid to impose the operation on.
      */
-    static String execute(Opcode opcode, int actorId, int affectedId, int x, int y, Grid gr) {
+    static String execute(Opcode opcode, InstructionData data, Grid gr) {
         if(instructionSet.containsKey(opcode)) {
 
-            ResponseDetails rd = instructionSet.get(opcode).apply(actorId, affectedId, x, y, gr);
+            ResponseDetails rd = instructionSet.get(opcode).apply(data, gr);
             if(rd != null) {
                 return Response.getResponse(opcode, rd);
             }

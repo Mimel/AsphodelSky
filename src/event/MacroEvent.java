@@ -12,22 +12,9 @@ public class MacroEvent extends Executable {
 
     private MacroOperation op;
 
-    public MacroEvent(int time, int priority, MacroOperation mo) {
-        super(time, priority, -1, -1, -1, -1);
+    public MacroEvent(int time, int priority, MacroOperation mo, InstructionData data) {
+        super(time, priority, data);
         this.op = mo;
-    }
-
-    public MacroEvent(int time, int priority, MacroOperation mo, int actorId, int affectedId, int x, int y) {
-        super(time, priority, actorId, affectedId, x, y);
-        this.op = mo;
-    }
-
-    public MacroOperation getOp() {
-        return op;
-    }
-
-    public void setOp(MacroOperation op) {
-        this.op = op;
     }
 
     /**
@@ -39,12 +26,12 @@ public class MacroEvent extends Executable {
         List<Event> eventList = new LinkedList<>();
         switch(op) {
             case USE_ITEM:
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, getActorId(), getAffectedId(), 1, getyTile()));
-                eventList.addAll(Item.getItemById(getAffectedId()).use(getActorId()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, new InstructionData.DataBuilder(getData()).secondary(1).build()));
+                eventList.addAll(Item.getItemById(getData().getItemID()).use(getData().getCasterID()));
                 break;
             case DROP_ITEM:
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, getActorId(), getAffectedId(), 1, getyTile()));
-                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.TILE_SPAWN, getAffectedId(), getAffectedId(), getxTile(), getyTile()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.COMBATANT_REMOVE_ITEM, new InstructionData.DataBuilder(getData()).secondary(1).build()));
+                eventList.add(new Event(getTriggerDelay(), getPriority(), Opcode.TILE_SPAWN, new InstructionData.DataBuilder(getData()).secondary(1).build()));
                 break;
         }
 

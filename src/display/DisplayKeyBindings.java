@@ -5,6 +5,7 @@ import entity.Combatant;
 import entity.EnemyGenerator;
 import entity.Player;
 import event.EventQueue;
+import event.InstructionData;
 import event.MacroOperation;
 import event.Opcode;
 import grid.Grid;
@@ -111,12 +112,11 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
-                        eq.getPendingEvent().setAffectedId(grid.searchForOccupant(0).getInventory().getFocusedItem().getId());
+                        eq.getPendingEvent().reviseData(new InstructionData.DataBuilder(eq.getPendingEvent().getData()).itemID(grid.searchForOccupant(0).getInventory().getFocusedItem().getId()));
                         grid.searchForOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
-                        eq.getPendingEvent().setxTile(grid.getXFocus());
-                        eq.getPendingEvent().setyTile(grid.getYFocus());
+                        eq.getPendingEvent().reviseData(new InstructionData.DataBuilder(eq.getPendingEvent().getData()).tile(grid.getXFocus(), grid.getYFocus()));
                         grid.bindFocusToPlayer();
                         break;
                     case DIALOGUE_PROMPT:
@@ -191,7 +191,9 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(!grid.getItemsOnTile(0).isEmpty()) {
-                    eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL, 0, grid.getItemsOnTile(0).getFocusedItem().getId(), -1, -1);
+                    //TODO add.
+                    eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL,
+                            new InstructionData.DataBuilder(0).targetID(0).itemID(grid.getFocusedTile().getCatalog().getFocusedItem().getId()).build());
                     mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
 
                     updateOutput();
@@ -209,7 +211,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.NO_OP);
+                    eq.createPendingEvent(0, MacroOperation.NO_OP, new InstructionData.DataBuilder(0).build());
                     grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
                     updateOutput();
@@ -224,7 +226,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.NO_OP);
+                    eq.createPendingEvent(0, MacroOperation.NO_OP, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();
@@ -238,8 +240,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.USE_ITEM);
-                    eq.getPendingEvent().setActorId(0);
+                    eq.createPendingEvent(0, MacroOperation.USE_ITEM, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();
@@ -253,8 +254,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.DROP_ITEM);
-                    eq.getPendingEvent().setActorId(0);
+                    eq.createPendingEvent(0, MacroOperation.DROP_ITEM, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();
@@ -265,14 +265,7 @@ public class DisplayKeyBindings {
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eq.addEvent(0, 100, Opcode.START_DIALOGUE, EnemyGenerator.getEnemyByName("Khweiri Dervish").getId(), 252, 0, 0);
 
-                addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT);
-                eq.createPendingEvent(0, MacroOperation.NO_OP);
-
-
-                updateOutput();
-                game.repaint();
             }
         };
 

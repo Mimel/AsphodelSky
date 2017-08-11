@@ -16,27 +16,9 @@ public class Executable {
      */
     private int priority;
 
-    /**
-     * The id of the combatant/item that the event focuses on (Usually the one that triggered the event).
-     */
-    private int actorId;
+    private InstructionData data;
 
-    /**
-     * The id of the combatant/item that the event affects.
-     */
-    private int affectedId;
-
-    /**
-     * The X-coordinate of the tile of the grid that the event affects.
-     */
-    private int xTile;
-
-    /**
-     * The Y-coordinate of the tile of the grid that the event affects.
-     */
-    private int yTile;
-
-    Executable(int delay, int priority, int actorId, int affectedId, int x, int y) {
+    Executable(int delay, int priority, InstructionData data) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {
@@ -49,10 +31,7 @@ public class Executable {
             this.priority = 0;
         }
 
-        this.actorId = actorId;
-        this.affectedId = affectedId;
-        this.xTile = x;
-        this.yTile = y;
+        this.data = data;
     }
 
     public int getTriggerDelay() {
@@ -71,35 +50,11 @@ public class Executable {
         this.priority = priority;
     }
 
-    public int getActorId() {
-        return actorId;
+    public InstructionData getData() {
+        return data;
     }
 
-    public void setActorId(int actorId) {
-        this.actorId = actorId;
-    }
-
-    public int getAffectedId() {
-        return affectedId;
-    }
-
-    public void setAffectedId(int affectedId) {
-        this.affectedId = affectedId;
-    }
-
-    public int getxTile() {
-        return xTile;
-    }
-
-    public void setxTile(int xTile) {
-        this.xTile = xTile;
-    }
-
-    public int getyTile() {
-        return yTile;
-    }
-
-    public void setyTile(int yTile) {
-        this.yTile = yTile;
+    public void reviseData(InstructionData.DataBuilder db) {
+        data = db.build();
     }
 }

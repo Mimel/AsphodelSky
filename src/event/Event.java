@@ -9,14 +9,14 @@ public class Event extends Executable {
 
     private Opcode op;
 
-    public Event(int time, int priority, Opcode opcode, int actorId, int affectedId, int x, int y) {
-        super(time, priority, actorId, affectedId, x, y);
+    public Event(int time, int priority, Opcode opcode, InstructionData data) {
+        super(time, priority, data);
 
         this.op = opcode;
     }
 
     public Event(Event e, Opcode opcode) {
-        super(e.getTriggerDelay(), e.getPriority(), e.getActorId(), e.getAffectedId(), e.getxTile(), e.getyTile());
+        super(e.getTriggerDelay(), e.getPriority(), e.getData());
 
         this.op = opcode;
     }
@@ -79,7 +79,9 @@ public class Event extends Executable {
             }
         }
 
-        return new Event(time, priority, name, id, sec, x, y);
+        //TODO: Revise.
+        Event e = new Event(time, priority, name, new InstructionData.DataBuilder(0).secondary(sec).build());
+        return e;
     }
 
     /**
@@ -87,10 +89,10 @@ public class Event extends Executable {
      * @param gr The grid to impose the instruction on.
      */
     String execute(Grid gr) {
-        return Instruction.execute(op, getActorId(), getAffectedId(), getxTile(), getyTile(), gr);
+        return Instruction.execute(op, getData(), gr);
     }
 
     public String toString() {
-        return "Event " + op + ": User=" + getActorId() + " Affectee=" + getAffectedId() + " x=" + getxTile() + " y=" + getyTile() + ".";
+        return "Event " + op + " at time " + getTriggerDelay() + "s past the current.";
     }
 }

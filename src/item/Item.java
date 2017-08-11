@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import event.Event;
+import event.InstructionData;
 
 /**
  * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
@@ -159,12 +160,11 @@ public class Item implements Comparable<Item> {
 	 * Uses the item.
 	 * @return A set of events that occur after usage.
 	 */
-	public List<Event> use(int combatantId) {
+	public List<Event> use(int casterId) {
 		List<Event> eventsDeepCopy = new LinkedList<>();
 
 		for(Event ev : useEffects) {
-			Event temporarilyRevisedEvent = new Event(ev, ev.getOpcode());
-			temporarilyRevisedEvent.setActorId(combatantId);
+			Event temporarilyRevisedEvent = new Event(ev.getTriggerDelay(), ev.getPriority(), ev.getOpcode(), new InstructionData.DataBuilder(ev.getData()).casterID(casterId).build());
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

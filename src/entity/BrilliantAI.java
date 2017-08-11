@@ -1,6 +1,6 @@
 package entity;
 
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 
 /**
@@ -16,7 +16,7 @@ public class BrilliantAI extends Combatant {
         super(bai);
     }
 
-    public Event[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
         return opai.useBrilliant(this, time, gr);
     }
 }

@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * A comparator class used in the event queue, to determine the priority in which events exist at.
  */
-class EventComparator implements Comparator<Event> {
+class EventComparator implements Comparator<SimpleEvent> {
 
     /**
      * Compares two events by their times, then their priorities.
@@ -14,7 +14,7 @@ class EventComparator implements Comparator<Event> {
      * @return <0 if e1 is higher priority, >0 if e2 is higher priority, 0 if both are of equal priority.
      */
     @Override
-    public int compare(Event e1, Event e2) {
+    public int compare(SimpleEvent e1, SimpleEvent e2) {
         if(e1.getTriggerDelay() == e2.getTriggerDelay()) {
             //Higher arbitrary priorities are higher priorities.
             return e2.getPriority() - e1.getPriority();

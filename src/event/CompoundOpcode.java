@@ -3,7 +3,7 @@ package event;
 /**
  * The Opcode of an operation that represents a set of events.
  */
-public enum MacroOperation {
+public enum CompoundOpcode {
     /**
      * No operation. Does not increment the EventQueue clock on execution.
      */

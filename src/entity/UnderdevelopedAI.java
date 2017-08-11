@@ -1,6 +1,6 @@
 package entity;
 
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 
 /**
@@ -16,7 +16,7 @@ public class UnderdevelopedAI extends Combatant {
         super(uai);
     }
 
-    public Event[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
         return opai.useUnderdeveloped(this, time, gr);
     }
 }

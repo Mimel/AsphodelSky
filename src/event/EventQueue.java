@@ -19,12 +19,12 @@ public class EventQueue {
     /**
      * A priority queue of all the events to fire, sorted by time to fire.
      */
-    private Queue<Event> eventQueue;
+    private Queue<SimpleEvent> eventQueue;
 
     /**
      * An event that will eventually be added to the queue.
      */
-    private MacroEvent pendingEvent;
+    private CompoundEvent pendingEvent;
 
     private Statement pendingDialogueTree;
 
@@ -33,7 +33,7 @@ public class EventQueue {
     public EventQueue() {
         this.time = 0;
 
-        Comparator<Event> c = new EventComparator();
+        Comparator<SimpleEvent> c = new EventComparator();
         this.eventQueue = new PriorityQueue<>(20, c);
 
         dialogueTreePending = false;
@@ -47,11 +47,11 @@ public class EventQueue {
         return time;
     }
 
-    public void createPendingEvent(int priority, MacroOperation mo, InstructionData data) {
-        pendingEvent = new MacroEvent(0, priority, mo, data);
+    public void createPendingEvent(int priority, CompoundOpcode mo, InstructionData data) {
+        pendingEvent = new CompoundEvent(0, priority, mo, data);
     }
 
-    public MacroEvent getPendingEvent() {
+    public CompoundEvent getPendingEvent() {
         return pendingEvent;
     }
 
@@ -86,7 +86,7 @@ public class EventQueue {
      */
     public void addEvent(int delay, int priority, Opcode opcode, InstructionData data) {
         if(delay >= 0) {
-            eventQueue.add(new Event(time + delay, priority, opcode, data));
+            eventQueue.add(new SimpleEvent(time + delay, priority, opcode, data));
         }
     }
 
@@ -94,7 +94,7 @@ public class EventQueue {
      * Adds an event to the queue.
      * @param e The event to add.
      */
-    public void addEvent(Event e) {
+    public void addEvent(SimpleEvent e) {
         if(e.getTriggerDelay() >= 0) {
             e.setTriggerDelay(e.getTriggerDelay() + time);
             eventQueue.add(e);
@@ -105,8 +105,8 @@ public class EventQueue {
      * Adds a set of events to the queue.
      * @param eSet The set of events to add.
      */
-    public void addEvents(List<Event> eSet) {
-        for(Event ev : eSet) {
+    public void addEvents(List<SimpleEvent> eSet) {
+        for(SimpleEvent ev : eSet) {
             addEvent(ev);
         }
     }
@@ -156,7 +156,7 @@ public class EventQueue {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Time: ").append(time);
-        for(Event e : eventQueue) {
+        for(SimpleEvent e : eventQueue) {
             sb.append(e.toString()).append(":::At time ").append(e.getTriggerDelay()).append("s \n");
         }
         return sb.toString();

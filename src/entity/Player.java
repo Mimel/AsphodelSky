@@ -1,7 +1,7 @@
 package entity;
 
 import display.SidebarComponent;
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 
 /**
@@ -31,7 +31,7 @@ public class Player extends Combatant {
 	 * @param opai The operation to perform on this combatant.
 	 */
 	@Override
-	public Event[] act(OperationAI opai, int time, Grid gr) {
+	public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
 		return null;
 	}
 }

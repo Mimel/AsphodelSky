@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import event.Event;
+import event.SimpleEvent;
 import event.InstructionData;
 
 /**
@@ -56,7 +56,7 @@ public class Item implements Comparable<Item> {
 	/**
 	 * The events to perform upon use.
 	 */
-	private List<Event> useEffects;
+	private List<SimpleEvent> useEffects;
 
 	protected Item(String name, String vDesc, String uDesc, String effects) {
 		id = AUTO_INCR_ID.getAndIncrement();
@@ -73,7 +73,7 @@ public class Item implements Comparable<Item> {
 
 		useEffects = new LinkedList<>();
 		for(String phrase : effects.split(";")) {
-			useEffects.add(Event.interpretEvent(phrase));
+			useEffects.add(SimpleEvent.interpretEvent(phrase));
 		}
 	}
 
@@ -105,7 +105,7 @@ public class Item implements Comparable<Item> {
 		return descUse;
 	}
 
-	public List<Event> getEffects() { return useEffects; }
+	public List<SimpleEvent> getEffects() { return useEffects; }
 
 	public static void loadItemMapping(String fileName) {
 		if(itemNameToItemMap == null) {
@@ -160,11 +160,11 @@ public class Item implements Comparable<Item> {
 	 * Uses the item.
 	 * @return A set of events that occur after usage.
 	 */
-	public List<Event> use(int casterId) {
-		List<Event> eventsDeepCopy = new LinkedList<>();
+	public List<SimpleEvent> use(int casterId) {
+		List<SimpleEvent> eventsDeepCopy = new LinkedList<>();
 
-		for(Event ev : useEffects) {
-			Event temporarilyRevisedEvent = new Event(ev.getTriggerDelay(), ev.getPriority(), ev.getOpcode(), new InstructionData.DataBuilder(ev.getData()).casterID(casterId).build());
+		for(SimpleEvent ev : useEffects) {
+			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev.getTriggerDelay(), ev.getPriority(), ev.getOpcode(), new InstructionData.DataBuilder(ev.getData()).casterID(casterId).build());
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

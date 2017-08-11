@@ -1,98 +1,60 @@
 package event;
 
-import grid.Grid;
-
 /**
- * An action to be executed, with the time of execution and a secondary priority parameter attached.
+ * Describes an event that can be executed, either by executing a raw instruction (see SimpleEvent)
+ * or by returning a set of Events (see CompoundEvent).
  */
-public class Event extends Executable {
-
-    private Opcode op;
-
-    public Event(int time, int priority, Opcode opcode, InstructionData data) {
-        super(time, priority, data);
-
-        this.op = opcode;
-    }
-
-    public Event(Event e, Opcode opcode) {
-        super(e.getTriggerDelay(), e.getPriority(), e.getData());
-
-        this.op = opcode;
-    }
-
-    public Opcode getOpcode() {
-        return op;
-    }
+public class Event {
+    /**
+     * The amount of time between the current time and the time the event triggers.
+     */
+    private int triggerDelay;
 
     /**
-     * Reads a phrase and interprets and creates an event based on the parameters given, with invalid id and sec parameters.
-     * All phrases must be in the format "NAME(time,priority)", where the name is one of the
-     * listed entries in the Opcode enum.
-     * @see Opcode
-     * @param phrase The phrase to interpret.
-     * @return The event that is interpreted from the given phrase.
+     * The secondary priority of the event. Higher priorities are executed first when
+     * two events are to be fired concurrently.
      */
-    public static Event interpretEvent(String phrase) {
-        Opcode name;
-        int time;
-        int priority;
-        int id = -1;
-        int sec = -1;
-        int x = -1;
-        int y = -1;
+    private int priority;
 
-        int sParenPos = phrase.indexOf('(');
-        int commaPos = phrase.indexOf(',');
-        int eParenPos = phrase.indexOf(')');
+    private InstructionData data;
 
-        name = Opcode.valueOf(phrase.substring(0, sParenPos));
-        time = Integer.parseInt(phrase.substring(sParenPos + 1, commaPos));
-        priority = Integer.parseInt(phrase.substring(commaPos + 1, eParenPos));
-
-        int counter = eParenPos;
-        String flag_name;
-        int flag_val;
-        while((counter = phrase.indexOf('~', counter)) != -1) {
-            System.out.println(counter);
-            flag_name = phrase.substring(counter + 1, (counter = phrase.indexOf('=', counter)));
-            if(phrase.indexOf('~', counter) == -1) {
-                flag_val = Integer.parseInt(phrase.substring(counter + 1));
-            } else {
-                flag_val = Integer.parseInt(phrase.substring(counter + 1, (counter = phrase.indexOf('~', counter))));
-            }
-
-
-            switch(flag_name) {
-                case "id":
-                    id = flag_val;
-                    break;
-                case "sec":
-                    sec = flag_val;
-                    break;
-                case "x":
-                    x = flag_val;
-                    break;
-                case "y":
-                    y = flag_val;
-                    break;
-            }
+    Event(int delay, int priority, InstructionData data) {
+        if(delay >= 0) {
+            this.triggerDelay = delay;
+        } else {
+            this.triggerDelay = 0;
         }
 
-        //TODO: Revise.
-        Event e = new Event(time, priority, name, new InstructionData.DataBuilder(0).secondary(sec).build());
-        return e;
+        if(priority >= 0) {
+            this.priority = priority;
+        } else {
+            this.priority = 0;
+        }
+
+        this.data = data;
     }
 
-    /**
-     * Executes the instruction in this event.
-     * @param gr The grid to impose the instruction on.
-     */
-    String execute(Grid gr) {
-        return Instruction.execute(op, getData(), gr);
+    public int getTriggerDelay() {
+        return triggerDelay;
     }
 
-    public String toString() {
-        return "Event " + op + " at time " + getTriggerDelay() + "s past the current.";
+    public void setTriggerDelay(int triggerDelay) {
+        this.triggerDelay = triggerDelay;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public InstructionData getData() {
+        return data;
+    }
+
+    public void reviseData(InstructionData.DataBuilder db) {
+        data = db.build();
     }
 }

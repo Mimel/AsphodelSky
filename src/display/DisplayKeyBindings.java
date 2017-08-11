@@ -2,11 +2,10 @@ package display;
 
 import comm.MessageManager;
 import entity.Combatant;
-import entity.EnemyGenerator;
 import entity.Player;
 import event.EventQueue;
 import event.InstructionData;
-import event.MacroOperation;
+import event.CompoundOpcode;
 import event.Opcode;
 import grid.Grid;
 import grid.Tile;
@@ -211,7 +210,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.NO_OP, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.NO_OP, new InstructionData.DataBuilder(0).build());
                     grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
                     updateOutput();
@@ -226,7 +225,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.NO_OP, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.NO_OP, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();
@@ -240,7 +239,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.USE_ITEM, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.USE_ITEM, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();
@@ -254,7 +253,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, MacroOperation.DROP_ITEM, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.DROP_ITEM, new InstructionData.DataBuilder(0).build());
 
                     updateOutput();
                     game.repaint();

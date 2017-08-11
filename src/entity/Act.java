@@ -1,6 +1,6 @@
 package entity;
 
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 
 /**
@@ -16,7 +16,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public Event[] useMindless(MindlessAI mai, int time, Grid gr) {
+    public SimpleEvent[] useMindless(MindlessAI mai, int time, Grid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -27,7 +27,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public Event[] useAnimalistic(AnimalisticAI aai, int time, Grid gr) {
+    public SimpleEvent[] useAnimalistic(AnimalisticAI aai, int time, Grid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -38,7 +38,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public Event[] useUnderdeveloped(UnderdevelopedAI uai, int time, Grid gr) {
+    public SimpleEvent[] useUnderdeveloped(UnderdevelopedAI uai, int time, Grid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -49,7 +49,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public Event[] useSapient(SapientAI sai, int time, Grid gr) {
+    public SimpleEvent[] useSapient(SapientAI sai, int time, Grid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -60,7 +60,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public Event[] useBrilliant(BrilliantAI bai, int time, Grid gr) {
+    public SimpleEvent[] useBrilliant(BrilliantAI bai, int time, Grid gr) {
         throw new UnsupportedOperationException();
     }
 }

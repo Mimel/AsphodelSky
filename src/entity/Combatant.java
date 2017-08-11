@@ -1,6 +1,6 @@
 package entity;
 
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 import item.Catalog;
 
@@ -318,7 +318,7 @@ public abstract class Combatant implements Entity {
 	 * @param time The time given for this Combatant to act.
 	 * @param gr The grid to act upon.
 	 */
-	public abstract Event[] act(OperationAI opai, int time, Grid gr);
+	public abstract SimpleEvent[] act(OperationAI opai, int time, Grid gr);
 
 	@Override
 	public String toString() {

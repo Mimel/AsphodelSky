@@ -1,6 +1,6 @@
 package entity;
 
-import event.Event;
+import event.SimpleEvent;
 import grid.Grid;
 
 /**
@@ -18,7 +18,7 @@ public class AnimalisticAI extends Combatant {
     }
 
     @Override
-    public Event[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
         return opai.useAnimalistic(this, time, gr);
     }
 }

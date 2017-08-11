@@ -50,7 +50,7 @@ public class ASControl {
 		Instruction.loadInstructionSet();
 		Response.loadResponseTable("map/responsemap.dat");
 
-		//Initializing Event Queue.
+		//Initializing SimpleEvent Queue.
 		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY

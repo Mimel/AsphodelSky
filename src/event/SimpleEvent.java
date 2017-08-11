@@ -7,12 +7,24 @@ import grid.Grid;
  */
 public class SimpleEvent extends Event<Opcode> {
 
-    public SimpleEvent(int time, int priority, Opcode opcode, InstructionData data) {
-        super(time, priority, opcode, data);
+    public SimpleEvent(int time, int priority, Opcode opcode) {
+        super(time, priority, opcode);
     }
 
-    public SimpleEvent(SimpleEvent e, Opcode opcode) {
-        super(e.getTriggerDelay(), e.getPriority(), opcode, e.getData());
+    /**
+     * A copy constructor that copies all the attributes (barring the opcode) of an event onto
+     * this new one.
+     * @param e The event to copy from.
+     */
+    public SimpleEvent(SimpleEvent e) {
+        super(e.getTriggerDelay(), e.getPriority(), e.getOperation());
+
+        this.setCasterID(e.getCasterID());
+        this.setTargetID(e.getTargetID());
+        this.setItemID(e.getItemID());
+        this.setSkillID(e.getSkillID());
+        this.setTile(e.getTileX(), e.getTileY());
+        this.setSecondary(e.getSecondary());
     }
 
     /**
@@ -70,7 +82,7 @@ public class SimpleEvent extends Event<Opcode> {
         }
 
         //TODO: Revise.
-        SimpleEvent e = new SimpleEvent(time, priority, name, new InstructionData.DataBuilder(0).secondary(sec).build());
+        SimpleEvent e = (SimpleEvent) new SimpleEvent(time, priority, name).withSecondary(sec);
         return e;
     }
 
@@ -79,7 +91,7 @@ public class SimpleEvent extends Event<Opcode> {
      * @param gr The grid to impose the instruction on.
      */
     String execute(Grid gr) {
-        return Instruction.execute(getOperation(), getData(), gr);
+        return Instruction.execute(getOperation(), new InstructionData(this), gr);
     }
 
     public String toString() {

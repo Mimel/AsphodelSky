@@ -160,11 +160,11 @@ public class Item implements Comparable<Item> {
 	 * Uses the item.
 	 * @return A set of events that occur after usage.
 	 */
-	public List<SimpleEvent> use(int casterId) {
+	public List<SimpleEvent> use(int targetID) {
 		List<SimpleEvent> eventsDeepCopy = new LinkedList<>();
 
 		for(SimpleEvent ev : useEffects) {
-			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev.getTriggerDelay(), ev.getPriority(), ev.getOperation(), new InstructionData.DataBuilder(ev.getData()).casterID(casterId).build());
+			SimpleEvent temporarilyRevisedEvent = (SimpleEvent) new SimpleEvent(ev).withTargetID(targetID);
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

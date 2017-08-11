@@ -3,10 +3,7 @@ package display;
 import comm.MessageManager;
 import entity.Combatant;
 import entity.Player;
-import event.EventQueue;
-import event.InstructionData;
-import event.CompoundOpcode;
-import event.Opcode;
+import event.*;
 import grid.Grid;
 import grid.Tile;
 import item.Item;
@@ -109,13 +106,14 @@ public class DisplayKeyBindings {
         Action confirm = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+
                 switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
-                        eq.getPendingEvent().reviseData(new InstructionData.DataBuilder(eq.getPendingEvent().getData()).itemID(grid.searchForOccupant(0).getInventory().getFocusedItem().getId()));
+                        eq.getPendingEvent().setItemID(grid.searchForOccupant(0).getInventory().getFocusedItem().getId());
                         grid.searchForOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
-                        eq.getPendingEvent().reviseData(new InstructionData.DataBuilder(eq.getPendingEvent().getData()).tile(grid.getXFocus(), grid.getYFocus()));
+                        eq.getPendingEvent().setTile(grid.getXFocus(), grid.getYFocus());
                         grid.bindFocusToPlayer();
                         break;
                     case DIALOGUE_PROMPT:
@@ -190,9 +188,11 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(!grid.getItemsOnTile(0).isEmpty()) {
-                    //TODO add.
-                    eq.addEvent(0, 100, Opcode.TRANSFER_ITEMALL,
-                            new InstructionData.DataBuilder(0).targetID(0).itemID(grid.getFocusedTile().getCatalog().getFocusedItem().getId()).build());
+                    eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
+                            .withCasterID(0)
+                            .withTargetID(0)
+                            .withItemID(grid.getFocusedTile().getCatalog().getFocusedItem().getId()));
+
                     mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
 
                     updateOutput();
@@ -210,7 +210,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.NO_OP, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
                     grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
 
                     updateOutput();
@@ -225,7 +225,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.NO_OP, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
 
                     updateOutput();
                     game.repaint();
@@ -239,7 +239,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.USE_ITEM, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.USE_ITEM);
 
                     updateOutput();
                     game.repaint();
@@ -253,7 +253,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.DROP_ITEM, new InstructionData.DataBuilder(0).build());
+                    eq.createPendingEvent(0, CompoundOpcode.DROP_ITEM);
 
                     updateOutput();
                     game.repaint();

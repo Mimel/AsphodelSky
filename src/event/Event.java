@@ -18,9 +18,15 @@ public class Event<A> {
 
     private A operation;
 
-    private InstructionData data;
+    private int casterID;
+    private int targetID;
+    private int itemID;
+    private int skillID;
+    private int tileX;
+    private int tileY;
+    private int secondary;
 
-    Event(int delay, int priority, A op, InstructionData data) {
+    Event(int delay, int priority, A op) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {
@@ -34,7 +40,6 @@ public class Event<A> {
         }
 
         this.operation = op;
-        this.data = data;
     }
 
     public int getTriggerDelay() {
@@ -61,11 +66,87 @@ public class Event<A> {
         this.operation = newOp;
     }
 
-    public InstructionData getData() {
-        return data;
+    public int getCasterID() {
+        return casterID;
     }
 
-    public void reviseData(InstructionData.DataBuilder db) {
-        data = db.build();
+    public void setCasterID(int casterID) {
+        this.casterID = casterID;
+    }
+
+    public int getTargetID() {
+        return targetID;
+    }
+
+    public void setTargetID(int targetID) {
+        this.targetID = targetID;
+    }
+
+    public int getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
+    public int getSkillID() {
+        return skillID;
+    }
+
+    public void setSkillID(int skillID) {
+        this.skillID = skillID;
+    }
+
+    public int getTileX() {
+        return tileX;
+    }
+
+    public int getTileY() {
+        return tileY;
+    }
+
+    public void setTile(int x, int y) {
+        this.tileX = x;
+        this.tileY = y;
+    }
+
+
+    public int getSecondary() {
+        return secondary;
+    }
+
+    public void setSecondary(int secondary) {
+        this.secondary = secondary;
+    }
+
+    public Event withCasterID(int casterID) {
+        setCasterID(casterID);
+        return this;
+    }
+
+    public Event withTargetID(int targetID) {
+        setTargetID(targetID);
+        return this;
+    }
+
+    public Event withItemID(int itemID) {
+        setItemID(itemID);
+        return this;
+    }
+
+    public Event withSkillID(int skillID) {
+        setSkillID(skillID);
+        return this;
+    }
+
+    public Event withTile(int x, int y) {
+        setTile(x, y);
+        return this;
+    }
+
+    public Event withSecondary(int secondary) {
+        setSecondary(secondary);
+        return this;
     }
 }

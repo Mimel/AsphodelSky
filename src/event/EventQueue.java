@@ -47,8 +47,8 @@ public class EventQueue {
         return time;
     }
 
-    public void createPendingEvent(int priority, CompoundOpcode mo, InstructionData data) {
-        pendingEvent = new CompoundEvent(0, priority, mo, data);
+    public void createPendingEvent(int priority, CompoundOpcode mo) {
+        pendingEvent = new CompoundEvent(0, priority, mo);
     }
 
     public CompoundEvent getPendingEvent() {
@@ -82,11 +82,10 @@ public class EventQueue {
      * @param delay Time before the event is executed. Must be greater than or equal to zero.
      * @param priority The priority of the event. Used as a secondary sorting mechanism in the case of ties in time.
      * @param opcode The operation to execute.
-     * @param data The set of data pertinent to the event.
      */
-    public void addEvent(int delay, int priority, Opcode opcode, InstructionData data) {
+    public void addEvent(int delay, int priority, Opcode opcode) {
         if(delay >= 0) {
-            eventQueue.add(new SimpleEvent(time + delay, priority, opcode, data));
+            eventQueue.add(new SimpleEvent(time + delay, priority, opcode));
         }
     }
 

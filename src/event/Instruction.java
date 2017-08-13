@@ -89,7 +89,7 @@ public class Instruction
             });
 
             instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> {
-                return new ResponseDetails(ResponseCondition.SUCCESS, EnemyGenerator.getEnemyById(opData.getTargetID()) + "_" + opData.getSecondary() + ".dat");
+                return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(opData.getTargetID()).getName() + "_" + opData.getSecondary() + ".dat");
             });
         }
     }

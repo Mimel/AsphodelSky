@@ -264,7 +264,14 @@ public class DisplayKeyBindings {
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.COMBATANT_ADJUSTHP)
+                        .withCasterID(0)
+                        .withTargetID(3)
+                        .withSecondary(-6));
 
+                eq.progressTimeInstantaneous(grid);
+                updateOutput();
+                game.repaint();
             }
         };
 

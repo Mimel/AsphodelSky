@@ -38,19 +38,29 @@ public class Flag {
 
     public void checkForTrigger(EventQueue queue) {
         if(queue.peek().getOperation() == eventTrigger) {
+            int selfID = queue.peek().getTargetID();
+            int senderID = queue.peek().getCasterID();
             switch(actionOnTrigger) {
                 case CANCEL:
                     queue.poll();
                     break;
                 case ADD:
-                    for(SimpleEvent event : eventsAddedOnTrigger) {
-                        queue.addEvent(event);
+                    for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
+                        if(eventRedirections.get(event) == FlagRedirectLocation.SELF) {
+                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(selfID));
+                        } else if(eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
+                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
+                        }
                     }
                     break;
                 case REPLACE:
                     queue.poll();
-                    for(SimpleEvent event : eventsAddedOnTrigger) {
-                        queue.addEvent(event);
+                    for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
+                        if(eventRedirections.get(event) == FlagRedirectLocation.SELF) {
+                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(selfID));
+                        } else if(eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
+                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
+                        }
                     }
                     break;
             }

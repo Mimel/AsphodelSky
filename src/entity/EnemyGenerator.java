@@ -2,6 +2,7 @@ package entity;
 
 import event.*;
 import grid.Grid;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -79,7 +80,7 @@ public final class EnemyGenerator {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String currLine;
             char firstCharacter;
-            Combatant newCombatant = new MindlessAI();
+            Combatant newCombatant = null;
             Flag currentFlag = null;
 
             while((currLine = br.readLine()) != null) {
@@ -108,10 +109,11 @@ public final class EnemyGenerator {
                     String responseState = currLine.substring(slashLoc + 1);
                     currentFlag = new Flag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
                 } else if(firstCharacter == '-') {
+                    newCombatant.addToFlagList(currentFlag);
                     nameToCombatant.put(newCombatant.getName(), newCombatant);
                 } else if(firstCharacter == ' ') {
                     if(currentFlag != null) {
-                        SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
+                        SimpleEvent trigger = (SimpleEvent) SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim()).withCasterID(newCombatant.getId());
                         FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
                         currentFlag.addEventToFlag(trigger, loc);
                     }

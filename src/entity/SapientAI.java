@@ -12,10 +12,6 @@ public class SapientAI extends Combatant {
         super();
     }
 
-    SapientAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
-        super(name, title, desc, health, momentum, science, pse, sub, acu, cha, itt);
-    }
-
     SapientAI(SapientAI sai) {
         super(sai);
     }

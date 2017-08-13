@@ -101,6 +101,9 @@ public abstract class Combatant implements Entity {
 
 	Combatant() {
 		this.id = auto_incr_id.getAndIncrement();
+
+		this.inventory = new Catalog();
+		this.eventTriggerList = new ArrayList<>();
 	}
 
 	/**
@@ -123,39 +126,7 @@ public abstract class Combatant implements Entity {
 		this.currentScience = science;
 
 		this.inventory = new Catalog();
-	}
-
-	/**
-	 * Creates a complete combatant.
-	 * @param name The name.
-	 * @param title The title.
-	 * @param desc The visual description.
-	 * @param health The health.
-	 * @param momentum The momentum.
-	 * @param science The science.
-	 * @param pse The poise.
-	 * @param sub The subtlety.
-	 * @param acu The acumen.
-	 * @param cha The charisma.
-	 * @param itt The intuition.
-	 */
-	Combatant(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
-		this.id = auto_incr_id.getAndIncrement();
-		this.name = name;
-		this.title = title;
-		this.desc = desc;
-
-		this.maximumHealth = health;
-		this.currentHealth = health;
-		this.momentum = momentum;
-		this.currentScience = science;
-		this.maximumScience = science;
-		
-		this.poise = pse;
-		this.subtlety = sub;
-		this.acumen = acu;
-		this.charisma = cha;
-		this.intuition = itt;
+		this.eventTriggerList = new ArrayList<>();
 	}
 
 	/**
@@ -179,6 +150,10 @@ public abstract class Combatant implements Entity {
 		this.acumen = c.getAcumen();
 		this.charisma = c.getCharisma();
 		this.intuition = c.getIntuition();
+
+		this.inventory = new Catalog();
+		//TODO Change from shallow to deep copy.
+		this.eventTriggerList = c.getFlagList();
 	}
 	
 	/**
@@ -371,6 +346,14 @@ public abstract class Combatant implements Entity {
 	 * @param gr The grid to act upon.
 	 */
 	public abstract SimpleEvent[] act(OperationAI opai, int time, Grid gr);
+
+	void addToFlagList(Flag newFlag) {
+		eventTriggerList.add(newFlag);
+	}
+
+	public ArrayList<Flag> getFlagList() {
+		return eventTriggerList;
+	}
 
 	@Override
 	public String toString() {

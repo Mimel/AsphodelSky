@@ -9,6 +9,5 @@ setAcumen=2
 setCharisma=3
 setIntuition=5
 !COMBATANT_ADJUSTHP/REPLACE
-    COMBATANT_ADJUSTHP(0,200) ~sec=4 @SELF
     COMBATANT_ADJUSTHP(0,200) ~sec=-12 @SENDER
 ------------------------------------------------

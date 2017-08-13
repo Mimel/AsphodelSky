@@ -147,6 +147,10 @@ public class EventQueue {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
             Opcode op = eventQueue.peek().getOperation();
+            for(Flag f : gr.searchForOccupant(eventQueue.peek().getTargetID()).getFlagList()) {
+                f.checkForTrigger(this);
+            }
+
             String message = eventQueue.remove().execute(gr);
 
             if(message != null) {

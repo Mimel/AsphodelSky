@@ -1,9 +1,11 @@
 package entity;
 
+import event.Flag;
 import event.SimpleEvent;
 import grid.Grid;
 import item.Catalog;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -95,6 +97,12 @@ public abstract class Combatant implements Entity {
 	 */
 	private Catalog inventory;
 
+	private ArrayList<Flag> eventTriggerList;
+
+	Combatant() {
+		this.id = auto_incr_id.getAndIncrement();
+	}
+
 	/**
 	 * Creates a combatant with zeroed stats.
 	 * @param name The name of the combatant.
@@ -155,7 +163,7 @@ public abstract class Combatant implements Entity {
 	 * @param c The combatant to copy.
 	 */
 	Combatant(Combatant c) {
-		this.id = c.getId();
+		this.id = auto_incr_id.getAndIncrement();
 		this.name = c.getName();
 		this.title = c.getTitle();
 		this.desc = c.getDesc();
@@ -259,7 +267,51 @@ public abstract class Combatant implements Entity {
 	public int getIntuition() {
 		return intuition;
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
+	}
+
+	public void setMaximumHealth(int maximumHealth) {
+		this.maximumHealth = maximumHealth;
+	}
+
+	public void setCurrentScience(int currentScience) {
+		this.currentScience = currentScience;
+	}
+
+	public void setMaximumScience(int maximumScience) {
+		this.maximumScience = maximumScience;
+	}
+
+	public void setPoise(int poise) {
+		this.poise = poise;
+	}
+
+	public void setSubtlety(int subtlety) {
+		this.subtlety = subtlety;
+	}
+
+	public void setAcumen(int acumen) {
+		this.acumen = acumen;
+	}
+
+	public void setCharisma(int charisma) {
+		this.charisma = charisma;
+	}
+
+	public void setIntuition(int intuition) {
+		this.intuition = intuition;
+	}
+
 	/**
 	 * Decreases the amount of current health by a given amount.
 	 * @param healthAdjustment The amount of health to add to the current health.

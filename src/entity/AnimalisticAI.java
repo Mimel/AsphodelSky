@@ -9,6 +9,10 @@ import grid.Grid;
  */
 public class AnimalisticAI extends Combatant {
 
+    AnimalisticAI() {
+        super();
+    }
+
     AnimalisticAI(String name, String title, String desc, int health, int momentum, int science, int pse, int sub, int acu, int cha, int itt) {
         super(name, title, desc, health, momentum, science, pse, sub, acu, cha, itt);
     }

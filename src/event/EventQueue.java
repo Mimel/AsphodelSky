@@ -1,5 +1,6 @@
 package event;
 
+import com.sun.org.apache.bcel.internal.generic.SIPUSH;
 import dialogue.DialogueParser;
 import dialogue.Statement;
 import grid.Grid;
@@ -108,6 +109,14 @@ public class EventQueue {
         for(SimpleEvent ev : eSet) {
             addEvent(ev);
         }
+    }
+
+    public SimpleEvent peek() {
+        return eventQueue.peek();
+    }
+
+    public SimpleEvent poll() {
+        return eventQueue.poll();
     }
 
     /**

@@ -1,8 +1,13 @@
 package entity;
 
+import event.*;
+import grid.Grid;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
@@ -73,81 +78,80 @@ public final class EnemyGenerator {
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String currLine;
-            String name = "";
-            String desc = "";
-
-            int health = 0;
-            int science = 0;
-
-            int poise = 0;
-            int subtlety = 0;
-            int acumen = 0;
-            int charisma = 0;
-            int intuition = 0;
-
-            int arrowPos; //The position of the '>' key in each line.
+            char firstCharacter;
+            Combatant newCombatant = new MindlessAI();
+            Flag currentFlag = null;
 
             while((currLine = br.readLine()) != null) {
-                arrowPos = currLine.indexOf('>');
-
-                if(name.equals("")) { //Line after the intelligence descriptor, where name and desc are found.
-                    name = currLine.substring(0, arrowPos);
-                    desc = currLine.substring(arrowPos + 1);
-
-                } else if(arrowPos == -1) { //The intelligence descriptor; Create new object based on character, add to map, and reset.
-                    //Acts as a compact factory of sorts.
-                    switch(currLine.charAt(0)) {
+                firstCharacter = currLine.charAt(0);
+                if(firstCharacter == '$') {
+                    switch(currLine.charAt(1)) {
                         case 'M':
-                            nameToCombatant.put(name, new MindlessAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            newCombatant = new MindlessAI();
                             break;
                         case 'A':
-                            nameToCombatant.put(name, new AnimalisticAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            newCombatant = new AnimalisticAI();
                             break;
                         case 'U':
-                            nameToCombatant.put(name, new UnderdevelopedAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            newCombatant = new UnderdevelopedAI();
                             break;
                         case 'S':
-                            nameToCombatant.put(name, new SapientAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            newCombatant = new SapientAI();
                             break;
                         case 'B':
-                            nameToCombatant.put(name, new BrilliantAI(name, "", desc, health, 0, science, poise, subtlety, acumen, charisma, intuition));
+                            newCombatant = new BrilliantAI();
                             break;
                     }
-
-                    name = "";
-                    desc = "";
-
+                } else if(firstCharacter == '!') {
+                    int slashLoc = currLine.indexOf('/');
+                    String opTrigger = currLine.substring(1, slashLoc);
+                    String responseState = currLine.substring(slashLoc + 1);
+                    currentFlag = new Flag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
+                } else if(firstCharacter == '-') {
+                    nameToCombatant.put(newCombatant.getName(), newCombatant);
+                } else if(firstCharacter == ' ') {
+                    if(currentFlag != null) {
+                        SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
+                        FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
+                        currentFlag.addEventToFlag(trigger, loc);
+                    }
                 } else {
+                    int equalSignLoc = currLine.indexOf('=');
+                    String fieldToSet = currLine.substring(0, equalSignLoc);
+                    String valueOfField = currLine.substring(equalSignLoc + 1);
 
-                    int value = Integer.parseInt(currLine.substring(arrowPos + 1));
-
-                    switch(currLine.substring(0, arrowPos)) {
-                        case "HPP":
-                            health = value;
-                            break;
-                        case "SPP":
-                            science = value;
-                            break;
-                        case "PSE":
-                            poise = value;
-                            break;
-                        case "SUB":
-                            subtlety = value;
-                            break;
-                        case "ACU":
-                            acumen = value;
-                            break;
-                        case "CHA":
-                            charisma = value;
-                            break;
-                        case "ITT":
-                            intuition = value;
-                            break;
-                    }
+                    assignToField(newCombatant, fieldToSet, valueOfField);
                 }
             }
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    private static void assignToField(Combatant newCombatant, String setterName, String valueOfField) {
+        assert (newCombatant != null);
+
+        Method setter;
+        try {
+            if(isStringNumeric(valueOfField)) {
+                setter = newCombatant.getClass().getMethod(setterName, int.class);
+                setter.invoke(newCombatant, Integer.parseInt(valueOfField));
+            } else {
+                setter = newCombatant.getClass().getMethod(setterName, String.class);
+                setter.invoke(newCombatant, valueOfField);
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean isStringNumeric(String input) {
+        for(char character : input.toCharArray()) {
+            if(!Character.isDigit(character)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

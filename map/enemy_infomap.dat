@@ -1,9 +1,14 @@
-Khweiri Dervish>Blades, booze and bounty are the name of the game for this novice hunter. Don't be deceived by their rugged demeanor; their grip is sweaty, and their eyes waltz back and forth erratically, as if to unravel at the first unfamiliar whisper.
-HPP>20
-SPP>5
-PSE>8
-SUB>4
-ACU>2
-CHA>3
-ITT>5
-Underdeveloped
+$Underdeveloped
+setName=Khweiri Dervish
+setDesc=Nothing too special.
+setMaximumHealth=20
+setMaximumScience=5
+setPoise=8
+setSubtlety=4
+setAcumen=2
+setCharisma=3
+setIntuition=5
+!COMBATANT_ADJUSTHP/REPLACE
+    COMBATANT_ADJUSTHP(0,200) ~sec=4 @SELF
+    COMBATANT_ADJUSTHP(0,200) ~sec=-12 @SENDER
+------------------------------------------------

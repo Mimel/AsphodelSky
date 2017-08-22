@@ -1,9 +1,7 @@
 package event;
 
-import javax.xml.crypto.Data;
-
 /**
- * Created by Owner on 8/9/2017.
+ * A data object that encapsulates all the data necessary for an event to be used.
  */
 public class InstructionData {
     private int casterID;

@@ -117,7 +117,7 @@ public class DisplayKeyBindings {
                         grid.bindFocusToPlayer();
                         break;
                     case DIALOGUE_PROMPT:
-                        if(!game.getFooter().isDialogueEnded()) {
+                        if(game.getFooter().canDialogueContinue()) {
                             game.getFooter().progressDialogue();
                             addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
                         }

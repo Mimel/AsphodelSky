@@ -4,7 +4,6 @@ import display.FocusComponent;
 import entity.Combatant;
 import entity.EnemyGenerator;
 import entity.EnemyRoster;
-import generator.EmptyShipGenerator;
 import item.Catalog;
 import item.Item;
 import org.javatuples.Pair;
@@ -88,14 +87,6 @@ public class Grid {
 		return name;
 	}
 
-	public int getHeight() {
-		return map.length;
-	}
-
-	public int getWidth(int row) {
-		return map[row].length;
-	}
-
 	public int getXFocus() {
 		return gridCenter.getxPosition();
 	}
@@ -158,28 +149,6 @@ public class Grid {
 	}
 	
 	/**
-	 * Fills the grid with tiles according to the character string inserted,
-	 * from the top left, going right, then down, to the bottom right.
-	 * 
-	 * If the character string is shorter than the number of tiles in the grid,
-	 * the remainder are filled with empty (?) tiles. Excess characters are cropped.
-	 * 
-	 * @param terrain The character string to insert as the map.
-	 */
-	public void fillGrid(String terrain) {
-		int tileCount = 0;
-		for(int y = 0; y < map.length; y++) {
-			for(int x = 0; x < map[y].length; x++, tileCount++) {
-				if(terrain != null && tileCount < terrain.length()) {
-					map[y][x] = new Tile(terrain.charAt(tileCount));
-				} else {
-					map[y][x] = new Tile('?');
-				}
-			}
-		}
-	}
-	
-	/**
 	 * Attempts to get a tile within the map at the specified coordinates.
 	 * 
 	 * @param x The X-coordinate of the tile requested.
@@ -192,22 +161,6 @@ public class Grid {
 		} else {
 			return null;
 		}	
-	}
-	
-	/**
-	 * Attempts to set a tile within the map at the specified coordinates to a specific Tile.
-	 * @param x The X-coordinate of the tile requested.
-	 * @param y The Y-coordinate of the tile requested.
-	 * @param t The Tile to replace the current one.
-	 * @return If the operation was successful, returns true. Else, returns false.
-	 */
-	public boolean setTileAt(int x, int y, Tile t) {
-		if(y >= 0 && y < map.length && x >= 0 && x < map[y].length) {
-			map[y][x] = t;
-			return true;
-		} else {
-			return false;
-		}		
 	}
 
 	/**
@@ -333,19 +286,6 @@ public class Grid {
 		return map[coords.getValue1()][coords.getValue0()].getCatalog();
 	}
 
-	/**
-	 * Gets the catalog of the tile indicated by the coordinates.
-	 * @param x The X-coordinate of the tile.
-	 * @param y The Y-coordinate of the tile.
-	 * @return The catalog of the tile, or null if the tile is invalid.
-	 */
-	public Catalog getItemsOnTile(int x, int y) {
-		if(isValidLocation(x, y)) {
-			return map[y][x].getCatalog();
-		}
-
-		return null;
-	}
 	/**
 	 * Removes an item from the given tile.
 	 * @param itemId The id of the item to remove.

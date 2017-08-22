@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import event.SimpleEvent;
-import event.InstructionData;
 
 /**
  * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
@@ -63,13 +62,6 @@ public class Item implements Comparable<Item> {
 		this.name = name;
 		this.descVis = vDesc;
 		this.descUse = uDesc;
-
-		int semicolons = 0;
-		for(int letter = 0; letter < effects.length(); letter++) {
-			if(effects.charAt(letter) == ';') {
-				semicolons++;
-			}
-		}
 
 		useEffects = new LinkedList<>();
 		for(String phrase : effects.split(";")) {

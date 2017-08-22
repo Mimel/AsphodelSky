@@ -1,6 +1,5 @@
 package event;
 
-import entity.EnemyGenerator;
 import grid.Grid;
 import item.Item;
 import org.javatuples.Pair;
@@ -88,9 +87,7 @@ public class Instruction
                 return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(opData.getTargetID()).getName(), tileItems.getValue0().getName());
             });
 
-            instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> {
-                return new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(opData.getTargetID()).getName() + "_" + opData.getSecondary() + ".dat");
-            });
+            instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> new ResponseDetails(ResponseCondition.SUCCESS, grid.searchForOccupant(opData.getTargetID()).getName() + "_" + opData.getSecondary() + ".dat"));
         }
     }
 

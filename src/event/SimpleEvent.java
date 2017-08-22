@@ -82,8 +82,7 @@ public class SimpleEvent extends Event<Opcode> {
         }
 
         //TODO: Revise.
-        SimpleEvent e = (SimpleEvent) new SimpleEvent(time, priority, name).withSecondary(sec);
-        return e;
+        return (SimpleEvent) new SimpleEvent(time, priority, name).withSecondary(sec);
     }
 
     /**

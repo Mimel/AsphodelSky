@@ -1,12 +1,12 @@
 package event;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Owner on 8/11/2017.
+ * A Flag represents a trigger that interacts with an event queue whenever a specific Opcode is called from the queue.
+ * Whenever a glag is used, it will remove the calling Opcode and/or inject more predefined operations into the queue.
  */
 public class Flag {
     private Opcode eventTrigger;
@@ -22,9 +22,7 @@ public class Flag {
         this.actionOnTrigger = triggerAction;
         eventsAddedOnTrigger = new ArrayList<>();
         eventRedirections = new ArrayList<>();
-        for(SimpleEvent event : triggerEvents) {
-            eventsAddedOnTrigger.add(event);
-        }
+        Collections.addAll(eventsAddedOnTrigger, triggerEvents);
     }
 
     public void addEventToFlag(SimpleEvent eventToAdd, FlagRedirectLocation eventDirection) {
@@ -32,11 +30,7 @@ public class Flag {
         eventRedirections.add(eventDirection);
     }
 
-    public void clearEvents() {
-        eventsAddedOnTrigger.clear();
-    }
-
-    public void checkForTrigger(EventQueue queue) {
+    void checkForTrigger(EventQueue queue) {
         if(queue.peek().getOperation() == eventTrigger) {
             int selfID = queue.peek().getTargetID();
             int senderID = queue.peek().getCasterID();

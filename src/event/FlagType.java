@@ -1,11 +1,22 @@
 package event;
 
 /**
- * Created by Owner on 8/11/2017.
+ * Determies the operation a flag does when it fires.
  */
 public enum FlagType {
-    NONE,
+    /**
+     * Adds events to the queue.
+     */
     ADD,
+
+    /**
+     * Negates the event that fired this flag.
+     */
     CANCEL,
+
+    /**
+     * Acts as both an ADD and CANCEL; it first removes the event
+     * that fired this flag, then adds events to the queue.
+     */
     REPLACE
 }

@@ -1,8 +1,6 @@
 package entity;
 
 import event.*;
-import grid.Grid;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,21 +45,6 @@ public final class EnemyGenerator {
                 return new SapientAI((SapientAI)c);
             } else if(c instanceof BrilliantAI) {
                 return new BrilliantAI((BrilliantAI)c);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * TODO: slow.
-     * @param id
-     * @return
-     */
-    public static Combatant getEnemyById(int id) {
-        for(Combatant value : nameToCombatant.values()) {
-            if(value.getId() == id) {
-                return getEnemyByName(value.getName());
             }
         }
 

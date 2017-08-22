@@ -79,8 +79,8 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 		contentSwitch.progressDialogueTree();
 	}
 
-	public boolean isDialogueEnded() {
-		return contentSwitch.isDialogueEnded();
+	public boolean canDialogueContinue() {
+		return !contentSwitch.isDialogueEnded();
 	}
 	
 	/**

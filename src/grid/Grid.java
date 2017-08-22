@@ -52,7 +52,13 @@ public class Grid {
 	public Grid(FocusComponent fc) {
 		int DEFAULT_DIMENSION = 20;
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
-		this.map = new EmptyShipGenerator().generateGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
+
+		for(int x = 0; x < DEFAULT_DIMENSION; x++) {
+			for(int y = 0; y < DEFAULT_DIMENSION; y++) {
+				map[y][x] = new Tile('.');
+			}
+		}
+
 		this.gridCenter = new GridFocus(0, 0);
 
 		this.name = "<NO TITLE>";

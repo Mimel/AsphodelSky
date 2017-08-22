@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/FocusGrid.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/IdSearchableGrid.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/grid/TileGrid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/control/ASControl.java" afterPath="$PROJECT_DIR$/src/control/ASControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/Display.java" afterPath="$PROJECT_DIR$/src/display/Display.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/Act.java" afterPath="$PROJECT_DIR$/src/entity/Act.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/AnimalisticAI.java" afterPath="$PROJECT_DIR$/src/entity/AnimalisticAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/BrilliantAI.java" afterPath="$PROJECT_DIR$/src/entity/BrilliantAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/Combatant.java" afterPath="$PROJECT_DIR$/src/entity/Combatant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/MindlessAI.java" afterPath="$PROJECT_DIR$/src/entity/MindlessAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/OperationAI.java" afterPath="$PROJECT_DIR$/src/entity/OperationAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/Player.java" afterPath="$PROJECT_DIR$/src/entity/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/SapientAI.java" afterPath="$PROJECT_DIR$/src/entity/SapientAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/UnderdevelopedAI.java" afterPath="$PROJECT_DIR$/src/entity/UnderdevelopedAI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/EventQueue.java" afterPath="$PROJECT_DIR$/src/event/EventQueue.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/Instruction.java" afterPath="$PROJECT_DIR$/src/event/Instruction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/event/SimpleEvent.java" afterPath="$PROJECT_DIR$/src/event/SimpleEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/FocusRange.java" afterPath="$PROJECT_DIR$/src/grid/FocusRange.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/EnemyRoster.java" afterPath="$PROJECT_DIR$/src/entity/EnemyRoster.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/CatalogGrid.java" afterPath="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/CombatantGrid.java" afterPath="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/FocusGrid.java" afterPath="$PROJECT_DIR$/src/grid/FocusGrid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/grid/Grid.java" afterPath="$PROJECT_DIR$/src/grid/Grid.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -53,67 +39,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FocusGrid.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/grid/FocusGrid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-              <folding>
-                <element signature="e#251#252#0" expanded="true" />
-                <element signature="e#279#280#0" expanded="true" />
-                <element signature="e#343#344#0" expanded="true" />
-                <element signature="e#370#371#0" expanded="true" />
-                <element signature="e#437#438#0" expanded="true" />
-                <element signature="e#464#465#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Instruction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/event/Instruction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="53" column="66" lean-forward="false" selection-start-line="53" selection-start-column="66" selection-end-line="53" selection-end-column="66" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnemyRoster.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/EnemyRoster.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CatalogGrid.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/grid/CatalogGrid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="680">
+              <caret line="41" column="27" lean-forward="false" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
               <folding>
-                <element signature="e#275#276#0" expanded="true" />
-                <element signature="e#303#304#0" expanded="true" />
-                <element signature="e#367#368#0" expanded="true" />
-                <element signature="e#394#395#0" expanded="true" />
-                <element signature="e#461#462#0" expanded="true" />
-                <element signature="e#488#489#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#289#290#0" expanded="true" />
+                <element signature="e#333#334#0" expanded="true" />
+                <element signature="e#412#413#0" expanded="true" />
+                <element signature="e#470#471#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#594#595#0" expanded="true" />
+                <element signature="e#658#659#0" expanded="true" />
+                <element signature="e#713#714#0" expanded="true" />
+                <element signature="e#780#781#0" expanded="true" />
+                <element signature="e#838#839#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#917#918#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,15 +67,52 @@
         <entry file="file://$PROJECT_DIR$/src/grid/CombatantGrid.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
-              <caret line="31" column="0" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="26" />
+              <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
               <folding>
-                <element signature="e#286#287#0" expanded="true" />
-                <element signature="e#314#315#0" expanded="true" />
-                <element signature="e#380#381#0" expanded="true" />
-                <element signature="e#407#408#0" expanded="true" />
-                <element signature="e#476#477#0" expanded="true" />
-                <element signature="e#503#504#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#926#927#0" expanded="true" />
+                <element signature="e#994#995#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FocusGrid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/grid/FocusGrid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridFocus.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/grid/GridFocus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="26" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IdSearchableGrid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/grid/IdSearchableGrid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,8 +123,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -199,9 +180,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/display/GUIComponent.java" />
-        <option value="$PROJECT_DIR$/src/display/GUISidebar.java" />
-        <option value="$PROJECT_DIR$/src/display/GUIFocus.java" />
         <option value="$PROJECT_DIR$/dialogue/TestLine.dat" />
         <option value="$PROJECT_DIR$/src/dialogue/DialogueParser.java" />
         <option value="$PROJECT_DIR$/src/control/ASControl.java" />
@@ -247,9 +225,12 @@
         <option value="$PROJECT_DIR$/src/grid/CombatantCells.java" />
         <option value="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
         <option value="$PROJECT_DIR$/src/grid/Grid.java" />
-        <option value="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
-        <option value="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/TileGrid.java" />
         <option value="$PROJECT_DIR$/src/grid/FocusGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/IdSearchableGrid.java" />
+        <option value="$PROJECT_DIR$/src/entity/EnemyRoster.java" />
+        <option value="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
       </list>
     </option>
   </component>
@@ -258,7 +239,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1426" />
+    <option name="width" value="1462" />
     <option name="height" value="1197" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -605,13 +586,6 @@
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
     </task>
-    <task id="LOCAL-00010" summary="Starting instruction set for events.">
-      <created>1497680361493</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1497680361493</updated>
-    </task>
     <task id="LOCAL-00011" summary="Added untested bodies to EventQueue and Event classes.">
       <created>1497775279011</created>
       <option name="number" value="00011" />
@@ -948,7 +922,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503428145396</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Implemented Grid&lt;T&gt; and implementor skeletons.">
+      <created>1503433342643</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1503433342643</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TodoView">
@@ -961,7 +942,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1426" height="1197" extended-state="0" />
+    <frame x="-7" y="0" width="1462" height="1197" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18181819" sideWeight="0.46481878" order="6" side_tool="false" content_ui="tabs" />
@@ -970,15 +951,15 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20735155" sideWeight="0.3951528" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19779208" sideWeight="0.4087137" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="top" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6772429" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20633398" sideWeight="0.6048472" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19779208" sideWeight="0.5912863" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24703558" sideWeight="0.48081023" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22902922" sideWeight="0.4936034" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15273775" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14661135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15642995" sideWeight="0.7188694" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31765833" sideWeight="0.47839832" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15938166" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1039,7 +1020,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Revised focusing on grid, fixed issue where descriptions would not show initially on command press." />
     <MESSAGE value="Events now return a string, which is forwarded to the Message Manager. Incredibly buggy, but the framework is made up." />
     <MESSAGE value="Optimized Response String formatting." />
     <MESSAGE value="Various Cleanup, Added Event[] as return type for AI" />
@@ -1064,7 +1044,8 @@
     <MESSAGE value="Integrated Flag System into gameplay (Though, in serious need of refactoring in several places)" />
     <MESSAGE value="Removed Generator class." />
     <MESSAGE value="Various refactoring." />
-    <option name="LAST_COMMIT_MESSAGE" value="Various refactoring." />
+    <MESSAGE value="Implemented Grid&lt;T&gt; and implementor skeletons." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Grid&lt;T&gt; and implementor skeletons." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1081,21 +1062,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Switch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="48" column="26" lean-forward="true" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/javatuples-1.2.jar!/org/javatuples/Pair.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
@@ -1313,14 +1279,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/GridFocus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -1450,6 +1408,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/EnemyRoster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/TileGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+          <folding>
+            <element signature="e#310#311#0" expanded="true" />
+            <element signature="e#348#349#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#436#437#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/CompositeGrid.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
@@ -1460,64 +1441,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/EnemyRoster.java">
+    <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="272">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
+    <entry file="file://$PROJECT_DIR$/src/grid/IdSearchableGrid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+        <state relative-caret-position="136">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/CatalogGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="41" column="27" lean-forward="false" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#333#334#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#470#471#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#658#659#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#780#781#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/CombatantGrid.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="26" />
+          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding>
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#314#315#0" expanded="true" />
-            <element signature="e#380#381#0" expanded="true" />
-            <element signature="e#407#408#0" expanded="true" />
-            <element signature="e#476#477#0" expanded="true" />
-            <element signature="e#503#504#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/CatalogGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#275#276#0" expanded="true" />
-            <element signature="e#303#304#0" expanded="true" />
-            <element signature="e#367#368#0" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#461#462#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#926#927#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/FocusGrid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding>
-            <element signature="e#251#252#0" expanded="true" />
-            <element signature="e#279#280#0" expanded="true" />
-            <element signature="e#343#344#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#464#465#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/GridFocus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="26" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

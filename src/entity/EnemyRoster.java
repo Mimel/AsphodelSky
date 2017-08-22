@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * A group of enemies.
+ * TODO: Remove; duplicative with CombatantGrid.
  */
 public class EnemyRoster {
 

@@ -4,6 +4,7 @@ package grid;
  * Created by Owner on 8/22/2017.
  */
 public class FocusGrid implements Grid<Boolean> {
+
     @Override
     public void placeOccupant(Boolean occupant, int x, int y) {
 

@@ -15,7 +15,7 @@ public class Display extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Grid component, based on the left side of the window between the header and footer.
+	 * CompositeGrid component, based on the left side of the window between the header and footer.
 	 */
 	private GUIFocus gc;
 	

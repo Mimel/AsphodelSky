@@ -4,7 +4,7 @@ import comm.MessageManager;
 import entity.Combatant;
 import entity.Player;
 import event.*;
-import grid.Grid;
+import grid.CompositeGrid;
 import grid.Tile;
 import item.Item;
 
@@ -17,14 +17,14 @@ import java.awt.event.ActionEvent;
 public class DisplayKeyBindings {
 
     private static PromptManager promptManager;
-    private static Grid grid;
+    private static CompositeGrid grid;
     private static Player p1;
     private static MessageManager messageManager;
     /**
      * Creates keybinds for the game.
      * @param game The GUI.
      */
-    public static void initKeyBinds(Display game, Grid grid, Player p1, MessageManager mm, EventQueue eq) {
+    public static void initKeyBinds(Display game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
 
         DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;

@@ -54,27 +54,27 @@ public class ASControl {
 		EventQueue eq = new EventQueue();
 		
 		//PLAYGROUND TEMPORARY
-		Grid grid = new Grid(game.getFocus());
+		CompositeGrid compositeGrid = new CompositeGrid(game.getFocus());
 
-		grid.addCombatant(p1, 1, 1);
-		grid.bindFocusToPlayer();
+		compositeGrid.addCombatant(p1, 1, 1);
+		compositeGrid.bindFocusToPlayer();
 
-		grid.addItem("Cardiotic Fluid", 4, 4);
-		grid.addItem("Cardiotic Fluid", 4, 5);
-		grid.addItem("Solution of Finesse", 3, 4);
-		grid.addItem("Solution of Finesse", 5, 5);
+		compositeGrid.addItem("Cardiotic Fluid", 4, 4);
+		compositeGrid.addItem("Cardiotic Fluid", 4, 5);
+		compositeGrid.addItem("Solution of Finesse", 3, 4);
+		compositeGrid.addItem("Solution of Finesse", 5, 5);
 		for(int y = 2; y < 12; y++) {
-			grid.addItem("Solution of Finesse", 3, y);
+			compositeGrid.addItem("Solution of Finesse", 3, y);
 		}
 
-		eq.progressTimeBy(5, grid);
+		eq.progressTimeBy(5, compositeGrid);
 
-		grid.addCombatant("Khweiri Dervish", 6, 6);
+		compositeGrid.addCombatant("Khweiri Dervish", 6, 6);
 
 		game.repaint();
 		//END PLAYGROUND
 
-		DisplayKeyBindings.initKeyBinds(game, grid, p1, mm, eq);
+		DisplayKeyBindings.initKeyBinds(game, compositeGrid, p1, mm, eq);
 		gameWindow.pack();
 		
 		gameWindow.setVisible(true);

@@ -2,7 +2,7 @@ package event;
 
 import dialogue.DialogueParser;
 import dialogue.Statement;
-import grid.Grid;
+import grid.CompositeGrid;
 
 import java.util.*;
 
@@ -112,7 +112,7 @@ public class EventQueue {
      * @param timeOffset The amount of time to progress.
      * @return The new time.
      */
-    public List<String> progressTimeBy(int timeOffset, Grid gr) {
+    public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
         List<String> messagesList = new ArrayList<>();
         while(timeOffset > 0) {
             if(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
@@ -131,7 +131,7 @@ public class EventQueue {
      * @param gr The grid to affect.
      * @return The entire set of event messages that occured.
      */
-    public List<String> progressTimeInstantaneous(Grid gr) {
+    public List<String> progressTimeInstantaneous(CompositeGrid gr) {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
             Opcode op = eventQueue.peek().getOperation();

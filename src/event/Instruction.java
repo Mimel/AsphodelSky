@@ -1,6 +1,6 @@
 package event;
 
-import grid.Grid;
+import grid.CompositeGrid;
 import item.Item;
 import org.javatuples.Pair;
 
@@ -20,7 +20,7 @@ public class Instruction
     /**
      * A map that connects strings to their associated operation.
      */
-    private static Map<Opcode, TriFunction<InstructionData, Grid, ResponseDetails>> instructionSet;
+    private static Map<Opcode, TriFunction<InstructionData, CompositeGrid, ResponseDetails>> instructionSet;
 
     /**
      * Private constructor used to prevent instantiation.
@@ -97,7 +97,7 @@ public class Instruction
      * @param data The instruction data to execute the instruction with.
      * @param gr The grid to impose the operation on.
      */
-    static String execute(Opcode opcode, InstructionData data, Grid gr) {
+    static String execute(Opcode opcode, InstructionData data, CompositeGrid gr) {
         if(instructionSet.containsKey(opcode)) {
 
             ResponseDetails rd = instructionSet.get(opcode).apply(data, gr);

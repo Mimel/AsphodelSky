@@ -1,7 +1,7 @@
 package entity;
 
 import event.SimpleEvent;
-import grid.Grid;
+import grid.CompositeGrid;
 
 /**
  * A class of enemies that share the "Mindless" intelligence. Their associated algorithms from OperationAI are the 'dumbest'
@@ -16,7 +16,7 @@ public class MindlessAI extends Combatant {
         super(mai);
     }
 
-    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useMindless(this, time, gr);
     }
 }

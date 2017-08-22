@@ -1,7 +1,7 @@
 package entity;
 
 import event.SimpleEvent;
-import grid.Grid;
+import grid.CompositeGrid;
 
 /**
  * A class of enemies that share the "Underdeveloped" intelligence. Their associated algorithms from OperationAI are more 'smart' than
@@ -17,7 +17,7 @@ public class UnderdevelopedAI extends Combatant {
         super(uai);
     }
 
-    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useUnderdeveloped(this, time, gr);
     }
 }

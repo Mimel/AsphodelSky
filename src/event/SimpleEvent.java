@@ -1,6 +1,6 @@
 package event;
 
-import grid.Grid;
+import grid.CompositeGrid;
 
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
@@ -89,7 +89,7 @@ public class SimpleEvent extends Event<Opcode> {
      * Executes the instruction in this event.
      * @param gr The grid to impose the instruction on.
      */
-    String execute(Grid gr) {
+    String execute(CompositeGrid gr) {
         return Instruction.execute(getOperation(), new InstructionData(this), gr);
     }
 

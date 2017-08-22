@@ -1,7 +1,7 @@
 package entity;
 
 import event.SimpleEvent;
-import grid.Grid;
+import grid.CompositeGrid;
 
 /**
  * A class of enemies that share the "Brilliant" intelligence. Their associated algorithms from OperationAI are the
@@ -16,7 +16,7 @@ public class BrilliantAI extends Combatant {
         super(bai);
     }
 
-    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useBrilliant(this, time, gr);
     }
 }

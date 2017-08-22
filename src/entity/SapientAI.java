@@ -1,7 +1,7 @@
 package entity;
 
 import event.SimpleEvent;
-import grid.Grid;
+import grid.CompositeGrid;
 
 /**
  * A class of enemies that share the "Sapient" intelligence. Their associated algorithms from OperationAI are more 'smart' than
@@ -16,7 +16,7 @@ public class SapientAI extends Combatant {
         super(sai);
     }
 
-    public SimpleEvent[] act(OperationAI opai, int time, Grid gr) {
+    public SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useSapient(this, time, gr);
     }
 }

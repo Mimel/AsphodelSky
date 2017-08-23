@@ -1,9 +1,11 @@
 package grid;
 
+import java.util.Iterator;
+
 /**
  * Created by Owner on 8/22/2017.
  */
-public class FocusGrid implements Grid<Boolean> {
+public class FocusGrid implements Grid<Boolean, Object> {
 
     @Override
     public void placeOccupant(Boolean occupant, int x, int y) {
@@ -28,5 +30,15 @@ public class FocusGrid implements Grid<Boolean> {
     @Override
     public void clearGrid() {
 
+    }
+
+    @Override
+    public Grid<Boolean, Object> subGrid(int x, int y, int width, int height) {
+        return null;
+    }
+
+    @Override
+    public Iterator<Object> iterator() {
+        return null;
     }
 }

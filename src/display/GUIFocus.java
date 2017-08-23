@@ -2,8 +2,11 @@ package display;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Map;
 
-import grid.Tile;
+import entity.Combatant;
+import grid.*;
+import item.Catalog;
 import item.Item;
 
 /**
@@ -18,6 +21,10 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 	 * this exactly reflects the grid that is in the control.
 	 */
 	private Tile[][] grid;
+
+	private Iterable<Tile[]> tiles;
+	private Iterable<Map.Entry<Point, Combatant>> actors;
+	private Iterable<Map.Entry<Point, Catalog>> catalogs;
 
 	private int gridFocusX;
 	private int gridFocusY;
@@ -37,15 +44,18 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 	 */
 	public GUIFocus(int x, int y, int w, int h, int sqsize) {
 		super(x, y, w, h);
-		
+
 		this.squareSize = sqsize;
 
 		selectedMode = FocusMode.PLAYER_FOCUS;
 	}
 	
 	@Override
-	public void updateGrid(Tile[][] grid, int xFocus, int yFocus) {
-		this.grid = grid;
+	public void updateGrid(Iterable<Tile[]> tileGrid, Iterable<Map.Entry<Point, Combatant>> combatantGrid, Iterable<Map.Entry<Point, Catalog>> catalogGrid, int xFocus, int yFocus) {
+		this.tiles = tileGrid;
+		this.actors = combatantGrid;
+		this.catalogs = catalogGrid;
+
 		this.gridFocusX = xFocus;
 		this.gridFocusY = yFocus;
 	}
@@ -58,38 +68,36 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect(0, 0, width, height);
 		
-		if(grid != null) {
+		if(tiles != null) {
 			Tile currentTile;
 			Item currentItem;
 
-			//Draws the base grid.
-			for(int y = 0; y < grid.length; y++) {
-				for(int x = 0; x < grid[y].length; x++) {
-					currentTile = grid[y][x];
-					
-					g.drawImage(ImageAssets.getTerrainImage(currentTile.getTerrain()), x*squareSize, y*squareSize, null);
-					
-					//Player, Enemies.
-					if(currentTile.getOccupant() != null) {
-						if(currentTile.getOccupant().getId() == 0) {
-							g.setColor(new Color(0, 200, 100));
-							g.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
-						} else {
-							g.drawImage(ImageAssets.getCharImage(currentTile.getOccupant().getName()), x*squareSize, y*squareSize, null);
-						}	
-					}
-					
-					//Items.
-					if(!currentTile.getCatalog().isEmpty()) {
-						currentItem = currentTile.getCatalog().getItems().get(0);
-						g.drawImage(ImageAssets.getItemImage(currentItem.getName()), x*squareSize, y*squareSize, null);
-					}
-					
-					//Focus crosshair, if used.
-					if((selectedMode == FocusMode.SELECTION) && (x == gridFocusX) && (y == gridFocusY)) {
-						g.drawImage(ImageAssets.getMiscImage('+'), x*squareSize, y*squareSize, null);
-					}
+			int x = 0;
+			for(Tile[] line: tiles) {
+				for(int y = 0; y < line.length; y++) {
+
+					g.drawImage(ImageAssets.getTerrainImage(line[y].getTerrain()), x*squareSize, y*squareSize, null);
 				}
+				x++;
+			}
+
+			for(Map.Entry<Point, Combatant> combatant : actors) {
+				Point loc = combatant.getKey();
+				if(combatant.getValue().getId() == 0) {
+					g.setColor(new Color(0, 200, 100));
+					g.fillRect(loc.x() * squareSize, loc.y() * squareSize, squareSize, squareSize);
+				} else {
+					g.drawImage(ImageAssets.getCharImage(combatant.getValue().getName()), loc.x()*squareSize, loc.y()*squareSize, null);
+				}
+			}
+
+			for(Map.Entry<Point, Catalog> catalog : catalogs) {
+				Point loc = catalog.getKey();
+				g.drawImage(ImageAssets.getItemImage(catalog.getValue().getFocusedItem().getName()), loc.x()*squareSize, loc.y()*squareSize, null);
+			}
+
+			if(selectedMode == FocusMode.SELECTION) {
+				g.drawImage(ImageAssets.getMiscImage('+'), gridFocusX*squareSize, gridFocusY*squareSize, null);
 			}
 		}
 	}

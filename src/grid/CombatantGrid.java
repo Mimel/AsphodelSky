@@ -4,12 +4,13 @@ import entity.Combatant;
 import org.javatuples.Pair;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Created by Owner on 8/22/2017.
  */
-public class CombatantGrid implements IdSearchableGrid<Combatant> {
+public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> {
     /**
      * Map that maps coordinates to the combatant located at that set of coordinates.
      */
@@ -68,5 +69,21 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
     public void clearGrid() {
         coordToOccupant.clear();
         idToCoord.clear();
+    }
+
+    @Override
+    public Grid<Combatant, Map.Entry<Point, Combatant>> subGrid(int x, int y, int width, int height) {
+        Grid<Combatant, Map.Entry<Point, Combatant>> subGrid = new CombatantGrid();
+        for(Point p : coordToOccupant.keySet()) {
+            if(p.x() >= x && p.x() < x + width && p.y() >= y && p.y() < y + height) {
+                subGrid.placeOccupant(coordToOccupant.get(p), p.x(), p.y());
+            }
+        }
+        return subGrid;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return coordToOccupant.entrySet().iterator();
     }
 }

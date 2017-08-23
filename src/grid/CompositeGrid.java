@@ -5,6 +5,8 @@ import entity.Combatant;
 import item.Catalog;
 import item.Item;
 
+import java.util.Map;
+
 /**
  * A map of the game, containing a set of tiles and all objects within.
  * 
@@ -20,11 +22,11 @@ import item.Item;
  */
 public class CompositeGrid {
 	//TODO TESTING
-	private Grid<Tile> tiles;
+	private Grid<Tile, Tile[]> tiles;
 
-	private IdSearchableGrid<Combatant> actors;
+	private IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> actors;
 
-	private Grid<Catalog> catalogs;
+	private Grid<Catalog, Map.Entry<Point, Catalog>> catalogs;
 
 	/**
 	 * The current map of the game.
@@ -107,20 +109,18 @@ public class CompositeGrid {
 		
 		int xStart = xFocus - width/2;
 		int yStart = yFocus - height/2;
-		
+
 		if(xStart < 0) { xStart = 0; }
 		else if(xStart > map[yFocus].length - width) { xStart = map[yFocus].length - width; }
-		
+
 		if(yStart < 0) { yStart = 0; }
 		else if(yStart > map.length - height) { yStart = map.length - height; }
 		
-		Tile[][] truncatedMap = new Tile[width][height];
-
-		for(int y = 0; y < height; y++) {
-			System.arraycopy(map[yStart + y], xStart, truncatedMap[y], 0, width);
-		}
+		Iterable<Tile[]> subTiles = tiles.subGrid(xStart, yStart, width, height);
+		Iterable<Map.Entry<Point, Combatant>> subActors = actors.subGrid(xStart, yStart, width, height);
+		Iterable<Map.Entry<Point, Catalog>> subCatalogs = catalogs.subGrid(xStart, yStart, width, height);
 		
-		gridOutput.updateGrid(truncatedMap, xFocus - xStart, yFocus - yStart);
+		gridOutput.updateGrid(subTiles, subActors, subCatalogs, xFocus - xStart, yFocus - yStart);
 	}
 
 	public Tile getFocusedTile() {

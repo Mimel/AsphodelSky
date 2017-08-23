@@ -3,7 +3,7 @@ package grid;
 /**
  * A series of objects T and associated coordinates.
  */
-interface Grid<T> {
+public interface Grid<T, U> extends Iterable<U> {
 
     void placeOccupant(T occupant, int x, int y);
 
@@ -14,4 +14,6 @@ interface Grid<T> {
     T removeOccupantAt(int x, int y);
 
     void clearGrid();
+
+    Grid<T, U> subGrid(int x, int y, int width, int height);
 }

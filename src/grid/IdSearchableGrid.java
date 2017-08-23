@@ -6,5 +6,7 @@ package grid;
 public interface IdSearchableGrid<T> extends Grid<T> {
     T getOccupantById(int id);
 
+    Point getLocationById(int id);
+
     T removeOccuapantById(int id);
 }

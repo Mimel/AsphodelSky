@@ -18,8 +18,8 @@ public class TileGrid implements Grid<Tile> {
     }
 
     @Override
-    public boolean isOccupied(int x, int y) {
-        return true;
+    public boolean canOccupy(int x, int y) {
+        return (x >= 0 && y >= 0 && x < tiles.length && y < tiles[x].length);
     }
 
     @Override

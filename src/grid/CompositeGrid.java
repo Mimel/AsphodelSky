@@ -2,11 +2,8 @@ package grid;
 
 import display.FocusComponent;
 import entity.Combatant;
-import entity.EnemyGenerator;
-import entity.EnemyRoster;
 import item.Catalog;
 import item.Item;
-import org.javatuples.Pair;
 
 /**
  * A map of the game, containing a set of tiles and all objects within.
@@ -22,6 +19,12 @@ import org.javatuples.Pair;
  * @author Matt Imel
  */
 public class CompositeGrid {
+	//TODO TESTING
+	private Grid<Tile> tiles;
+
+	private IdSearchableGrid<Combatant> actors;
+
+	private Grid<Catalog> catalogs;
 
 	/**
 	 * The current map of the game.
@@ -34,11 +37,6 @@ public class CompositeGrid {
 	private String name;
 
 	private GridFocus gridCenter;
-
-	/**
-	 * The set of enemies on this level.
-	 */
-	private EnemyRoster roster;
 	
 	/**
 	 * The output of the grid.
@@ -50,6 +48,11 @@ public class CompositeGrid {
 	 */
 	public CompositeGrid(FocusComponent fc) {
 		int DEFAULT_DIMENSION = 20;
+
+		tiles = new TileGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
+		actors = new CombatantGrid();
+		catalogs = new CatalogGrid();
+
 		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
 
 		for(int x = 0; x < DEFAULT_DIMENSION; x++) {
@@ -63,8 +66,6 @@ public class CompositeGrid {
 		this.name = "<NO TITLE>";
 
 		this.gridOutput = fc;
-
-		this.roster = new EnemyRoster();
 	}
 	
 	/**
@@ -79,8 +80,6 @@ public class CompositeGrid {
 		this.name = name;
 
 		this.gridOutput = fc;
-
-		this.roster = new EnemyRoster();
 	}
 
 	public String getName() {
@@ -137,10 +136,10 @@ public class CompositeGrid {
 
 	public void bindFocusToPlayer() {
 		int playerId = 0;
-		if(roster.getCombatant(playerId) != null) {
+		if(actors.getOccupantById(playerId) != null) {
 			gridCenter.bindToCombatant(playerId);
-			gridCenter.setxPosition(roster.getCombatantLocation(playerId).getValue0());
-			gridCenter.setyPosition(roster.getCombatantLocation(playerId).getValue1());
+			gridCenter.setxPosition(actors.getLocationById(playerId).x());
+			gridCenter.setyPosition(actors.getLocationById(playerId).y());
 		}
 	}
 
@@ -156,77 +155,34 @@ public class CompositeGrid {
 	 * @return The tile if it can be found, or null if it can't.
 	 */
 	public Tile getTileAt(int x, int y) {
-		if(y >= 0 && y < map.length && x >= 0 && x < map[y].length) {
-			return map[y][x];
-		} else {
-			return null;
-		}	
-	}
-
-	/**
-	 * Adds a combatant onto the grid.
-	 * @param name The name of the combatant.
-	 * @param x The x-coordinate to place the combatant on.
-	 * @param y The y-coordinate to place the combatant on.
-	 */
-	public void addCombatant(String name, int x, int y) {
-		if(isValidLocation(x, y) && map[y][x].canOccupy() && !map[y][x].isOccupied()) {
-			Combatant c = EnemyGenerator.getEnemyByName(name);
-			map[y][x].fillOccupant(c);
-			roster.addCombatant(x, y, name);
-		}
+		return tiles.getOccupantAt(x, y);
 	}
 
 	public void addCombatant(Combatant c, int x, int y) {
-		if(isValidLocation(x, y) && map[y][x].canOccupy() && !map[y][x].isOccupied()) {
-			map[y][x].fillOccupant(c);
-			roster.addCombatant(x, y, c);
+		if(tiles.canOccupy(x, y) && actors.canOccupy(x, y)) {
+			actors.placeOccupant(c, x, y);
 		}
 	}
 
-	public int getXOfCombatant(int id) {
-		return roster.getCombatantLocation(id).getValue0();
-	}
-
-	public int getYOfCombatant(int id) {
-		return roster.getCombatantLocation(id).getValue1();
-	}
-
-	/**
-	 * Attempts to move an entity from one tile to another.
-	 * @param x The X-coordinate of the tile the entity is occupying.
-	 * @param y The Y-coordinate of the tile the entity is occupying.
-	 * @param newX The X-shift where the entity will go.
-	 * @param newY The Y-shift where the entity will go.
-	 */
-	public void moveCombatant(int x, int y, int newX, int newY) {
-		if(isValidLocation(x, y) && isValidLocation(newX, newY)) {
-			if(map[y][x].isOccupied() && map[newY][newX].canOccupy() &&!map[newY][newX].isOccupied()) {
-				Combatant c = map[y][x].vacateOccupant();
-				map[newY][newX].fillOccupant(c);
-				roster.moveCombatant(x, y, newX, newY);
-
-				if(gridCenter.isBoundToCombatant() && gridCenter.getFocusedCombatantId() == c.getId()) {
-					gridCenter.setxPosition(newX);
-					gridCenter.setyPosition(newY);
-				}
-			}
-		}
+	public Point getLocationOfCombatant(int id) {
+		return actors.getLocationById(id);
 	}
 
 	/**
 	 * Moves the combatant with given id to a new location on the grid given by the
 	 * coordinates given.
 	 * @param id The id of the combatant to move.
-	 * @param newX The X-coordinate to move the combatant to.
-	 * @param newY The Y-coordinate to move the combatant to.
+	 * @param xOffset The X-amount to shift the combatant by.
+	 * @param yOffset The Y-amount to shift the combatant by.
 	 */
-	public void moveCombatant(int id, int newX, int newY) {
-		if(isValidLocation(newX, newY) && map[newY][newX].canOccupy() && !map[newY][newX].isOccupied()) {
-			Pair<Integer, Integer> coords = roster.getCombatantLocation(id);
-			Combatant c = map[coords.getValue1()][coords.getValue0()].vacateOccupant();
-			map[newY][newX].fillOccupant(c);
-			roster.moveCombatant(id, newX, newY);
+	public void moveCombatant(int id, int xOffset, int yOffset) {
+		Point loc = actors.getLocationById(id);
+		int newX = loc.x() + xOffset;
+		int newY = loc.y() + yOffset;
+
+		if(tiles.canOccupy(newX, newY) && actors.canOccupy(newX, newY)) {
+			Combatant c = actors.removeOccuapantById(id);
+			actors.placeOccupant(c, newX, newY);
 
 			if(gridCenter.isBoundToCombatant() && gridCenter.getFocusedCombatantId() == id) {
 				gridCenter.setxPosition(newX);
@@ -240,24 +196,8 @@ public class CompositeGrid {
 	 * @param id The id to look up.
 	 * @return The entity if it can be found, or null if it can't.
 	 */
-	public Combatant searchForOccupant(int id) {
-		return roster.getCombatant(id);
-	}
-
-	/**
-	 * Adds an item to the given tile.
-	 * @param itemName The item to add.
-	 * @param x The x-coordinate of the tile to add the item.
-	 * @param y The y-coordinate of the tile to add the item.
-	 * @return True if the item was successfully added, false otherwise.
-	 */
-	public boolean addItem(String itemName, int x, int y) {
-		if(isValidLocation(x, y)) {
-			map[y][x].getCatalog().insertItem(Item.getItem(itemName));
-			return true;
-		}
-
-		return false;
+	public Combatant getOccupant(int id) {
+		return actors.getOccupantById(id);
 	}
 
 	/**
@@ -276,14 +216,18 @@ public class CompositeGrid {
 		return false;
 	}
 
+	public Catalog getItemsOnTile(int x, int y) {
+		return catalogs.getOccupantAt(x, y);
+	}
+
 	/**
 	 * Gets the catalog located on the tile that the given combatant is occupying.
 	 * @param combatantId The id of the combatant.
 	 * @return The catalog of the tile that the combatant is occupying.
 	 */
 	public Catalog getItemsOnTile(int combatantId) {
-		Pair<Integer, Integer> coords = roster.getCombatantLocation(combatantId);
-		return map[coords.getValue1()][coords.getValue0()].getCatalog();
+		Point loc = actors.getLocationById(combatantId);
+		return catalogs.getOccupantAt(loc.x(), loc.y());
 	}
 
 	/**
@@ -293,14 +237,16 @@ public class CompositeGrid {
 	 * @param y The y-coordinate of the tile to remove the item from.
 	 */
 	public void removeItem(int itemId, int x, int y) {
-		if(isValidLocation(x, y)) {
-			map[y][x].getCatalog().consumeItem(itemId);
+		Catalog c;
+		if((c = catalogs.getOccupantAt(x, y)) != null) {
+			c.consumeItem(itemId);
 		}
 	}
 
 	public void removeItem(int itemId, int numberToRemove, int x, int y) {
-		if(isValidLocation(x, y)) {
-			map[y][x].getCatalog().consumeItem(itemId, numberToRemove);
+		Catalog c;
+		if((c = catalogs.getOccupantAt(x, y)) != null) {
+			c.consumeItem(itemId, numberToRemove);
 		}
 	}
 

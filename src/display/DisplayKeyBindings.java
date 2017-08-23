@@ -88,7 +88,7 @@ public class DisplayKeyBindings {
                     }
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
-                    grid.moveCombatant(0, grid.getXOfCombatant(0) + xOffset, grid.getYOfCombatant(0) + yOffset);
+                    grid.moveCombatant(0, xOffset, yOffset);
                     eq.progressTimeBy(1, grid);
 
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
@@ -109,8 +109,8 @@ public class DisplayKeyBindings {
 
                 switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
-                        eq.getPendingEvent().setItemID(grid.searchForOccupant(0).getInventory().getFocusedItem().getId());
-                        grid.searchForOccupant(0).getInventory().resetFocusIndex();
+                        eq.getPendingEvent().setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
+                        grid.getOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
                         eq.getPendingEvent().setTile(grid.getXFocus(), grid.getYFocus());
@@ -211,7 +211,9 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
                     eq.createPendingEvent(0, CompoundOpcode.NO_OP);
-                    grid.setFocusedTile(grid.getXOfCombatant(0), grid.getYOfCombatant(0));
+
+                    //TODO FIX
+                    grid.setFocusedTile(1, 1);
 
                     updateOutput();
                     game.repaint();

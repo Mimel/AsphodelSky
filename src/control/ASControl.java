@@ -59,17 +59,7 @@ public class ASControl {
 		compositeGrid.addCombatant(p1, 1, 1);
 		compositeGrid.bindFocusToPlayer();
 
-		compositeGrid.addItem("Cardiotic Fluid", 4, 4);
-		compositeGrid.addItem("Cardiotic Fluid", 4, 5);
-		compositeGrid.addItem("Solution of Finesse", 3, 4);
-		compositeGrid.addItem("Solution of Finesse", 5, 5);
-		for(int y = 2; y < 12; y++) {
-			compositeGrid.addItem("Solution of Finesse", 3, y);
-		}
-
 		eq.progressTimeBy(5, compositeGrid);
-
-		compositeGrid.addCombatant("Khweiri Dervish", 6, 6);
 
 		game.repaint();
 		//END PLAYGROUND

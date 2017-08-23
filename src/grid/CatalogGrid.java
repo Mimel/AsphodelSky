@@ -23,8 +23,8 @@ public class CatalogGrid implements Grid<Catalog> {
     }
 
     @Override
-    public boolean isOccupied(int x, int y) {
-        return catalogMap.containsKey(new Pair<>(x, y));
+    public boolean canOccupy(int x, int y) {
+        return !catalogMap.containsKey(new Pair<>(x, y));
     }
 
     @Override

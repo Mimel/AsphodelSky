@@ -13,12 +13,12 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
     /**
      * Map that maps coordinates to the combatant located at that set of coordinates.
      */
-    private Map<Pair<Integer, Integer>, Combatant> coordToOccupant;
+    private Map<Point, Combatant> coordToOccupant;
 
     /**
      * Map that maps the id of the combatant to the location of that combatant.
      */
-    private Map<Integer, Pair<Integer, Integer>> idToCoord;
+    private Map<Integer, Point> idToCoord;
 
     CombatantGrid() {
         coordToOccupant = new HashMap<>();
@@ -27,18 +27,18 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
 
     @Override
     public void placeOccupant(Combatant occupant, int x, int y) {
-        coordToOccupant.put(new Pair<>(x, y), occupant);
-        idToCoord.put(occupant.getId(), new Pair<>(x, y));
+        coordToOccupant.put(new Point(x, y), occupant);
+        idToCoord.put(occupant.getId(), new Point(x, y));
     }
 
     @Override
-    public boolean isOccupied(int x, int y) {
-        return coordToOccupant.containsKey(new Pair<>(x, y));
+    public boolean canOccupy(int x, int y) {
+        return !coordToOccupant.containsKey(new Point(x, y));
     }
 
     @Override
     public Combatant getOccupantAt(int x, int y) {
-        return coordToOccupant.get(new Pair<>(x, y));
+        return coordToOccupant.get(new Point(x, y));
     }
 
     @Override
@@ -47,15 +47,20 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
     }
 
     @Override
+    public Point getLocationById(int id) {
+        return idToCoord.get(id);
+    }
+
+    @Override
     public Combatant removeOccupantAt(int x, int y) {
-        Combatant c = coordToOccupant.remove(new Pair<>(x, y));
+        Combatant c = coordToOccupant.remove(new Point(x, y));
         idToCoord.remove(c.getId());
         return c;
     }
 
     @Override
     public Combatant removeOccuapantById(int id) {
-        Pair<Integer, Integer> coords = idToCoord.remove(id);
+        Point coords = idToCoord.remove(id);
         return coordToOccupant.remove(coords);
     }
 

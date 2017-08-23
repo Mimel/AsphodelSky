@@ -11,7 +11,7 @@ public class FocusGrid implements Grid<Boolean> {
     }
 
     @Override
-    public boolean isOccupied(int x, int y) {
+    public boolean canOccupy(int x, int y) {
         return false;
     }
 

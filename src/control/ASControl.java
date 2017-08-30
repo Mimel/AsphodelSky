@@ -57,6 +57,10 @@ public class ASControl {
 		CompositeGrid compositeGrid = new CompositeGrid(game.getFocus());
 
 		compositeGrid.addCombatant(p1, 1, 1);
+		compositeGrid.bindTo(0);
+
+		compositeGrid.addItem(0, 4, 4);
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), 3, 3);
 
 		eq.progressTimeBy(5, compositeGrid);
 

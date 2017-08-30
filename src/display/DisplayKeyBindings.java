@@ -114,6 +114,7 @@ public class DisplayKeyBindings {
                         break;
                     case TILE_PROMPT:
                         eq.getPendingEvent().setTile(grid.getFocus().x(), grid.getFocus().y());
+                        grid.bindTo(0);
                         break;
                     case DIALOGUE_PROMPT:
                         if(game.getFooter().canDialogueContinue()) {
@@ -186,7 +187,7 @@ public class DisplayKeyBindings {
                     eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
                             .withCasterID(0)
                             .withTargetID(0)
-                            .withItemID(grid.getFocusedTile().getCatalog().getFocusedItem().getId()));
+                            .withItemID(grid.getFocusedCatalog().getFocusedItem().getId()));
 
                     mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
 
@@ -357,6 +358,7 @@ public class DisplayKeyBindings {
                     }
                     break;
                 case TILE_PROMPT:
+                    grid.unbind();
                     break;
             }
             promptManager.enqueuePrompt(prompt);
@@ -378,11 +380,11 @@ public class DisplayKeyBindings {
                 messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
             case TILE_PROMPT:
-                if (grid.getFocusedTile().getOccupant() != null) {
-                    Combatant o = grid.getFocusedTile().getOccupant();
+                if (grid.getFocusedCombatant() != null) {
+                    Combatant o = grid.getFocusedCombatant();
                     messageManager.loadSourceDescPair(o.toString(), o.getDesc());
-                } else if (!grid.getFocusedTile().getCatalog().isEmpty()) {
-                    Item i = grid.getFocusedTile().getCatalog().getFocusedItem();
+                } else if (!(grid.getFocusedCatalog() == null)) {
+                    Item i = grid.getFocusedCatalog().getFocusedItem();
                     messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
                 } else {
                     Tile t = grid.getFocusedTile();

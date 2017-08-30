@@ -29,6 +29,9 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 	private int gridFocusX;
 	private int gridFocusY;
 
+	private int offsetX;
+	private int offsetY;
+
 	/**
 	 * The size of each individual square when it is drawn, in pixels.
 	 */
@@ -51,13 +54,16 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 	}
 	
 	@Override
-	public void updateGrid(Iterable<Tile[]> tileGrid, Iterable<Map.Entry<Point, Combatant>> combatantGrid, Iterable<Map.Entry<Point, Catalog>> catalogGrid, int xFocus, int yFocus) {
+	public void updateGrid(Iterable<Tile[]> tileGrid, Iterable<Map.Entry<Point, Combatant>> combatantGrid, Iterable<Map.Entry<Point, Catalog>> catalogGrid, int xFocus, int yFocus, int offsetX, int offsetY) {
 		this.tiles = tileGrid;
 		this.actors = combatantGrid;
 		this.catalogs = catalogGrid;
 
 		this.gridFocusX = xFocus;
 		this.gridFocusY = yFocus;
+
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 	
 	/**
@@ -85,19 +91,21 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 				Point loc = combatant.getKey();
 				if(combatant.getValue().getId() == 0) {
 					g.setColor(new Color(0, 200, 100));
-					g.fillRect(loc.x() * squareSize, loc.y() * squareSize, squareSize, squareSize);
+					g.fillRect((loc.x() - offsetX) * squareSize, (loc.y() - offsetY) * squareSize, squareSize, squareSize);
 				} else {
-					g.drawImage(ImageAssets.getCharImage(combatant.getValue().getName()), loc.x()*squareSize, loc.y()*squareSize, null);
+					g.drawImage(ImageAssets.getCharImage(combatant.getValue().getName()), (loc.x() - offsetX)*squareSize, (loc.y() - offsetY)*squareSize, null);
 				}
 			}
 
 			for(Map.Entry<Point, Catalog> catalog : catalogs) {
-				Point loc = catalog.getKey();
-				g.drawImage(ImageAssets.getItemImage(catalog.getValue().getFocusedItem().getName()), loc.x()*squareSize, loc.y()*squareSize, null);
+				if(!catalog.getValue().isEmpty()) {
+					Point loc = catalog.getKey();
+					g.drawImage(ImageAssets.getItemImage(catalog.getValue().getFocusedItem().getName()), (loc.x() - offsetX)*squareSize, (loc.y() - offsetY)*squareSize, null);
+				}
 			}
 
 			if(selectedMode == FocusMode.SELECTION) {
-				g.drawImage(ImageAssets.getMiscImage('+'), gridFocusX*squareSize, gridFocusY*squareSize, null);
+				g.drawImage(ImageAssets.getMiscImage('+'), (gridFocusX - offsetX)*squareSize, (gridFocusY - offsetY)*squareSize, null);
 			}
 		}
 	}

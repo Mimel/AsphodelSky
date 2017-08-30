@@ -33,6 +33,10 @@ class GridFocus {
         focalPoint = new Point(newX, newY);
     }
 
+    void setFocus(Point p) {
+        focalPoint = p;
+    }
+
     Combatant getFocusedCombatant() {
         return combatantView.getOccupantAt(focalPoint.x(), focalPoint.y());
     }

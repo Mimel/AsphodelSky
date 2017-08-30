@@ -29,16 +29,13 @@ public class CompositeGrid {
 	private Grid<Catalog, Map.Entry<Point, Catalog>> catalogs;
 
 	/**
-	 * The current map of the game.
-	 */
-	private Tile[][] map;
-
-	/**
 	 * The name of the map.
 	 */
 	private String name;
 
 	private GridFocus gridCenter;
+
+	private final Point MAX_BOUNDS;
 	
 	/**
 	 * The output of the grid.
@@ -49,19 +46,11 @@ public class CompositeGrid {
 	 * Creates an empty grid with default dimensions.
 	 */
 	public CompositeGrid(FocusComponent fc) {
-		int DEFAULT_DIMENSION = 20;
+		MAX_BOUNDS = new Point(20, 20);
 
-		tiles = new TileGrid(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
+		tiles = new TileGrid(MAX_BOUNDS.x(), MAX_BOUNDS.y());
 		actors = new CombatantGrid();
 		catalogs = new CatalogGrid();
-
-		this.map = new Tile[DEFAULT_DIMENSION][DEFAULT_DIMENSION];
-
-		for(int x = 0; x < DEFAULT_DIMENSION; x++) {
-			for(int y = 0; y < DEFAULT_DIMENSION; y++) {
-				map[y][x] = new Tile('.');
-			}
-		}
 
 		this.gridCenter = new GridFocus(0, 0, actors, catalogs, tiles);
 
@@ -93,10 +82,10 @@ public class CompositeGrid {
 		int yStart = yFocus - height/2;
 
 		if(xStart < 0) { xStart = 0; }
-		else if(xStart > map[yFocus].length - width) { xStart = map[yFocus].length - width; }
+		else if(xStart > MAX_BOUNDS.x() - width) { xStart = MAX_BOUNDS.x() - width; }
 
 		if(yStart < 0) { yStart = 0; }
-		else if(yStart > map.length - height) { yStart = map.length - height; }
+		else if(yStart > MAX_BOUNDS.y() - height) { yStart = MAX_BOUNDS.y() - height; }
 		
 		Iterable<Tile[]> subTiles = tiles.subGrid(xStart, yStart, width, height);
 		Iterable<Map.Entry<Point, Combatant>> subActors = actors.subGrid(xStart, yStart, width, height);
@@ -163,15 +152,14 @@ public class CompositeGrid {
 	 * @param itemId The id of the item to spawn.
 	 * @param x The X-coordinate of the tile to spawn the item in.
 	 * @param y The Y-coordinate of the tile to spawn the item in.
-	 * @return True if the item was successfully placed, false otherwise.
 	 */
-	public boolean addItem(int itemId, int x, int y) {
+	public void addItem(int itemId, int x, int y) {
 		if(isValidLocation(x, y)) {
-			map[y][x].getCatalog().insertItem(Item.getItemById(itemId), 1);
-			return true;
+			if(catalogs.getOccupantAt(x, y) == null) {
+				catalogs.placeOccupant(new Catalog(), x, y);
+			}
+			catalogs.getOccupantAt(x, y).insertItem(Item.getItemById(itemId), 1);
 		}
-
-		return false;
 	}
 
 	public Catalog getItemsOnTile(int x, int y) {
@@ -230,14 +218,14 @@ public class CompositeGrid {
 	 * @return True if the location exists on the grid, false otherwise.
 	 */
 	private boolean isValidLocation(int xCoord, int yCoord) {
-		return xCoord >= 0 && yCoord >= 0 && yCoord < map.length && xCoord < map[yCoord].length;
+		return xCoord >= 0 && yCoord >= 0 && yCoord < MAX_BOUNDS.y() && xCoord < MAX_BOUNDS.x();
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		for (Tile[] row : map) {
+		for (Tile[] row : tiles) {
 			for (Tile space : row) {
 				sb.append(space.getTerrain());
 			}

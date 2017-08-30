@@ -135,43 +135,12 @@ public class Tile {
 	public String getDesc() { return description; }
 	public Combatant getOccupant() { return occupant; }
 	public Catalog getCatalog() { return catalog; }
-	
+
 	/**
 	 * Checks if the Traversible bit in the flags byte is on; if so, then the tile can be occupied.
 	 * @return True if the tile can be occupied, false if not.
 	 */
 	public boolean canOccupy() {
 		return (flags & 0b10000000) != 0;
-	}
-
-	boolean isOccupied() {
-		return occupant != null;
-	}
-	
-	/**
-	 * Removes the occupant from a tile.
-	 * @return The occupant.
-	 */
-	public Combatant vacateOccupant() {
-		Combatant temp = occupant;
-		occupant = null;
-		return temp;
-	}
-	
-	/**
-	 * Attempts to place an occupant in an empty tile. If there is already an occupant in the tile,
-	 * The operation fails.
-	 * 
-	 * @param newOccupant The new occupant.
-	 * @return True if the occupant is successfully inserted, false if not.
-	 */
-	public boolean fillOccupant(Combatant newOccupant) {
-		//If the tile is can be traversed, and there is no occupant...
-		if(canOccupy() && occupant == null) {
-			occupant = newOccupant;
-			return true;
-		} else {
-			return false;
-		}
 	}
 }

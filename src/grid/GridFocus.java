@@ -1,64 +1,47 @@
 package grid;
 
+import entity.Combatant;
+import item.Catalog;
+
+import java.util.Map;
+
 /**
  * The focus of the grid.
  */
-public class GridFocus {
-    private int xPosition;
+class GridFocus {
 
-    private int yPosition;
+    private Point focalPoint;
 
-    private FocusRange rangeOfSelection;
+    private Grid<Combatant, Map.Entry<Point, Combatant>> combatantView;
 
-    private boolean boundToCombatant;
+    private Grid<Catalog, Map.Entry<Point, Catalog>> itemView;
 
-    private int combatantIdFocus;
+    private Grid<Tile, Tile[]> tileView;
 
-    GridFocus(int x, int y) {
-        this.xPosition = x;
-        this.yPosition = y;
-        this.boundToCombatant = false;
-        this.combatantIdFocus = 0;
+    GridFocus(int x, int y, Grid<Combatant, Map.Entry<Point, Combatant>> combatantView, Grid<Catalog, Map.Entry<Point, Catalog>> itemView, Grid<Tile, Tile[]> tileView) {
+        this.focalPoint = new Point(x, y);
+        this.combatantView = combatantView;
+        this.itemView = itemView;
+        this.tileView = tileView;
     }
 
-    int getxPosition() {
-        return xPosition;
+    Point getFocus() {
+        return focalPoint;
     }
 
-    void setxPosition(int xPosition) {
-        this.xPosition = xPosition;
+    void setFocus(int newX, int newY) {
+        focalPoint = new Point(newX, newY);
     }
 
-    int getyPosition() {
-        return yPosition;
+    Combatant getFocusedCombatant() {
+        return combatantView.getOccupantAt(focalPoint.x(), focalPoint.y());
     }
 
-    void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
+    Tile getFocusedTile() {
+        return tileView.getOccupantAt(focalPoint.x(), focalPoint.y());
     }
 
-    public FocusRange getRangeOfSelection() {
-        return rangeOfSelection;
-    }
-
-    public void setRangeOfSelection(FocusRange rangeOfSelection) {
-        this.rangeOfSelection = rangeOfSelection;
-    }
-
-    boolean isBoundToCombatant() {
-        return boundToCombatant;
-    }
-
-    void bindToCombatant(int combatantId) {
-        combatantIdFocus = combatantId;
-        boundToCombatant = true;
-    }
-
-    void unbind() {
-        boundToCombatant = false;
-    }
-
-    int getFocusedCombatantId() {
-        return combatantIdFocus;
+    Catalog getFocusedCatalog() {
+        return itemView.getOccupantAt(focalPoint.x(), focalPoint.y());
     }
 }

@@ -63,23 +63,9 @@ public class CompositeGrid {
 			}
 		}
 
-		this.gridCenter = new GridFocus(0, 0);
+		this.gridCenter = new GridFocus(0, 0, actors, catalogs, tiles);
 
 		this.name = "<NO TITLE>";
-
-		this.gridOutput = fc;
-	}
-	
-	/**
-	 * Creates an empty grid with set dimensions.
-	 * @param height The height of the grid.
-	 * @param width The width of the grid.
-	 */
-	public CompositeGrid(String name, int height, int width, FocusComponent fc) {
-		this.map = new Tile[width][height];
-		this.gridCenter = new GridFocus(0, 0);
-
-		this.name = name;
 
 		this.gridOutput = fc;
 	}
@@ -88,12 +74,8 @@ public class CompositeGrid {
 		return name;
 	}
 
-	public int getXFocus() {
-		return gridCenter.getxPosition();
-	}
-
-	public int getYFocus() {
-		return gridCenter.getyPosition();
+	public Point getFocus() {
+		return gridCenter.getFocus();
 	}
 	
 	/**
@@ -104,8 +86,8 @@ public class CompositeGrid {
 	 * @param height The height of the tile array to draw.
 	 */
 	public void updateGrid(int width, int height) {
-		int xFocus = gridCenter.getxPosition();
-		int yFocus = gridCenter.getyPosition();
+		int xFocus = gridCenter.getFocus().x();
+		int yFocus = gridCenter.getFocus().y();
 		
 		int xStart = xFocus - width/2;
 		int yStart = yFocus - height/2;
@@ -124,28 +106,9 @@ public class CompositeGrid {
 	}
 
 	public Tile getFocusedTile() {
-		return map[gridCenter.getyPosition()][gridCenter.getxPosition()];
+		return gridCenter.getFocusedTile();
 	}
 
-	public void setFocusedTile(int newX, int newY) {
-		if(isValidLocation(newX, newY)) {
-			gridCenter.setxPosition(newX);
-			gridCenter.setyPosition(newY);
-		}
-	}
-
-	public void bindFocusToPlayer() {
-		int playerId = 0;
-		if(actors.getOccupantById(playerId) != null) {
-			gridCenter.bindToCombatant(playerId);
-			gridCenter.setxPosition(actors.getLocationById(playerId).x());
-			gridCenter.setyPosition(actors.getLocationById(playerId).y());
-		}
-	}
-
-	public void unbindFocus() {
-		gridCenter.unbind();
-	}
 	
 	/**
 	 * Attempts to get a tile within the map at the specified coordinates.
@@ -183,11 +146,6 @@ public class CompositeGrid {
 		if(tiles.canOccupy(newX, newY) && actors.canOccupy(newX, newY)) {
 			Combatant c = actors.removeOccuapantById(id);
 			actors.placeOccupant(c, newX, newY);
-
-			if(gridCenter.isBoundToCombatant() && gridCenter.getFocusedCombatantId() == id) {
-				gridCenter.setxPosition(newX);
-				gridCenter.setyPosition(newY);
-			}
 		}
 	}
 	
@@ -258,11 +216,10 @@ public class CompositeGrid {
 	 * @param yOffset The Y-shift where the entity will go.
 	 */
 	public void shiftFocus(int xOffset, int yOffset) {
-		int newxPosition = gridCenter.getxPosition() + xOffset;
-		int newyPosition = gridCenter.getyPosition() + yOffset;
+		int newxPosition = gridCenter.getFocus().x() + xOffset;
+		int newyPosition = gridCenter.getFocus().y() + yOffset;
 		if(isValidLocation(newxPosition, newyPosition)) {
-			gridCenter.setxPosition(newxPosition);
-			gridCenter.setyPosition(newyPosition);
+			gridCenter.setFocus(newxPosition, newyPosition);
 		}
 	}
 	

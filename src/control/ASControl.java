@@ -57,7 +57,6 @@ public class ASControl {
 		CompositeGrid compositeGrid = new CompositeGrid(game.getFocus());
 
 		compositeGrid.addCombatant(p1, 1, 1);
-		compositeGrid.bindFocusToPlayer();
 
 		eq.progressTimeBy(5, compositeGrid);
 

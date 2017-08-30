@@ -113,8 +113,7 @@ public class DisplayKeyBindings {
                         grid.getOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
-                        eq.getPendingEvent().setTile(grid.getXFocus(), grid.getYFocus());
-                        grid.bindFocusToPlayer();
+                        eq.getPendingEvent().setTile(grid.getFocus().x(), grid.getFocus().y());
                         break;
                     case DIALOGUE_PROMPT:
                         if(game.getFooter().canDialogueContinue()) {
@@ -148,7 +147,6 @@ public class DisplayKeyBindings {
                     //Undo initialization.
                     switch(promptManager.peekPrompt()) {
                         case TILE_PROMPT:
-                            grid.bindFocusToPlayer();
                             break;
                     }
 
@@ -157,8 +155,6 @@ public class DisplayKeyBindings {
                     } else {
                         switch(promptManager.requeuePrompt()) {
                             case TILE_PROMPT:
-                                grid.bindFocusToPlayer();
-                                grid.unbindFocus();
                                 break;
                         }
                     }
@@ -174,7 +170,6 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(!promptManager.isPromptQueueEmpty()) {
                     promptManager.clearPromptQueue();
-                    grid.bindFocusToPlayer();
 
                     updateOutput();
                     game.repaint();
@@ -211,9 +206,6 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
                     eq.createPendingEvent(0, CompoundOpcode.NO_OP);
-
-                    //TODO FIX
-                    grid.setFocusedTile(1, 1);
 
                     updateOutput();
                     game.repaint();
@@ -365,7 +357,6 @@ public class DisplayKeyBindings {
                     }
                     break;
                 case TILE_PROMPT:
-                    grid.unbindFocus();
                     break;
             }
             promptManager.enqueuePrompt(prompt);

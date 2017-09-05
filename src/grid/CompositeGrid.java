@@ -33,11 +33,11 @@ public class CompositeGrid {
 	 */
 	private String name;
 
+	private Point focalPoint;
+
 	private boolean isBoundToCombatant;
 
 	private int boundId;
-
-	private GridFocus gridCenter;
 
 	private final Point MAX_BOUNDS;
 	
@@ -56,9 +56,8 @@ public class CompositeGrid {
 		actors = new CombatantGrid();
 		catalogs = new CatalogGrid();
 
-		this.gridCenter = new GridFocus(0, 0, actors, catalogs, tiles);
-
 		this.name = "<NO TITLE>";
+		this.focalPoint = new Point(0,0);
 		this.isBoundToCombatant = false;
 		this.boundId = 0;
 
@@ -70,11 +69,7 @@ public class CompositeGrid {
 	}
 
 	public Point getFocus() {
-		return gridCenter.getFocus();
-	}
-
-	public boolean isBound() {
-		return isBoundToCombatant;
+		return focalPoint;
 	}
 
 	public void unbind() {
@@ -85,20 +80,20 @@ public class CompositeGrid {
 		if(actors.getOccupantById(id) != null) {
 			boundId = id;
 			isBoundToCombatant = true;
-			gridCenter.setFocus(actors.getLocationById(id));
+			focalPoint = new Point(actors.getLocationById(id));
 		}
 	}
 
 	public Catalog getFocusedCatalog() {
-		return gridCenter.getFocusedCatalog();
+		return catalogs.getOccupantAt(focalPoint.x(), focalPoint.y());
 	}
 
 	public Combatant getFocusedCombatant() {
-		return gridCenter.getFocusedCombatant();
+		return actors.getOccupantAt(focalPoint.x(), focalPoint.y());
 	}
 
 	public Tile getFocusedTile() {
-		return gridCenter.getFocusedTile();
+		return tiles.getOccupantAt(focalPoint.x(), focalPoint.y());
 	}
 	
 	/**
@@ -109,8 +104,8 @@ public class CompositeGrid {
 	 * @param height The height of the tile array to draw.
 	 */
 	public void updateGrid(int width, int height) {
-		int xFocus = gridCenter.getFocus().x();
-		int yFocus = gridCenter.getFocus().y();
+		int xFocus = focalPoint.x();
+		int yFocus = focalPoint.y();
 		
 		int xStart = xFocus - width/2;
 		int yStart = yFocus - height/2;
@@ -166,7 +161,7 @@ public class CompositeGrid {
 			actors.placeOccupant(c, newX, newY);
 
 			if(isBoundToCombatant && boundId == id) {
-				gridCenter.setFocus(newX, newY);
+				focalPoint = new Point(newX, newY);
 			}
 		}
 	}
@@ -237,11 +232,11 @@ public class CompositeGrid {
 	 * @param yOffset The Y-shift where the entity will go.
 	 */
 	public void shiftFocus(int xOffset, int yOffset) {
-		int newxPosition = gridCenter.getFocus().x() + xOffset;
-		int newyPosition = gridCenter.getFocus().y() + yOffset;
+		int newxPosition = focalPoint.x() + xOffset;
+		int newyPosition = focalPoint.y() + yOffset;
 		if(isValidLocation(newxPosition, newyPosition)) {
 			isBoundToCombatant = false;
-			gridCenter.setFocus(newxPosition, newyPosition);
+			focalPoint = new Point(newxPosition, newyPosition);
 		}
 	}
 	

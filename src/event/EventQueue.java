@@ -83,8 +83,9 @@ public class EventQueue {
      */
     public void addEvent(SimpleEvent e) {
         if(e.getTriggerDelay() >= 0) {
-            e.setTriggerDelay(e.getTriggerDelay() + time);
-            eventQueue.add(e);
+            SimpleEvent dup = new SimpleEvent(e);
+            dup.setTriggerDelay(time + dup.getTriggerDelay());
+            eventQueue.add(dup);
         }
     }
 

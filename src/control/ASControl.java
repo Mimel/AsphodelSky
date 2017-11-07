@@ -62,8 +62,6 @@ public class ASControl {
 		compositeGrid.addItem(0, 4, 4);
 		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), 3, 3);
 
-		eq.progressTimeBy(5, compositeGrid);
-
 		game.repaint();
 		//END PLAYGROUND
 

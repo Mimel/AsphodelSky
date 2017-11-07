@@ -130,7 +130,7 @@ public abstract class Combatant implements Entity {
 	}
 
 	/**
-	 * Deep-copies a combatant. Copying a combatant does not raise the id.
+	 * Deep-copies a combatant. Copying a combatant raises the id.
 	 * @param c The combatant to copy.
 	 */
 	Combatant(Combatant c) {
@@ -153,7 +153,10 @@ public abstract class Combatant implements Entity {
 
 		this.inventory = new Catalog();
 		//TODO Change from shallow to deep copy.
-		this.eventTriggerList = c.getFlagList();
+		this.eventTriggerList = new ArrayList<>();
+		for(Flag f : c.getFlagList()) {
+			this.eventTriggerList.add(new Flag(f, this.id));
+		}
 	}
 	
 	/**

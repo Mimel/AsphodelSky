@@ -37,7 +37,29 @@ public class Flag {
         this.actionOnTrigger = triggerAction;
         eventsAddedOnTrigger = new ArrayList<>();
         eventRedirections = new ArrayList<>();
+        //TODO ? only one addAll, none for redirections? Test.
         Collections.addAll(eventsAddedOnTrigger, triggerEvents);
+    }
+
+    /**
+     * Copy constructor that takes a flag list and copies everything verbatim,
+     * except for the ID of the caster.
+     * @param f The flag to copy.
+     * @param newCID The new caster ID.
+     */
+    public Flag(Flag f, int newCID) {
+        this.eventTrigger = f.eventTrigger;
+        this.actionOnTrigger = f.actionOnTrigger;
+        eventsAddedOnTrigger = new ArrayList<>();
+        eventRedirections = new ArrayList<>();
+
+        for(SimpleEvent se : f.eventsAddedOnTrigger) {
+            SimpleEvent dup = new SimpleEvent(se);
+            dup.setCasterID(newCID);
+            this.eventsAddedOnTrigger.add(dup);
+        }
+
+        this.eventRedirections.addAll(f.eventRedirections);
     }
 
     public void addEventToFlag(SimpleEvent eventToAdd, FlagRedirectLocation eventDirection) {

@@ -40,7 +40,7 @@ public class ASControl {
 		threadList.execute(mm);
 
 		//TODO: p1 must be instantiated before enemy map loading in order to ensure that p1 has id 0; fix.
-		Player p1 = new Player("Place Holder", "Apprentice", 16, 22, game.getSidebar());
+		Player p1 = new Player("Place Holder", "Apprentice", 47, 22, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();

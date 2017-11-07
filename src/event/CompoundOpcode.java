@@ -22,4 +22,11 @@ public enum CompoundOpcode {
      * Spawns the same item of the same quantity on the space given.
      */
     DROP_ITEM,
+
+    /**
+     * Attacks with the default attack.
+     * All weapon effects are procced.
+     *
+     */
+    BASIC_ATTACK
 }

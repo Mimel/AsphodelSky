@@ -256,13 +256,35 @@ public class DisplayKeyBindings {
             }
         };
 
+        //TODO: Double check flag entries; delays are off.
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.COMBATANT_ADJUSTHP)
                         .withCasterID(0)
-                        .withTargetID(3)
+                        .withTargetID(2)
                         .withSecondary(-6));
+
+                eq.progressTimeInstantaneous(grid);
+                updateOutput();
+                game.repaint();
+            }
+        };
+
+        Action basic_attack = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
+
+        Action talk = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
+                .withCasterID(0)
+                .withTargetID(2)
+                .withSecondary(252));
 
                 eq.progressTimeInstantaneous(grid);
                 updateOutput();
@@ -301,6 +323,8 @@ public class DisplayKeyBindings {
         game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('c'), "moveSE");
         game.getActionMap().put("moveSE", move);
 
+        ///// OPTION COMMANDS /////
+
         //ENTER = yes.
         game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ENTER"), "confirm");
         game.getActionMap().put("confirm", confirm);
@@ -312,6 +336,8 @@ public class DisplayKeyBindings {
         //BACK_SPACE = go to default.
         game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("BACK_SPACE"), "go_to_default");
         game.getActionMap().put("go_to_default", go_to_default);
+
+        ///// NEUTRAL COMMANDS /////
 
         //G = Get.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
@@ -332,6 +358,18 @@ public class DisplayKeyBindings {
         //T = Toss.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('t'), "toss");
         game.getActionMap().put("toss", toss);
+
+        ///// FRIENDLY COMMANDS /////
+
+        //V = Voice.
+        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('l'), "voice");
+        game.getActionMap().put("voice", talk);
+
+        ///// HOSTILE COMMANDS /////
+
+        //F = Fight.
+        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('f'), "fight");
+        game.getActionMap().put("fight", basic_attack);
 
         //J = TESTING FUNCTION.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('j'), "test");

@@ -6,15 +6,30 @@ import java.util.List;
 
 /**
  * A Flag represents a trigger that interacts with an event queue whenever a specific Opcode is called from the queue.
- * Whenever a glag is used, it will remove the calling Opcode and/or inject more predefined operations into the queue.
+ * Whenever a flag is used, it will remove the calling Opcode and/or inject more predefined operations into the queue.
  */
 public class Flag {
+    /**
+     * The event that will trigger this flag.
+     */
     private Opcode eventTrigger;
 
+    /**
+     * The action to do when the flag is triggered.
+     */
     private FlagType actionOnTrigger;
 
+    /**
+     * The list of events to inject in the queue, if any exist.
+     */
     private List<SimpleEvent> eventsAddedOnTrigger;
 
+    /**
+     * The target of the events in the eventsAddedOnTrigger list.
+     * This and the eventsAddedOnTrigger list form an associative array, where
+     * index 0 refers to the redirection imparted on the event at index 0
+     * in the eventsAddedOnTrigger variable.
+     */
     private List<FlagRedirectLocation> eventRedirections;
 
     public Flag(Opcode trigger, FlagType triggerAction, SimpleEvent... triggerEvents) {

@@ -110,7 +110,8 @@ public class EventQueue {
      * Increments the time by the specified time, executing all events in order that exist before the
      * new time. TODO: test.
      * @param timeOffset The amount of time to progress.
-     * @return The new time.
+     * @param gr The grid environment.
+     * @return The set of messages received from the events.
      */
     public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
         List<String> messagesList = new ArrayList<>();

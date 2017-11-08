@@ -1,7 +1,6 @@
 package event;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,13 +31,11 @@ public class Flag {
      */
     private List<FlagRedirectLocation> eventRedirections;
 
-    public Flag(Opcode trigger, FlagType triggerAction, SimpleEvent... triggerEvents) {
+    public Flag(Opcode trigger, FlagType triggerAction) {
         this.eventTrigger = trigger;
         this.actionOnTrigger = triggerAction;
         eventsAddedOnTrigger = new ArrayList<>();
         eventRedirections = new ArrayList<>();
-        //TODO ? only one addAll, none for redirections? Test.
-        Collections.addAll(eventsAddedOnTrigger, triggerEvents);
     }
 
     /**

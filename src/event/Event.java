@@ -3,6 +3,8 @@ package event;
 /**
  * Describes an event that can be executed, either by executing a raw instruction (see SimpleEvent)
  * or by returning a set of Events (see CompoundEvent).
+ *
+ * The A wildcard refers to an enum, which refers to the set of opcodes to use.
  */
 public class Event<A> {
     /**
@@ -16,6 +18,9 @@ public class Event<A> {
      */
     private int priority;
 
+    /**
+     * An operation to perform, from a given set of operations A.
+     */
     private A operation;
 
     private int casterID;

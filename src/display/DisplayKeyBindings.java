@@ -4,6 +4,7 @@ import comm.MessageManager;
 import entity.Combatant;
 import entity.Player;
 import event.*;
+import event.EventQueue;
 import grid.CompositeGrid;
 import grid.Tile;
 import item.Item;
@@ -256,7 +257,6 @@ public class DisplayKeyBindings {
             }
         };
 
-        //TODO: Double check flag entries; delays are off.
         Action test = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -281,14 +281,21 @@ public class DisplayKeyBindings {
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
-                .withCasterID(0)
-                .withTargetID(2)
-                .withSecondary(252));
+                if(addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT)) {
+                    // These two instructions load a dialogue tree into the EventQueue.
+                    eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
+                            .withCasterID(0)
+                            .withTargetID(2)
+                            .withSecondary(252));
+                    //Acts as a buffer (?!) TODO: Needs update.
+                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
+                    eq.progressTimeInstantaneous(grid);
 
-                eq.progressTimeInstantaneous(grid);
-                updateOutput();
-                game.repaint();
+                    game.getFooter().insertDialogue(eq.getPendingDialogueTree());
+
+                    updateOutput();
+                    game.repaint();
+                }
             }
         };
 

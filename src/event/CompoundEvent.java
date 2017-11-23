@@ -14,6 +14,16 @@ public class CompoundEvent extends Event<CompoundOpcode> {
         super(time, priority, mo);
     }
 
+    public CompoundEvent(CompoundEvent ce) {
+        super(ce.getTriggerDelay(), ce.getPriority(), ce.getOperation());
+        this.setCasterID(ce.getCasterID());
+        this.setTargetID(ce.getTargetID());
+        this.setItemID(ce.getItemID());
+        this.setSkillID(ce.getSkillID());
+        this.setTile(ce.getTileX(), ce.getTileY());
+        this.setSecondary(ce.getSecondary());
+    }
+
     private SimpleEvent copyInfoToSimpleEvent(Opcode op) {
         return (SimpleEvent) new SimpleEvent(getTriggerDelay(), getPriority(), op)
                 .withCasterID(getCasterID())

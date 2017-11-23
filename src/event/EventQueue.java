@@ -22,6 +22,11 @@ public class EventQueue {
     private Queue<SimpleEvent> eventQueue;
 
     /**
+     * A priority queue of all Compound Events, which will be injected into the eventQueue.
+     */
+    private Queue<CompoundEvent> injectionQueue;
+
+    /**
      * An event that will eventually be added to the queue.
      */
     private CompoundEvent pendingEvent;
@@ -33,8 +38,9 @@ public class EventQueue {
     public EventQueue() {
         this.time = 0;
 
-        Comparator<SimpleEvent> c = new EventComparator();
+        Comparator<Event> c = new EventComparator();
         this.eventQueue = new PriorityQueue<>(20, c);
+        this.injectionQueue = new PriorityQueue<>(20, c);
 
         dialogueTreePending = false;
     }
@@ -47,16 +53,12 @@ public class EventQueue {
         return time;
     }
 
-    public void createPendingEvent(int priority, CompoundOpcode mo) {
-        pendingEvent = new CompoundEvent(0, priority, mo);
-    }
-
-    public CompoundEvent getPendingEvent() {
-        return pendingEvent;
-    }
-
-    public void executePendingEvent() {
-        addEvents(pendingEvent.decomposeMacroEvent());
+    public void createInjection(CompoundEvent ce) {
+        if(ce.getTriggerDelay() >= 0) {
+            CompoundEvent dup = new CompoundEvent(ce);
+            dup.setTriggerDelay(time + dup.getTriggerDelay());
+            injectionQueue.add(dup);
+        }
     }
 
     public Statement getPendingDialogueTree() {
@@ -116,7 +118,11 @@ public class EventQueue {
      */
     public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
         List<String> messagesList = new ArrayList<>();
-        while(timeOffset > 0) {
+        while(timeOffset >= 0) {
+            while(!injectionQueue.isEmpty() && injectionQueue.peek().getTriggerDelay() == time) {
+                eventQueue.addAll(injectionQueue.poll().decomposeMacroEvent());
+            }
+
             if(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
                 messagesList.addAll(progressTimeInstantaneous(gr));
             }

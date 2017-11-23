@@ -21,6 +21,7 @@ public class DisplayKeyBindings {
     private static CompositeGrid grid;
     private static Player p1;
     private static MessageManager messageManager;
+    private static CompoundEvent pendingInjection;
     /**
      * Creates keybinds for the game.
      * @param game The GUI.
@@ -110,11 +111,11 @@ public class DisplayKeyBindings {
 
                 switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
-                        eq.getPendingEvent().setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
+                        pendingInjection.setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
                         grid.getOccupant(0).getInventory().resetFocusIndex();
                         break;
                     case TILE_PROMPT:
-                        eq.getPendingEvent().setTile(grid.getFocus().x(), grid.getFocus().y());
+                        pendingInjection.setTile(grid.getFocus().x(), grid.getFocus().y());
                         grid.bindTo(0);
                         break;
                     case DIALOGUE_PROMPT:
@@ -126,8 +127,8 @@ public class DisplayKeyBindings {
                 }
 
                 if(promptManager.isPromptQueueEmpty()) {
-                    eq.executePendingEvent();
-                    eq.progressTimeInstantaneous(grid);
+                    eq.createInjection(pendingInjection);
+                    eq.progressTimeBy(0, grid);
 
                     if(eq.isDialogueTreePending()) {
                         addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
@@ -207,7 +208,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
 
                     updateOutput();
                     game.repaint();
@@ -221,7 +222,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
 
                     updateOutput();
                     game.repaint();
@@ -235,7 +236,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.USE_ITEM);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.USE_ITEM);
 
                     updateOutput();
                     game.repaint();
@@ -249,7 +250,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    eq.createPendingEvent(0, CompoundOpcode.DROP_ITEM);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.DROP_ITEM);
 
                     updateOutput();
                     game.repaint();
@@ -288,7 +289,7 @@ public class DisplayKeyBindings {
                             .withTargetID(2)
                             .withSecondary(252));
                     //Acts as a buffer (?!) TODO: Needs update.
-                    eq.createPendingEvent(0, CompoundOpcode.NO_OP);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
                     eq.progressTimeInstantaneous(grid);
 
                     game.getFooter().insertDialogue(eq.getPendingDialogueTree());
@@ -428,7 +429,7 @@ public class DisplayKeyBindings {
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();
                     messageManager.loadSourceDescPair(o.toString(), o.getDesc());
-                } else if (!(grid.getFocusedCatalog() == null)) {
+                } else if (!(grid.getFocusedCatalog() == null) && !grid.getFocusedCatalog().isEmpty()) {
                     Item i = grid.getFocusedCatalog().getFocusedItem();
                     messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
                 } else {

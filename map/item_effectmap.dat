@@ -1,10 +1,10 @@
 Cardiotic Fluid
 Crimson flakes seem to levitate in this unpleasantly oily concoction.
 Restores a small amount of health.
-COMBATANT_ADJUSTHP(0,353) ~sec=-4;
+COMBATANT_ADJUSTHP(0,353) ~sec=-12;
 !END
 Solution of Finesse
 Something.
 Something.
-COMBATANT_ADJUSTHP(0,200) ~sec=3;
+COMBATANT_ADJUSTHP(0,200) ~sec=-3;
 !END

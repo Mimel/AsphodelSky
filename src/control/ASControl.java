@@ -50,6 +50,8 @@ public class ASControl {
 		Instruction.loadInstructionSet();
 		Response.loadResponseTable("map/responsemap.dat");
 
+		p1.getInventory().insertItem(Item.getItemById(0), 1);
+
 		//Initializing SimpleEvent Queue.
 		EventQueue eq = new EventQueue();
 		

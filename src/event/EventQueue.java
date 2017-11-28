@@ -26,11 +26,6 @@ public class EventQueue {
      */
     private Queue<CompoundEvent> injectionQueue;
 
-    /**
-     * An event that will eventually be added to the queue.
-     */
-    private CompoundEvent pendingEvent;
-
     private Statement pendingDialogueTree;
 
     private boolean dialogueTreePending;
@@ -120,14 +115,17 @@ public class EventQueue {
         List<String> messagesList = new ArrayList<>();
         while(timeOffset >= 0) {
             while(!injectionQueue.isEmpty() && injectionQueue.peek().getTriggerDelay() == time) {
-                eventQueue.addAll(injectionQueue.poll().decomposeMacroEvent());
+               addEvents(injectionQueue.poll().decomposeMacroEvent());
             }
 
             if(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
                 messagesList.addAll(progressTimeInstantaneous(gr));
             }
 
-            time++;
+            // This should be the only location where time is adjusted.
+            if(timeOffset != 0) {
+                time++;
+            }
             timeOffset--;
         }
 
@@ -139,7 +137,7 @@ public class EventQueue {
      * @param gr The grid to affect.
      * @return The entire set of event messages that occured.
      */
-    public List<String> progressTimeInstantaneous(CompositeGrid gr) {
+    private List<String> progressTimeInstantaneous(CompositeGrid gr) {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
             Opcode op = eventQueue.peek().getOperation();

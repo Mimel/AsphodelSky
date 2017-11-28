@@ -191,7 +191,7 @@ public class DisplayKeyBindings {
                             .withTargetID(0)
                             .withItemID(grid.getFocusedCatalog().getFocusedItem().getId()));
 
-                    mm.insertMessage(eq.progressTimeInstantaneous(grid).get(0));
+                    mm.insertMessage(eq.progressTimeBy(0, grid).get(0));
 
                     updateOutput();
                 } else {
@@ -266,7 +266,7 @@ public class DisplayKeyBindings {
                         .withTargetID(2)
                         .withSecondary(-6));
 
-                eq.progressTimeInstantaneous(grid);
+                eq.progressTimeBy(0, grid);
                 updateOutput();
                 game.repaint();
             }
@@ -290,7 +290,7 @@ public class DisplayKeyBindings {
                             .withSecondary(252));
                     //Acts as a buffer (?!) TODO: Needs update.
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
-                    eq.progressTimeInstantaneous(grid);
+                    eq.progressTimeBy(0, grid);
 
                     game.getFooter().insertDialogue(eq.getPendingDialogueTree());
 

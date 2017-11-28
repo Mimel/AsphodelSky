@@ -37,17 +37,23 @@ public class CompoundEvent extends Event<CompoundOpcode> {
     /**
      * Reduces this CompoundEvent into a set of smaller events based on the Macro opcode and returns those
      * events.
+     * Note that the trigger delay of the Compound Event is equal to that of the current time; all
      * @return The list of events that this CompoundEvent decomposes to.
      */
     List<SimpleEvent> decomposeMacroEvent() {
         List<SimpleEvent> eventList = new LinkedList<>();
+        this.setTriggerDelay(0);
         switch(getOperation()) {
             case USE_ITEM:
 
                 //TEST
-                Item i = Item.getItemById(0);
                 eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
-                eventList.addAll(Item.getItemById(getItemID()).use(getTargetID()));
+                List<SimpleEvent> l = Item.getItemById(getItemID()).use(getTargetID());
+                for(SimpleEvent se : l) {
+                     se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
+                     eventList.add(se);
+                }
+                //eventList.addAll(l); //Still borked.
                 break;
             case DROP_ITEM:
                 eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));

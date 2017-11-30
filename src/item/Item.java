@@ -41,6 +41,8 @@ public class Item implements Comparable<Item> {
 	 * The name of the item.
 	 */
 	protected String name;
+
+	protected ItemType type;
 	
 	/**
 	 * A visual description of the item.
@@ -57,9 +59,10 @@ public class Item implements Comparable<Item> {
 	 */
 	private List<SimpleEvent> useEffects;
 
-	protected Item(String name, String vDesc, String uDesc, String effects) {
+	protected Item(String name, ItemType it, String vDesc, String uDesc, String effects) {
 		id = AUTO_INCR_ID.getAndIncrement();
 		this.name = name;
+		this.type = it;
 		this.descVis = vDesc;
 		this.descUse = uDesc;
 
@@ -106,6 +109,7 @@ public class Item implements Comparable<Item> {
 
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			String name = "";
+			ItemType type = ItemType.NONE;
 			String vDesc = "";
 			String uDesc = "";
 			StringBuilder effects = new StringBuilder();
@@ -114,13 +118,15 @@ public class Item implements Comparable<Item> {
 
 			while((line = br.readLine()) != null) {
 				if(name.equals("")) {
-					name = line;
+					int tildeLoc = line.indexOf('~');
+					name = line.substring(0, tildeLoc);
+					type = ItemType.valueOf(line.substring(tildeLoc + 1).trim());
 				} else if(vDesc.equals("")) {
 					vDesc = line;
 				} else if(uDesc.equals("")) {
 					uDesc = line;
 				} else if(line.equals("!END")) {
-					itemNameToItemMap.put(name, new Item(name, vDesc, uDesc, effects.toString()));
+					itemNameToItemMap.put(name, new Item(name, type, vDesc, uDesc, effects.toString()));
 					name = "";
 					vDesc = "";
 					uDesc = "";

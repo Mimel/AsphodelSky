@@ -109,6 +109,10 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
 
+                if(promptManager.isPromptQueueEmpty()) {
+                    return;
+                }
+
                 switch(promptManager.dequeuePrompt()) {
                     case ITEM_PROMPT:
                         pendingInjection.setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());

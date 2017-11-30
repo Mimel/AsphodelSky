@@ -114,10 +114,13 @@ public class EventQueue {
     public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
         List<String> messagesList = new ArrayList<>();
         while(timeOffset >= 0) {
+
+            // Inject Composites into the Standard Queue.
             while(!injectionQueue.isEmpty() && injectionQueue.peek().getTriggerDelay() == time) {
                addEvents(injectionQueue.poll().decomposeMacroEvent());
             }
 
+            // Execute all events at time.
             if(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
                 messagesList.addAll(progressTimeInstantaneous(gr));
             }

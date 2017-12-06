@@ -279,7 +279,14 @@ public class DisplayKeyBindings {
         Action basic_attack = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.COMBATANT_ADJUSTHP)
+                    .withCasterID(0)
+                    .withTargetID(2)
+                    .withSecondary(-3));
+                eq.progressTimeBy(0, grid);
 
+                updateOutput();
+                game.repaint();
             }
         };
 

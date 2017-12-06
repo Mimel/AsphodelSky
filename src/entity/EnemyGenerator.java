@@ -92,7 +92,9 @@ public final class EnemyGenerator {
                     String responseState = currLine.substring(slashLoc + 1);
                     currentFlag = new Flag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
                 } else if(firstCharacter == '-') {
-                    newCombatant.addToFlagList(currentFlag);
+                    if(currentFlag != null) {
+                        newCombatant.addToFlagList(currentFlag);
+                    }
                     nameToCombatant.put(newCombatant.getName(), newCombatant);
                 } else if(firstCharacter == ' ') {
                     if(currentFlag != null) {

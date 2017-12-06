@@ -56,7 +56,11 @@ public class Instruction
             });
 
             instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (opData, grid) -> {
-                grid.getOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
+                if(grid.getOccupant(opData.getTargetID()).getHealth() + opData.getSecondary() > 0) {
+                    grid.getOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
+                } else {
+                    grid.removeCombatant(opData.getTargetID());
+                }
                 return null;
             });
 

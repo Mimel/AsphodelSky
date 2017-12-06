@@ -56,7 +56,6 @@ public class SimpleEvent extends Event<Opcode> {
         String flag_name;
         int flag_val;
         while((counter = phrase.indexOf('~', counter)) != -1) {
-            System.out.println(counter);
             flag_name = phrase.substring(counter + 1, (counter = phrase.indexOf('=', counter)));
             if(phrase.indexOf('~', counter) == -1) {
                 flag_val = Integer.parseInt(phrase.substring(counter + 1));

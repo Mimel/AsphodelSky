@@ -165,6 +165,10 @@ public class CompositeGrid {
 			}
 		}
 	}
+
+	public void removeCombatant(int id) {
+		actors.removeOccuapantById(id);
+	}
 	
 	/**
 	 * Searches for an entity within the grid, given the id.

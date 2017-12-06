@@ -1,9 +1,10 @@
 $Underdeveloped
 setName=Khweiri Dervish
 setDesc=Nothing too special.
-setMaximumHealth=20
+setMaximumHealth=5
+setCurrentHealth=5
 setMaximumScience=5
-setPoise=8
+setCurrentScience=5
 setSubtlety=4
 setAcumen=2
 setCharisma=3

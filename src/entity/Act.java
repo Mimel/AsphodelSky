@@ -1,7 +1,12 @@
 package entity;
 
+import event.Opcode;
 import event.SimpleEvent;
 import grid.CompositeGrid;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A series of action algorithms imposed on enemies that are determinant on the enemy's intelligence. All such
@@ -16,7 +21,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public SimpleEvent[] useMindless(MindlessAI mai, int time, CompositeGrid gr) {
+    public List<SimpleEvent> useMindless(MindlessAI mai, int time, CompositeGrid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -27,7 +32,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public SimpleEvent[] useAnimalistic(AnimalisticAI aai, int time, CompositeGrid gr) {
+    public List<SimpleEvent> useAnimalistic(AnimalisticAI aai, int time, CompositeGrid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -38,8 +43,14 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public SimpleEvent[] useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
-        throw new UnsupportedOperationException();
+    public List<SimpleEvent> useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
+        System.out.println("Testing...");
+        List<SimpleEvent> actions = new ArrayList<SimpleEvent>();
+        actions.add((SimpleEvent) new SimpleEvent(0, 30, Opcode.COMBATANT_ADJUSTHP)
+                .withCasterID(2)
+                .withTargetID(0)
+                .withSecondary(-2));
+        return actions;
     }
 
     /**
@@ -49,7 +60,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public SimpleEvent[] useSapient(SapientAI sai, int time, CompositeGrid gr) {
+    public List<SimpleEvent> useSapient(SapientAI sai, int time, CompositeGrid gr) {
         throw new UnsupportedOperationException();
     }
 
@@ -60,7 +71,7 @@ public class Act implements OperationAI {
      * @param gr The grid that the algorithm bases itself on, and the one that will be affected.
      */
     @Override
-    public SimpleEvent[] useBrilliant(BrilliantAI bai, int time, CompositeGrid gr) {
+    public List<SimpleEvent> useBrilliant(BrilliantAI bai, int time, CompositeGrid gr) {
         throw new UnsupportedOperationException();
     }
 }

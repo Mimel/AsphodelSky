@@ -1,7 +1,6 @@
 package grid;
 
 import entity.Combatant;
-import org.javatuples.Pair;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,6 +49,11 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     @Override
     public Point getLocationById(int id) {
         return idToCoord.get(id);
+    }
+
+    @Override
+    public Combatant[] getAllOccupants() {
+        return coordToOccupant.values().toArray(new Combatant[coordToOccupant.values().size()]);
     }
 
     @Override

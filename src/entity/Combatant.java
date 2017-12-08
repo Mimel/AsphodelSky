@@ -6,6 +6,7 @@ import grid.CompositeGrid;
 import item.Catalog;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -348,7 +349,7 @@ public abstract class Combatant implements Entity {
 	 * @param time The time given for this Combatant to act.
 	 * @param gr The grid to act upon.
 	 */
-	public abstract SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr);
+	public abstract List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr);
 
 	void addToFlagList(Flag newFlag) {
 		eventTriggerList.add(newFlag);

@@ -21,7 +21,7 @@ import java.util.Map;
  * @author Matt Imel
  */
 public class CompositeGrid {
-	//TODO TESTING
+
 	private Grid<Tile, Tile[]> tiles;
 
 	private IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> actors;
@@ -142,6 +142,10 @@ public class CompositeGrid {
 
 	public Point getLocationOfCombatant(int id) {
 		return actors.getLocationById(id);
+	}
+
+	public Combatant[] getAllCombatants() {
+		return actors.getAllOccupants();
 	}
 
 	/**

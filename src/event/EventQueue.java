@@ -2,6 +2,8 @@ package event;
 
 import dialogue.DialogueParser;
 import dialogue.Statement;
+import entity.Act;
+import entity.Combatant;
 import grid.CompositeGrid;
 
 import java.util.*;
@@ -113,6 +115,13 @@ public class EventQueue {
      */
     public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
         List<String> messagesList = new ArrayList<>();
+
+        for(Combatant c : gr.getAllCombatants()) {
+            if(c.getId() != 0) {
+                addEvents(c.act(new Act(), timeOffset, gr));
+            }
+        }
+
         while(timeOffset >= 0) {
 
             // Inject Composites into the Standard Queue.

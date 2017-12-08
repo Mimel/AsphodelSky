@@ -4,6 +4,8 @@ import display.SidebarComponent;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 
+import java.util.List;
+
 /**
  * The player (You). 
  * @author Matt Imel
@@ -31,7 +33,7 @@ public class Player extends Combatant {
 	 * @param opai The operation to perform on this combatant.
 	 */
 	@Override
-	public SimpleEvent[] act(OperationAI opai, int time, CompositeGrid gr) {
+	public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
 		return null;
 	}
 }

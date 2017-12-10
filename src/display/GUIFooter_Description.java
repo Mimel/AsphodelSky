@@ -7,7 +7,13 @@ import java.awt.*;
  */
 public class GUIFooter_Description {
     void drawDescription(Graphics g, String title, String desc) {
-        g.setColor(new Color(0, 200, 0));
-        g.fillRect(30, 30, 60, 60);
+        g.setColor(Color.black);
+        if(title != null) {
+            g.drawString(title, 100, 100);
+        }
+
+        if(desc != null) {
+            g.drawString(desc, 100, 130);
+        }
     }
 }

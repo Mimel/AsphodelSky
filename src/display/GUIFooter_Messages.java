@@ -6,8 +6,15 @@ import java.awt.*;
  * Draws a set of messages.
  */
 public class GUIFooter_Messages {
+
     void drawMessages(Graphics g, String[] messages) {
-        g.setColor(new Color(200, 0, 0));
-        g.fillRect(30, 30, 60, 60);
+        if(messages != null) {
+            g.setColor(Color.black);
+            for(int i = 0; i < messages.length; i++) {
+                if(messages[i] != null) {
+                    g.drawString(messages[i], 50, 100 + (30*i));
+                }
+            }
+        }
     }
 }

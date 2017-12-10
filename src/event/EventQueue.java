@@ -141,6 +141,7 @@ public class EventQueue {
             timeOffset--;
         }
 
+        messagesList.removeIf(Objects::isNull);
         return messagesList;
     }
 

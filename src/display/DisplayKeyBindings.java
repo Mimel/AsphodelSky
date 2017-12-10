@@ -189,7 +189,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(!grid.getItemsOnTile(0).isEmpty()) {
+                if(!(grid.getItemsOnTile(0) == null)) {
                     eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
                             .withCasterID(0)
                             .withTargetID(0)

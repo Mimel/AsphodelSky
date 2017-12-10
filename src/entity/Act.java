@@ -44,7 +44,6 @@ public class Act implements OperationAI {
      */
     @Override
     public List<SimpleEvent> useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
-        System.out.println("Testing...");
         List<SimpleEvent> actions = new ArrayList<SimpleEvent>();
         actions.add((SimpleEvent) new SimpleEvent(0, 30, Opcode.COMBATANT_ADJUSTHP)
                 .withCasterID(2)

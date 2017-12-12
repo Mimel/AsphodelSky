@@ -153,9 +153,23 @@ public class EventQueue {
     private List<String> progressTimeInstantaneous(CompositeGrid gr) {
         List<String> messageList = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
-            Opcode op = eventQueue.peek().getOperation();
-            for(Flag f : gr.getOccupant(eventQueue.peek().getTargetID()).getFlagList()) {
-                f.checkForTrigger(this);
+            boolean eventRemoved = false;
+            SimpleEvent topEvent = eventQueue.peek();
+
+            Opcode op = topEvent.getOperation();
+            if(topEvent.isFlaggable()) {
+                for(Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) {
+                    if(f.checkForTrigger(this)) {
+                        eventRemoved = true;
+                    }
+
+                }
+            }
+
+            if(eventRemoved) {
+                continue;
+            } else {
+                topEvent.setFlaggable(false);
             }
 
             String message = eventQueue.remove().execute(gr);

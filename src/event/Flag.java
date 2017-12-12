@@ -64,14 +64,19 @@ public class Flag {
         eventRedirections.add(eventDirection);
     }
 
-    void checkForTrigger(EventQueue queue) {
+    /**
+     *
+     * @param queue
+     * @return true if the top event was removed; false otherwise.
+     */
+    boolean checkForTrigger(EventQueue queue) {
         if(queue.peek().getOperation() == eventTrigger) {
             int selfID = queue.peek().getTargetID();
             int senderID = queue.peek().getCasterID();
             switch(actionOnTrigger) {
                 case CANCEL:
                     queue.poll();
-                    break;
+                    return true;
                 case ADD:
                     for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
                         if(eventRedirections.get(event) == FlagRedirectLocation.SELF) {
@@ -80,7 +85,7 @@ public class Flag {
                             queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
                         }
                     }
-                    break;
+                    return false;
                 case REPLACE:
                     queue.poll();
                     for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
@@ -90,8 +95,10 @@ public class Flag {
                             queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
                         }
                     }
-                    break;
+                    return true;
             }
         }
+
+        return false;
     }
 }

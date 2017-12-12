@@ -19,6 +19,11 @@ public class Event<A> {
     private int priority;
 
     /**
+     * Determines if this event goes through flag checks.
+     */
+    private boolean flaggable;
+
+    /**
      * An operation to perform, from a given set of operations A.
      */
     private A operation;
@@ -44,6 +49,7 @@ public class Event<A> {
             this.priority = 0;
         }
 
+        this.flaggable = true;
         this.operation = op;
     }
 
@@ -61,6 +67,12 @@ public class Event<A> {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public boolean isFlaggable() { return flaggable; }
+
+    public void setFlaggable(boolean newFlaggable) {
+        this.flaggable = newFlaggable;
     }
 
     public A getOperation() {

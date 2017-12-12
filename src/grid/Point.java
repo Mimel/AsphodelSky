@@ -1,7 +1,7 @@
 package grid;
 
 /**
- * Created by Owner on 8/22/2017.
+ * Represents a set of 2D coordinates that pertain to a space on top of a grid.
  */
 public class Point {
     private int x;
@@ -34,8 +34,7 @@ public class Point {
 
         Point point = (Point) o;
 
-        if (x != point.x) return false;
-        return y == point.y;
+        return x == point.x && y == point.y;
     }
 
     @Override

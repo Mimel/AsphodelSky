@@ -5,7 +5,6 @@ import event.SimpleEvent;
 import grid.CompositeGrid;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,11 +43,11 @@ public class Act implements OperationAI {
      */
     @Override
     public List<SimpleEvent> useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
-        List<SimpleEvent> actions = new ArrayList<SimpleEvent>();
-        actions.add((SimpleEvent) new SimpleEvent(0, 30, Opcode.COMBATANT_ADJUSTHP)
+        List<SimpleEvent> actions = new ArrayList<>();
+        /*actions.add((SimpleEvent) new SimpleEvent(0, 30, Opcode.COMBATANT_ADJUSTHP)
                 .withCasterID(2)
                 .withTargetID(0)
-                .withSecondary(-2));
+                .withSecondary(-2));*/
         return actions;
     }
 

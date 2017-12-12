@@ -7,7 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by Owner on 8/22/2017.
+ * Represents the combatant overlay. Consists of two maps; one that relates the
+ * id of a combatant to the coordinates it's on, and a map that relates
+ * a set of grid coordinates to the Combatant that exists there.
  */
 public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> {
     /**

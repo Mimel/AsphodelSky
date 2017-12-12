@@ -1,7 +1,7 @@
 package grid;
 
 /**
- * Created by Owner on 8/22/2017.
+ * Represents a grid whose occupants can be found by an id parameter.
  */
 public interface IdSearchableGrid<T, U> extends Grid<T, U> {
     T getOccupantById(int id);

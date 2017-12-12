@@ -4,7 +4,6 @@ import comm.MessageManager;
 import entity.Combatant;
 import entity.Player;
 import event.*;
-import event.EventQueue;
 import grid.CompositeGrid;
 import grid.Tile;
 import item.Item;
@@ -90,9 +89,19 @@ public class DisplayKeyBindings {
                     }
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
-                    grid.moveCombatant(0, xOffset, yOffset);
-                    eq.progressTimeBy(1, grid);
-
+                    if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
+                        eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE)
+                                .withCasterID(0)
+                                .withTargetID(0)
+                                .withTile(xOffset, yOffset));
+                        eq.progressTimeBy(1, grid);
+                    } else {
+                        eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
+                                .withCasterID(0)
+                                .withTargetID(2)
+                                .withSecondary(-4));
+                        eq.progressTimeBy(1, grid);
+                    }
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
                     updateSourceDescPair(promptManager.peekPrompt());

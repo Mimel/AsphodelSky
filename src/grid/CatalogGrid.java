@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by Owner on 8/22/2017.
+ * Represents the catalog overlay. Consists of a map that relates grid coordinates
+ * to the items that are on it.
  */
 public class CatalogGrid implements Grid<Catalog, Map.Entry<Point, Catalog>> {
 

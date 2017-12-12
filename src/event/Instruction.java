@@ -79,6 +79,11 @@ public class Instruction
                 return null;
             });
 
+            instructionSet.put(Opcode.COMBATANT_MOVE, (opData, grid) -> {
+                grid.moveCombatant(opData.getTargetID(), opData.getTileX(), opData.getTileY());
+                return null;
+            });
+
             instructionSet.put(Opcode.TRANSFER_ITEM, (opData, grid) -> {
                 Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTargetID()).consumeItem(opData.getItemID(), opData.getSecondary());
                 grid.getOccupant(opData.getTargetID()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());

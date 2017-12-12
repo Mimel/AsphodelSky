@@ -170,6 +170,11 @@ public class CompositeGrid {
 		}
 	}
 
+	public boolean isTileOccupiedRelativeTo(int id, int x, int y) {
+		Point aLoc = actors.getLocationById(id);
+		return (actors.getOccupantAt(aLoc.x() + x, aLoc.y() + y) != null);
+	}
+
 	public void removeCombatant(int id) {
 		actors.removeOccuapantById(id);
 	}

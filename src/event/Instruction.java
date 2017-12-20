@@ -58,10 +58,11 @@ public class Instruction
             instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (opData, grid) -> {
                 if(grid.getOccupant(opData.getTargetID()).getHealth() + opData.getSecondary() > 0) {
                     grid.getOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
+                    return new ResponseDetails(ResponseCondition.NEGATIVE, grid.getOccupant(opData.getTargetID()).toString(), Integer.toString(-opData.getSecondary()));
                 } else {
                     grid.removeCombatant(opData.getTargetID());
+                    return null;
                 }
-                return null;
             });
 
             instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (opData, grid) -> {

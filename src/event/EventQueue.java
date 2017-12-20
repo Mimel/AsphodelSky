@@ -172,7 +172,8 @@ public class EventQueue {
                 topEvent.setFlaggable(false);
             }
 
-            String message = eventQueue.remove().execute(gr);
+            String message = topEvent.execute(gr);
+            eventQueue.remove(topEvent);
 
             if(message != null) {
                 if(op == Opcode.START_DIALOGUE) {

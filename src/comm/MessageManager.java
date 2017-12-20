@@ -42,16 +42,18 @@ public class MessageManager implements Runnable {
 	}
 
 	/**
-	 * Inserts a message into the buffer. If the buffer is full, the
+	 * Inserts a set of messages into the buffer. If the buffer is full, the
 	 * least recent message is overridden.
-	 * @param msg The message to insert.
+	 * @param msgs The messages to insert.
 	 */
-	public void insertMessage(String msg) {
+	public void insertMessage(String... msgs) {
 		synchronized(lock) {
-			if(messageHead < MESSAGEMAX) {
-				messageBuffer[messageHead++] = msg;
-			} else {
-				shiftBuffer(msg);
+			for(String msg : msgs) {
+				if(messageHead < MESSAGEMAX) {
+					messageBuffer[messageHead++] = msg;
+				} else {
+					shiftBuffer(msg);
+				}
 			}
 			
 			//Update the GUI.

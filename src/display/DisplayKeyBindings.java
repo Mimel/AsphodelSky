@@ -10,6 +10,8 @@ import item.Item;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The set of keybinds used for the game.
@@ -48,6 +50,7 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 int xOffset = 0;
                 int yOffset = 0;
+                List<String> messages = Collections.emptyList();
 
                 switch(e.getActionCommand().charAt(0)) {
                     case 'a': //W
@@ -94,13 +97,13 @@ public class DisplayKeyBindings {
                                 .withCasterID(0)
                                 .withTargetID(0)
                                 .withTile(xOffset, yOffset));
-                        eq.progressTimeBy(1, grid);
+                        messages = eq.progressTimeBy(1, grid);
                     } else {
                         eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
                                 .withCasterID(0)
                                 .withTargetID(2)
                                 .withSecondary(-4));
-                        eq.progressTimeBy(1, grid);
+                        messages =eq.progressTimeBy(1, grid);
                     }
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
@@ -109,7 +112,7 @@ public class DisplayKeyBindings {
                     game.getFooter().shiftDialogueChoice(yOffset);
                 }
 
-                updateOutput();
+                updateOutput(messages);
                 game.repaint();
             }
         };
@@ -118,6 +121,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
 
+                List<String> messages = Collections.emptyList();
                 if(promptManager.isPromptQueueEmpty()) {
                     return;
                 }
@@ -141,7 +145,7 @@ public class DisplayKeyBindings {
 
                 if(promptManager.isPromptQueueEmpty()) {
                     eq.createInjection(pendingInjection);
-                    eq.progressTimeBy(0, grid);
+                    messages = eq.progressTimeBy(0, grid);
 
                     if(eq.isDialogueTreePending()) {
                         addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
@@ -151,7 +155,7 @@ public class DisplayKeyBindings {
                     updateSourceDescPair(promptManager.peekPrompt());
                 }
 
-                updateOutput();
+                updateOutput(messages);
                 game.repaint();
             }
         };
@@ -176,7 +180,7 @@ public class DisplayKeyBindings {
                     }
                 }
 
-                updateOutput();
+                updateOutput(Collections.emptyList());
                 game.repaint();
             }
         };
@@ -187,7 +191,7 @@ public class DisplayKeyBindings {
                 if(!promptManager.isPromptQueueEmpty()) {
                     promptManager.clearPromptQueue();
 
-                    updateOutput();
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }
@@ -204,9 +208,10 @@ public class DisplayKeyBindings {
                             .withTargetID(0)
                             .withItemID(grid.getFocusedCatalog().getFocusedItem().getId()));
 
-                    mm.insertMessage(eq.progressTimeBy(0, grid).get(0));
+                    List<String> messages = eq.progressTimeBy(0, grid);
 
-                    updateOutput();
+
+                    updateOutput(messages);
                 } else {
                     mm.insertMessage("There are no items on this tile.");
                 }
@@ -223,7 +228,7 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
 
-                    updateOutput();
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }
@@ -237,7 +242,7 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
 
-                    updateOutput();
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }
@@ -251,7 +256,7 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.USE_ITEM);
 
-                    updateOutput();
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }
@@ -265,7 +270,7 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.DROP_ITEM);
 
-                    updateOutput();
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }
@@ -279,8 +284,8 @@ public class DisplayKeyBindings {
                         .withTargetID(2)
                         .withSecondary(-6));
 
-                eq.progressTimeBy(0, grid);
-                updateOutput();
+                List<String> messages = eq.progressTimeBy(0, grid);
+                updateOutput(messages);
                 game.repaint();
             }
         };
@@ -292,9 +297,9 @@ public class DisplayKeyBindings {
                     .withCasterID(0)
                     .withTargetID(2)
                     .withSecondary(-3));
-                eq.progressTimeBy(0, grid);
+                List<String> messages = eq.progressTimeBy(0, grid);
 
-                updateOutput();
+                updateOutput(messages);
                 game.repaint();
             }
         };
@@ -310,11 +315,11 @@ public class DisplayKeyBindings {
                             .withSecondary(252));
                     //Acts as a buffer (?!) TODO: Needs update.
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
-                    eq.progressTimeBy(0, grid);
+                    List<String> messages = eq.progressTimeBy(0, grid);
 
                     game.getFooter().insertDialogue(eq.getPendingDialogueTree());
 
-                    updateOutput();
+                    updateOutput(messages);
                     game.repaint();
                 }
             }
@@ -404,7 +409,7 @@ public class DisplayKeyBindings {
         game.getActionMap().put("test", test);
 
 
-        updateOutput();
+        updateOutput(Collections.emptyList());
     }
 
     /**
@@ -434,8 +439,9 @@ public class DisplayKeyBindings {
         return true;
     }
 
-    private static void updateOutput() {
+    private static void updateOutput(List<String> messages) {
         //TODO magic
+        messageManager.insertMessage(messages.toArray(new String[messages.size()]));
         grid.updateGrid(13, 13);
         p1.updatePlayer();
     }

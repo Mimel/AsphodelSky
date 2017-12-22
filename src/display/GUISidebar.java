@@ -15,12 +15,13 @@ import item.Item;
  */
 public class GUISidebar extends GUIComponent<SidebarMode> implements SidebarComponent {
 
+	static final int INVENTORY_ROWS = 3;
+	private static final int INVENTORY_SPCS = 26;
+
 	/**
 	 * The combatant that is being focused on. If the component is
 	 * in mode "CombatantDisplay", this combatant's stats is shown
 	 * on the sidebar.
-	 * 
-	 * TODO: reciprocation is dangerous, switch out of Combatant.
 	 */
 	private Combatant combatantFocus;
 
@@ -55,32 +56,31 @@ public class GUISidebar extends GUIComponent<SidebarMode> implements SidebarComp
 			g2.drawString("Science: " + combatantFocus.getCurrentScience() + "/" + combatantFocus.getMaximumScience(), 35, 125);
 			
 			//Inventory takes 26 slots, one for each letter of the alphabet.
-			//Also, TODO get rid of all magic.
 			
 			List<Item> items = combatantFocus.getInventory().getItems();
 			List<Integer> amts = combatantFocus.getInventory().getAmounts();
 			
-			for(int slot = 0; slot < 26; slot++) {
+			for(int slot = 0; slot < INVENTORY_SPCS; slot++) {
 				
 				//Background for item.
 				g2.setColor(new Color(slot * 8, 0, 0));
-				g2.fillRect(35 + (slot/3)*48, 250 + (slot%3)*48, 48, 48);
+				g2.fillRect(35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, 48, 48);
 				g2.setColor(Color.BLACK);
-				g2.drawRect(35 + (slot/3)*48, 250 + (slot%3)*48, 48, 48);
+				g2.drawRect(35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, 48, 48);
 				
 				//Item.
 				if(!items.isEmpty()) {
 					Item currentItem = items.remove(0);
-					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), 35 + (slot/3)*48, 250 + (slot%3)*48, null);
+					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), 35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, null);
 					
 					g2.setColor(Color.WHITE);
-					g2.drawString(amts.remove(0).toString(), 35 + (slot/3)*48 + 5, 250 + (slot%3)*48 + 24);
+					g2.drawString(amts.remove(0).toString(), 35 + (slot/INVENTORY_ROWS)*48 + 5, 250 + (slot%INVENTORY_ROWS)*48 + 24);
 				}
 				
 				//Draw crosshair over focused slot, if applicable.
 				if(selectedMode == SidebarMode.SELECTION) {
 					if(slot == combatantFocus.getInventory().getFocusIndex()) {
-						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot/3)*48, 250 + (slot%3)*48, null);
+						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, null);
 					}
 				}
 			}

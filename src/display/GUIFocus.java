@@ -7,7 +7,6 @@ import java.util.Map;
 import entity.Combatant;
 import grid.*;
 import item.Catalog;
-import item.Item;
 
 /**
  * The main focus of the Asphodel Sky GUI, this is where the grid is based.
@@ -15,12 +14,9 @@ import item.Item;
  *
  */
 public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent {
-	
-	/**
-	 * The grid component used as a basis for updating the display. Most (not all) of the time,
-	 * this exactly reflects the grid that is in the control.
-	 */
-	private Tile[][] grid;
+
+	public static int GRID_WIDTH = 13;
+	public static int GRID_HEIGHT = 13;
 
 	private Iterable<Tile[]> tiles;
 	private Iterable<Map.Entry<Point, Combatant>> actors;
@@ -75,9 +71,6 @@ public class GUIFocus extends GUIComponent<FocusMode> implements FocusComponent 
 		g.fillRect(0, 0, width, height);
 		
 		if(tiles != null) {
-			Tile currentTile;
-			Item currentItem;
-
 			int x = 0;
 			for(Tile[] line: tiles) {
 				for(int y = 0; y < line.length; y++) {

@@ -1,6 +1,5 @@
 package entity;
 
-import event.Opcode;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 
@@ -44,10 +43,6 @@ public class Act implements OperationAI {
     @Override
     public List<SimpleEvent> useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
         List<SimpleEvent> actions = new ArrayList<>();
-        /*actions.add((SimpleEvent) new SimpleEvent(0, 30, Opcode.COMBATANT_ADJUSTHP)
-                .withCasterID(2)
-                .withTargetID(0)
-                .withSecondary(-2));*/
         return actions;
     }
 

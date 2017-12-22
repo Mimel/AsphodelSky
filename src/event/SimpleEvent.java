@@ -80,8 +80,10 @@ public class SimpleEvent extends Event<Opcode> {
             }
         }
 
-        //TODO: Revise.
-        return (SimpleEvent) new SimpleEvent(time, priority, name).withSecondary(sec);
+        return (SimpleEvent) new SimpleEvent(time, priority, name)
+                .withTargetID(id)
+                .withTile(x, y)
+                .withSecondary(sec);
     }
 
     /**

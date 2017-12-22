@@ -11,6 +11,7 @@ import java.util.Map;
  * The component of the window that displays the grid information.
  */
 public interface FocusComponent {
+
 	/**
 	 * Updates the grid to display, which is represented as a 2D array of tiles.
 	 * @param xFocus The X-coordinate focus of the grid, if one exists.

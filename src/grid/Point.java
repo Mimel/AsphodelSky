@@ -26,7 +26,6 @@ public class Point {
         return y;
     }
 
-    //TODO test for workingness.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

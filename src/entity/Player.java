@@ -20,10 +20,7 @@ public class Player extends Combatant {
 		super(name, title, "", health, science);
 		this.combatantOutput = sc;
 	}
-	
-	/**
-	 * TODO: add description, move to Combatant.java.
-	 */
+
 	public void updatePlayer() {
 		combatantOutput.updateCombatantInfo(this);
 	}

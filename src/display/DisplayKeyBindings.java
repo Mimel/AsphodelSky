@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.List;
 
+import static display.DisplayPrompt.DIALOGUE_PROMPT;
+
 /**
  * The set of keybinds used for the game.
  */
@@ -85,8 +87,8 @@ public class DisplayKeyBindings {
 
                 if(game.getConfig() == DisplayConfiguration.INVENTORY_SELECT) {
 
-                    //Moves the cursor over the inventory. TODO: Magic.
-                    if(p1.getInventory().setFocus(xOffset * 3 + yOffset)) {
+                    //Moves the cursor over the inventory.
+                    if(p1.getInventory().setFocus(xOffset * GUISidebar.INVENTORY_ROWS + yOffset)) {
                         p1.updatePlayer();
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
@@ -138,17 +140,21 @@ public class DisplayKeyBindings {
                     case DIALOGUE_PROMPT:
                         if(game.getFooter().canDialogueContinue()) {
                             game.getFooter().progressDialogue();
-                            addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
+                            addPromptsToDisplayQueue(DIALOGUE_PROMPT);
                         }
                         break;
                 }
 
                 if(promptManager.isPromptQueueEmpty()) {
-                    eq.createInjection(pendingInjection);
+                    if(pendingInjection != null) {
+                        eq.createInjection(pendingInjection);
+                        pendingInjection = null;
+                    }
+
                     messages = eq.progressTimeBy(0, grid);
 
                     if(eq.isDialogueTreePending()) {
-                        addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT);
+                        addPromptsToDisplayQueue(DIALOGUE_PROMPT);
                         game.getFooter().insertDialogue(eq.getPendingDialogueTree());
                     }
                 } else {
@@ -307,14 +313,13 @@ public class DisplayKeyBindings {
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.DIALOGUE_PROMPT)) {
+                if(addPromptsToDisplayQueue(DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
                             .withCasterID(0)
                             .withTargetID(2)
                             .withSecondary(252));
-                    //Acts as a buffer (?!) TODO: Needs update.
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
+
                     List<String> messages = eq.progressTimeBy(0, grid);
 
                     game.getFooter().insertDialogue(eq.getPendingDialogueTree());
@@ -439,13 +444,23 @@ public class DisplayKeyBindings {
         return true;
     }
 
+    /**
+     * Performs closing methods before another keypress can be recognized;
+     * Adds messages to the MessageManager,
+     * Updates the grid and the player.
+     * @param messages A list of messages to send to the message manager.
+     */
     private static void updateOutput(List<String> messages) {
-        //TODO magic
         messageManager.insertMessage(messages.toArray(new String[messages.size()]));
-        grid.updateGrid(13, 13);
+        grid.updateGrid(GUIFocus.GRID_WIDTH, GUIFocus.GRID_HEIGHT);
         p1.updatePlayer();
     }
 
+    /**
+     * Updates the focused source/description pair, depending on the prompt.
+     * @param currentPrompt The prompt currently used, to determine the space to locate the
+     *                      focused item.
+     */
     private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:

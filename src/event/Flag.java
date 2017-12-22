@@ -65,8 +65,9 @@ public class Flag {
     }
 
     /**
-     *
-     * @param queue
+     * Checks the event queue to see if this flag gets triggered; if so, proceeds with
+     * the specified insertion/deletion processes.
+     * @param queue The event queue to use.
      * @return true if the top event was removed; false otherwise.
      */
     boolean checkForTrigger(EventQueue queue) {

@@ -16,6 +16,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class Combatant implements Entity {
 
+	/**
+	 * One of the universal constants of this game, that can neither deviate or otherwise
+	 * be different, is that the ID of the player is ALWAYS 0, and that the ID of any
+	 * NPC is NEVER 0.
+	 */
+	public static final int PLAYER_ID = 0;
+
+	/**
+	 * Increments the ID upon Combatant creation.
+	 */
 	private static final AtomicInteger auto_incr_id = new AtomicInteger(0);
 	
 	/**
@@ -153,7 +163,7 @@ public abstract class Combatant implements Entity {
 		this.intuition = c.getIntuition();
 
 		this.inventory = new Catalog();
-		//TODO Change from shallow to deep copy.
+
 		this.eventTriggerList = new ArrayList<>();
 		for(Flag f : c.getFlagList()) {
 			this.eventTriggerList.add(new Flag(f, this.id));

@@ -5,6 +5,7 @@ import entity.Combatant;
 import entity.Player;
 import event.*;
 import grid.CompositeGrid;
+import grid.Point;
 import grid.Tile;
 import item.Item;
 
@@ -14,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static display.DisplayPrompt.DIALOGUE_PROMPT;
+import static display.DisplayPrompt.ITEM_PROMPT;
+import static display.DisplayPrompt.TILE_PROMPT;
 
 /**
  * The set of keybinds used for the game.
@@ -101,11 +104,13 @@ public class DisplayKeyBindings {
                                 .withTile(xOffset, yOffset));
                         messages = eq.progressTimeBy(1, grid);
                     } else {
+                        Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
+                        Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
                         eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
-                                .withCasterID(0)
-                                .withTargetID(2)
+                                .withCasterID(Player.PLAYER_ID)
+                                .withTargetID(target.getId())
                                 .withSecondary(-4));
-                        messages =eq.progressTimeBy(1, grid);
+                        messages = eq.progressTimeBy(1, grid);
                     }
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
                     grid.shiftFocus(xOffset, yOffset);
@@ -282,42 +287,14 @@ public class DisplayKeyBindings {
             }
         };
 
-        Action test = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.COMBATANT_ADJUSTHP)
-                        .withCasterID(0)
-                        .withTargetID(2)
-                        .withSecondary(-6));
-
-                List<String> messages = eq.progressTimeBy(0, grid);
-                updateOutput(messages);
-                game.repaint();
-            }
-        };
-
-        Action basic_attack = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.COMBATANT_ADJUSTHP)
-                    .withCasterID(0)
-                    .withTargetID(2)
-                    .withSecondary(-3));
-                List<String> messages = eq.progressTimeBy(0, grid);
-
-                updateOutput(messages);
-                game.repaint();
-            }
-        };
-
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(DIALOGUE_PROMPT)) {
+                if(addPromptsToDisplayQueue(ITEM_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
                             .withCasterID(0)
-                            .withTargetID(2)
+                            .withTargetID(3)
                             .withSecondary(252));
 
                     List<String> messages = eq.progressTimeBy(0, grid);
@@ -402,17 +379,6 @@ public class DisplayKeyBindings {
         //V = Voice.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('l'), "voice");
         game.getActionMap().put("voice", talk);
-
-        ///// HOSTILE COMMANDS /////
-
-        //F = Fight.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('f'), "fight");
-        game.getActionMap().put("fight", basic_attack);
-
-        //J = TESTING FUNCTION.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('j'), "test");
-        game.getActionMap().put("test", test);
-
 
         updateOutput(Collections.emptyList());
     }

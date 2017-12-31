@@ -16,3 +16,15 @@ setIntuition=5
     COMBATANT_ADJUSTHP(3,25) ~sec=-4 @SENDER
     COMBATANT_ADJUSTHP(4,10) ~sec=-5 @SENDER
 ------------------------------------------------
+$Animalistic
+setName=Bilge Rat
+setDesc=Another enemy.
+setMaximumHealth=12
+setCurrentHealth=12
+setMaximumScience=14
+setCurrentScience=14
+setSubtlety=7
+setAcumen=4
+setCharisma=1
+setIntuition=6
+------------------------------------------------

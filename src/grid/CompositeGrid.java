@@ -144,6 +144,10 @@ public class CompositeGrid {
 		return actors.getLocationById(id);
 	}
 
+	public Combatant getCombatantAt(int x, int y) {
+		return actors.getOccupantAt(x, y);
+	}
+
 	public Combatant[] getAllCombatants() {
 		return actors.getAllOccupants();
 	}
@@ -201,10 +205,6 @@ public class CompositeGrid {
 			}
 			catalogs.getOccupantAt(x, y).insertItem(Item.getItemById(itemId), 1);
 		}
-	}
-
-	public Catalog getItemsOnTile(int x, int y) {
-		return catalogs.getOccupantAt(x, y);
 	}
 
 	/**

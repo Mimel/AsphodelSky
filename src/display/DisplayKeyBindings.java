@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static display.DisplayPrompt.DIALOGUE_PROMPT;
-import static display.DisplayPrompt.ITEM_PROMPT;
 import static display.DisplayPrompt.TILE_PROMPT;
 
 /**
@@ -150,7 +149,7 @@ public class DisplayKeyBindings {
                         break;
                 }
 
-                if(promptManager.isPromptQueueEmpty()) {
+                if(promptManager.isPromptQueueEmpty() || promptManager.peekPrompt() == DIALOGUE_PROMPT) {
                     if(pendingInjection != null) {
                         eq.createInjection(pendingInjection);
                         pendingInjection = null;
@@ -290,18 +289,11 @@ public class DisplayKeyBindings {
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(ITEM_PROMPT, DIALOGUE_PROMPT)) {
+                if(addPromptsToDisplayQueue(TILE_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.START_DIALOGUE)
-                            .withCasterID(0)
-                            .withTargetID(3)
-                            .withSecondary(252));
+                    pendingInjection = (CompoundEvent) new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withTargetID(3).withSecondary(252);
 
-                    List<String> messages = eq.progressTimeBy(0, grid);
-
-                    game.getFooter().insertDialogue(eq.getPendingDialogueTree());
-
-                    updateOutput(messages);
+                    updateOutput(Collections.emptyList());
                     game.repaint();
                 }
             }

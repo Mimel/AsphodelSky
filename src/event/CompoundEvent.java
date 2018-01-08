@@ -59,6 +59,10 @@ public class CompoundEvent extends Event<CompoundOpcode> {
                 eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
                 eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.TILE_SPAWN).withSecondary(1));
                 break;
+
+            case SHELL_TALK:
+                eventList.add(copyInfoToSimpleEvent(Opcode.START_DIALOGUE));
+                break;
         }
 
         return eventList;

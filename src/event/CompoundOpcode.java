@@ -26,7 +26,12 @@ public enum CompoundOpcode {
     /**
      * Attacks with the default attack.
      * All weapon effects are procced.
-     *
      */
-    BASIC_ATTACK
+    BASIC_ATTACK,
+
+    /**
+     * Performs the START_DIALOGUE Opcode command, which initialtes a text conversation with a nearby
+     * combatant. Used as a shell op.
+     */
+    SHELL_TALK
 }

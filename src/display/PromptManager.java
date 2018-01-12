@@ -111,6 +111,7 @@ public class PromptManager {
                 case ITEM_PROMPT:
                     screen.switchState(DisplayConfiguration.INVENTORY_SELECT);
                     break;
+                case ACTOR_PROMPT:
                 case TILE_PROMPT:
                     screen.switchState(DisplayConfiguration.TILE_SELECT);
                     break;

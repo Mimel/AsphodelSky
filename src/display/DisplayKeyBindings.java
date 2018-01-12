@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.List;
 
+import static display.DisplayPrompt.ACTOR_PROMPT;
 import static display.DisplayPrompt.DIALOGUE_PROMPT;
 import static display.DisplayPrompt.TILE_PROMPT;
 
@@ -133,6 +134,9 @@ public class DisplayKeyBindings {
                 }
 
                 switch(promptManager.dequeuePrompt()) {
+                    case ACTOR_PROMPT:
+                        pendingInjection.setTargetID(grid.getFocusedCombatant().getId());
+                        break;
                     case ITEM_PROMPT:
                         pendingInjection.setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
                         grid.getOccupant(0).getInventory().resetFocusIndex();
@@ -289,9 +293,9 @@ public class DisplayKeyBindings {
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(TILE_PROMPT, DIALOGUE_PROMPT)) {
+                if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    pendingInjection = (CompoundEvent) new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withTargetID(3).withSecondary(252);
+                    pendingInjection = (CompoundEvent) new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withSecondary(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -385,6 +389,13 @@ public class DisplayKeyBindings {
     private static boolean addPromptsToDisplayQueue(DisplayPrompt... prompts) {
         for(DisplayPrompt prompt : prompts) {
             switch(prompt) {
+                case ACTOR_PROMPT:
+                    if(grid.getAllCombatants().length == 0) {
+                        promptManager.clearPromptQueue();
+                        return false;
+                    }
+                    grid.unbind();
+                    break;
                 case ITEM_PROMPT:
                     if(p1.getInventory().isEmpty()) {
                         promptManager.clearPromptQueue();
@@ -424,6 +435,8 @@ public class DisplayKeyBindings {
             case ITEM_PROMPT:
                 messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
+
+            case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();

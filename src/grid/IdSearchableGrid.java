@@ -8,6 +8,8 @@ public interface IdSearchableGrid<T, U> extends Grid<T, U> {
 
     Point getLocationById(int id);
 
+    T getClosestOccupant(int id, Direction horiz, Direction vert);
+
     T[] getAllOccupants();
 
     T removeOccuapantById(int id);

@@ -113,7 +113,12 @@ public class DisplayKeyBindings {
                         messages = eq.progressTimeBy(1, grid);
                     }
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
-                    grid.shiftFocus(xOffset, yOffset);
+                    if(promptManager.peekPrompt() == ACTOR_PROMPT) {
+                        grid.shiftFocusToClosestCombatant(xOffset, yOffset);
+                    } else if(promptManager.peekPrompt() == TILE_PROMPT) {
+                        grid.shiftFocus(xOffset, yOffset);
+                    }
+
                     updateSourceDescPair(promptManager.peekPrompt());
                 } else if(game.getConfig() == DisplayConfiguration.DIALOGUE) {
                     game.getFooter().shiftDialogueChoice(yOffset);

@@ -61,7 +61,10 @@ public class ASControl {
 		compositeGrid.bindTo(0);
 
 		compositeGrid.addItem(0, 4, 4);
-		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), 3, 3);
+		for(int x = 0; x < 10; x++) {
+			compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
+		}
+
 
 		game.repaint();
 		//END PLAYGROUND

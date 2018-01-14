@@ -54,6 +54,25 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     }
 
     @Override
+    public Combatant getClosestOccupant(int id, Direction horiz, Direction vert) {
+        Point base = idToCoord.get(id);
+
+        Point shortest = base;
+        double shortestDistance = Double.MAX_VALUE;
+
+        for(Point coord : idToCoord.values()) {
+            if(horiz == base.horizontalDirectionToward(coord) && vert == base.verticalDirectionToward(coord)) {
+                if(base.distanceTo(coord) < shortestDistance) {
+                    shortest = coord;
+                    shortestDistance = base.distanceTo(coord);
+                }
+            }
+        }
+
+        return coordToOccupant.get(shortest);
+    }
+
+    @Override
     public Combatant[] getAllOccupants() {
         return coordToOccupant.values().toArray(new Combatant[coordToOccupant.values().size()]);
     }

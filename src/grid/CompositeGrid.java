@@ -252,6 +252,31 @@ public class CompositeGrid {
 			focalPoint = new Point(newxPosition, newyPosition);
 		}
 	}
+
+	public void shiftFocusToClosestCombatant(int horiz, int vert) {
+		Direction h;
+		Direction v;
+
+		if(horiz > 0) {
+			h = Direction.EAST;
+		} else if(horiz < 0) {
+			h = Direction.WEST;
+		} else {
+			h = Direction.CENTER;
+		}
+
+		if(vert > 0) {
+			v = Direction.SOUTH;
+		} else if(vert < 0) {
+			v = Direction.NORTH;
+		} else {
+			v = Direction.CENTER;
+		}
+
+		if(getFocusedCombatant() != null) {
+			focalPoint = actors.getLocationById(actors.getClosestOccupant(getFocusedCombatant().getId(), h, v).getId());
+		}
+	}
 	
 	/**
 	 * Checks to see if the given coordinates represent a valid location on the grid.

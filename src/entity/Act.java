@@ -31,7 +31,7 @@ public class Act implements OperationAI {
      */
     @Override
     public List<SimpleEvent> useAnimalistic(AnimalisticAI aai, int time, CompositeGrid gr) {
-        throw new UnsupportedOperationException();
+        return new ArrayList<>();
     }
 
     /**
@@ -42,8 +42,7 @@ public class Act implements OperationAI {
      */
     @Override
     public List<SimpleEvent> useUnderdeveloped(UnderdevelopedAI uai, int time, CompositeGrid gr) {
-        List<SimpleEvent> actions = new ArrayList<>();
-        return actions;
+        return new ArrayList<>();
     }
 
     /**

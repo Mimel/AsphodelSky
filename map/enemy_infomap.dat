@@ -28,3 +28,15 @@ setAcumen=4
 setCharisma=1
 setIntuition=6
 ------------------------------------------------
+$Underdeveloped
+setName=Fireball
+setDesc=Come on.
+setMaximumHealth=3
+setCurrentHealth=12
+setMaximumScience=14
+setCurrentScience=14
+setSubtlety=7
+setAcumen=4
+setCharisma=1
+setIntuition=6
+------------------------------------------------

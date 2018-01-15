@@ -94,6 +94,7 @@ public final class EnemyGenerator {
                 } else if(firstCharacter == '-') {
                     if(currentFlag != null) {
                         newCombatant.addToFlagList(currentFlag);
+                        currentFlag = null;
                     }
                     nameToCombatant.put(newCombatant.getName(), newCombatant);
                 } else if(firstCharacter == ' ') {

@@ -65,6 +65,9 @@ public class ASControl {
 			compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
 		}
 
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Bilge Rat"), 12, 4);
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Fireball"), 13, 4);
+
 
 		game.repaint();
 		//END PLAYGROUND

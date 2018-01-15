@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * An event, that when executed, performs multiple events.
  */
-public class CompoundEvent extends Event<CompoundOpcode> {
+public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
 
     public CompoundEvent(int time, int priority, CompoundOpcode mo) {
         super(time, priority, mo);
@@ -25,7 +25,7 @@ public class CompoundEvent extends Event<CompoundOpcode> {
     }
 
     private SimpleEvent copyInfoToSimpleEvent(Opcode op) {
-        return (SimpleEvent) new SimpleEvent(getTriggerDelay(), getPriority(), op)
+        return new SimpleEvent(getTriggerDelay(), getPriority(), op)
                 .withCasterID(getCasterID())
                 .withTargetID(getTargetID())
                 .withItemID(getItemID())
@@ -47,7 +47,7 @@ public class CompoundEvent extends Event<CompoundOpcode> {
             case USE_ITEM:
 
                 //TEST
-                eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
+                eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
                 List<SimpleEvent> l = Item.getItemById(getItemID()).use(getTargetID());
                 for(SimpleEvent se : l) {
                      se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
@@ -56,8 +56,8 @@ public class CompoundEvent extends Event<CompoundOpcode> {
                 //eventList.addAll(l); //Still borked.
                 break;
             case DROP_ITEM:
-                eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
-                eventList.add((SimpleEvent) copyInfoToSimpleEvent(Opcode.TILE_SPAWN).withSecondary(1));
+                eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
+                eventList.add(copyInfoToSimpleEvent(Opcode.TILE_SPAWN).withSecondary(1));
                 break;
 
             case SHELL_TALK:

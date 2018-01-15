@@ -5,7 +5,7 @@ import grid.CompositeGrid;
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
  */
-public class SimpleEvent extends Event<Opcode> {
+public class SimpleEvent extends Event<Opcode, SimpleEvent> {
 
     public SimpleEvent(int time, int priority, Opcode opcode) {
         super(time, priority, opcode);
@@ -80,7 +80,7 @@ public class SimpleEvent extends Event<Opcode> {
             }
         }
 
-        return (SimpleEvent) new SimpleEvent(time, priority, name)
+        return new SimpleEvent(time, priority, name)
                 .withTargetID(id)
                 .withTile(x, y)
                 .withSecondary(sec);

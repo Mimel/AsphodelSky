@@ -5,8 +5,9 @@ package event;
  * or by returning a set of Events (see CompoundEvent).
  *
  * The A wildcard refers to an enum, which refers to the set of opcodes to use.
+ * The B wildcard refers to the subclass that extends this one,
  */
-public class Event<A> {
+public class Event<A, B extends Event<A, B>> {
     /**
      * The amount of time between the current time and the time the event triggers.
      */
@@ -137,33 +138,33 @@ public class Event<A> {
         this.secondary = secondary;
     }
 
-    public Event withCasterID(int casterID) {
+    public B withCasterID(int casterID) {
         setCasterID(casterID);
-        return this;
+        return (B)this;
     }
 
-    public Event withTargetID(int targetID) {
+    public B withTargetID(int targetID) {
         setTargetID(targetID);
-        return this;
+        return (B)this;
     }
 
-    public Event withItemID(int itemID) {
+    public B withItemID(int itemID) {
         setItemID(itemID);
-        return this;
+        return (B)this;
     }
 
-    public Event withSkillID(int skillID) {
+    public B withSkillID(int skillID) {
         setSkillID(skillID);
-        return this;
+        return (B)this;
     }
 
-    public Event withTile(int x, int y) {
+    public B withTile(int x, int y) {
         setTile(x, y);
-        return this;
+        return (B)this;
     }
 
-    public Event withSecondary(int secondary) {
+    public B withSecondary(int secondary) {
         setSecondary(secondary);
-        return this;
+        return (B)this;
     }
 }

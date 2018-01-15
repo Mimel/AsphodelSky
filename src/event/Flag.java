@@ -81,9 +81,9 @@ public class Flag {
                 case ADD:
                     for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
                         if(eventRedirections.get(event) == FlagRedirectLocation.SELF) {
-                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(selfID));
+                            queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(selfID));
                         } else if(eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
-                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
+                            queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(senderID));
                         }
                     }
                     return false;
@@ -91,9 +91,9 @@ public class Flag {
                     queue.poll();
                     for(int event = 0; event < eventsAddedOnTrigger.size(); event++) {
                         if(eventRedirections.get(event) == FlagRedirectLocation.SELF) {
-                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(selfID));
+                            queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(selfID));
                         } else if(eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
-                            queue.addEvent((SimpleEvent) eventsAddedOnTrigger.get(event).withTargetID(senderID));
+                            queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(senderID));
                         }
                     }
                     return true;

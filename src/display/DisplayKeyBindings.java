@@ -98,7 +98,7 @@ public class DisplayKeyBindings {
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
-                        eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE)
+                        eq.addEvent(new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE)
                                 .withCasterID(0)
                                 .withTargetID(0)
                                 .withTile(xOffset, yOffset));
@@ -106,7 +106,7 @@ public class DisplayKeyBindings {
                     } else {
                         Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
                         Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
-                        eq.addEvent((SimpleEvent) new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
+                        eq.addEvent(new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
                                 .withCasterID(Player.PLAYER_ID)
                                 .withTargetID(target.getId())
                                 .withSecondary(-4));
@@ -222,7 +222,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(!(grid.getItemsOnTile(0) == null)) {
-                    eq.addEvent((SimpleEvent) new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
+                    eq.addEvent(new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
                             .withCasterID(0)
                             .withTargetID(0)
                             .withItemID(grid.getFocusedCatalog().getFocusedItem().getId()));
@@ -300,7 +300,7 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    pendingInjection = (CompoundEvent) new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withSecondary(252);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withSecondary(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

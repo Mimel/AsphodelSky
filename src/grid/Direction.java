@@ -1,7 +1,7 @@
 package grid;
 
 /**
- * Created by Owner on 1/14/2018.
+ * A direction between two points; CENTER is directionless.
  */
 public enum Direction {
     CENTER,

@@ -69,6 +69,26 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
             }
         }
 
+        if(horiz == Direction.CENTER && shortestDistance == Double.MAX_VALUE) {
+            for(Point coord : idToCoord.values()) {
+                if(vert == base.verticalDirectionToward(coord)) {
+                    if(base.distanceTo(coord) < shortestDistance) {
+                        shortest = coord;
+                        shortestDistance = base.distanceTo(coord);
+                    }
+                }
+            }
+        } else if(vert == Direction.CENTER && shortestDistance == Double.MAX_VALUE) {
+            for(Point coord : idToCoord.values()) {
+                if(horiz == base.horizontalDirectionToward(coord)) {
+                    if(base.distanceTo(coord) < shortestDistance) {
+                        shortest = coord;
+                        shortestDistance = base.distanceTo(coord);
+                    }
+                }
+            }
+        }
+
         return coordToOccupant.get(shortest);
     }
 

@@ -1,6 +1,6 @@
 package entity;
 
-import event.Flag;
+import event.flag.Flag;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 import item.Catalog;
@@ -166,7 +166,7 @@ public abstract class Combatant implements Entity {
 
 		this.eventTriggerList = new ArrayList<>();
 		for(Flag f : c.getFlagList()) {
-			this.eventTriggerList.add(new Flag(f, this.id));
+			this.eventTriggerList.add(f.copyThis(this.id));
 		}
 	}
 	

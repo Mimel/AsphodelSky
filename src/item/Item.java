@@ -174,7 +174,7 @@ public class Item implements Comparable<Item> {
 	 */
 	@Override
 	public int compareTo(Item i) {
-		return ((Integer) this.id).compareTo(i.id);
+		return Integer.compare(this.id, i.id);
 	}
 	
 	@Override

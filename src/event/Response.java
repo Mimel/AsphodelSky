@@ -29,16 +29,20 @@ public class Response {
             Opcode op = Opcode.NO_OP;
             Map<ResponseCondition, String> conditionTable = new HashMap<>();
             while((line = br.readLine()) != null) {
-                if(line.charAt(0) == '!') {
-                    op = Opcode.valueOf(line.substring(1));
-                    conditionTable = new HashMap<>();
-                } else if(line.charAt(0) == '-') {
-                    responseTable.put(op, conditionTable);
-                } else {
-                    conditionTable.put(
-                            ResponseCondition.valueOf(line.substring(0, line.indexOf(':'))),
-                            line.substring(line.indexOf('"') + 1, line.length() - 1)
-                    );
+                switch (line.charAt(0)) {
+                    case '!':
+                        op = Opcode.valueOf(line.substring(1));
+                        conditionTable = new HashMap<>();
+                        break;
+                    case '-':
+                        responseTable.put(op, conditionTable);
+                        break;
+                    default:
+                        conditionTable.put(
+                                ResponseCondition.valueOf(line.substring(0, line.indexOf(':'))),
+                                line.substring(line.indexOf('"') + 1, line.length() - 1)
+                        );
+                        break;
                 }
             }
         } catch(IOException ioe) {

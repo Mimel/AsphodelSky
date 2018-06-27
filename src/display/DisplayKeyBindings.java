@@ -40,7 +40,6 @@ public class DisplayKeyBindings {
         DisplayKeyBindings.messageManager = mm;
 
         Action exitProgram = new AbstractAction() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -377,7 +376,7 @@ public class DisplayKeyBindings {
 
         ///// FRIENDLY COMMANDS /////
 
-        //V = Voice.
+        //L = Voice.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('l'), "voice");
         game.getActionMap().put("voice", talk);
 

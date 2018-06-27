@@ -129,21 +129,19 @@ public class Catalog {
 	/**
 	 * Consumes an item, reducing its associated amount by one. If this brings the item's amount to zero, the item and it's associated amount are both removed.
 	 * @param itemID The Item id.
-	 * @return The item removed if the item can be found in the catalog, null otherwise.
 	 */
-	public Item consumeItem(int itemID) {
+	public void consumeItem(int itemID) {
 		for(int x = 0; x < catalog.size(); x++) {
 			if(catalog.get(x).getValue0().getId() == itemID) {
 				if(catalog.get(x).getValue1() == 1) {
-					return catalog.remove(x).getValue0();
+					catalog.remove(x);
 				} else {
 					catalog.set(x, new Pair<>(catalog.get(x).getValue0(), catalog.get(x).getValue1() - 1));
-					return catalog.get(x).getValue0();
-				}	
+				}
+				return;
 			}
 		}
-		
-		return null;
+
 	}
 
 	/**

@@ -4,6 +4,7 @@ import dialogue.DialogueParser;
 import dialogue.Statement;
 import entity.Act;
 import entity.Combatant;
+import event.flag.Flag;
 import grid.CompositeGrid;
 
 import java.util.*;
@@ -98,11 +99,11 @@ public class EventQueue {
         }
     }
 
-    SimpleEvent peek() {
+    public SimpleEvent peek() {
         return eventQueue.peek();
     }
 
-    void poll() {
+    public void poll() {
         eventQueue.poll();
     }
 

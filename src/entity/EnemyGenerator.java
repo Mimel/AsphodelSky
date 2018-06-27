@@ -1,6 +1,8 @@
 package entity;
 
 import event.*;
+import event.flag.Flag;
+import event.flag.FlagRedirectLocation;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -90,7 +92,7 @@ public final class EnemyGenerator {
                     int slashLoc = currLine.indexOf('/');
                     String opTrigger = currLine.substring(1, slashLoc);
                     String responseState = currLine.substring(slashLoc + 1);
-                    currentFlag = new Flag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
+                    currentFlag = Flag.determineFlag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
                 } else if(firstCharacter == '-') {
                     if(currentFlag != null) {
                         newCombatant.addToFlagList(currentFlag);

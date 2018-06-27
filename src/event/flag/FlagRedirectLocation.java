@@ -1,4 +1,4 @@
-package event;
+package event.flag;
 
 /**
  * Whenever a flag is fired, it's events can either target the owner of the flag (SELF) or the caster of the

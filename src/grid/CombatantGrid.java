@@ -128,7 +128,7 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<Map.Entry<Point, Combatant>> iterator() {
         return coordToOccupant.entrySet().iterator();
     }
 }

@@ -13,12 +13,12 @@ public abstract class Flag {
     /**
      * The event that will trigger this flag.
      */
-    protected Opcode eventTrigger;
+    final Opcode eventTrigger;
 
     /**
      * The list of events to inject in the queue, if any exist.
      */
-    protected List<SimpleEvent> eventsAddedOnTrigger;
+    final List<SimpleEvent> eventsAddedOnTrigger;
 
     /**
      * The target of the events in the eventsAddedOnTrigger list.
@@ -26,9 +26,9 @@ public abstract class Flag {
      * index 0 refers to the redirection imparted on the event at index 0
      * in the eventsAddedOnTrigger variable.
      */
-    protected List<FlagRedirectLocation> eventRedirections;
+    final List<FlagRedirectLocation> eventRedirections;
 
-    public Flag(Opcode trigger) {
+    Flag(Opcode trigger) {
         this.eventTrigger = trigger;
         eventsAddedOnTrigger = new ArrayList<>();
         eventRedirections = new ArrayList<>();

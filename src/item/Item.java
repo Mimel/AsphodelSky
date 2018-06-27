@@ -140,10 +140,6 @@ public class Item implements Comparable<Item> {
 		}
 	}
 
-	public static Item getItem(String itemName) {
-		return new Item(itemNameToItemMap.get(itemName));
-	}
-
 	public static Item getItemById(int id) {
 		for(Item i : itemNameToItemMap.values()) {
 			if(id == i.getId()) {

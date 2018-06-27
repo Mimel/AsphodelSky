@@ -22,12 +22,12 @@ public class EventQueue {
     /**
      * A priority queue of all the events to fire, sorted by time to fire.
      */
-    private Queue<SimpleEvent> eventQueue;
+    private final Queue<SimpleEvent> eventQueue;
 
     /**
      * A priority queue of all Compound Events, which will be injected into the eventQueue.
      */
-    private Queue<CompoundEvent> injectionQueue;
+    private final Queue<CompoundEvent> injectionQueue;
 
     private Statement pendingDialogueTree;
 
@@ -41,14 +41,6 @@ public class EventQueue {
         this.injectionQueue = new PriorityQueue<>(20, c);
 
         dialogueTreePending = false;
-    }
-
-    /**
-     * Gets the current time.
-     * @return The current time.
-     */
-    public int getTime() {
-        return time;
     }
 
     public void createInjection(CompoundEvent ce) {

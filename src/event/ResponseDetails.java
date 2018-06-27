@@ -4,10 +4,10 @@ package event;
  * Quasi-wrapper class meant to encapsulate a condition to a response, as well as the strings
  * to insert in the response.
  */
-public class ResponseDetails {
-    private ResponseCondition cond;
+class ResponseDetails {
+    private final ResponseCondition cond;
 
-    private String[] inserts;
+    private final String[] inserts;
 
     ResponseDetails(ResponseCondition condition, String... inserts) {
         this.cond = condition;

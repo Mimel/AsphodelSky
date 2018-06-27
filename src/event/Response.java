@@ -50,7 +50,7 @@ public class Response {
         }
     }
 
-    static String getResponse(Opcode op, ResponseCondition outcome, String[] resInserts) {
+    private static String getResponse(Opcode op, ResponseCondition outcome, String[] resInserts) {
         String response = responseTable.get(op).get(outcome);
 
         if(response != null) {

@@ -45,16 +45,17 @@ public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
         this.setTriggerDelay(0);
         switch(getOperation()) {
             case USE_ITEM:
-
-                //TEST
                 eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
-                List<SimpleEvent> l = Item.getItemById(getItemID()).use(getTargetID());
-                for(SimpleEvent se : l) {
-                     se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
-                     eventList.add(se);
+                Item target;
+                if((target = Item.getItemById(getItemID())) != null) {
+                    List<SimpleEvent> l = target.use(getTargetID());
+                    for(SimpleEvent se : l) {
+                        se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
+                        eventList.add(se);
+                    }
                 }
-                //eventList.addAll(l); //Still borked.
                 break;
+
             case DROP_ITEM:
                 eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
                 eventList.add(copyInfoToSimpleEvent(Opcode.TILE_SPAWN).withSecondary(1));

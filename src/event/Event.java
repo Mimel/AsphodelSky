@@ -17,7 +17,7 @@ public class Event<A, B extends Event<A, B>> {
      * The secondary priority of the event. Higher priorities are executed first when
      * two events are to be fired concurrently.
      */
-    private int priority;
+    private final int priority;
 
     /**
      * Determines if this event goes through flag checks.
@@ -27,7 +27,7 @@ public class Event<A, B extends Event<A, B>> {
     /**
      * An operation to perform, from a given set of operations A.
      */
-    private A operation;
+    private final A operation;
 
     private int casterID;
     private int targetID;
@@ -66,10 +66,6 @@ public class Event<A, B extends Event<A, B>> {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public boolean isFlaggable() { return flaggable; }
 
     public void setFlaggable(boolean newFlaggable) {
@@ -78,10 +74,6 @@ public class Event<A, B extends Event<A, B>> {
 
     public A getOperation() {
         return operation;
-    }
-
-    public void setOperation(A newOp) {
-        this.operation = newOp;
     }
 
     public int getCasterID() {
@@ -112,7 +104,7 @@ public class Event<A, B extends Event<A, B>> {
         return skillID;
     }
 
-    public void setSkillID(int skillID) {
+    void setSkillID(int skillID) {
         this.skillID = skillID;
     }
 
@@ -134,7 +126,7 @@ public class Event<A, B extends Event<A, B>> {
         return secondary;
     }
 
-    public void setSecondary(int secondary) {
+    void setSecondary(int secondary) {
         this.secondary = secondary;
     }
 
@@ -153,7 +145,7 @@ public class Event<A, B extends Event<A, B>> {
         return (B)this;
     }
 
-    public B withSkillID(int skillID) {
+    B withSkillID(int skillID) {
         setSkillID(skillID);
         return (B)this;
     }

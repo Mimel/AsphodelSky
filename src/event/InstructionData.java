@@ -3,14 +3,14 @@ package event;
 /**
  * A data object that encapsulates all the data necessary for an event to be used.
  */
-public class InstructionData {
-    private int casterID;
-    private int targetID;
-    private int itemID;
-    private int skillID;
-    private int tileX;
-    private int tileY;
-    private int secondary;
+class InstructionData {
+    private final int casterID;
+    private final int targetID;
+    private final int itemID;
+    private final int skillID;
+    private final int tileX;
+    private final int tileY;
+    private final int secondary;
 
     public InstructionData(Event ev) {
         this.casterID = ev.getCasterID();
@@ -22,9 +22,11 @@ public class InstructionData {
         this.secondary = ev.getSecondary();
     }
 
-    int getCasterID() {
-        return casterID;
-    }
+// --Commented out by Inspection START (6/27/2018 5:27 PM):
+//    int getCasterID() {
+//        return casterID;
+//    }
+// --Commented out by Inspection STOP (6/27/2018 5:27 PM)
 
     int getTargetID() {
         return targetID;
@@ -34,9 +36,11 @@ public class InstructionData {
         return itemID;
     }
 
-    int getSkillID() {
-        return skillID;
-    }
+// --Commented out by Inspection START (6/27/2018 5:27 PM):
+//    int getSkillID() {
+//        return skillID;
+//    }
+// --Commented out by Inspection STOP (6/27/2018 5:27 PM)
 
     int getTileX() {
         return tileX;

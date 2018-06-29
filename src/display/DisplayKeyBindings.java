@@ -97,18 +97,18 @@ public class DisplayKeyBindings {
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
-                        eq.addEvent(new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE)
-                                .withCasterID(0)
-                                .withTargetID(0)
-                                .withTile(xOffset, yOffset));
+                        SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
+                        moveSelfEvent.getData().setCasterIDTo(0).setTargetIDTo(0).setCoordTo(xOffset, yOffset);
+                        eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
                         Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
                         Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
-                        eq.addEvent(new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP)
-                                .withCasterID(Player.PLAYER_ID)
-                                .withTargetID(target.getId())
-                                .withSecondary(-4));
+
+                        SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP);
+                        attackAdjacentEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(target.getId()).setSecondaryTo(-4);
+                        eq.addEvent(attackAdjacentEvent);
+
                         messages = eq.progressTimeBy(1, grid);
                     }
                 } else if(game.getConfig() == DisplayConfiguration.TILE_SELECT) {
@@ -221,10 +221,10 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(!(grid.getItemsOnTile(0) == null)) {
-                    eq.addEvent(new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL)
-                            .withCasterID(0)
-                            .withTargetID(0)
-                            .withItemID(grid.getFocusedCatalog().getFocusedItem().getId()));
+                    SimpleEvent getEvent = new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL);
+                    getEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(Player.PLAYER_ID)
+                            .setItemIDTo(grid.getFocusedCatalog().getFocusedItem().getId());
+                    eq.addEvent(getEvent);
 
                     List<String> messages = eq.progressTimeBy(0, grid);
 
@@ -299,7 +299,8 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK).withCasterID(0).withSecondary(252);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK);
+                    pendingInjection.getData().setCasterIDTo(0).setSecondaryTo(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

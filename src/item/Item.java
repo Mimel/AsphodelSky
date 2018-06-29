@@ -158,7 +158,8 @@ public class Item implements Comparable<Item> {
 		List<SimpleEvent> eventsDeepCopy = new LinkedList<>();
 
 		for(SimpleEvent ev : useEffects) {
-			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev).withTargetID(targetID);
+			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev);
+			temporarilyRevisedEvent.getData().setTargetIDTo(targetID);
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

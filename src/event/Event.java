@@ -29,13 +29,7 @@ public class Event<A, B extends Event<A, B>> {
      */
     private final A operation;
 
-    private int casterID;
-    private int targetID;
-    private int itemID;
-    private int skillID;
-    private int tileX;
-    private int tileY;
-    private int secondary;
+    private final InstructionData params;
 
     Event(int delay, int priority, A op) {
         if(delay >= 0) {
@@ -52,6 +46,11 @@ public class Event<A, B extends Event<A, B>> {
 
         this.flaggable = true;
         this.operation = op;
+        this.params = new InstructionData();
+    }
+
+    public InstructionData getData() {
+        return params;
     }
 
     public int getTriggerDelay() {
@@ -77,86 +76,55 @@ public class Event<A, B extends Event<A, B>> {
     }
 
     public int getCasterID() {
-        return casterID;
+        return params.getCasterID();
     }
 
     public void setCasterID(int casterID) {
-        this.casterID = casterID;
+        this.getData().setCasterIDTo(casterID);
     }
 
     public int getTargetID() {
-        return targetID;
+        return params.getTargetID();
     }
 
     public void setTargetID(int targetID) {
-        this.targetID = targetID;
+        this.getData().setTargetIDTo(targetID);
     }
 
     public int getItemID() {
-        return itemID;
+        return params.getItemID();
     }
 
     public void setItemID(int itemID) {
-        this.itemID = itemID;
+        this.getData().setItemIDTo(itemID);
     }
 
     public int getSkillID() {
-        return skillID;
+        return params.getSkillID();
     }
 
     void setSkillID(int skillID) {
-        this.skillID = skillID;
+        this.getData().setSkillIDTo(skillID);
     }
 
     public int getTileX() {
-        return tileX;
+        return params.getTileX();
     }
 
     public int getTileY() {
-        return tileY;
+        return params.getTileY();
     }
 
     public void setTile(int x, int y) {
-        this.tileX = x;
-        this.tileY = y;
+        this.getData().setCoordTo(x, y);
     }
 
 
     public int getSecondary() {
-        return secondary;
+        return params.getSecondary();
     }
 
     void setSecondary(int secondary) {
-        this.secondary = secondary;
-    }
-
-    public B withCasterID(int casterID) {
-        setCasterID(casterID);
-        return (B)this;
-    }
-
-    public B withTargetID(int targetID) {
-        setTargetID(targetID);
-        return (B)this;
-    }
-
-    public B withItemID(int itemID) {
-        setItemID(itemID);
-        return (B)this;
-    }
-
-    B withSkillID(int skillID) {
-        setSkillID(skillID);
-        return (B)this;
-    }
-
-    public B withTile(int x, int y) {
-        setTile(x, y);
-        return (B)this;
-    }
-
-    public B withSecondary(int secondary) {
-        setSecondary(secondary);
-        return (B)this;
+        this.getData().setSecondaryTo(secondary);
     }
 }

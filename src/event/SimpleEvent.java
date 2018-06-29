@@ -19,12 +19,12 @@ public class SimpleEvent extends Event<Opcode, SimpleEvent> {
     public SimpleEvent(SimpleEvent e) {
         super(e.getTriggerDelay(), e.getPriority(), e.getOperation());
 
-        this.setCasterID(e.getCasterID());
-        this.setTargetID(e.getTargetID());
-        this.setItemID(e.getItemID());
-        this.setSkillID(e.getSkillID());
-        this.setTile(e.getTileX(), e.getTileY());
-        this.setSecondary(e.getSecondary());
+        this.setCasterID(e.getData().getCasterID());
+        this.setTargetID(e.getData().getTargetID());
+        this.setItemID(e.getData().getItemID());
+        this.setSkillID(e.getData().getSkillID());
+        this.setTile(e.getData().getTileX(), e.getData().getTileY());
+        this.setSecondary(e.getData().getSecondary());
     }
 
     /**
@@ -80,10 +80,9 @@ public class SimpleEvent extends Event<Opcode, SimpleEvent> {
             }
         }
 
-        return new SimpleEvent(time, priority, name)
-                .withTargetID(id)
-                .withTile(x, y)
-                .withSecondary(sec);
+        SimpleEvent interpretedEvent = new SimpleEvent(time, priority, name);
+        interpretedEvent.getData().setTargetIDTo(id).setCoordTo(x, y).setSecondaryTo(sec);
+        return interpretedEvent;
     }
 
     /**
@@ -91,7 +90,7 @@ public class SimpleEvent extends Event<Opcode, SimpleEvent> {
      * @param gr The grid to impose the instruction on.
      */
     String execute(CompositeGrid gr) {
-        return Instruction.execute(getOperation(), new InstructionData(this), gr);
+        return Instruction.execute(getOperation(), this.getData(), gr);
     }
 
     public String toString() {

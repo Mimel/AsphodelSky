@@ -3,30 +3,22 @@ package event;
 /**
  * A data object that encapsulates all the data necessary for an event to be used.
  */
-class InstructionData {
-    private final int casterID;
-    private final int targetID;
-    private final int itemID;
-    private final int skillID;
-    private final int tileX;
-    private final int tileY;
-    private final int secondary;
+public class InstructionData {
+    private int casterID;
+    private int targetID;
+    private int itemID;
+    private int skillID;
+    private int tileX;
+    private int tileY;
+    private int secondary;
 
-    public InstructionData(Event ev) {
-        this.casterID = ev.getCasterID();
-        this.targetID = ev.getTargetID();
-        this.itemID = ev.getItemID();
-        this.skillID = ev.getSkillID();
-        this.tileX = ev.getTileX();
-        this.tileY = ev.getTileY();
-        this.secondary = ev.getSecondary();
+    InstructionData() {
+
     }
 
-// --Commented out by Inspection START (6/27/2018 5:27 PM):
-//    int getCasterID() {
-//        return casterID;
-//    }
-// --Commented out by Inspection STOP (6/27/2018 5:27 PM)
+    int getCasterID() {
+        return casterID;
+    }
 
     int getTargetID() {
         return targetID;
@@ -36,11 +28,9 @@ class InstructionData {
         return itemID;
     }
 
-// --Commented out by Inspection START (6/27/2018 5:27 PM):
-//    int getSkillID() {
-//        return skillID;
-//    }
-// --Commented out by Inspection STOP (6/27/2018 5:27 PM)
+    int getSkillID() {
+        return skillID;
+    }
 
     int getTileX() {
         return tileX;
@@ -52,5 +42,36 @@ class InstructionData {
 
     int getSecondary() {
         return secondary;
+    }
+
+    public InstructionData setCasterIDTo(int CID) {
+        this.casterID = CID;
+        return this;
+    }
+
+    public InstructionData setTargetIDTo(int TID) {
+        this.targetID = TID;
+        return this;
+    }
+
+    public InstructionData setItemIDTo(int IID) {
+        this.itemID = IID;
+        return this;
+    }
+
+    public InstructionData setSkillIDTo(int SID) {
+        this.skillID = SID;
+        return this;
+    }
+
+    public InstructionData setCoordTo(int x, int y) {
+        this.tileX = x;
+        this.tileY = y;
+        return this;
+    }
+
+    public InstructionData setSecondaryTo(int sec) {
+        this.secondary = sec;
+        return this;
     }
 }

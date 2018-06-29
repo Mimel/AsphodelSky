@@ -25,13 +25,14 @@ public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
     }
 
     private SimpleEvent copyInfoToSimpleEvent(Opcode op) {
-        return new SimpleEvent(getTriggerDelay(), getPriority(), op)
-                .withCasterID(getCasterID())
-                .withTargetID(getTargetID())
-                .withItemID(getItemID())
-                .withSkillID(getSkillID())
-                .withTile(getTileX(), getTileY())
-                .withSecondary(getSecondary());
+        SimpleEvent se = new SimpleEvent(getTriggerDelay(), getPriority(), op);
+        se.getData().setCasterIDTo(getCasterID())
+                .setTargetIDTo(getTargetID())
+                .setItemIDTo(getItemID())
+                .setSkillIDTo(getSkillID())
+                .setCoordTo(getTileX(), getTileY())
+                .setSecondaryTo(getSecondary());
+        return se;
     }
 
     /**
@@ -45,7 +46,9 @@ public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
         this.setTriggerDelay(0);
         switch(getOperation()) {
             case USE_ITEM:
-                eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
+                SimpleEvent useClause = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
+                useClause.getData().setSecondaryTo(1);
+                eventList.add(useClause);
                 Item target;
                 if((target = Item.getItemById(getItemID())) != null) {
                     List<SimpleEvent> l = target.use(getTargetID());
@@ -57,8 +60,14 @@ public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
                 break;
 
             case DROP_ITEM:
-                eventList.add(copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM).withSecondary(1));
-                eventList.add(copyInfoToSimpleEvent(Opcode.TILE_SPAWN).withSecondary(1));
+                SimpleEvent dropClause1 = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
+                SimpleEvent dropClause2 = copyInfoToSimpleEvent(Opcode.TILE_SPAWN);
+
+                dropClause1.getData().setSecondaryTo(1);
+                dropClause2.getData().setSecondaryTo(1);
+
+                eventList.add(dropClause1);
+                eventList.add(dropClause2);
                 break;
 
             case SHELL_TALK:

@@ -101,7 +101,8 @@ public final class EnemyGenerator {
                     nameToCombatant.put(newCombatant.getName(), newCombatant);
                 } else if(firstCharacter == ' ') {
                     if(currentFlag != null) {
-                        SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim()).withCasterID(newCombatant.getId());
+                        SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
+                        trigger.getData().setCasterIDTo(newCombatant.getId());
                         FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
                         currentFlag.addEventToFlag(trigger, loc);
                     }

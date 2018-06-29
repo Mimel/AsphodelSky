@@ -32,11 +32,15 @@ public class ProtocolReplace extends Flag {
             int senderID = queue.peek().getCasterID();
             queue.poll();
             for (int event = 0; event < eventsAddedOnTrigger.size(); event++) {
+                SimpleEvent triggerEvent = eventsAddedOnTrigger.get(event);
+
                 if (eventRedirections.get(event) == FlagRedirectLocation.SELF) {
-                    queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(selfID));
+                    triggerEvent.getData().setTargetIDTo(selfID);
                 } else if (eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
-                    queue.addEvent(eventsAddedOnTrigger.get(event).withTargetID(senderID));
+                    triggerEvent.getData().setTargetIDTo(senderID);
                 }
+
+                queue.addEvent(triggerEvent);
             }
             return true;
         }

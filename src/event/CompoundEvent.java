@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * An event, that when executed, performs multiple events.
  */
-public class CompoundEvent extends Event<CompoundOpcode, CompoundEvent> {
+public class CompoundEvent extends Event<CompoundOpcode> {
 
     public CompoundEvent(int time, int priority, CompoundOpcode mo) {
         super(time, priority, mo);

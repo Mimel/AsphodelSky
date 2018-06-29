@@ -5,9 +5,8 @@ package event;
  * or by returning a set of Events (see CompoundEvent).
  *
  * The A wildcard refers to an enum, which refers to the set of opcodes to use.
- * The B wildcard refers to the subclass that extends this one,
  */
-public class Event<A, B extends Event<A, B>> {
+public class Event<A> {
     /**
      * The amount of time between the current time and the time the event triggers.
      */

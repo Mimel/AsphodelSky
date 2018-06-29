@@ -5,7 +5,7 @@ import grid.CompositeGrid;
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
  */
-public class SimpleEvent extends Event<Opcode, SimpleEvent> {
+public class SimpleEvent extends Event<Opcode> {
 
     public SimpleEvent(int time, int priority, Opcode opcode) {
         super(time, priority, opcode);

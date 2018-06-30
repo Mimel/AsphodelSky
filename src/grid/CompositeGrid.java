@@ -22,16 +22,16 @@ import java.util.Map;
  */
 public class CompositeGrid {
 
-	private Grid<Tile, Tile[]> tiles;
+	private final Grid<Tile, Tile[]> tiles;
 
-	private IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> actors;
+	private final IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> actors;
 
-	private Grid<Catalog, Map.Entry<Point, Catalog>> catalogs;
+	private final Grid<Catalog, Map.Entry<Point, Catalog>> catalogs;
 
 	/**
 	 * The name of the map.
 	 */
-	private String name;
+	private final String name;
 
 	private Point focalPoint;
 
@@ -44,7 +44,7 @@ public class CompositeGrid {
 	/**
 	 * The output of the grid.
 	 */
-	private FocusComponent gridOutput;
+	private final FocusComponent gridOutput;
 	
 	/**
 	 * Creates an empty grid with default dimensions.

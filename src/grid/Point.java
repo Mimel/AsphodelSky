@@ -6,9 +6,9 @@ import static grid.Direction.*;
  * Represents a set of 2D coordinates that pertain to a space on top of a grid.
  */
 public class Point {
-    private int x;
+    private final int x;
 
-    private int y;
+    private final int y;
 
     Point(int x, int y) {
         this.x = x;

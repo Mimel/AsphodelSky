@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class CatalogGrid implements Grid<Catalog, Map.Entry<Point, Catalog>> {
 
-    private Map<Point, Catalog> catalogMap;
+    private final Map<Point, Catalog> catalogMap;
 
     CatalogGrid() {
         catalogMap = new HashMap<>();

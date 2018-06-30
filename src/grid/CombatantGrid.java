@@ -15,12 +15,12 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     /**
      * Map that maps coordinates to the combatant located at that set of coordinates.
      */
-    private Map<Point, Combatant> coordToOccupant;
+    private final Map<Point, Combatant> coordToOccupant;
 
     /**
      * Map that maps the id of the combatant to the location of that combatant.
      */
-    private Map<Integer, Point> idToCoord;
+    private final Map<Integer, Point> idToCoord;
 
     CombatantGrid() {
         coordToOccupant = new HashMap<>();

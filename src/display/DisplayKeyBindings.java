@@ -140,6 +140,7 @@ public class DisplayKeyBindings {
                 switch(promptManager.dequeuePrompt()) {
                     case ACTOR_PROMPT:
                         pendingInjection.setTargetID(grid.getFocusedCombatant().getId());
+                        grid.bindTo(0);
                         break;
                     case ITEM_PROMPT:
                         pendingInjection.setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
@@ -166,7 +167,6 @@ public class DisplayKeyBindings {
                     messages = eq.progressTimeBy(0, grid);
 
                     if(eq.isDialogueTreePending()) {
-                        addPromptsToDisplayQueue(DIALOGUE_PROMPT);
                         game.getFooter().insertDialogue(eq.getPendingDialogueTree());
                     }
                 } else {

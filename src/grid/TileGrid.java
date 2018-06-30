@@ -8,7 +8,7 @@ import java.util.Iterator;
  */
 public class TileGrid implements Grid<Tile, Tile[]> {
 
-    private Tile[][] tiles;
+    private final Tile[][] tiles;
 
     TileGrid(int xMax, int yMax) {
         tiles = new Tile[xMax][yMax];

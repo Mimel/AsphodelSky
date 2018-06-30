@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/map/item_promptmap.dat" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/CatalogGrid.java" afterPath="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/CombatantGrid.java" afterPath="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/CompositeGrid.java" afterPath="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/IdSearchableGrid.java" afterPath="$PROJECT_DIR$/src/grid/IdSearchableGrid.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/Point.java" afterPath="$PROJECT_DIR$/src/grid/Point.java" />
-      <change beforePath="$PROJECT_DIR$/src/grid/TileGrid.java" afterPath="$PROJECT_DIR$/src/grid/TileGrid.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,15 +21,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-838">
-              <caret line="154" column="64" lean-forward="true" selection-start-line="154" selection-start-column="64" selection-end-line="154" selection-end-column="64" />
+            <state relative-caret-position="-986">
+              <caret line="109" column="57" lean-forward="false" selection-start-line="109" selection-start-column="57" selection-end-line="109" selection-end-column="57" />
               <folding>
-                <element signature="e#4939#6975#0" expanded="true" />
-                <element signature="e#6974#6975#0" expanded="true" />
+                <element signature="e#4969#7005#0" expanded="true" />
+                <element signature="e#7004#7005#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_effectmap.dat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/map/item_effectmap.dat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_promptmap.dat" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/map/item_promptmap.dat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,7 +109,7 @@
         <entry file="file://$PROJECT_DIR$/dialogue/Khweiri Dervish_252.dat">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+              <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -106,19 +121,6 @@
             <state relative-caret-position="0">
               <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompositeGrid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/grid/CompositeGrid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="78" column="18" lean-forward="false" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
-              <folding>
-                <element signature="e#1269#1270#0" expanded="true" />
-                <element signature="e#1287#1288#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -270,7 +272,7 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -335,19 +337,30 @@
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
               <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="map" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
               <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="dialogue" type="462c0819:PsiDirectoryNode" />
+              <item name="display" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
               <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="grid" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -618,13 +631,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Replaced Display States with enums.">
-      <created>1501802371513</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1501802371513</updated>
     </task>
     <task id="LOCAL-00045" summary="Added DialogueParser.">
       <created>1501829405547</created>
@@ -962,7 +968,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530245422278</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Fixed &quot;voice&quot; keybind so that view recenters on player, and second enter is not needed to end dialogue trees.">
+      <created>1530340724179</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1530340724179</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TodoView">
@@ -975,8 +988,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18083005" sideWeight="0.46481878" order="6" side_tool="false" content_ui="tabs" />
@@ -991,7 +1003,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22902922" sideWeight="0.4936034" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1171875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1171875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20364742" sideWeight="0.7188694" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30395138" sideWeight="0.4523061" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15938166" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1055,7 +1067,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Added skeletons for talk, basic attack commands." />
     <MESSAGE value="Fixed timing issue with flag, shallow copy issue with Flag List duplication in the Combatant class." />
     <MESSAGE value="Added talk method, in preparation for Event Refactoring." />
     <MESSAGE value="Added queue in EventQueue for CompositeEvents, moved PendingEvent to Keybinds." />
@@ -1080,7 +1091,8 @@
     <MESSAGE value="Refactored access levels in Event package." />
     <MESSAGE value="Refactored Event class so that withX() method functionality is moved into the InstructionData class." />
     <MESSAGE value="Removed second generic in Event, SimpleEvent, and CompoundEvent." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed second generic in Event, SimpleEvent, and CompoundEvent." />
+    <MESSAGE value="Fixed &quot;voice&quot; keybind so that view recenters on player, and second enter is not needed to end dialogue trees." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed &quot;voice&quot; keybind so that view recenters on player, and second enter is not needed to end dialogue trees." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1115,13 +1127,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/display/GUIFooter_Dialogue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/grid/Direction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1140,20 +1145,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/item_imagemap.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/item_effectmap.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1400,29 +1391,29 @@
         <state relative-caret-position="935">
           <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1337#1338#0" expanded="true" />
-            <element signature="e#1408#1409#0" expanded="true" />
-            <element signature="e#1822#1823#0" expanded="true" />
-            <element signature="e#1865#1866#0" expanded="true" />
-            <element signature="e#1996#1997#0" expanded="true" />
-            <element signature="e#2039#2040#0" expanded="true" />
-            <element signature="e#2084#2085#0" expanded="true" />
-            <element signature="e#2138#2139#0" expanded="true" />
-            <element signature="e#2168#2169#0" expanded="true" />
-            <element signature="e#2209#2210#0" expanded="true" />
-            <element signature="e#2331#2332#0" expanded="true" />
-            <element signature="e#2373#2374#0" expanded="true" />
-            <element signature="e#2490#2491#0" expanded="true" />
-            <element signature="e#2530#2531#0" expanded="true" />
-            <element signature="e#2559#2560#0" expanded="true" />
-            <element signature="e#2599#2600#0" expanded="true" />
-            <element signature="e#2640#2641#0" expanded="true" />
-            <element signature="e#2687#2688#0" expanded="true" />
-            <element signature="e#2721#2722#0" expanded="true" />
-            <element signature="e#2765#2766#0" expanded="true" />
-            <element signature="e#2805#2806#0" expanded="true" />
-            <element signature="e#2861#2862#0" expanded="true" />
+            <element signature="e#1308#1309#0" expanded="false" />
+            <element signature="e#1337#1338#0" expanded="false" />
+            <element signature="e#1408#1409#0" expanded="false" />
+            <element signature="e#1822#1823#0" expanded="false" />
+            <element signature="e#1865#1866#0" expanded="false" />
+            <element signature="e#1996#1997#0" expanded="false" />
+            <element signature="e#2039#2040#0" expanded="false" />
+            <element signature="e#2084#2085#0" expanded="false" />
+            <element signature="e#2138#2139#0" expanded="false" />
+            <element signature="e#2168#2169#0" expanded="false" />
+            <element signature="e#2209#2210#0" expanded="false" />
+            <element signature="e#2331#2332#0" expanded="false" />
+            <element signature="e#2373#2374#0" expanded="false" />
+            <element signature="e#2490#2491#0" expanded="false" />
+            <element signature="e#2530#2531#0" expanded="false" />
+            <element signature="e#2559#2560#0" expanded="false" />
+            <element signature="e#2599#2600#0" expanded="false" />
+            <element signature="e#2640#2641#0" expanded="false" />
+            <element signature="e#2687#2688#0" expanded="false" />
+            <element signature="e#2721#2722#0" expanded="false" />
+            <element signature="e#2765#2766#0" expanded="false" />
+            <element signature="e#2805#2806#0" expanded="false" />
+            <element signature="e#2861#2862#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1440,8 +1431,8 @@
         <state relative-caret-position="279">
           <caret line="78" column="18" lean-forward="false" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
           <folding>
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1269#1270#0" expanded="false" />
+            <element signature="e#1287#1288#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1476,7 +1467,7 @@
     <entry file="file://$PROJECT_DIR$/dialogue/Khweiri Dervish_252.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1521,20 +1512,44 @@
         <state relative-caret-position="219">
           <caret line="77" column="18" lean-forward="false" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
           <folding>
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#825#826#0" expanded="false" />
+            <element signature="e#869#870#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/item_imagemap.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-838">
-          <caret line="154" column="64" lean-forward="true" selection-start-line="154" selection-start-column="64" selection-end-line="154" selection-end-column="64" />
+        <state relative-caret-position="-986">
+          <caret line="109" column="57" lean-forward="false" selection-start-line="109" selection-start-column="57" selection-end-line="109" selection-end-column="57" />
           <folding>
-            <element signature="e#4939#6975#0" expanded="true" />
-            <element signature="e#6974#6975#0" expanded="true" />
+            <element signature="e#4969#7005#0" expanded="true" />
+            <element signature="e#7004#7005#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/item_effectmap.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/item_promptmap.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

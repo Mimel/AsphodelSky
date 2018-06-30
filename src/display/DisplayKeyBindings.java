@@ -98,7 +98,7 @@ public class DisplayKeyBindings {
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
                         SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
-                        moveSelfEvent.getData().setCasterIDTo(0).setTargetIDTo(0).setCoordTo(xOffset, yOffset);
+                        moveSelfEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(Player.PLAYER_ID).setCoordTo(xOffset, yOffset);
                         eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
@@ -184,7 +184,9 @@ public class DisplayKeyBindings {
                 if(!promptManager.isPromptQueueEmpty()) {
                     //Undo initialization.
                     switch(promptManager.peekPrompt()) {
+                        case ACTOR_PROMPT:
                         case TILE_PROMPT:
+                            grid.bindTo(Player.PLAYER_ID);
                             break;
                     }
 
@@ -192,7 +194,9 @@ public class DisplayKeyBindings {
                         promptManager.clearPromptQueue();
                     } else {
                         switch(promptManager.requeuePrompt()) {
+                            case ACTOR_PROMPT:
                             case TILE_PROMPT:
+                                grid.unbind();
                                 break;
                         }
                     }
@@ -208,6 +212,7 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(!promptManager.isPromptQueueEmpty()) {
                     promptManager.clearPromptQueue();
+                    grid.bindTo(Player.PLAYER_ID);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -300,7 +305,7 @@ public class DisplayKeyBindings {
                 if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK);
-                    pendingInjection.getData().setCasterIDTo(0).setSecondaryTo(252);
+                    pendingInjection.getData().setCasterIDTo(Player.PLAYER_ID).setSecondaryTo(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

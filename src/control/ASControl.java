@@ -16,6 +16,7 @@ import event.Instruction;
 import event.Response;
 import grid.*;
 import item.Item;
+import item.ItemPromptLoader;
 
 /**
  * The executing class.
@@ -43,7 +44,8 @@ public class ASControl {
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
-		Item.loadItemMapping("map/item_effectmap.dat");
+		Item.loadItemEffectMapping("map/item_effectmap.dat");
+		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();

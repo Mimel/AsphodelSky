@@ -102,7 +102,7 @@ public class Item implements Comparable<Item> {
 
 	public List<SimpleEvent> getEffects() { return useEffects; }
 
-	public static void loadItemMapping(String fileName) {
+	public static void loadItemEffectMapping(String fileName) {
 		if(itemNameToItemMap == null) {
 			itemNameToItemMap = new HashMap<>();
 		}

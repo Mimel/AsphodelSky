@@ -8,9 +8,11 @@ import grid.CompositeGrid;
 import grid.Point;
 import grid.Tile;
 import item.Item;
+import item.ItemPromptLoader;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -143,8 +145,14 @@ public class DisplayKeyBindings {
                         grid.bindTo(0);
                         break;
                     case ITEM_PROMPT:
-                        pendingInjection.setItemID(grid.getOccupant(0).getInventory().getFocusedItem().getId());
+                        Item focusedItem = grid.getOccupant(Player.PLAYER_ID).getInventory().getFocusedItem();
+                        pendingInjection.setItemID(focusedItem.getId());
                         grid.getOccupant(0).getInventory().resetFocusIndex();
+
+                        if(pendingInjection.getOperation() == CompoundOpcode.USE_ITEM) {
+                            ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
+                            addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[prompts.size()]));
+                        }
                         break;
                     case TILE_PROMPT:
                         pendingInjection.setTile(grid.getFocus().x(), grid.getFocus().y());
@@ -419,7 +427,9 @@ public class DisplayKeyBindings {
             promptManager.enqueuePrompt(prompt);
         }
 
-        updateSourceDescPair(promptManager.peekPrompt());
+        if(prompts.length > 0) {
+            updateSourceDescPair(promptManager.peekPrompt());
+        }
         return true;
     }
 

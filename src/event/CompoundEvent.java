@@ -47,7 +47,7 @@ public class CompoundEvent extends Event<CompoundOpcode> {
         switch(getOperation()) {
             case USE_ITEM:
                 SimpleEvent useClause = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
-                useClause.getData().setSecondaryTo(1);
+                useClause.getData().setTargetIDTo(getCasterID()).setSecondaryTo(1);
                 eventList.add(useClause);
                 Item target;
                 if((target = Item.getItemById(getItemID())) != null) {

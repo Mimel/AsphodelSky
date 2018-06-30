@@ -40,7 +40,7 @@ public class ASControl {
 		MessageManager mm = new MessageManager(game.getFooter());
 		threadList.execute(mm);
 
-		Player p1 = new Player("Place Holder", "Apprentice", 47, 22, game.getSidebar());
+		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22, game.getSidebar());
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -63,6 +63,7 @@ public class ASControl {
 		compositeGrid.bindTo(0);
 
 		compositeGrid.addItem(0, 4, 4);
+		compositeGrid.addItem(1, 4, 8);
 		for(int x = 0; x < 10; x++) {
 			compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
 		}

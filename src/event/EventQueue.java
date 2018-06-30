@@ -150,22 +150,25 @@ public class EventQueue {
             SimpleEvent topEvent = eventQueue.peek();
 
             Opcode op = topEvent.getOperation();
-            if(topEvent.isFlaggable()) {
-                for(Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) {
-                    if(f.checkForTrigger(this)) {
-                        eventRemoved = true;
+            String message = null;
+            if(gr.doesCombatantExist(topEvent.getCasterID()) && gr.doesCombatantExist(topEvent.getTargetID())) {
+                if (topEvent.isFlaggable()) {
+                    for (Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) { //TODO Figure out NPE when player uses item on enemy.
+                        if (f.checkForTrigger(this)) {
+                            eventRemoved = true;
+                        }
+
                     }
-
                 }
-            }
 
-            if(eventRemoved) {
-                continue;
-            } else {
-                topEvent.setFlaggable(false);
-            }
+                if (eventRemoved) {
+                    continue;
+                } else {
+                    topEvent.setFlaggable(false);
+                }
 
-            String message = topEvent.execute(gr);
+                message = topEvent.execute(gr);
+            }
             eventQueue.remove(topEvent);
 
             if(message != null) {

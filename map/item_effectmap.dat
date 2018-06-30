@@ -2,10 +2,10 @@ Cardiotic Fluid~ VIAL
 Crimson flakes seem to levitate in this unpleasantly oily concoction.
 Restores a small amount of health.
 COMBATANT_ADJUSTHP(0,353) ~sec=-1;
-COMBATANT_ADJUSTHP(2,353) ~sec=-2;
-COMBATANT_ADJUSTHP(4,353) ~sec=-4;
-COMBATANT_ADJUSTHP(6,353) ~sec=-8;
-COMBATANT_ADJUSTHP(12,353) ~sec=-16;
+COMBATANT_ADJUSTHP(1,353) ~sec=-2;
+COMBATANT_ADJUSTHP(2,353) ~sec=-4;
+COMBATANT_ADJUSTHP(3,353) ~sec=-8;
+COMBATANT_ADJUSTHP(4,353) ~sec=-16;
 !END
 Solution of Finesse~ VIAL
 Something.

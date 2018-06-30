@@ -140,6 +140,10 @@ public class CompositeGrid {
 		}
 	}
 
+	public boolean doesCombatantExist(int id) {
+		return actors.getOccupantById(id) != null;
+	}
+
 	public Point getLocationOfCombatant(int id) {
 		return actors.getLocationById(id);
 	}

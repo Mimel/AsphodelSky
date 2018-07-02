@@ -153,7 +153,7 @@ public class EventQueue {
             String message = null;
             if(gr.doesCombatantExist(topEvent.getCasterID()) && gr.doesCombatantExist(topEvent.getTargetID())) {
                 if (topEvent.isFlaggable()) {
-                    for (Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) { //TODO Figure out NPE when player uses item on enemy.
+                    for (Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) {
                         if (f.checkForTrigger(this)) {
                             eventRemoved = true;
                         }

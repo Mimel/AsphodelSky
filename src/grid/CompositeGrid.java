@@ -3,7 +3,7 @@ package grid;
 import display.FocusComponent;
 import entity.Combatant;
 import item.Catalog;
-import item.Item;
+import item.ItemLoader;
 
 import java.util.Map;
 
@@ -207,7 +207,7 @@ public class CompositeGrid {
 			if(catalogs.getOccupantAt(x, y) == null) {
 				catalogs.placeOccupant(new Catalog(), x, y);
 			}
-			catalogs.getOccupantAt(x, y).insertItem(Item.getItemById(itemId), 1);
+			catalogs.getOccupantAt(x, y).insertItem(ItemLoader.getItemById(itemId), 1);
 		}
 	}
 

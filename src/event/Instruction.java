@@ -2,6 +2,7 @@ package event;
 
 import grid.CompositeGrid;
 import item.Item;
+import item.ItemLoader;
 import org.javatuples.Pair;
 
 import java.util.HashMap;
@@ -66,7 +67,7 @@ public class Instruction
             });
 
             instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (opData, grid) -> {
-                grid.getOccupant(opData.getTargetID()).getInventory().insertItem(Item.getItemById(opData.getItemID()), opData.getSecondary());
+                grid.getOccupant(opData.getTargetID()).getInventory().insertItem(ItemLoader.getItemById(opData.getItemID()), opData.getSecondary());
                 return null;
             });
 

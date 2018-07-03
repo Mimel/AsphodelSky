@@ -1,6 +1,7 @@
 package event;
 
 import item.Item;
+import item.ItemLoader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class CompoundEvent extends Event<CompoundOpcode> {
                 useClause.getData().setTargetIDTo(getCasterID()).setSecondaryTo(1);
                 eventList.add(useClause);
                 Item target;
-                if((target = Item.getItemById(getItemID())) != null) {
+                if((target = ItemLoader.getItemById(getItemID())) != null) {
                     List<SimpleEvent> l = target.use(getTargetID());
                     for(SimpleEvent se : l) {
                         se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());

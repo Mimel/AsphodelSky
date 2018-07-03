@@ -42,8 +42,6 @@ public final class ItemPromptLoader {
                     itemName = currLine;
                 }
             }
-
-            System.out.println("State.");
         } catch (IOException e) {
             e.printStackTrace();
         }

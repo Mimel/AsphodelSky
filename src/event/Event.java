@@ -102,7 +102,7 @@ public class Event<A> {
         return params.getSkillID();
     }
 
-    void setSkillID(int skillID) {
+    public void setSkillID(int skillID) {
         this.getData().setSkillIDTo(skillID);
     }
 

@@ -5,7 +5,6 @@ package display;
  * alters the display of the game.
  */
 public enum DisplayPrompt {
-    //TODO: ACTOR PROMPT MUST SELECT ONLY ACTORS, NOT EMPTY TILES: QOL
     ACTOR_PROMPT,
     ITEM_PROMPT,
     SKILL_PROMPT,

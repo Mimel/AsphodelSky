@@ -17,6 +17,7 @@ import event.Response;
 import grid.*;
 import item.Item;
 import item.ItemPromptLoader;
+import skill.SkillLoader;
 
 /**
  * The executing class.
@@ -46,12 +47,15 @@ public class ASControl {
 		ImageAssets.loadImageMapping();
 		Item.loadItemEffectMapping("map/item_effectmap.dat");
 		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
+		SkillLoader.initializeSkillMap("map/skill_effectmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
 		Response.loadResponseTable("map/responsemap.dat");
 
 		p1.getInventory().insertItem(Item.getItemById(0), 1);
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByName("Nothing for 5 Seconds"));
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByName("Place Random Item"));
 
 		//Initializing SimpleEvent Queue.
 		EventQueue eq = new EventQueue();

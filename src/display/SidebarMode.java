@@ -5,5 +5,6 @@ package display;
  */
 public enum SidebarMode {
     COMBATANT,
-    SELECTION
+    ITEM_SELECTION,
+    SKILL_SELECTION
 }

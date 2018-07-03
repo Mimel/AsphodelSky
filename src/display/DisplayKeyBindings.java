@@ -9,6 +9,7 @@ import grid.Point;
 import grid.Tile;
 import item.Item;
 import item.ItemPromptLoader;
+import skill.Skill;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -97,6 +98,14 @@ public class DisplayKeyBindings {
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
 
+                } else if(game.getConfig() == DisplayConfiguration.SKILL_SELECT) {
+
+                    //Moves the cursor over the skill set.
+                    if(p1.getSkillSet().setFocusedSkillIndex(xOffset)) {
+                        p1.updatePlayer();
+                        updateSourceDescPair(promptManager.peekPrompt());
+                    }
+
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
                         SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
@@ -142,21 +151,26 @@ public class DisplayKeyBindings {
                 switch(promptManager.dequeuePrompt()) {
                     case ACTOR_PROMPT:
                         pendingInjection.setTargetID(grid.getFocusedCombatant().getId());
-                        grid.bindTo(0);
+                        grid.bindTo(Player.PLAYER_ID);
                         break;
                     case ITEM_PROMPT:
                         Item focusedItem = grid.getOccupant(Player.PLAYER_ID).getInventory().getFocusedItem();
                         pendingInjection.setItemID(focusedItem.getId());
-                        grid.getOccupant(0).getInventory().resetFocusIndex();
+                        grid.getOccupant(Player.PLAYER_ID).getInventory().resetFocusIndex();
 
                         if(pendingInjection.getOperation() == CompoundOpcode.USE_ITEM) {
                             ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
                             addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[prompts.size()]));
                         }
                         break;
+                    case SKILL_PROMPT:
+                        Skill focusedSkill = grid.getOccupant(Player.PLAYER_ID).getSkillSet().getFocusedSkill();
+                        pendingInjection.setSkillID(focusedSkill.getId());
+                        grid.getOccupant(Player.PLAYER_ID).getSkillSet().resetFocusedSkillIndex();
+                        break;
                     case TILE_PROMPT:
                         pendingInjection.setTile(grid.getFocus().x(), grid.getFocus().y());
-                        grid.bindTo(0);
+                        grid.bindTo(Player.PLAYER_ID);
                         break;
                     case DIALOGUE_PROMPT:
                         if(game.getFooter().canDialogueContinue()) {
@@ -279,6 +293,18 @@ public class DisplayKeyBindings {
             }
         };
 
+        Action viewSkills = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
+
+                    updateOutput(Collections.emptyList());
+                    game.repaint();
+                }
+            }
+        };
+
         Action use = new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
@@ -380,6 +406,10 @@ public class DisplayKeyBindings {
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "inventory");
         game.getActionMap().put("inventory", inventory);
 
+        //V = View Skills.
+        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('v'), "view_skills");
+        game.getActionMap().put("view_skills", viewSkills);
+
         //U = Use.
         game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
         game.getActionMap().put("use", use);
@@ -420,6 +450,12 @@ public class DisplayKeyBindings {
                         return false;
                     }
                     break;
+                case SKILL_PROMPT:
+                    if(p1.getSkillSet().isSkillSetEmpty()) {
+                        promptManager.clearPromptQueue();
+                        return false;
+                    }
+                    break;
                 case TILE_PROMPT:
                     grid.unbind();
                     break;
@@ -456,6 +492,9 @@ public class DisplayKeyBindings {
                 messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
 
+            case SKILL_PROMPT:
+                messageManager.loadSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
+                break;
             case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {

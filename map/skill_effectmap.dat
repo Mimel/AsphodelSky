@@ -1,0 +1,10 @@
+Nothing for 5 Seconds
+This tests to make sure that skills work properly.
+Waits 5 seconds. That's it.
+COMBATANT_ADJUSTHP(5,353) ~sec=-20;
+!END
+Place Random Item
+Tests prompt additions.
+Places a random item at the chosen space.
+COMBATANT_ADJUSTHP(0,353) ~sec=7;
+!END

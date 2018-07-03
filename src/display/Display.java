@@ -80,9 +80,15 @@ public class Display extends JPanel {
 				fc.setCurrentMode(FooterMode.DESCRIPTION);
 				break;
 
+			case SKILL_SELECT:
+				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
+				sc.setCurrentMode(SidebarMode.SKILL_SELECTION);
+				fc.setCurrentMode(FooterMode.DESCRIPTION);
+				break;
+
 			case INVENTORY_SELECT:
 				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
-				sc.setCurrentMode(SidebarMode.SELECTION);
+				sc.setCurrentMode(SidebarMode.ITEM_SELECTION);
 				fc.setCurrentMode(FooterMode.DESCRIPTION);
 				break;
 

@@ -19,6 +19,7 @@ public final class ImageAssets {
 	
 	private static HashMap<Character, Image> terrIdToImage;
 	private static HashMap<String, Image> itemIdToImage;
+	private static HashMap<String, Image> skillIdToImage;
 	private static HashMap<String, Image> charIdToImage;
 	private static HashMap<Character, Image> miscIdToImage;
 
@@ -36,6 +37,7 @@ public final class ImageAssets {
 			// Initialize tilesets.
 			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
 			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/vials.png"));
+			BufferedImage TILESET_SKLL = ImageIO.read(new File("img/skill/tests.png"));
 			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/enemies.png"));
 			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/misc.png"));
 
@@ -44,6 +46,8 @@ public final class ImageAssets {
 			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
 			itemIdToImage = new HashMap<>();
 			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
+			skillIdToImage = new HashMap<>();
+			fillStringHashmap(skillIdToImage, TILESET_SKLL, "map/skill_imagemap.dat");
 			charIdToImage = new HashMap<>();
 			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
 			miscIdToImage = new HashMap<>();
@@ -66,6 +70,10 @@ public final class ImageAssets {
 	static Image getItemImage(String key) {
 		return itemIdToImage.get(key);
 	}
+
+	static Image getSkillImage(String key) {
+	    return skillIdToImage.get(key);
+    }
 	
 	static Image getCharImage(String key) {
 		return charIdToImage.get(key);

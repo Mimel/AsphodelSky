@@ -4,6 +4,7 @@ import event.flag.Flag;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 import item.Catalog;
+import skill.SkillSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,12 +109,18 @@ public abstract class Combatant implements Entity {
 	 */
 	private Catalog inventory;
 
+	/**
+	 * The skills the combatant has.
+	 */
+	private SkillSet skills;
+
 	private ArrayList<Flag> eventTriggerList;
 
 	Combatant() {
 		this.id = auto_incr_id.getAndIncrement();
 
 		this.inventory = new Catalog();
+		this.skills = new SkillSet();
 		this.eventTriggerList = new ArrayList<>();
 	}
 
@@ -137,6 +144,7 @@ public abstract class Combatant implements Entity {
 		this.currentScience = science;
 
 		this.inventory = new Catalog();
+		this.skills = new SkillSet();
 		this.eventTriggerList = new ArrayList<>();
 	}
 
@@ -163,6 +171,7 @@ public abstract class Combatant implements Entity {
 		this.intuition = c.getIntuition();
 
 		this.inventory = new Catalog();
+		this.skills = new SkillSet();
 
 		this.eventTriggerList = new ArrayList<>();
 		for(Flag f : c.getFlagList()) {
@@ -350,6 +359,10 @@ public abstract class Combatant implements Entity {
 	 */
 	public Catalog getInventory() {
 		return inventory;
+	}
+
+	public SkillSet getSkillSet() {
+		return skills;
 	}
 
 	/**

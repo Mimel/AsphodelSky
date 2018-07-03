@@ -6,6 +6,7 @@ package display;
 public enum DisplayConfiguration {
     DEFAULT,
     INVENTORY_SELECT,
+    SKILL_SELECT,
     TILE_SELECT,
     DIALOGUE
 }

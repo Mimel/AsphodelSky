@@ -160,7 +160,7 @@ public class DisplayKeyBindings {
 
                         if(pendingInjection.getOperation() == CompoundOpcode.USE_ITEM) {
                             ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
-                            addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[prompts.size()]));
+                            addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[0]));
                         }
                         break;
                     case SKILL_PROMPT:
@@ -297,7 +297,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
+                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.USE_SKILL);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

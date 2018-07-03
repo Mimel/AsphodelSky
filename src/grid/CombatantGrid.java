@@ -94,7 +94,7 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
 
     @Override
     public Combatant[] getAllOccupants() {
-        return coordToOccupant.values().toArray(new Combatant[coordToOccupant.values().size()]);
+        return coordToOccupant.values().toArray(new Combatant[0]);
     }
 
     @Override

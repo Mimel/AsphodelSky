@@ -2,6 +2,8 @@ package event;
 
 import item.Item;
 import item.ItemLoader;
+import skill.Skill;
+import skill.SkillLoader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class CompoundEvent extends Event<CompoundOpcode> {
      * events.
      * Note that the trigger delay of the Compound Event is equal to that of the current time; all
      * @return The list of events that this CompoundEvent decomposes to.
+     * TODO: Serious refactoring needed.
      */
     List<SimpleEvent> decomposeMacroEvent() {
         List<SimpleEvent> eventList = new LinkedList<>();
@@ -69,6 +72,17 @@ public class CompoundEvent extends Event<CompoundOpcode> {
 
                 eventList.add(dropClause1);
                 eventList.add(dropClause2);
+                break;
+
+            case USE_SKILL:
+                Skill usedSkill;
+                if((usedSkill = SkillLoader.getSkillByID(getSkillID())) != null) {
+                    List<SimpleEvent> l = usedSkill.useSkill(getTargetID());
+                    for(SimpleEvent se : l) {
+                        se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
+                        eventList.add(se);
+                    }
+                }
                 break;
 
             case SHELL_TALK:

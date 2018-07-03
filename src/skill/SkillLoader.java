@@ -1,15 +1,13 @@
 package skill;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class SkillLoader {
-    private static Map<String, Skill> skillNameToSkill;
+    private static Map<Integer, Skill> skillNameToSkill;
 
     private SkillLoader(){}
 
@@ -36,7 +34,8 @@ public final class SkillLoader {
                 } else if(uDesc.equals("")) {
                     uDesc = line;
                 } else if(line.equals("!END")) {
-                    skillNameToSkill.put(name, new Skill(name, vDesc, uDesc, effects.toString()));
+                    Skill newestSkill = new Skill(name, vDesc, uDesc, effects.toString());
+                    skillNameToSkill.put(newestSkill.getId(), newestSkill);
                     name = "";
                     vDesc = "";
                     uDesc = "";
@@ -50,7 +49,7 @@ public final class SkillLoader {
         }
     }
 
-    public static Skill getSkillByName(String name) {
-        return skillNameToSkill.get(name);
+    public static Skill getSkillByID(int id) {
+        return skillNameToSkill.get(id);
     }
 }

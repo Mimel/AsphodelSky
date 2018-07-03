@@ -43,10 +43,7 @@ public class SkillSet {
     }
 
     public List<Skill> getSkillsDeepCopy() {
-        List<Skill> newSkills = new ArrayList<>();
-        for(Skill s : skillList) {
-            newSkills.add(s);
-        }
+        List<Skill> newSkills = new ArrayList<>(skillList);
         return newSkills;
     }
 

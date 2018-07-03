@@ -54,8 +54,8 @@ public class ASControl {
 		Response.loadResponseTable("map/responsemap.dat");
 
 		p1.getInventory().insertItem(ItemLoader.getItemById(0), 1);
-		p1.getSkillSet().addSkill(SkillLoader.getSkillByName("Nothing for 5 Seconds"));
-		p1.getSkillSet().addSkill(SkillLoader.getSkillByName("Place Random Item"));
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(0));
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(1));
 
 		//Initializing SimpleEvent Queue.
 		EventQueue eq = new EventQueue();

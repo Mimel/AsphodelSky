@@ -24,6 +24,12 @@ public enum CompoundOpcode {
     DROP_ITEM,
 
     /**
+     * Uses a skill.
+     * All simple events in the Skill are pushed onto the event queue.
+     */
+    USE_SKILL,
+
+    /**
      * Performs the START_DIALOGUE Opcode command, which initialtes a text conversation with a nearby
      * combatant. Used as a shell op.
      */

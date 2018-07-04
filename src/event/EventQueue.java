@@ -45,7 +45,7 @@ public class EventQueue {
 
     public void createInjection(CompoundEvent ce) {
         if(ce.getTriggerDelay() >= 0) {
-            CompoundEvent dup = new CompoundEvent(ce);
+            CompoundEvent dup = ce.clone();
             dup.setTriggerDelay(time + dup.getTriggerDelay());
             injectionQueue.add(dup);
         }
@@ -119,7 +119,7 @@ public class EventQueue {
 
             // Inject Composites into the Standard Queue.
             while(!injectionQueue.isEmpty() && injectionQueue.peek().getTriggerDelay() == time) {
-               addEvents(injectionQueue.poll().decomposeMacroEvent());
+               addEvents(injectionQueue.poll().decompose());
             }
 
             // Execute all events at time.
@@ -149,7 +149,7 @@ public class EventQueue {
             boolean eventRemoved = false;
             SimpleEvent topEvent = eventQueue.peek();
 
-            Opcode op = topEvent.getOperation();
+            Opcode op = topEvent.getSimpleOperation();
             String message = null;
             if(gr.doesCombatantExist(topEvent.getCasterID()) && gr.doesCombatantExist(topEvent.getTargetID())) {
                 if (topEvent.isFlaggable()) {

@@ -27,7 +27,7 @@ public class ProtocolReplace extends Flag {
 
     @Override
     public boolean checkForTrigger(EventQueue queue) {
-        if(queue.peek().getOperation() == eventTrigger) {
+        if(queue.peek().getSimpleOperation() == eventTrigger) {
             int selfID = queue.peek().getTargetID();
             int senderID = queue.peek().getCasterID();
             queue.poll();

@@ -5,10 +5,13 @@ import grid.CompositeGrid;
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
  */
-public class SimpleEvent extends Event<Opcode> {
+public class SimpleEvent extends Event {
+
+    private Opcode operation;
 
     public SimpleEvent(int time, int priority, Opcode opcode) {
-        super(time, priority, opcode);
+        super(time, priority);
+        this.operation = opcode;
     }
 
     /**
@@ -17,14 +20,18 @@ public class SimpleEvent extends Event<Opcode> {
      * @param e The event to copy from.
      */
     public SimpleEvent(SimpleEvent e) {
-        super(e.getTriggerDelay(), e.getPriority(), e.getOperation());
-
+        super(e.getTriggerDelay(), e.getPriority());
+        this.operation = e.operation;
         this.setCasterID(e.getData().getCasterID());
         this.setTargetID(e.getData().getTargetID());
         this.setItemID(e.getData().getItemID());
         this.setSkillID(e.getData().getSkillID());
         this.setTile(e.getData().getTileX(), e.getData().getTileY());
         this.setSecondary(e.getData().getSecondary());
+    }
+
+    public Opcode getSimpleOperation() {
+        return operation;
     }
 
     /**
@@ -90,10 +97,10 @@ public class SimpleEvent extends Event<Opcode> {
      * @param gr The grid to impose the instruction on.
      */
     String execute(CompositeGrid gr) {
-        return Instruction.execute(getOperation(), this.getData(), gr);
+        return Instruction.execute(operation, this.getData(), gr);
     }
 
     public String toString() {
-        return "SimpleEvent " + getOperation() + " at time " + getTriggerDelay() + "s past the current.";
+        return "SimpleEvent " + operation + " at time " + getTriggerDelay() + "s past the current.";
     }
 }

@@ -27,7 +27,7 @@ public class ProtocolCancel extends Flag {
 
     @Override
     public boolean checkForTrigger(EventQueue queue) {
-        if(queue.peek().getOperation() == eventTrigger) {
+        if(queue.peek().getSimpleOperation() == eventTrigger) {
             queue.poll();
             return true;
         }

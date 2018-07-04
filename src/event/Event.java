@@ -6,7 +6,7 @@ package event;
  *
  * The A wildcard refers to an enum, which refers to the set of opcodes to use.
  */
-public class Event<A> {
+public class Event {
     /**
      * The amount of time between the current time and the time the event triggers.
      */
@@ -23,14 +23,9 @@ public class Event<A> {
      */
     private boolean flaggable;
 
-    /**
-     * An operation to perform, from a given set of operations A.
-     */
-    private final A operation;
-
     private final InstructionData params;
 
-    Event(int delay, int priority, A op) {
+    Event(int delay, int priority) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {
@@ -44,7 +39,6 @@ public class Event<A> {
         }
 
         this.flaggable = true;
-        this.operation = op;
         this.params = new InstructionData();
     }
 
@@ -68,10 +62,6 @@ public class Event<A> {
 
     public void setFlaggable(boolean newFlaggable) {
         this.flaggable = newFlaggable;
-    }
-
-    public A getOperation() {
-        return operation;
     }
 
     public int getCasterID() {
@@ -123,7 +113,7 @@ public class Event<A> {
         return params.getSecondary();
     }
 
-    void setSecondary(int secondary) {
+    public void setSecondary(int secondary) {
         this.getData().setSecondaryTo(secondary);
     }
 }

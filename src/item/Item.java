@@ -71,6 +71,7 @@ public class Item implements Comparable<Item> {
 	Item(Item i) {
 		id = i.getId();
 		this.name = i.getName();
+		this.type = i.type;
 		this.descVis = i.getVisualDescription();
 		this.descUse = i.getUseDescription();
 		this.useEffects = i.getEffects();

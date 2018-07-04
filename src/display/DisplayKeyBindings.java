@@ -4,6 +4,7 @@ import comm.MessageManager;
 import entity.Combatant;
 import entity.Player;
 import event.*;
+import event.compound_event.*;
 import grid.CompositeGrid;
 import grid.Point;
 import grid.Tile;
@@ -31,6 +32,9 @@ public class DisplayKeyBindings {
     private static Player p1;
     private static MessageManager messageManager;
     private static CompoundEvent pendingInjection;
+
+    private static boolean lookForItemPrompts = false;
+
     /**
      * Creates keybinds for the game.
      * @param game The GUI.
@@ -158,9 +162,10 @@ public class DisplayKeyBindings {
                         pendingInjection.setItemID(focusedItem.getId());
                         grid.getOccupant(Player.PLAYER_ID).getInventory().resetFocusIndex();
 
-                        if(pendingInjection.getOperation() == CompoundOpcode.USE_ITEM) {
+                        if(lookForItemPrompts) {
                             ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
                             addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[0]));
+                            lookForItemPrompts = false;
                         }
                         break;
                     case SKILL_PROMPT:
@@ -271,7 +276,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
+                    pendingInjection = new NoOpEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -285,7 +290,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.NO_OP);
+                    pendingInjection = new NoOpEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -297,7 +302,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.USE_SKILL);
+                    pendingInjection = new UseSkillEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -311,7 +316,8 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.USE_ITEM);
+                    pendingInjection = new UseItemEvent(0, 20);
+                    lookForItemPrompts = true;
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -325,7 +331,7 @@ public class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.DROP_ITEM);
+                    pendingInjection = new DropItemEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -338,7 +344,7 @@ public class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    pendingInjection = new CompoundEvent(0, 20, CompoundOpcode.SHELL_TALK);
+                    pendingInjection = new ShellTalkEvent(0, 20);
                     pendingInjection.getData().setCasterIDTo(Player.PLAYER_ID).setSecondaryTo(252);
 
                     updateOutput(Collections.emptyList());
@@ -476,7 +482,7 @@ public class DisplayKeyBindings {
      * @param messages A list of messages to send to the message manager.
      */
     private static void updateOutput(List<String> messages) {
-        messageManager.insertMessage(messages.toArray(new String[messages.size()]));
+        messageManager.insertMessage(messages.toArray(new String[0]));
         grid.updateGrid(GUIFocus.GRID_WIDTH, GUIFocus.GRID_HEIGHT);
         p1.updatePlayer();
     }

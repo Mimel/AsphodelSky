@@ -1,6 +1,20 @@
 package display;
 
+import comm.MessageManager;
+import entity.EnemyGenerator;
+import entity.Player;
+import event.EventQueue;
+import event.Instruction;
+import event.Response;
+import grid.CompositeGrid;
+import grid.Tile;
+import item.ItemLoader;
+import item.ItemPromptLoader;
+import skill.SkillLoader;
+
 import java.awt.BorderLayout;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.*;
 
@@ -10,7 +24,7 @@ import javax.swing.*;
  * @author Matt Imel
  *
  */
-public class Display extends JPanel {
+public class GameSession extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -39,7 +53,7 @@ public class Display extends JPanel {
 	 */
 	private InputMap keyBindings;
 
-	public Display(int winWidth, int winHeight) {
+	public GameSession(int winWidth, int winHeight) {
 		this.setLayout(new BorderLayout());
 		
 		//Magic numbers soon to be replaced
@@ -52,6 +66,8 @@ public class Display extends JPanel {
 		this.add(fc, BorderLayout.SOUTH);
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
+
+		initializeGameSession();
 	}
 
 	public GUIFocus getFocus() { return gc; }
@@ -121,5 +137,52 @@ public class Display extends JPanel {
 		if(keyBindings != null) {
 			setInputMap(JComponent.WHEN_FOCUSED, keyBindings);
 		}
+	}
+
+	private void initializeGameSession() {
+		//Initialize message manager.
+		ExecutorService threadList = Executors.newFixedThreadPool(2);
+		MessageManager mm = new MessageManager(getFooter());
+		threadList.execute(mm);
+
+		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22, getSidebar());
+
+		//Mapping/Images/Assets loading.
+		ImageAssets.loadImageMapping();
+		ItemLoader.loadItemEffectMapping("map/item_effectmap.dat");
+		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
+		SkillLoader.initializeSkillMap("map/skill_effectmap.dat");
+		Tile.loadTraitMapping("map/terr_infomap.dat");
+		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
+		Instruction.loadInstructionSet();
+		Response.loadResponseTable("map/responsemap.dat");
+
+		p1.getInventory().insertItem(ItemLoader.getItemById(0), 1);
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(0));
+		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(1));
+
+		//Initializing SimpleEvent Queue.
+		EventQueue eq = new EventQueue();
+
+		//PLAYGROUND TEMPORARY
+		CompositeGrid compositeGrid = new CompositeGrid(getFocus());
+
+		compositeGrid.addCombatant(p1, 1, 1);
+		compositeGrid.bindTo(0);
+
+		compositeGrid.addItem(0, 4, 4);
+		compositeGrid.addItem(1, 4, 8);
+		for(int x = 0; x < 10; x++) {
+			compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
+		}
+
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Bilge Rat"), 12, 4);
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Fireball"), 13, 4);
+
+
+		repaint();
+		//END PLAYGROUND
+
+		DisplayKeyBindings.initKeyBinds(this, compositeGrid, p1, mm, eq);
 	}
 }

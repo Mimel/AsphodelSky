@@ -39,7 +39,7 @@ public class DisplayKeyBindings {
      * Creates keybinds for the game.
      * @param game The GUI.
      */
-    public static void initKeyBinds(Display game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
+    public static void initKeyBinds(GameSession game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
 
         DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;

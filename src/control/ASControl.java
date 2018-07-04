@@ -10,6 +10,7 @@ import comm.MessageManager;
 import display.GameSession;
 import display.DisplayKeyBindings;
 import display.ImageAssets;
+import display.mainmenu.MainMenuDisplay;
 import entity.*;
 import event.EventQueue;
 import event.Instruction;
@@ -31,13 +32,12 @@ public class ASControl {
 		gameWindow.setMaximumSize(new Dimension(1920, 1080));
 		gameWindow.setUndecorated(true);
 		gameWindow.setLocationRelativeTo(null); //Centers window
-		
+
+		MainMenuDisplay mmd = new MainMenuDisplay();
 		GameSession game = new GameSession(1200, 900);
 		
-		gameWindow.add(game);
-		
+		gameWindow.add(mmd);
 		gameWindow.pack();
-		
 		gameWindow.setVisible(true);
 	}
 }

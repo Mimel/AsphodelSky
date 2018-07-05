@@ -1,24 +1,10 @@
 package control;
 
 import java.awt.Dimension;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import javax.swing.*;
 
-import comm.MessageManager;
 import display.GameSession;
-import display.DisplayKeyBindings;
-import display.ImageAssets;
-import display.mainmenu.MainMenuDisplay;
-import entity.*;
-import event.EventQueue;
-import event.Instruction;
-import event.Response;
-import grid.*;
-import item.ItemLoader;
-import item.ItemPromptLoader;
-import skill.SkillLoader;
+import display.mainmenu.MenuController;
 
 /**
  * The executing class.
@@ -33,11 +19,8 @@ public class ASControl {
 		gameWindow.setUndecorated(true);
 		gameWindow.setLocationRelativeTo(null); //Centers window
 
-		MainMenuDisplay mmd = new MainMenuDisplay();
+		MenuController mc = new MenuController(gameWindow);
+
 		GameSession game = new GameSession(1200, 900);
-		
-		gameWindow.add(mmd);
-		gameWindow.pack();
-		gameWindow.setVisible(true);
 	}
 }

@@ -1,6 +1,5 @@
 package display.mainmenu;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuState extends MenuState {

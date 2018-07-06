@@ -48,11 +48,6 @@ public class GameSession extends JPanel {
 	 */
 	private DisplayConfiguration currentConfig;
 
-	/**
-	 * The set of key bindings to use.
-	 */
-	private InputMap keyBindings;
-
 	public GameSession(int winWidth, int winHeight) {
 		this.setLayout(new BorderLayout());
 		
@@ -70,9 +65,9 @@ public class GameSession extends JPanel {
 		initializeGameSession();
 	}
 
-	public GUIFocus getFocus() { return gc; }
-	public GUISidebar getSidebar() { return sc;}
-	public GUIFooter getFooter() { return fc; }
+	GUIFocus getFocus() { return gc; }
+	GUISidebar getSidebar() { return sc;}
+	GUIFooter getFooter() { return fc; }
 	DisplayConfiguration getConfig() {
 		return currentConfig;
 	}
@@ -116,27 +111,6 @@ public class GameSession extends JPanel {
 		}
 
 		currentConfig = newConfig;
-	}
-
-	/**
-	 * Restricts the set of key bindings to just the arrow keys, exit, yes, and no. This is used in
-	 * many selections, such as item select, tile select, and skill select.
-	 */
-	void restrictKeyBindings() {
-		if(keyBindings == null) {
-			keyBindings = getInputMap();
-		}
-
-		setInputMap(JComponent.WHEN_FOCUSED, getInputMap().getParent());
-	}
-
-	/**
-	 * Expands the set of key bindings to every single set bind.
-	 */
-	void expandKeyBindings() {
-		if(keyBindings != null) {
-			setInputMap(JComponent.WHEN_FOCUSED, keyBindings);
-		}
 	}
 
 	private void initializeGameSession() {

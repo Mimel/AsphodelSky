@@ -25,7 +25,7 @@ import static display.DisplayPrompt.TILE_PROMPT;
 /**
  * The set of keybinds used for the game.
  */
-public class DisplayKeyBindings {
+class DisplayKeyBindings {
 
     private static PromptManager promptManager;
     private static CompositeGrid grid;
@@ -39,7 +39,7 @@ public class DisplayKeyBindings {
      * Creates keybinds for the game.
      * @param game The GUI.
      */
-    public static void initKeyBinds(GameSession game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
+    static void initKeyBinds(GameSession game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
 
         DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;
@@ -252,7 +252,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(!(grid.getItemsOnTile(0) == null)) {
+                if(keybindsAreRestricted() && !(grid.getItemsOnTile(0) == null)) {
                     SimpleEvent getEvent = new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL);
                     getEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(Player.PLAYER_ID)
                             .setItemIDTo(grid.getFocusedCatalog().getFocusedItem().getId());
@@ -275,7 +275,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new NoOpEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
@@ -289,7 +289,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new NoOpEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
@@ -301,7 +301,7 @@ public class DisplayKeyBindings {
         Action viewSkills = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
                     pendingInjection = new UseSkillEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
@@ -315,7 +315,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new UseItemEvent(0, 20);
                     lookForItemPrompts = true;
 
@@ -330,7 +330,7 @@ public class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new DropItemEvent(0, 20);
 
                     updateOutput(Collections.emptyList());
@@ -342,7 +342,7 @@ public class DisplayKeyBindings {
         Action talk = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
+                if(keybindsAreRestricted() && addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     pendingInjection = new ShellTalkEvent(0, 20);
                     pendingInjection.getData().setCasterIDTo(Player.PLAYER_ID).setSecondaryTo(252);
@@ -355,82 +355,86 @@ public class DisplayKeyBindings {
 
         game.getInputMap().setParent(new InputMap());
 
+        //R = Recon.
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('r'), "recon");
+        game.getActionMap().put("recon", recon);
+
         //ESC = Exits the program.
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ESCAPE"), "exitProgram");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "exitProgram");
         game.getActionMap().put("exitProgram", exitProgram);
 
         //Q,W,E,A,D,Z,X,C = Move. The following eight binds reflect moving.
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('a'), "moveLeft");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'), "moveLeft");
         game.getActionMap().put("moveLeft", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('w'), "moveUp");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('w'), "moveUp");
         game.getActionMap().put("moveUp", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('d'), "moveRight");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "moveRight");
         game.getActionMap().put("moveRight", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('x'), "moveDown");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('x'), "moveDown");
         game.getActionMap().put("moveDown", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('q'), "moveNW");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "moveNW");
         game.getActionMap().put("moveNW", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('e'), "moveNE");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "moveNE");
         game.getActionMap().put("moveNE", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('z'), "moveSW");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('z'), "moveSW");
         game.getActionMap().put("moveSW", move);
 
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('c'), "moveSE");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "moveSE");
         game.getActionMap().put("moveSE", move);
 
         ///// OPTION COMMANDS /////
 
         //ENTER = yes.
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("ENTER"), "confirm");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "confirm");
         game.getActionMap().put("confirm", confirm);
 
         //n = no.
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke('n'), "go_back");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('n'), "go_back");
         game.getActionMap().put("go_back", go_back);
 
         //BACK_SPACE = go to default.
-        game.getInputMap(JComponent.WHEN_FOCUSED).getParent().put(KeyStroke.getKeyStroke("BACK_SPACE"), "go_to_default");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("BACK_SPACE"), "go_to_default");
         game.getActionMap().put("go_to_default", go_to_default);
 
         ///// NEUTRAL COMMANDS /////
 
         //G = Get.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('g'), "get");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "get");
         game.getActionMap().put("get", get);
 
-        //R = Recon.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('r'), "recon");
-        game.getActionMap().put("recon", recon);
-
         //I = Inventory.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('i'), "inventory");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "inventory");
         game.getActionMap().put("inventory", inventory);
 
         //V = View Skills.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('v'), "view_skills");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('v'), "view_skills");
         game.getActionMap().put("view_skills", viewSkills);
 
         //U = Use.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('u'), "use");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('u'), "use");
         game.getActionMap().put("use", use);
 
         //T = Toss.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('t'), "toss");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('t'), "toss");
         game.getActionMap().put("toss", toss);
 
         ///// FRIENDLY COMMANDS /////
 
         //L = Voice.
-        game.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke('l'), "voice");
+        game.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('l'), "voice");
         game.getActionMap().put("voice", talk);
 
         updateOutput(Collections.emptyList());
+    }
+
+    private static boolean keybindsAreRestricted() {
+        return promptManager.isPromptQueueEmpty();
     }
 
     /**

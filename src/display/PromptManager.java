@@ -45,10 +45,6 @@ public class PromptManager {
      * @param dp The display prompt to add to the queue.
      */
     void enqueuePrompt(DisplayPrompt dp) {
-        if(promptQueue.isEmpty()) {
-            screen.restrictKeyBindings();
-        }
-
         promptQueue.addLast(dp);
         adjustDisplayByCurrentPrompt();
     }
@@ -81,7 +77,6 @@ public class PromptManager {
 
         if(promptQueue.isEmpty()) {
             usedPromptStack.clear();
-            screen.expandKeyBindings();
         }
 
         adjustDisplayByCurrentPrompt();
@@ -93,7 +88,6 @@ public class PromptManager {
      */
     void clearPromptQueue() {
         if(!isPromptQueueEmpty()) {
-            screen.expandKeyBindings();
             promptQueue.clear();
             usedPromptStack.clear();
             adjustDisplayByCurrentPrompt();

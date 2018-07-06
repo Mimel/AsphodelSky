@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/MenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/OptionsDisplay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/OptionsLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/ViewAlterer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/ASControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/ASControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/GameSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/GameSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/PromptManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/PromptManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MenuController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ASControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
+      <file leaf-file-name="GameSession.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            <state relative-caret-position="-316">
+              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -36,82 +42,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MenuController.java">
+      <file leaf-file-name="PromptManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/PromptManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#396#582#0" expanded="true" />
-                <element signature="e#625#825#0" expanded="true" />
-                <element signature="e#824#825#0" expanded="true" />
-                <element signature="e#699#890#0" expanded="true" />
-                <element signature="e#889#890#0" expanded="true" />
-                <element signature="e#900#1057#0" expanded="true" />
-                <element signature="e#1056#1057#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="199">
+              <caret line="101" column="30" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainMenuLogic.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-              <folding>
-                <element signature="e#276#277#0" expanded="true" />
-                <element signature="e#309#310#0" expanded="true" />
-                <element signature="e#375#376#0" expanded="true" />
-                <element signature="e#419#420#0" expanded="true" />
-                <element signature="e#352#353#0" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenuDisplay.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenuState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="78" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#193#194#0" expanded="true" />
-                <element signature="e#223#224#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MenuState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MenuState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DisplayKeyBindings.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1179">
-              <caret line="403" column="8" selection-start-line="403" selection-start-column="8" selection-end-line="404" selection-end-column="44" />
+            <state relative-caret-position="199">
+              <caret line="61" column="32" lean-forward="true" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+              <folding>
+                <element signature="e#17488#17489#0" expanded="true" />
+                <element signature="e#17514#17515#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,10 +77,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>instantaneous</find>
-      <find>S</find>
-      <find>System.out</find>
-      <find>System.out.r</find>
       <find>System.out.</find>
       <find>System.out.pi</find>
       <find>System.out.p</find>
@@ -159,6 +103,10 @@
       <find>(SimpleEvent)</find>
       <find>B</find>
       <find>System.out.println</find>
+      <find>WHEN_FOCUSED</find>
+      <find>keyBindings</find>
+      <find>.getParent()</find>
+      <find>State</find>
     </findStrings>
     <replaceStrings>
       <replace>aai</replace>
@@ -176,6 +124,7 @@
       <replace>promptManager</replace>
       <replace>get</replace>
       <replace>catalogMap</replace>
+      <replace>WHEN_IN_FOCUSED_WINDOW</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\Owner\Documents\Programming\Java\AsphodelSky\dialogue</dir>
@@ -187,9 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/event/ResponseCondition.java" />
-        <option value="$PROJECT_DIR$/src/event/InstructionData.java" />
-        <option value="$PROJECT_DIR$/src/grid/IdSearchableGrid.java" />
         <option value="$PROJECT_DIR$/src/grid/Point.java" />
         <option value="$PROJECT_DIR$/src/grid/TileGrid.java" />
         <option value="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
@@ -208,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/display/ImageAssets.java" />
         <option value="$PROJECT_DIR$/src/display/GUISidebar.java" />
         <option value="$PROJECT_DIR$/map/skill_effectmap.dat" />
-        <option value="$PROJECT_DIR$/src/display/PromptManager.java" />
         <option value="$PROJECT_DIR$/src/item/ItemLoader.java" />
         <option value="$PROJECT_DIR$/src/parsing/MapParser.java" />
         <option value="$PROJECT_DIR$/src/item/ItemPromptLoader.java" />
@@ -226,18 +171,22 @@
         <option value="$PROJECT_DIR$/src/event/EventQueue.java" />
         <option value="$PROJECT_DIR$/src/event/Event.java" />
         <option value="$PROJECT_DIR$/src/event/CompoundEvent.java" />
-        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
         <option value="$PROJECT_DIR$/src/event/compound_event/NoOpEvent.java" />
         <option value="$PROJECT_DIR$/src/event/compound_event/DropItemEvent.java" />
         <option value="$PROJECT_DIR$/src/item/Item.java" />
-        <option value="$PROJECT_DIR$/src/display/GameSession.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MenuState.java" />
-        <option value="$PROJECT_DIR$/src/control/ASControl.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MenuItem.java" />
-        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java" />
-        <option value="$PROJECT_DIR$/src/display/mainmenu/MenuController.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/ViewAlterer.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java" />
+        <option value="$PROJECT_DIR$/src/control/ASControl.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/OptionsDisplay.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/MenuController.java" />
+        <option value="$PROJECT_DIR$/src/display/GameSession.java" />
+        <option value="$PROJECT_DIR$/src/display/PromptManager.java" />
+        <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
       </list>
     </option>
   </component>
@@ -245,8 +194,8 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="731" />
-    <option name="y" value="-8" />
+    <option name="x" value="2474" />
+    <option name="y" value="-19" />
     <option name="width" value="974" />
     <option name="height" value="1084" />
   </component>
@@ -277,7 +226,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Problems" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -470,13 +419,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Revised Combatant Parser, as well as Flag parsing.">
-      <created>1502591340978</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1502591340979</updated>
     </task>
     <task id="LOCAL-00056" summary="Integrated Flag System into gameplay (Though, in serious need of refactoring in several places)">
       <created>1502594009727</created>
@@ -814,7 +756,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530688204657</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Added basic MVC to main menu screen.">
+      <created>1530783930398</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1530783930399</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TodoView">
@@ -827,7 +776,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
@@ -839,19 +788,19 @@
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.46770832" side_tool="true" weight="0.18642351" />
       <window_info anchor="top" id="Maven Projects" order="0" weight="0.6772429" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.48081023" weight="0.2462845" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53229165" weight="0.27813163" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.53229165" visible="true" weight="0.27813163" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4936034" weight="0.22902922" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12313433" />
-      <window_info anchor="bottom" id="Inspection Results" order="9" sideWeight="0.7188694" visible="true" weight="0.20169851" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12313433" />
+      <window_info anchor="bottom" id="Inspection Results" order="9" sideWeight="0.7188694" weight="0.20169851" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4523061" weight="0.3089172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.15938166" />
       <window_info anchor="right" id="Ant Build" order="2" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="5" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47083333" weight="0.23779193" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47083333" weight="0.5806794" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info id="Nl-Palette" order="2" />
@@ -907,8 +856,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Fixed issue where certain keypresses would not submit their acquired messages to the MessageManager." />
-    <MESSAGE value="Cleaned up various sections of code, including all TODOs." />
     <MESSAGE value="Small changes to Enemy .dat file." />
     <MESSAGE value="Stopgap measure to make the &quot;talk&quot; command work, for now." />
     <MESSAGE value="Added &quot;Actor&quot; prompt, which allows selection of target IDs." />
@@ -932,11 +879,21 @@
     <MESSAGE value="Reorganized Event Hierarchy -&#10;Eliminated the need for Compound Opcodes by subclassing the decompose method,&#10;and moved the Opcode attribute from Event to SimpleEvent. By doing these things,&#10;generics is no longer needed in Event, as was removed." />
     <MESSAGE value="Roughly moved game session initialization data out of the main method into the GameSession constructor (formerly &quot;Display&quot;)." />
     <MESSAGE value="Added very rudimentary Main Menu screen, as well as a default main menu state." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added very rudimentary Main Menu screen, as well as a default main menu state." />
+    <MESSAGE value="Added very rudimentary MAdded basic MVC to main menu screen." />
+    <MESSAGE value="Added basic MVC to main menu screen." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic MVC to main menu screen." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="129" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/display/mainmenu/MenuController.java</url>
+          <line>73</line>
+          <properties />
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="134" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -951,6 +908,7 @@
         <watch expression="eq" />
         <watch expression="c[1]" />
         <watch expression="promptManager.promptQueue" />
+        <watch expression="view" />
       </configuration>
     </watches-manager>
   </component>
@@ -959,22 +917,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/display/SidebarMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/terr_imagemap.dat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/item_imagemap.dat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/skill_promptmap.dat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/map/item_promptmap.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1042,13 +984,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/PromptManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="115" column="26" selection-start-line="115" selection-start-column="26" selection-end-line="115" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1167,6 +1102,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
           <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding>
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1070#1071#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1227,16 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/GUIComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="619">
@@ -1248,23 +1177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="99" column="36" selection-start-line="99" selection-start-column="36" selection-end-line="99" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1179">
-          <caret line="403" column="8" selection-start-line="403" selection-start-column="8" selection-end-line="404" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1292,56 +1204,127 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java">
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="78" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
+        <state relative-caret-position="323">
+          <caret line="27" column="41" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#223#224#0" expanded="true" />
+            <element signature="e#524#525#0" expanded="true" />
+            <element signature="e#580#581#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MenuController.java">
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        <state>
+          <caret column="25" lean-forward="true" selection-start-column="25" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#396#582#0" expanded="true" />
-            <element signature="e#625#825#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#699#890#0" expanded="true" />
-            <element signature="e#889#890#0" expanded="true" />
-            <element signature="e#900#1057#0" expanded="true" />
-            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#294#295#0" expanded="true" />
+            <element signature="e#326#327#0" expanded="true" />
+            <element signature="e#393#394#0" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+        <state relative-caret-position="221">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="e#276#277#0" expanded="true" />
-            <element signature="e#309#310#0" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#352#353#0" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#193#194#0" expanded="true" />
+            <element signature="e#223#224#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/OptionsDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#179#180#0" expanded="true" />
+            <element signature="e#196#197#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/OptionsLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#396#596#0" expanded="true" />
+            <element signature="e#595#596#0" expanded="true" />
+            <element signature="e#625#827#0" expanded="true" />
+            <element signature="e#826#827#0" expanded="true" />
+            <element signature="e#875#1117#0" expanded="true" />
+            <element signature="e#1116#1117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/ViewAlterer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="25" lean-forward="true" selection-start-column="25" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-316">
+          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/PromptManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="101" column="30" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/DisplayKeyBindings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="61" column="32" lean-forward="true" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+          <folding>
+            <element signature="e#17488#17489#0" expanded="true" />
+            <element signature="e#17514#17515#0" expanded="true" />
           </folding>
         </state>
       </provider>

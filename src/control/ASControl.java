@@ -20,7 +20,5 @@ public class ASControl {
 		gameWindow.setLocationRelativeTo(null); //Centers window
 
 		MenuController mc = new MenuController(gameWindow);
-
-		GameSession game = new GameSession(1200, 900);
 	}
 }

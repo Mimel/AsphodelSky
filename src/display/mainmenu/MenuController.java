@@ -4,14 +4,23 @@ import display.GameSession;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Stack;
 
 public class MenuController {
     JFrame view;
+    Stack<JPanel> viewStack;
 
     public MenuController(JFrame view) {
         this.view = view;
-        MainMenuLogic mml = new MainMenuLogic("Start", "Options", "Exit to Desktop");
+        this.viewStack = new Stack<>();
+
+        ViewChanger goToGame = new ViewChanger("Start", new GameSession(1200, 900));
+        ViewChanger goToOptions = new ViewChanger("Options", new OptionsDisplay());
+
+        MainMenuLogic mml = new MainMenuLogic(goToGame, goToOptions);
         MainMenuDisplay mmd = new MainMenuDisplay(mml);
+
+        viewStack.add(mmd);
 
         Action moveUp = new AbstractAction() {
             @Override
@@ -29,13 +38,16 @@ public class MenuController {
             }
         };
 
-        //TODO TEST
         Action confirm = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.removeAll();
-                view.add(new GameSession(1200, 900));
+                view.remove(viewStack.peek());
+                view.add(mml.getSelectedView());
+                viewStack.peek().requestFocusInWindow();
+                view.revalidate();
+                view.repaint();
                 view.pack();
+                view.setVisible(true);
             }
         };
 

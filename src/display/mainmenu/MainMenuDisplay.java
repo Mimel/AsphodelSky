@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class MainMenuDisplay extends JPanel {
+class MainMenuDisplay extends JPanel {
     private final MainMenuLogic mml;
 
-    public MainMenuDisplay(MainMenuLogic mml, WindowController wc) {
+    MainMenuDisplay(MainMenuLogic mml, WindowController wc) {
         setPreferredSize(new Dimension(1200, 900));
         this.mml = mml;
 

@@ -1,6 +1,8 @@
 package display.mainmenu;
 
-public class OptionsLogic {
+import display.mainmenu.alterop.ViewAlterer;
+
+class OptionsLogic {
     private final ViewAlterer[] adjustmentOptions;
     private int selectedOption;
 

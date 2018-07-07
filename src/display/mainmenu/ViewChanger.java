@@ -2,7 +2,7 @@ package display.mainmenu;
 
 import javax.swing.*;
 
-public class ViewChanger {
+class ViewChanger {
     private final String optionName;
     private final JPanel newView;
 

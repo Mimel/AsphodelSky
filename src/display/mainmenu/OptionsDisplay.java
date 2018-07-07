@@ -6,16 +6,19 @@ import java.awt.event.ActionEvent;
 
 public class OptionsDisplay extends JPanel {
 
-    public OptionsDisplay() {
-        Action moveUp = new AbstractAction() {
+    private final OptionsLogic ol;
+
+    public OptionsDisplay(OptionsLogic ol, WindowController wc) {
+        this.ol = ol;
+        Action goBack = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                wc.removeTopView();
             }
         };
 
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "moveUp");
-        this.getActionMap().put("moveUp", moveUp);
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "goBack");
+        this.getActionMap().put("goBack", goBack);
     }
 
     @Override

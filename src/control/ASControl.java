@@ -3,8 +3,7 @@ package control;
 import java.awt.Dimension;
 import javax.swing.*;
 
-import display.GameSession;
-import display.mainmenu.MenuController;
+import display.mainmenu.WindowController;
 
 /**
  * The executing class.
@@ -19,6 +18,6 @@ public class ASControl {
 		gameWindow.setUndecorated(true);
 		gameWindow.setLocationRelativeTo(null); //Centers window
 
-		MenuController mc = new MenuController(gameWindow);
+		WindowController mc = new WindowController(gameWindow);
 	}
 }

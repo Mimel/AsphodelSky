@@ -9,8 +9,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Stack;
 
+/**
+ * A controller that manages the JFrame and the JPanels that may be implanted in it.
+ */
 public class WindowController {
+  
+    /**
+     * The main display of the program.
+     */
     private final JFrame view;
+    
+    /**
+     * The stack that denotes the order of the JPanels implanted into the JFrame.
+     * The topmost JPanel is the one currently being shown.
+     */
     private final Stack<JPanel> viewStack;
 
     public WindowController() {
@@ -37,14 +49,21 @@ public class WindowController {
         this.view.pack();
         this.view.setVisible(true);
     }
-
+    
+    /**
+     * Adds a new JPanel to the top of the view stack, as well as shown in the view instead of the previous JPanel.
+     * The JFrame is revalidated to show this.
+     */
     void addViewToTop(JPanel newView) {
         view.remove(viewStack.peek());
         viewStack.push(newView);
         view.add(viewStack.peek());
         refitView();
     }
-
+    
+    /**
+     * Removes the top JPanel from the view stack. The JFrame will show the newest top JPanel.
+     */
     void removeTopView() {
         view.remove(viewStack.pop());
         if(viewStack.isEmpty()) {
@@ -55,6 +74,9 @@ public class WindowController {
         }
     }
 
+    /**
+     * Performs necessary JFrame revalidation after removing/adding JPanels.
+     */
     void refitView() {
         view.revalidate();
         view.repaint();

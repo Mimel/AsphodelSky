@@ -3,6 +3,9 @@ package display.mainmenu.alterop;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A View alterer that changes the dimensions of the JFrame to the bounds given.
+ */
 public class Alter_AdjustResolution extends ViewAlterer {
     private final Dimension bounds;
 

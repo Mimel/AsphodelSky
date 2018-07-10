@@ -3,8 +3,21 @@ package display.mainmenu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+/**
+ * The main view (that also contains the controller) for the Main Menu framework.
+ */
 class MainMenuDisplay extends JPanel {
+
+    private static final int OPTION_FONT_SIZE = 36;
+    private static final int OPTION_BLOCK_STARTING_X = 150;
+    private static final int OPTION_BLOCK_STARTING_Y_DISPLACEMENT = 300;
+
+    /**
+     *The model for the Main Menu framework.
+     */
     private final MainMenuLogic mml;
 
     MainMenuDisplay(MainMenuLogic mml, WindowController wc) {
@@ -52,18 +65,30 @@ class MainMenuDisplay extends JPanel {
 
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "goBack");
         this.getActionMap().put("goBack", goBack);
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        g.clearRect(0, 0, this.getWidth(), this.getHeight());
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+        g2.setFont(new Font("Georgia", Font.PLAIN, OPTION_FONT_SIZE));
+
         for(int i = 0; i < mml.getNumberOfOptions(); i++) {
             if(i == mml.getSelectedOption()) {
-                g.setColor(Color.BLUE);
+                g2.setColor(Color.BLUE);
             } else {
-                g.setColor(Color.BLACK);
+                g2.setColor(Color.BLACK);
             }
 
-            g.drawString(mml.getOptionNameAtPosition(i), 100, 300 + (i * 30));
+            g2.drawString(mml.getOptionNameAtPosition(i), OPTION_BLOCK_STARTING_X, (this.getHeight() - OPTION_BLOCK_STARTING_Y_DISPLACEMENT) + (i * (OPTION_FONT_SIZE + 5)));
         }
     }
 }

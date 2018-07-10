@@ -4,8 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * A JPanel that presents a set of display-altering options that work on the containing JFrame.
+ */
 class OptionsDisplay extends JPanel {
 
+    /**
+     * The model component for this view.
+     */
     private final OptionsLogic ol;
 
     OptionsDisplay(OptionsLogic ol, WindowController wc) {

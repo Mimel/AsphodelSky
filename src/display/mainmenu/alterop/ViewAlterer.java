@@ -2,6 +2,9 @@ package display.mainmenu.alterop;
 
 import javax.swing.*;
 
+/**
+ * An option that chages the display settings of it's JFrame through the changeView method.
+ */
 public abstract class ViewAlterer  {
     private final String optionName;
     final JFrame targetView;

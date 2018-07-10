@@ -2,20 +2,32 @@ package display.mainmenu;
 
 import javax.swing.*;
 
+/**
+ * An option that, when selected in a JPanel, adds a new panel to the view stack.
+ */
 class ViewChanger {
+  
+    /**
+     * The display name of the option.
+     */
     private final String optionName;
+    
+    /**
+     * The view associated with the option. Most likely, when the option is selected,
+     * this view will be put on top of the view stack.
+     */
     private final JPanel newView;
 
-    public ViewChanger(String optionName, JPanel view) {
+    ViewChanger(String optionName, JPanel view) {
         this.optionName = optionName;
         this.newView = view;
     }
 
-    public String getOptionName() {
+    String getOptionName() {
         return optionName;
     }
 
-    public JPanel getNewView() {
+    JPanel getNewView() {
         return newView;
     }
 }

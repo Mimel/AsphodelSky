@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * The main view (that also contains the controller) for the Main Menu framework.
@@ -24,23 +22,18 @@ class MainMenuDisplay extends JPanel {
      */
     private final MainMenuLogic mml;
 
-    private final AudioPlayer ap;
+    //private final AudioPlayer ap;
 
-    MainMenuDisplay(MainMenuLogic mml, WindowController wc) {
+    MainMenuDisplay(MainMenuLogic mml, WindowController wc, AudioPlayer ap) {
         setPreferredSize(new Dimension(1200, 900));
         this.mml = mml;
-
-        String songName = "music/OptionSelect.mp3";
-        ap = new AudioPlayer(songName);
-        ExecutorService es = Executors.newSingleThreadExecutor();
-        es.execute(ap);
 
         Action moveUp = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mml.moveSelectedOptionUp();
+                ap.playSFX("OptionSelect.mp3");
                 repaint();
-                ap.playSound();
             }
         };
 
@@ -48,8 +41,8 @@ class MainMenuDisplay extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mml.moveSelectedOptionDown();
+                ap.playSFX("OptionSelect.mp3");
                 repaint();
-                ap.playSound();
             }
         };
 

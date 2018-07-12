@@ -1,6 +1,7 @@
 package display;
 
 import comm.MessageManager;
+import display.music.AudioPlayer;
 import entity.EnemyGenerator;
 import entity.Player;
 import event.EventQueue;
@@ -48,7 +49,9 @@ public class GameSession extends JPanel {
 	 */
 	private DisplayConfiguration currentConfig;
 
-	public GameSession(int winWidth, int winHeight) {
+	private AudioPlayer player;
+
+	public GameSession(int winWidth, int winHeight, AudioPlayer ap) {
 		this.setLayout(new BorderLayout());
 		
 		//Magic numbers soon to be replaced
@@ -61,6 +64,8 @@ public class GameSession extends JPanel {
 		this.add(fc, BorderLayout.SOUTH);
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
+
+		player = ap;
 
 		initializeGameSession();
 	}
@@ -152,6 +157,8 @@ public class GameSession extends JPanel {
 
 		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Bilge Rat"), 12, 4);
 		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Fireball"), 13, 4);
+
+		player.playSong("AttemptNo1.mp3");
 
 
 		repaint();

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/music/FallenBlood.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/display/music/AudioPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AsphodelSky.iml" beforeDir="false" afterPath="$PROJECT_DIR$/AsphodelSky.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/ASControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/ASControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/WindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/WindowController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,8 +44,8 @@
       <file leaf-file-name="AudioPlayer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/display/music/AudioPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#535#536#0" expanded="true" />
@@ -431,13 +424,6 @@
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
     </task>
-    <task id="LOCAL-00060" summary="Filled Grid&lt;T&gt; implemenation skeletons.">
-      <created>1503440012374</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1503440012374</updated>
-    </task>
     <task id="LOCAL-00061" summary="Grid refactored (View is broken, however)">
       <created>1503457354534</created>
       <option name="number" value="00061" />
@@ -774,7 +760,14 @@
       <option name="project" value="LOCAL" />
       <updated>1531195161757</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="Added basic sound effects when user moves between main menu options.">
+      <created>1531353651969</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1531353651970</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TodoView">
@@ -788,7 +781,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="0" width="974" height="1087" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.46481878" weight="0.18046708" />
@@ -798,8 +790,8 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.46770832" side_tool="true" weight="0.18642351" />
       <window_info anchor="top" id="Maven Projects" order="0" weight="0.6772429" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.53229165" visible="true" weight="0.19185424" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.48081023" weight="0.2462845" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53229165" weight="0.19185424" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.48081023" visible="true" weight="0.2454448" />
       <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.17963752" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4936034" weight="0.22902922" />
       <window_info id="Capture Tool" order="3" />
@@ -867,7 +859,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Refined Combatant selection with talk commands." />
     <MESSAGE value="Removed casting Events to subclasses." />
     <MESSAGE value="Added additional enemies." />
     <MESSAGE value="Refactored Flag classes to eliminate switch statement in checkForTrigger()." />
@@ -892,7 +883,8 @@
     <MESSAGE value="Removed irrelevant mainmenu classes, as well as removed controllers, opting to merge the view with the contents of the controller to eliminate poltergeisting." />
     <MESSAGE value="Added options to change display resolution, as well as toggle windowed/fullscreen display modes." />
     <MESSAGE value="Added a few graphic constants to MainMenuDisplay." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a few graphic constants to MainMenuDisplay." />
+    <MESSAGE value="Added basic sound effects when user moves between main menu options." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic sound effects when user moves between main menu options." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1247,8 +1239,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/display/music/AudioPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#535#536#0" expanded="true" />

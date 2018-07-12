@@ -4,9 +4,12 @@ import display.GameSession;
 import display.mainmenu.alterop.Alter_AdjustResolution;
 import display.mainmenu.alterop.Alter_MakeFullscreen;
 import display.mainmenu.alterop.Alter_MakeWindowed;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Stack;
 
 /**

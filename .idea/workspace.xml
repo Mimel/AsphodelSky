@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/OptionSelect.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/audio/sfx/OptionSelect.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/GameSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/GameSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/WindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/WindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/display/music/AudioPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/music/AudioPlayer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -27,57 +25,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WindowController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/WindowController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="54" column="63" selection-start-line="54" selection-start-column="63" selection-end-line="54" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenuDisplay.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainMenuDisplay.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-374">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            <state relative-caret-position="338">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1070#1293#0" expanded="true" />
-                <element signature="e#1292#1293#0" expanded="true" />
-                <element signature="e#1322#1547#0" expanded="true" />
-                <element signature="e#1546#1547#0" expanded="true" />
-                <element signature="e#1915#2097#0" expanded="true" />
-                <element signature="e#2096#2097#0" expanded="true" />
-                <element signature="e#1783#1944#0" expanded="true" />
-                <element signature="e#1943#1944#0" expanded="true" />
+                <element signature="e#2435#2819#0" expanded="true" />
+                <element signature="e#2818#2819#0" expanded="true" />
+                <element signature="e#3085#3086#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameSession.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
+      <file leaf-file-name="MainMenuLogic.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1819">
-              <caret line="160" column="40" selection-start-line="160" selection-start-column="40" selection-end-line="160" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioPlayer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/display/music/AudioPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="117" column="16" selection-start-line="117" selection-start-column="16" selection-end-line="117" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3055#3056#0" expanded="true" />
-                <element signature="e#3111#3112#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="933">
+              <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -187,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/item/Item.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MenuState.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/MenuItem.java" />
-        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" />
         <option value="$PROJECT_DIR$/src/display/PromptManager.java" />
         <option value="$PROJECT_DIR$/src/display/DisplayKeyBindings.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/ViewAlterer.java" />
@@ -204,9 +170,10 @@
         <option value="$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java" />
         <option value="$PROJECT_DIR$/src/control/ASControl.java" />
         <option value="$PROJECT_DIR$/src/display/mainmenu/WindowController.java" />
-        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" />
         <option value="$PROJECT_DIR$/src/display/GameSession.java" />
         <option value="$PROJECT_DIR$/src/display/music/AudioPlayer.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java" />
+        <option value="$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java" />
       </list>
     </option>
   </component>
@@ -214,8 +181,8 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="162" />
-    <option name="y" value="-8" />
+    <option name="x" value="2397" />
+    <option name="y" value="-9" />
     <option name="width" value="1431" />
     <option name="height" value="1086" />
   </component>
@@ -267,6 +234,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="display" type="462c0819:PsiDirectoryNode" />
               <item name="mainmenu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="display" type="462c0819:PsiDirectoryNode" />
+              <item name="mainmenu" type="462c0819:PsiDirectoryNode" />
+              <item name="alterop" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
@@ -444,20 +419,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Fixed view (But needs a lot of testing).">
-      <created>1503466654367</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1503466654367</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Restructured focus (Though view is broken).">
-      <created>1504058357326</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1504058357328</updated>
     </task>
     <task id="LOCAL-00064" summary="Deleted unused classes FocusGrid/FocusRange.">
       <created>1504058620928</created>
@@ -788,7 +749,21 @@
       <option name="project" value="LOCAL" />
       <updated>1531353800749</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="Created proper AudioPlayer class that stores audio as maps.">
+      <created>1531379660320</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1531379660320</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Adjusted music looping in AudioPlayer by setting cycle counts instead of on song end events.">
+      <created>1531380305034</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1531380305034</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TodoView">
@@ -801,7 +776,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
@@ -823,7 +798,7 @@
       <window_info anchor="right" id="Ant Build" order="2" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="5" />
       <window_info anchor="right" id="Theme Preview" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47083333" weight="0.18683651" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47083333" weight="0.45541403" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
@@ -881,8 +856,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Added additional enemies." />
-    <MESSAGE value="Refactored Flag classes to eliminate switch statement in checkForTrigger()." />
     <MESSAGE value="Refactored access levels in Event package." />
     <MESSAGE value="Refactored Event class so that withX() method functionality is moved into the InstructionData class." />
     <MESSAGE value="Removed second generic in Event, SimpleEvent, and CompoundEvent." />
@@ -906,11 +879,13 @@
     <MESSAGE value="Added a few graphic constants to MainMenuDisplay." />
     <MESSAGE value="Added basic sound effects when user moves between main menu options." />
     <MESSAGE value="Revised music list to show OptionSelect sfx (Whoops)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Revised music list to show OptionSelect sfx (Whoops)." />
+    <MESSAGE value="Created proper AudioPlayer class that stores audio as maps." />
+    <MESSAGE value="Adjusted music looping in AudioPlayer by setting cycle counts instead of on song end events." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusted music looping in AudioPlayer by setting cycle counts instead of on song end events." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="151" />
+      <option name="time" value="154" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1127,24 +1102,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuState.java" />
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuController.java" />
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/OptionsController.java" />
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MenuState.java" />
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/OptionsLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/alterop/Alter_MakeFullscreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1177,13 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -1225,6 +1179,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1819">
+          <caret line="160" column="40" selection-start-line="160" selection-start-column="40" selection-end-line="160" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/mainmenu/WindowController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="695">
@@ -1235,39 +1196,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java">
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/OptionsLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-374">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1070#1293#0" expanded="true" />
-            <element signature="e#1292#1293#0" expanded="true" />
-            <element signature="e#1322#1547#0" expanded="true" />
-            <element signature="e#1546#1547#0" expanded="true" />
-            <element signature="e#1915#2097#0" expanded="true" />
-            <element signature="e#2096#2097#0" expanded="true" />
-            <element signature="e#1783#1944#0" expanded="true" />
-            <element signature="e#1943#1944#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/GameSession.java">
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/ViewChanger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="160" column="40" selection-start-line="160" selection-start-column="40" selection-end-line="160" selection-end-column="40" />
+        <state relative-caret-position="459">
+          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/display/music/AudioPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="117" column="16" selection-start-line="117" selection-start-column="16" selection-end-line="117" selection-end-column="16" />
+        <state relative-caret-position="459">
+          <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3055#3056#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="933">
+          <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/mainmenu/MainMenuDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2435#2819#0" expanded="true" />
+            <element signature="e#2818#2819#0" expanded="true" />
+            <element signature="e#3085#3086#0" expanded="true" />
           </folding>
         </state>
       </provider>

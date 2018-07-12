@@ -13,16 +13,15 @@ import java.awt.event.MouseEvent;
  */
 class MainMenuDisplay extends JPanel {
 
-    private static final int OPTION_FONT_SIZE = 36;
-    private static final int OPTION_BLOCK_STARTING_X = 150;
-    private static final int OPTION_BLOCK_STARTING_Y_DISPLACEMENT = 300;
+    private final int OPTION_FONT_SIZE = 36;
+    private final int OPTION_BLOCK_STARTING_X = 150;
+    private final int OPTION_BLOCK_ENDING_X = 450;
+    private final int OPTION_BLOCK_STARTING_Y_DISPLACEMENT = 300;
 
     /**
      *The model for the Main Menu framework.
      */
     private final MainMenuLogic mml;
-
-    //private final AudioPlayer ap;
 
     MainMenuDisplay(MainMenuLogic mml, WindowController wc, AudioPlayer ap) {
         setPreferredSize(new Dimension(1200, 900));
@@ -76,7 +75,20 @@ class MainMenuDisplay extends JPanel {
         this.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
+                if(mml.moveSelectedOptionTo(getMousedOverOption(e.getX(), e.getY()))) {
+                    ap.playSFX("OptionSelect.mp3");
+                    repaint();
+                }
+            }
+        });
 
+        this.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(getMousedOverOption(e.getX(), e.getY()) != -1) {
+                    wc.addViewToTop(mml.getSelectedView());
+                }
             }
         });
     }
@@ -95,7 +107,19 @@ class MainMenuDisplay extends JPanel {
                 g2.setColor(Color.BLACK);
             }
 
-            g2.drawString(mml.getOptionNameAtPosition(i), OPTION_BLOCK_STARTING_X, (this.getHeight() - OPTION_BLOCK_STARTING_Y_DISPLACEMENT) + (i * (OPTION_FONT_SIZE + 5)));
+            g2.drawString(mml.getOptionNameAtPosition(i), OPTION_BLOCK_STARTING_X, (this.getHeight() - OPTION_BLOCK_STARTING_Y_DISPLACEMENT) + (i * OPTION_FONT_SIZE));
         }
+    }
+
+    private int getMousedOverOption(int x, int y) {
+        if (x > OPTION_BLOCK_STARTING_X && x < OPTION_BLOCK_ENDING_X) {
+            int startingY = (getHeight() - OPTION_BLOCK_STARTING_Y_DISPLACEMENT - OPTION_FONT_SIZE);
+            int endingY = getHeight() - OPTION_BLOCK_STARTING_Y_DISPLACEMENT + ((mml.getNumberOfOptions() - 1) * OPTION_FONT_SIZE);
+            if (y > startingY && y < endingY) {
+                return (y - startingY) / OPTION_FONT_SIZE;
+            }
+        }
+
+        return -1;
     }
 }

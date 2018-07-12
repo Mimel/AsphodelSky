@@ -61,4 +61,13 @@ class MainMenuLogic {
             selectedOption = 0;
         }
     }
+
+    boolean moveSelectedOptionTo(int option) {
+        if(selectedOption != option && option >= 0 && option < optionItems.length) {
+            selectedOption = option;
+            return true;
+        }
+
+        return false;
+    }
 }

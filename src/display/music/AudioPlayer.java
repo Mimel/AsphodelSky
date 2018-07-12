@@ -109,12 +109,7 @@ public class AudioPlayer implements Runnable {
                 Media song = new Media(songPath.toUri().toString());
                 MediaPlayer mp = new MediaPlayer(song);
 
-                mp.setOnEndOfMedia(new Runnable() {
-                    @Override
-                    public void run() {
-                        mp.seek(Duration.ZERO);
-                    }
-                });
+                mp.setCycleCount(MediaPlayer.INDEFINITE);
 
                 music.put(songPath.getFileName().toString(), mp);
             }

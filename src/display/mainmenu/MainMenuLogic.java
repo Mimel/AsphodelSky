@@ -36,7 +36,7 @@ class MainMenuLogic {
         return selectedOption;
     }
 
-    JPanel getSelectedView() {
+    JComponent getSelectedView() {
         return optionItems[selectedOption].getNewView();
     }
     

@@ -16,9 +16,9 @@ class ViewChanger {
      * The view associated with the option. Most likely, when the option is selected,
      * this view will be put on top of the view stack.
      */
-    private final JPanel newView;
+    private final JComponent newView;
 
-    ViewChanger(String optionName, JPanel view) {
+    ViewChanger(String optionName, JComponent view) {
         this.optionName = optionName;
         this.newView = view;
     }
@@ -27,7 +27,7 @@ class ViewChanger {
         return optionName;
     }
 
-    JPanel getNewView() {
+    JComponent getNewView() {
         return newView;
     }
 }

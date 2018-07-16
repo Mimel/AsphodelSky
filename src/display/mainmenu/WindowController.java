@@ -1,6 +1,7 @@
 package display.mainmenu;
 
 import display.GameSession;
+import display.InGamePauseMenu;
 import display.mainmenu.alterop.Alter_AdjustResolution;
 import display.mainmenu.alterop.Alter_MakeFullscreen;
 import display.mainmenu.alterop.Alter_MakeWindowed;
@@ -19,7 +20,6 @@ import java.util.concurrent.Executors;
  * A controller that manages the JFrame and the JPanels that may be implanted in it.
  */
 public class WindowController {
-  
     /**
      * The main display of the program.
      */
@@ -29,7 +29,7 @@ public class WindowController {
      * The stack that denotes the order of the JPanels implanted into the JFrame.
      * The topmost JPanel is the one currently being shown.
      */
-    private final Stack<JPanel> viewStack;
+    private final Stack<JComponent> viewStack;
 
     public WindowController() {
         this.view = new JFrame("Asphodel Sky");
@@ -48,7 +48,10 @@ public class WindowController {
         Alter_MakeFullscreen amf = new Alter_MakeFullscreen("Fullscreen", view);
         Alter_MakeWindowed amw = new Alter_MakeWindowed("Windowed", view);
 
-        ViewChanger goToGame = new ViewChanger("Start", new GameSession(1200, 900, ap));
+        JLayeredPane jlp = new JLayeredPane();
+        jlp.add(new GameSession(1200, 900, ap), 0, 0);
+        jlp.add(new InGamePauseMenu(1200, 900), 1, 0);
+        ViewChanger goToGame = new ViewChanger("Start", jlp);
         ViewChanger goToOptions = new ViewChanger("Options", new OptionsDisplay(new OptionsLogic(aar1, aar2, aar3, amf, amw), this));
 
         MainMenuLogic mml = new MainMenuLogic(goToGame, goToOptions);
@@ -64,7 +67,7 @@ public class WindowController {
      * Adds a new JPanel to the top of the view stack, as well as shown in the view instead of the previous JPanel.
      * The JFrame is revalidated to show this.
      */
-    void addViewToTop(JPanel newView) {
+    void addViewToTop(JComponent newView) {
         view.remove(viewStack.peek());
         viewStack.push(newView);
         view.add(viewStack.peek());

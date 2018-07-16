@@ -53,6 +53,8 @@ public class GameSession extends JPanel {
 
 	public GameSession(int winWidth, int winHeight, AudioPlayer ap) {
 		this.setLayout(new BorderLayout());
+
+		this.setBounds(0, 0, winWidth, winHeight);
 		
 		//Magic numbers soon to be replaced
 		this.gc = new GUIFocus(0, 0, 624, 624, 48);

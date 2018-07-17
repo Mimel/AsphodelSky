@@ -11,7 +11,7 @@ public class ASControl {
 	public static void main(String args[]) {
 		// Forces JavaFX toolkit initialization.
 		// Does nothing else.
-		final JFXPanel fxp = new JFXPanel();
+		new JFXPanel();
 
 		new WindowController();
 	}

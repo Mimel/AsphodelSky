@@ -1,6 +1,11 @@
 package display.optionsmenu;
 
+import display.mainmenu.alterop.Alter_AdjustResolution;
+import display.mainmenu.alterop.Alter_MakeFullscreen;
+import display.mainmenu.alterop.Alter_MakeWindowed;
 import display.mainmenu.alterop.ViewAlterer;
+
+import javax.swing.*;
 
 /**
  * The model for the framework for the Options Menu.
@@ -18,8 +23,14 @@ public class OptionsLogic {
      */
     private int selectedOption;
 
-    public OptionsLogic(ViewAlterer... adjustmentOptions) {
-        this.adjustmentOptions = adjustmentOptions;
+    public OptionsLogic(JFrame view) {
+        Alter_AdjustResolution aar1 = new Alter_AdjustResolution("Adjust to 800x600", 800, 600, view);
+        Alter_AdjustResolution aar2 = new Alter_AdjustResolution("Adjust to 1200x900", 1200, 900, view);
+        Alter_AdjustResolution aar3 = new Alter_AdjustResolution("Adjust to 1920x1080", 1920, 1080, view);
+        Alter_MakeFullscreen amf = new Alter_MakeFullscreen("Fullscreen", view);
+        Alter_MakeWindowed amw = new Alter_MakeWindowed("Windowed", view);
+
+        this.adjustmentOptions = new ViewAlterer[]{aar1, aar2, aar3, amf, amw};
         selectedOption = 0;
     }
 

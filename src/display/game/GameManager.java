@@ -1,5 +1,7 @@
 package display.game;
 
+import display.music.AudioPlayer;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +10,11 @@ public class GameManager extends JLayeredPane {
     private List<GameViewObserver> panels;
     private GameSessionViewState focusedPanel;
 
-    public GameManager() {
+    public GameManager(AudioPlayer ap) {
         this.panels = new ArrayList<>();
+        this.add(new GameSession(1200, 900, ap, this), 0, 0);
+        this.add(new InGamePauseMenu(1200, 900, this), 1, 0);
+        this.setFocusedPanel(GameSessionViewState.GAME);
     }
 
     void addObserver(GameViewObserver gvo) {
@@ -20,7 +25,7 @@ public class GameManager extends JLayeredPane {
         return focusedPanel.equals(viewState);
     }
 
-    public void setFocusedPanel(GameSessionViewState newState) {
+    void setFocusedPanel(GameSessionViewState newState) {
         this.focusedPanel = newState;
         updateAll();
     }

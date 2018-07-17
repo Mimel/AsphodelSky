@@ -1,6 +1,5 @@
 package grid;
 
-import display.game.FocusComponent;
 import entity.Combatant;
 import item.Catalog;
 import item.ItemLoader;
@@ -42,14 +41,9 @@ public class CompositeGrid {
 	private final Point MAX_BOUNDS;
 	
 	/**
-	 * The output of the grid.
-	 */
-	private final FocusComponent gridOutput;
-	
-	/**
 	 * Creates an empty grid with default dimensions.
 	 */
-	public CompositeGrid(FocusComponent fc) {
+	public CompositeGrid() {
 		MAX_BOUNDS = new Point(20, 20);
 
 		tiles = new TileGrid(MAX_BOUNDS.x(), MAX_BOUNDS.y());
@@ -60,8 +54,14 @@ public class CompositeGrid {
 		this.focalPoint = new Point(0,0);
 		this.isBoundToCombatant = false;
 		this.boundId = 0;
+	}
 
-		this.gridOutput = fc;
+	public int getNumberOfColumns() {
+		return MAX_BOUNDS.x();
+	}
+
+	public int getNumberOfRows() {
+		return MAX_BOUNDS.y();
 	}
 
 	public String getName() {
@@ -95,34 +95,7 @@ public class CompositeGrid {
 	public Tile getFocusedTile() {
 		return tiles.getOccupantAt(focalPoint.x(), focalPoint.y());
 	}
-	
-	/**
-	 * Draws the grid, focused on either the player or the manual focus.
-	 * This method is preferably called with odd-numbered parameters, though it should handle even-numbered
-	 * dimensions well.
-	 * @param width The width of the tile array to draw.
-	 * @param height The height of the tile array to draw.
-	 */
-	public void updateGrid(int width, int height) {
-		int xFocus = focalPoint.x();
-		int yFocus = focalPoint.y();
-		
-		int xStart = xFocus - width/2;
-		int yStart = yFocus - height/2;
 
-		if(xStart < 0) { xStart = 0; }
-		else if(xStart > MAX_BOUNDS.x() - width) { xStart = MAX_BOUNDS.x() - width; }
-
-		if(yStart < 0) { yStart = 0; }
-		else if(yStart > MAX_BOUNDS.y() - height) { yStart = MAX_BOUNDS.y() - height; }
-		
-		Iterable<Tile[]> subTiles = tiles.subGrid(xStart, yStart, width, height);
-		Iterable<Map.Entry<Point, Combatant>> subActors = actors.subGrid(xStart, yStart, width, height);
-		Iterable<Map.Entry<Point, Catalog>> subCatalogs = catalogs.subGrid(xStart, yStart, width, height);
-		
-		gridOutput.updateGrid(subTiles, subActors, subCatalogs, xFocus, yFocus, xStart, yStart);
-	}
-	
 	/**
 	 * Attempts to get a tile within the map at the specified coordinates.
 	 * 
@@ -219,6 +192,10 @@ public class CompositeGrid {
 	public Catalog getItemsOnTile(int combatantId) {
 		Point loc = actors.getLocationById(combatantId);
 		return catalogs.getOccupantAt(loc.x(), loc.y());
+	}
+
+	public Catalog getItemsOnTile(int x, int y) {
+		return catalogs.getOccupantAt(x, y);
 	}
 
 	/**

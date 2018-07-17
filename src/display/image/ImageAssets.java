@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * @author Matt Imel
  */
 public final class ImageAssets {
-	private static final int SPRITE_DIMENSION_PX = 48;
+	public static final int SPRITE_DIMENSION_PX = 48;
 	
 	private static HashMap<Character, Image> terrIdToImage;
 	private static HashMap<String, Image> itemIdToImage;

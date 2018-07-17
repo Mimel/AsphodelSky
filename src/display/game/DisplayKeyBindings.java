@@ -487,8 +487,6 @@ class DisplayKeyBindings {
      */
     private static void updateOutput(List<String> messages) {
         messageManager.insertMessage(messages.toArray(new String[0]));
-        grid.updateGrid(GUIFocus.GRID_WIDTH, GUIFocus.GRID_HEIGHT);
-        p1.updatePlayer();
     }
 
     /**
@@ -499,23 +497,23 @@ class DisplayKeyBindings {
     private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:
-                messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                //TODO messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
 
             case SKILL_PROMPT:
-                messageManager.loadSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
+                //messageManager.loadSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
                 break;
             case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();
-                    messageManager.loadSourceDescPair(o.toString(), o.getDesc());
+                    //messageManager.loadSourceDescPair(o.toString(), o.getDesc());
                 } else if (!(grid.getFocusedCatalog() == null) && !grid.getFocusedCatalog().isEmpty()) {
                     Item i = grid.getFocusedCatalog().getFocusedItem();
-                    messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
+                    //messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
                 } else {
                     Tile t = grid.getFocusedTile();
-                    messageManager.loadSourceDescPair(t.getName(), t.getDesc());
+                    //messageManager.loadSourceDescPair(t.getName(), t.getDesc());
                 }
                 break;
         }

@@ -1,7 +1,5 @@
 package comm;
 
-import display.game.FooterComponent;
-
 /**
  * Manages messages received from a given stream to implement in the game.
  * @author Matt Imel
@@ -29,13 +27,7 @@ public class MessageManager implements Runnable {
 	 */
 	private final Object lock = new Object();
 	
-	/**
-	 * The output.
-	 */
-	private FooterComponent messageOutput;
-	
-	public MessageManager(FooterComponent fc) {
-		this.messageOutput = fc;
+	public MessageManager() {
 		
 		this.messageBuffer = new String[MESSAGEMAX];
 		this.messageHead = 0;
@@ -72,38 +64,12 @@ public class MessageManager implements Runnable {
 		System.arraycopy(messageBuffer, 1, messageBuffer, 0, MESSAGEMAX - 1);
 		messageBuffer[MESSAGEMAX - 1] = msg;
 	}
-	
-	/**
-	 * Wipes the buffer, replacing all entries with NULL.
-	 */
-	public synchronized void clearBuffer() {
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * Runs the manager.
 	 */
 	@Override
 	public void run() {
-		while(true) {
-			synchronized(lock) {
-				try {
-					lock.wait();
-				} catch(Exception e) {
-					
-				}
-				messageOutput.updateMessages(messageBuffer);
-			}
-		}
-	}
 
-	/**
-	 * Forwards both an Object's name (src) and description to the message manager. These are displayed
-	 * separately from the usual feed, during certain display modes.
-	 * @param src The name of the object (Item, Combatant, etc.) to use.
-	 * @param desc The description of said object.
-	 */
-	public void loadSourceDescPair(String src, String desc) {
-		messageOutput.insertItem(src, desc);
 	}
 }

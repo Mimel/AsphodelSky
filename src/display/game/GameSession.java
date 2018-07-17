@@ -54,7 +54,7 @@ public class GameSession extends GameViewObserver {
 		this.setLayout(new BorderLayout());
 
 		this.setBounds(0, 0, winWidth, winHeight);
-		
+		/*
 		//Magic numbers soon to be replaced
 		this.gc = new GUIFocus(0, 0, 624, 624, 48);
 		this.sc = new GUISidebar(624, 50, winWidth - 624, 624);
@@ -63,6 +63,8 @@ public class GameSession extends GameViewObserver {
 		this.add(gc, BorderLayout.WEST);
 		this.add(sc, BorderLayout.EAST);
 		this.add(fc, BorderLayout.SOUTH);
+		*/
+
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
@@ -124,7 +126,7 @@ public class GameSession extends GameViewObserver {
 	private void initializeGameSession() {
 		//Initialize message manager.
 		ExecutorService threadList = Executors.newFixedThreadPool(2);
-		MessageManager mm = new MessageManager(getFooter());
+		MessageManager mm = new MessageManager();
 		threadList.execute(mm);
 
 		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22, getSidebar());
@@ -147,7 +149,9 @@ public class GameSession extends GameViewObserver {
 		EventQueue eq = new EventQueue();
 
 		//PLAYGROUND TEMPORARY
-		CompositeGrid compositeGrid = new CompositeGrid(getFocus());
+		CompositeGrid compositeGrid = new CompositeGrid();
+
+		this.add(new GameView(compositeGrid));
 
 		compositeGrid.addCombatant(p1, 1, 1);
 		compositeGrid.bindTo(0);
@@ -157,6 +161,8 @@ public class GameSession extends GameViewObserver {
 		for(int x = 0; x < 10; x++) {
 			compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
 		}
+
+		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), 19, 0);
 
 		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Bilge Rat"), 12, 4);
 		compositeGrid.addCombatant(EnemyGenerator.getEnemyByName("Fireball"), 13, 4);

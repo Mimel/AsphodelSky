@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import entity.Combatant;
 import grid.Point;

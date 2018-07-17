@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
 
+import display.image.ImageAssets;
 import entity.Combatant;
 import item.Item;
 import skill.Skill;

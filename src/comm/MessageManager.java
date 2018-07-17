@@ -1,6 +1,6 @@
 package comm;
 
-import display.FooterComponent;
+import display.game.FooterComponent;
 
 /**
  * Manages messages received from a given stream to implement in the game.

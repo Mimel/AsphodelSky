@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import java.awt.Dimension;
 

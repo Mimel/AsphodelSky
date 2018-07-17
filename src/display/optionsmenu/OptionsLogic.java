@@ -1,11 +1,11 @@
-package display.mainmenu;
+package display.optionsmenu;
 
 import display.mainmenu.alterop.ViewAlterer;
 
 /**
  * The model for the framework for the Options Menu.
  */
-class OptionsLogic {
+public class OptionsLogic {
   
     /**
      * A set of view-altering options that can be selected.
@@ -18,7 +18,7 @@ class OptionsLogic {
      */
     private int selectedOption;
 
-    OptionsLogic(ViewAlterer... adjustmentOptions) {
+    public OptionsLogic(ViewAlterer... adjustmentOptions) {
         this.adjustmentOptions = adjustmentOptions;
         selectedOption = 0;
     }

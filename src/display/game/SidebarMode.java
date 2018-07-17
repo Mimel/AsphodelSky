@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 /**
  * The current mode the sidebar is in. Determines the content drawn.

@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 public enum GameSessionViewState {
     GAME,

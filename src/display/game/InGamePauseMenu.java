@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +27,6 @@ public class InGamePauseMenu extends GameViewObserver {
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("Please draw.");
         g.setColor(Color.MAGENTA);
         g.fillRect(400, 400, 400, 400);
     }

@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import comm.MessageManager;
 import entity.Combatant;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static display.DisplayPrompt.ACTOR_PROMPT;
-import static display.DisplayPrompt.DIALOGUE_PROMPT;
-import static display.DisplayPrompt.TILE_PROMPT;
+import static display.game.DisplayPrompt.ACTOR_PROMPT;
+import static display.game.DisplayPrompt.DIALOGUE_PROMPT;
+import static display.game.DisplayPrompt.TILE_PROMPT;
 
 /**
  * The set of keybinds used for the game.

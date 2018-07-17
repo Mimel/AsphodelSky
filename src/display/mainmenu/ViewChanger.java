@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * An option that, when selected in a JPanel, adds a new panel to the view stack.
  */
-class ViewChanger {
+public class ViewChanger {
   
     /**
      * The display name of the option.
@@ -18,7 +18,7 @@ class ViewChanger {
      */
     private final JComponent newView;
 
-    ViewChanger(String optionName, JComponent view) {
+    public ViewChanger(String optionName, JComponent view) {
         this.optionName = optionName;
         this.newView = view;
     }

@@ -1,9 +1,10 @@
-package display;
+package display.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
 
+import display.image.ImageAssets;
 import entity.Combatant;
 import grid.*;
 import item.Catalog;

@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * The model for the Main Menu framework.
  */
-class MainMenuLogic {
+public class MainMenuLogic {
   
     /**
      * The set of JPanels that can potentially be inserted into the view stack.
@@ -19,7 +19,7 @@ class MainMenuLogic {
      */
     private int selectedOption;
 
-    MainMenuLogic(ViewChanger... options) {
+    public MainMenuLogic(ViewChanger... options) {
         optionItems = options;
         selectedOption = 0;
     }

@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import javax.swing.*;
 import java.util.ArrayList;

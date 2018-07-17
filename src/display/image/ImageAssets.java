@@ -1,4 +1,4 @@
-package display;
+package display.image;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -63,23 +63,23 @@ public final class ImageAssets {
 	 * @param key The character of the image to retrieve.
 	 * @return The image bound to the key.
 	 */
-	static Image getTerrainImage(char key) {
+	public static Image getTerrainImage(char key) {
 		return terrIdToImage.get(key);
 	}
 	
-	static Image getItemImage(String key) {
+	public static Image getItemImage(String key) {
 		return itemIdToImage.get(key);
 	}
 
-	static Image getSkillImage(String key) {
+	public static Image getSkillImage(String key) {
 	    return skillIdToImage.get(key);
     }
 	
-	static Image getCharImage(String key) {
+	public static Image getCharImage(String key) {
 		return charIdToImage.get(key);
 	}
 
-	static Image getMiscImage(char key) { return miscIdToImage.get(key); }
+	public static Image getMiscImage(char key) { return miscIdToImage.get(key); }
 	
 	/**
 	 * Fills a given hashmap with keys (Specified characters) and values (x, y margins) by parsing a 

@@ -1,5 +1,6 @@
 package display.mainmenu;
 
+import display.WindowController;
 import display.music.AudioPlayer;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.event.MouseEvent;
 /**
  * The main view (that also contains the controller) for the Main Menu framework.
  */
-class MainMenuDisplay extends JPanel {
+public class MainMenuDisplay extends JPanel {
 
     private final int OPTION_FONT_SIZE = 36;
     private final int OPTION_BLOCK_STARTING_X = 150;
@@ -23,7 +24,7 @@ class MainMenuDisplay extends JPanel {
      */
     private final MainMenuLogic mml;
 
-    MainMenuDisplay(MainMenuLogic mml, WindowController wc, AudioPlayer ap) {
+    public MainMenuDisplay(MainMenuLogic mml, WindowController wc, AudioPlayer ap) {
         setPreferredSize(new Dimension(1200, 900));
         this.mml = mml;
 

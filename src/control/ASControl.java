@@ -1,7 +1,6 @@
 package control;
 
-import display.mainmenu.WindowController;
-import javafx.application.Application;
+import display.WindowController;
 import javafx.embed.swing.JFXPanel;
 
 /**

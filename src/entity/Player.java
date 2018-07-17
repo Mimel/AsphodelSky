@@ -1,6 +1,6 @@
 package entity;
 
-import display.SidebarComponent;
+import display.game.SidebarComponent;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 

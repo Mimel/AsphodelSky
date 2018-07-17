@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 import java.util.Deque;
 import java.util.LinkedList;

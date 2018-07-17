@@ -1,6 +1,7 @@
-package display;
+package display.game;
 
 import comm.MessageManager;
+import display.image.ImageAssets;
 import display.music.AudioPlayer;
 import entity.EnemyGenerator;
 import entity.Player;

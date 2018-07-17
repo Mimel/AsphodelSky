@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 /**
  * The display prompt to use, which determines the selection to make. Similar to DisplayConfiguration, this

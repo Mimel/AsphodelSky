@@ -1,6 +1,6 @@
 package grid;
 
-import display.FocusComponent;
+import display.game.FocusComponent;
 import entity.Combatant;
 import item.Catalog;
 import item.ItemLoader;

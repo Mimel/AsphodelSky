@@ -1,13 +1,18 @@
-package display.mainmenu;
+package display;
 
-import display.GameManager;
-import display.GameSession;
-import display.GameSessionViewState;
-import display.InGamePauseMenu;
+import display.game.GameManager;
+import display.game.GameSession;
+import display.game.GameSessionViewState;
+import display.game.InGamePauseMenu;
+import display.mainmenu.MainMenuDisplay;
+import display.mainmenu.MainMenuLogic;
+import display.mainmenu.ViewChanger;
 import display.mainmenu.alterop.Alter_AdjustResolution;
 import display.mainmenu.alterop.Alter_MakeFullscreen;
 import display.mainmenu.alterop.Alter_MakeWindowed;
 import display.music.AudioPlayer;
+import display.optionsmenu.OptionsDisplay;
+import display.optionsmenu.OptionsLogic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +72,7 @@ public class WindowController {
      * Adds a new JPanel to the top of the view stack, as well as shown in the view instead of the previous JPanel.
      * The JFrame is revalidated to show this.
      */
-    void addViewToTop(JComponent newView) {
+    public void addViewToTop(JComponent newView) {
         view.remove(viewStack.peek());
         viewStack.push(newView);
         view.add(viewStack.peek());
@@ -77,7 +82,7 @@ public class WindowController {
     /**
      * Removes the top JPanel from the view stack. The JFrame will show the newest top JPanel.
      */
-    void removeTopView() {
+    public void removeTopView() {
         view.remove(viewStack.pop());
         if(viewStack.isEmpty()) {
             System.exit(0);
@@ -90,7 +95,7 @@ public class WindowController {
     /**
      * Performs necessary JFrame revalidation after removing/adding JPanels.
      */
-    void refitView() {
+    public void refitView() {
         view.revalidate();
         view.repaint();
     }

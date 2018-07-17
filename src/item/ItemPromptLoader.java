@@ -1,6 +1,6 @@
 package item;
 
-import display.DisplayPrompt;
+import display.game.DisplayPrompt;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

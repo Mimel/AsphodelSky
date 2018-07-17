@@ -1,4 +1,4 @@
-package display;
+package display.game;
 
 /**
  * The component of the window that displays the text feed, tile data, or speech.

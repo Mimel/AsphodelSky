@@ -17,15 +17,13 @@ import java.awt.BorderLayout;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.swing.*;
-
 /**
  * The whole of the GUI of Asphodel Sky. Contains one instance of each subclass of the DisplayComponent class,
  * and coordinates, updates, and sends information about each component.
  * @author Matt Imel
  *
  */
-public class GameSession extends JPanel {
+public class GameSession extends GameViewObserver {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -51,7 +49,7 @@ public class GameSession extends JPanel {
 
 	private AudioPlayer player;
 
-	public GameSession(int winWidth, int winHeight, AudioPlayer ap) {
+	public GameSession(int winWidth, int winHeight, AudioPlayer ap, GameManager gm) {
 		this.setLayout(new BorderLayout());
 
 		this.setBounds(0, 0, winWidth, winHeight);
@@ -67,7 +65,9 @@ public class GameSession extends JPanel {
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
-		player = ap;
+		this.player = ap;
+		this.viewManager = gm;
+		this.viewManager.addObserver(this);
 
 		initializeGameSession();
 	}
@@ -167,5 +167,18 @@ public class GameSession extends JPanel {
 		//END PLAYGROUND
 
 		DisplayKeyBindings.initKeyBinds(this, compositeGrid, p1, mm, eq);
+	}
+
+	public void pause() {
+		viewManager.setFocusedPanel(GameSessionViewState.PAUSE_MENU_MAIN);
+	}
+
+	@Override
+	public void update() {
+		if(viewManager.isFocus(GameSessionViewState.GAME)) {
+			enableInputs();
+		} else {
+			disableInputs();
+		}
 	}
 }

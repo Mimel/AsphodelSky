@@ -1,17 +1,16 @@
 package display.mainmenu;
 
+import display.GameManager;
 import display.GameSession;
+import display.GameSessionViewState;
 import display.InGamePauseMenu;
 import display.mainmenu.alterop.Alter_AdjustResolution;
 import display.mainmenu.alterop.Alter_MakeFullscreen;
 import display.mainmenu.alterop.Alter_MakeWindowed;
 import display.music.AudioPlayer;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,9 +47,10 @@ public class WindowController {
         Alter_MakeFullscreen amf = new Alter_MakeFullscreen("Fullscreen", view);
         Alter_MakeWindowed amw = new Alter_MakeWindowed("Windowed", view);
 
-        JLayeredPane jlp = new JLayeredPane();
-        jlp.add(new GameSession(1200, 900, ap), 0, 0);
-        jlp.add(new InGamePauseMenu(1200, 900), 1, 0);
+        GameManager jlp = new GameManager();
+        jlp.add(new GameSession(1200, 900, ap, jlp), 0, 0);
+        jlp.add(new InGamePauseMenu(1200, 900, jlp), 1, 0);
+        jlp.setFocusedPanel(GameSessionViewState.GAME);
         ViewChanger goToGame = new ViewChanger("Start", jlp);
         ViewChanger goToOptions = new ViewChanger("Options", new OptionsDisplay(new OptionsLogic(aar1, aar2, aar3, amf, amw), this));
 

@@ -1,6 +1,7 @@
 package display.game;
 
 import comm.MessageManager;
+import comm.SourceDescriptionPair;
 import display.image.ImageAssets;
 import display.music.AudioPlayer;
 import entity.EnemyGenerator;
@@ -15,8 +16,6 @@ import item.ItemPromptLoader;
 import skill.SkillLoader;
 
 import java.awt.BorderLayout;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * The whole of the GUI of Asphodel Sky. Contains one instance of each subclass of the DisplayComponent class,
@@ -69,6 +68,19 @@ public class GameSession extends GameViewObserver {
 	 * @param newConfig The new configuration to use.
 	 */
 	void switchState(DisplayConfiguration newConfig) {
+		switch(newConfig) {
+			case DIALOGUE:
+				getFooter().switchToDialogue();
+				break;
+			case TILE_SELECT:
+			case SKILL_SELECT:
+			case INVENTORY_SELECT:
+				getFooter().switchToSrcDesc();
+				break;
+			case DEFAULT:
+				getFooter().switchToMessages();
+				break;
+		}
 		currentConfig = newConfig;
 	}
 
@@ -104,9 +116,9 @@ public class GameSession extends GameViewObserver {
 
 		//PLAYGROUND TEMPORARY
 		CompositeGrid compositeGrid = new CompositeGrid();
+		SourceDescriptionPair sdp = new SourceDescriptionPair("", "");
 
-
-		view = new GameView(compositeGrid, new GUISidebar(0, 0, 500, 800), new GUIFooter(500, 0, 600, 200));
+		view = new GameView(compositeGrid, new GUISidebar(0, 0, 500, 800), new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue()));
 
 		this.add(view);
 
@@ -130,7 +142,7 @@ public class GameSession extends GameViewObserver {
 		repaint();
 		//END PLAYGROUND
 
-		DisplayKeyBindings.initKeyBinds(this, compositeGrid, p1, mm, eq);
+		DisplayKeyBindings.initKeyBinds(this, compositeGrid, p1, mm, sdp, eq);
 	}
 
 	public void pause() {

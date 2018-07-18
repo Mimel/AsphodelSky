@@ -5,7 +5,7 @@ import java.awt.*;
 public class FooterDialogue implements FooterContent {
 
     @Override
-    public void paintFooter(Graphics g) {
-        
+    public void paintFooter(Graphics g, DrawingArea bounds) {
+
     }
 }

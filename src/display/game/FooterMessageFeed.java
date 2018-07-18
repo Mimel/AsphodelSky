@@ -11,11 +11,12 @@ public class FooterMessageFeed implements FooterContent {
          this.feed = mm;
      }
 
-    @Override
-    public void paintFooter(Graphics g) {
-         int yOffset = 0;
+    public void paintFooter(Graphics g, DrawingArea bounds) {
+         int messageSpace = 25;
          for(String feedItem : feed.getFeedContents()) {
-             g.drawString(feedItem, 100, yOffset += 50);
+             if(feedItem != null) {
+                 g.drawString(feedItem, bounds.getXOffset(), bounds.getYOffset() + (messageSpace += 25));
+             }
          }
     }
 }

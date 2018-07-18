@@ -1,6 +1,7 @@
 package display.game;
 
 import comm.MessageManager;
+import comm.SourceDescriptionPair;
 import entity.Combatant;
 import entity.Player;
 import event.*;
@@ -31,8 +32,8 @@ class DisplayKeyBindings {
     private static CompositeGrid grid;
     private static Player p1;
     private static MessageManager messageManager;
+    private static SourceDescriptionPair sdp;
     private static CompoundEvent pendingInjection;
-    private static GUIFooter view;
 
     private static boolean lookForItemPrompts = false;
 
@@ -40,13 +41,13 @@ class DisplayKeyBindings {
      * Creates keybinds for the game.
      * @param game The GUI.
      */
-    static void initKeyBinds(GameSession game, CompositeGrid grid, Player p1, MessageManager mm, EventQueue eq) {
+    static void initKeyBinds(GameSession game, CompositeGrid grid, Player p1, MessageManager mm, SourceDescriptionPair sdp, EventQueue eq) {
 
         DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;
         DisplayKeyBindings.p1 = p1;
         DisplayKeyBindings.messageManager = mm;
-        DisplayKeyBindings.view = game.getFooter();
+        DisplayKeyBindings.sdp = sdp;
 
         Action exitProgram = new AbstractAction() {
 
@@ -137,7 +138,7 @@ class DisplayKeyBindings {
 
                     updateSourceDescPair(promptManager.peekPrompt());
                 } else if(game.getConfig() == DisplayConfiguration.DIALOGUE) {
-                    game.getFooter().shiftDialogueChoice(yOffset);
+                    //game.getFooter().shiftDialogueChoice(yOffset);
                 }
 
                 updateOutput(messages);
@@ -180,10 +181,10 @@ class DisplayKeyBindings {
                         grid.bindTo(Player.PLAYER_ID);
                         break;
                     case DIALOGUE_PROMPT:
-                        if(game.getFooter().canDialogueContinue()) {
+                        /*if(game.getFooter().canDialogueContinue()) {
                             game.getFooter().progressDialogue();
                             addPromptsToDisplayQueue(DIALOGUE_PROMPT);
-                        }
+                        }*/
                         break;
                 }
 
@@ -195,9 +196,9 @@ class DisplayKeyBindings {
 
                     messages = eq.progressTimeBy(0, grid);
 
-                    if(eq.isDialogueTreePending()) {
+                    /*if(eq.isDialogueTreePending()) {
                         game.getFooter().insertDialogue(eq.getPendingDialogueTree());
-                    }
+                    }*/
                 } else {
                     updateSourceDescPair(promptManager.peekPrompt());
                 }
@@ -499,23 +500,23 @@ class DisplayKeyBindings {
     private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:
-                view.insertItem(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                sdp.setSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
 
             case SKILL_PROMPT:
-                view.insertItem(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
+                sdp.setSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
                 break;
             case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();
-                    view.insertItem(o.toString(), o.getDesc());
+                    sdp.setSourceDescPair(o.toString(), o.getDesc());
                 } else if (!(grid.getFocusedCatalog() == null) && !grid.getFocusedCatalog().isEmpty()) {
                     Item i = grid.getFocusedCatalog().getFocusedItem();
-                    view.insertItem(i.getName(), i.getVisualDescription());
+                    sdp.setSourceDescPair(i.getName(), i.getVisualDescription());
                 } else {
                     Tile t = grid.getFocusedTile();
-                    view.insertItem(t.getName(), t.getDesc());
+                    sdp.setSourceDescPair(t.getName(), t.getDesc());
                 }
                 break;
         }

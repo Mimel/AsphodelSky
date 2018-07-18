@@ -1,7 +1,5 @@
 package display.game;
 
-import dialogue.Statement;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -33,25 +31,20 @@ public class GUIFooter {
 	 */
 	private Image upperLeft;
 
-	private GUIFooter_Switch contentSwitch;
+	private FooterContent messageState;
+	private FooterContent srcdescState;
+	private FooterContent dialogueState;
+	private FooterContent currentState;
 
-	private FooterMode currentDisplayMode;
+	private DrawingArea bounds;
 
-	private int x;
+	public GUIFooter(int x, int y, int w, int h, FooterContent messageState, FooterContent srcdescState, FooterContent dialogueState) {
+		this.bounds = new DrawingArea(x, y, w, h);
 
-	private int y;
-
-	private int width;
-
-	private int height;
-
-	public GUIFooter(int x, int y, int w, int h) {
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
-		
-		currentDisplayMode = FooterMode.MESSAGES;
+		this.messageState = messageState;
+		this.srcdescState = srcdescState;
+		this.dialogueState = dialogueState;
+		this.currentState = this.messageState;
 		
 		//Initialize images.
 		try {
@@ -67,28 +60,18 @@ public class GUIFooter {
 		} catch (IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
-
-		this.contentSwitch = new GUIFooter_Switch();
 	}
 
-	public void insertItem(String name, String desc) {
-		contentSwitch.updateDescription(name, desc);
+	public void switchToMessages() {
+		currentState = messageState;
 	}
 
-	public void insertDialogue(Statement root) {
-		contentSwitch.loadDialogueTree(root);
+	public void switchToSrcDesc() {
+		currentState = srcdescState;
 	}
 
-	public void shiftDialogueChoice(int adjustAddend) {
-		contentSwitch.shiftChoice(adjustAddend);
-	}
-
-	public void progressDialogue() {
-		contentSwitch.progressDialogueTree();
-	}
-
-	public boolean canDialogueContinue() {
-		return !contentSwitch.isDialogueEnded();
+	public void switchToDialogue() {
+		currentState = dialogueState;
 	}
 	
 	/**
@@ -100,9 +83,9 @@ public class GUIFooter {
 		
 		//Background
 		g2.setColor(new Color(200, 200, 200));
-		g2.fillRect(0, 0, width, height);
-		g2.drawImage(tiledHorizontal, 0, 0, null);
-		g2.drawImage(upperLeft, 0, 0, null);
+		g2.fillRect(bounds.getXOffset(), bounds.getYOffset(), bounds.getWidth(), bounds.getHeight());
+		g2.drawImage(tiledHorizontal, bounds.getXOffset(), bounds.getYOffset(), null);
+		g2.drawImage(upperLeft, bounds.getXOffset(), bounds.getYOffset(), null);
 		
 		//Content Title
 		g2.setColor(new Color(255, 255, 255));
@@ -110,15 +93,9 @@ public class GUIFooter {
 		AffineTransform stdXY = g2.getTransform();
 		g2.rotate(-Math.PI/32);
 		
-		if(currentDisplayMode.equals(FooterMode.MESSAGES)) {
-			g2.drawString("Current Feed", 0, 70);
-		} else if(currentDisplayMode.equals(FooterMode.DESCRIPTION)) {
-			g2.drawString("Inventory", 0, 70);
-		}
-		
 		g2.setTransform(stdXY);
 
 		g2.setFont(new Font("SH Pinscher", Font.PLAIN, 22));
-		contentSwitch.sendTo(g2, currentDisplayMode);
+		currentState.paintFooter(g, bounds);
 	}
 }

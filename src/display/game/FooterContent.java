@@ -3,5 +3,5 @@ package display.game;
 import java.awt.*;
 
 public interface FooterContent {
-    void paintFooter(Graphics g);
+    void paintFooter(Graphics g, DrawingArea bounds);
 }

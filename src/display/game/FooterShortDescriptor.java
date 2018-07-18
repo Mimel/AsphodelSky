@@ -12,8 +12,8 @@ public class FooterShortDescriptor implements FooterContent {
     }
 
     @Override
-    public void paintFooter(Graphics g) {
-        g.drawString(sdpair.getSourceName(), 100, 50);
-        g.drawString(sdpair.getDescription(), 100, 100);
+    public void paintFooter(Graphics g, DrawingArea bounds) {
+        g.drawString(sdpair.getSourceName(), bounds.getXOffset() + 100, bounds.getYOffset() + 50);
+        g.drawString(sdpair.getDescription(), bounds.getXOffset() + 100, bounds.getYOffset() + 100);
     }
 }

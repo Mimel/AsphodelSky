@@ -61,7 +61,7 @@ public class Instruction
                     grid.getOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
                     return new ResponseDetails(ResponseCondition.NEGATIVE, grid.getOccupant(opData.getTargetID()).toString(), Integer.toString(-opData.getSecondary()));
                 } else {
-                    grid.removeCombatant(opData.getTargetID());
+                    grid.killCombatant(opData.getTargetID());
                     return null;
                 }
             });

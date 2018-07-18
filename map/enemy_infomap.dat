@@ -9,6 +9,7 @@ setSubtlety=4
 setAcumen=2
 setCharisma=3
 setIntuition=5
+reinitializeInventory=Solution of Finesse(1),END
 !COMBATANT_ADJUSTHP/ADD
     COMBATANT_ADJUSTHP(0,200) ~sec=-1 @SENDER
     COMBATANT_ADJUSTHP(1,100) ~sec=-2 @SENDER

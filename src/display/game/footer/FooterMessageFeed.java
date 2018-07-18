@@ -1,11 +1,12 @@
-package display.game;
+package display.game.footer;
 
 import comm.MessageManager;
+import display.game.DrawingArea;
 
 import java.awt.*;
 
 public class FooterMessageFeed implements FooterContent {
-     private MessageManager feed;
+     private final MessageManager feed;
 
      public FooterMessageFeed(MessageManager mm) {
          this.feed = mm;

@@ -156,10 +156,12 @@ public class CompositeGrid {
 		return (actors.getOccupantAt(aLoc.x() + x, aLoc.y() + y) != null);
 	}
 
-	public void removeCombatant(int id) {
-		actors.removeOccuapantById(id);
+	public void killCombatant(int id) {
+		Point loc = actors.getLocationById(id);
+		Combatant killedCombatant = actors.removeOccuapantById(id);
+		catalogs.placeOccupant(killedCombatant.getInventory(), loc.x(), loc.y());
 	}
-	
+
 	/**
 	 * Searches for an entity within the grid, given the id.
 	 * @param id The id to look up.
@@ -281,6 +283,16 @@ public class CompositeGrid {
 			sb.append('\n');
 		}
 		
+		return sb.toString();
+	}
+
+	public String getGridRepresentation() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(name).append('\n');
+		sb.append(tiles);
+		sb.append(catalogs);
+
 		return sb.toString();
 	}
 }

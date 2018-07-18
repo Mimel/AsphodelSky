@@ -26,12 +26,4 @@ public class DrawingArea {
     public int getHeight() {
         return limit.y - origin.y;
     }
-
-    public int getXLimit() {
-        return limit.x;
-    }
-
-    public int getYLimit() {
-        return limit.y;
-    }
 }

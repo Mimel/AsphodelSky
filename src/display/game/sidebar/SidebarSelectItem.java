@@ -1,12 +1,13 @@
-package display.game;
+package display.game.sidebar;
 
+import display.game.DrawingArea;
 import display.image.ImageAssets;
 import item.Catalog;
 
 import java.awt.*;
 
 public class SidebarSelectItem implements SidebarSelectLayer {
-    private Catalog targetCatalog;
+    private final Catalog targetCatalog;
 
     public SidebarSelectItem(Catalog catalog) {
         this.targetCatalog = catalog;

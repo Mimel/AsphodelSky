@@ -1,4 +1,4 @@
-package display.game;
+package display.game.sidebar;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
 
+import display.game.DrawingArea;
 import display.image.ImageAssets;
 import entity.Combatant;
 import item.Item;
@@ -18,26 +19,26 @@ import skill.Skill;
  */
 public class GUISidebar {
 
-	static final int INVENTORY_ROWS = 3;
+	public static final int INVENTORY_ROWS = 3;
 	private static final int INVENTORY_SPCS = 26;
 	private static final int SKILL_SPCS = 10;
 
 	static final Point INVENTORY_OFFSET = new Point(35, 250);
 	static final Point SKILLSET_OFFSET = new Point(35, 450);
 
-	private DrawingArea bounds;
+	private final DrawingArea bounds;
 
-	private SidebarSelectLayer none;
-	private SidebarSelectLayer itemSelect;
-	private SidebarSelectLayer skillSelect;
+	private final SidebarSelectLayer none;
+	private final SidebarSelectLayer itemSelect;
+	private final SidebarSelectLayer skillSelect;
 	private SidebarSelectLayer currentSelection;
 
 	/**
 	 * The combatant that is being focused on. If the component is
 	 * in mode "CombatantDisplay", this combatant's stats is shown
-	 * on the sidebar.
+	 * on the footer.
 	 */
-	private Combatant combatantFocus;
+	private final Combatant combatantFocus;
 
 	public GUISidebar(int x, int y, int w, int h, Combatant focus) {
 		this.bounds = new DrawingArea(x, y, w, h);
@@ -62,9 +63,9 @@ public class GUISidebar {
 	}
 	
 	/**
-	 * Draws the sidebar graphics.
+	 * Draws the footer graphics.
 	 */
-	protected void paint(Graphics g) {
+	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setColor(new Color(0, 200, 0));
 		g2.fillRect(bounds.getXOffset(), bounds.getYOffset(), bounds.getWidth(), bounds.getHeight());

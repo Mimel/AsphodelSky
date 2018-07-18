@@ -1,5 +1,6 @@
-package display.game;
+package display.game.sidebar;
 
+import display.game.DrawingArea;
 import display.image.ImageAssets;
 import skill.SkillSet;
 
@@ -7,7 +8,7 @@ import java.awt.*;
 
 public class SidebarSelectSkill implements SidebarSelectLayer {
 
-    private SkillSet targetSkills;
+    private final SkillSet targetSkills;
 
     public SidebarSelectSkill(SkillSet skills) {
         this.targetSkills = skills;

@@ -170,7 +170,8 @@ public abstract class Combatant implements Entity {
 		this.charisma = c.getCharisma();
 		this.intuition = c.getIntuition();
 
-		this.inventory = new Catalog();
+		this.inventory = new Catalog(c.getInventory());
+
 		this.skills = new SkillSet();
 
 		this.eventTriggerList = new ArrayList<>();
@@ -361,6 +362,10 @@ public abstract class Combatant implements Entity {
 		return inventory;
 	}
 
+	public void reinitializeInventory(String catalogRepresentation) {
+		inventory = new Catalog(catalogRepresentation);
+	}
+
 	public SkillSet getSkillSet() {
 		return skills;
 	}
@@ -384,10 +389,11 @@ public abstract class Combatant implements Entity {
 
 	@Override
 	public String toString() {
-		if(title == null || title.equals("")) {
-			return name;
-		} else {
-			return name + " the " + title;
-		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(id).append("\n");
+		sb.append(name).append("\n");
+		sb.append(title).append("\n");
+
+		return sb.toString();
 	}
 }

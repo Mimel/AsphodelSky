@@ -2,6 +2,7 @@ package display.game;
 
 import comm.MessageManager;
 import comm.SourceDescriptionPair;
+import display.game.sidebar.GUISidebar;
 import entity.Combatant;
 import entity.Player;
 import event.*;

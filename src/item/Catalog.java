@@ -28,6 +28,31 @@ public class Catalog {
 		catalog = new ArrayList<>();
 		focusedItemIndex = 0;
 	}
+
+	public Catalog(String catalogRepresentation) {
+		catalog = new ArrayList<>();
+		focusedItemIndex = 0;
+
+		for(String itemCoupling : catalogRepresentation.split(",")) {
+			if(itemCoupling.equals("END")) {
+				continue;
+			}
+
+			String itemName = itemCoupling.substring(0, itemCoupling.indexOf('('));
+			String itemAmount = itemCoupling.substring(itemCoupling.indexOf('(') + 1, itemCoupling.indexOf(')'));
+
+			insertItem(ItemLoader.getItemByName(itemName), Integer.parseInt(itemAmount));
+		}
+	}
+
+	public Catalog(Catalog old) {
+		this.catalog = new ArrayList<>();
+		this.focusedItemIndex = old.focusedItemIndex;
+
+		for(Pair<Item, Integer> entry : old.catalog) {
+			this.insertItem(entry.getValue0(), entry.getValue1());
+		}
+	}
 	
 	public int getFocusIndex() {
 		return focusedItemIndex;
@@ -250,7 +275,7 @@ public class Catalog {
 	public String toString() {
 		StringBuilder cat = new StringBuilder();
 		for(Pair<Item, Integer> entry : catalog) {
-			cat.append(entry.getValue0()).append(" (").append(entry.getValue1()).append("),\n");
+			cat.append(entry.getValue0()).append("(").append(entry.getValue1()).append("),");
 		}
 		cat.append("END");
 		return cat.toString();

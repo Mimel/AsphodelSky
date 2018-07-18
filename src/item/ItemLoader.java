@@ -12,9 +12,12 @@ public final class ItemLoader {
      */
     private static Map<Integer, Item> itemIDToItemMap;
 
+    private static Map<String, Integer> itemNameToItemIDMap;
+
     public static void loadItemEffectMapping(String fileName) {
         if(itemIDToItemMap == null) {
             itemIDToItemMap = new HashMap<>();
+            itemNameToItemIDMap = new HashMap<>();
         } else {
             return;
         }
@@ -40,6 +43,7 @@ public final class ItemLoader {
                 } else if(line.equals("!END")) {
                     Item newestItem = new Item(name, type, vDesc, uDesc, effects.toString());
                     itemIDToItemMap.put(newestItem.getId(), newestItem);
+                    itemNameToItemIDMap.put(name, newestItem.getId());
                     name = "";
                     vDesc = "";
                     uDesc = "";
@@ -55,5 +59,9 @@ public final class ItemLoader {
 
     public static Item getItemById(int id) {
         return itemIDToItemMap.get(id);
+    }
+
+    public static Item getItemByName(String name) {
+        return itemIDToItemMap.get(itemNameToItemIDMap.get(name));
     }
 }

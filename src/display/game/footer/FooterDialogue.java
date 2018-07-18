@@ -1,4 +1,6 @@
-package display.game;
+package display.game.footer;
+
+import display.game.DrawingArea;
 
 import java.awt.*;
 

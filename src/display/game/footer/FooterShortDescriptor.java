@@ -1,6 +1,7 @@
-package display.game;
+package display.game.footer;
 
 import comm.SourceDescriptionPair;
+import display.game.DrawingArea;
 
 import java.awt.*;
 

@@ -58,4 +58,14 @@ public class CatalogGrid implements Grid<Catalog, Map.Entry<Point, Catalog>> {
     public Iterator<Map.Entry<Point, Catalog>> iterator() {
         return catalogMap.entrySet().iterator();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(Map.Entry<Point, Catalog> entry : catalogMap.entrySet()) {
+            sb.append("{").append(entry.getKey().toString()).append("}->").append(entry.getValue().toString()).append("\n");
+        }
+
+        return sb.toString();
+    }
 }

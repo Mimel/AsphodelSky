@@ -67,4 +67,17 @@ public class TileGrid implements Grid<Tile, Tile[]> {
     public Iterator<Tile[]> iterator() {
         return Arrays.asList(tiles).iterator();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder tileGrid = new StringBuilder();
+        for(Tile[] row : tiles) {
+            for(Tile cell: row) {
+                tileGrid.append(cell.getTerrain());
+            }
+            tileGrid.append('\n');
+        }
+
+        return tileGrid.toString();
+    }
 }

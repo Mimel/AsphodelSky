@@ -131,4 +131,11 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     public Iterator<Map.Entry<Point, Combatant>> iterator() {
         return coordToOccupant.entrySet().iterator();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        return sb.toString();
+    }
 }

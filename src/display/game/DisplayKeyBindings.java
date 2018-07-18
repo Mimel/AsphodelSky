@@ -32,6 +32,7 @@ class DisplayKeyBindings {
     private static Player p1;
     private static MessageManager messageManager;
     private static CompoundEvent pendingInjection;
+    private static GUIFooter view;
 
     private static boolean lookForItemPrompts = false;
 
@@ -45,6 +46,7 @@ class DisplayKeyBindings {
         DisplayKeyBindings.grid = grid;
         DisplayKeyBindings.p1 = p1;
         DisplayKeyBindings.messageManager = mm;
+        DisplayKeyBindings.view = game.getFooter();
 
         Action exitProgram = new AbstractAction() {
 
@@ -98,7 +100,7 @@ class DisplayKeyBindings {
 
                     //Moves the cursor over the inventory.
                     if(p1.getInventory().setFocus(xOffset * GUISidebar.INVENTORY_ROWS + yOffset)) {
-                        p1.updatePlayer();
+                        //p1.updatePlayer(); //TODO UPDATE PLAYER
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
 
@@ -106,7 +108,7 @@ class DisplayKeyBindings {
 
                     //Moves the cursor over the skill set.
                     if(p1.getSkillSet().setFocusedSkillIndex(xOffset)) {
-                        p1.updatePlayer();
+                        //p1.updatePlayer(); //TODO UPDATE PLAYER
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
 
@@ -497,23 +499,23 @@ class DisplayKeyBindings {
     private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:
-                //TODO messageManager.loadSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                view.insertItem(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
                 break;
 
             case SKILL_PROMPT:
-                //messageManager.loadSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
+                view.insertItem(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
                 break;
             case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();
-                    //messageManager.loadSourceDescPair(o.toString(), o.getDesc());
+                    view.insertItem(o.toString(), o.getDesc());
                 } else if (!(grid.getFocusedCatalog() == null) && !grid.getFocusedCatalog().isEmpty()) {
                     Item i = grid.getFocusedCatalog().getFocusedItem();
-                    //messageManager.loadSourceDescPair(i.getName(), i.getVisualDescription());
+                    view.insertItem(i.getName(), i.getVisualDescription());
                 } else {
                     Tile t = grid.getFocusedTile();
-                    //messageManager.loadSourceDescPair(t.getName(), t.getDesc());
+                    view.insertItem(t.getName(), t.getDesc());
                 }
                 break;
         }

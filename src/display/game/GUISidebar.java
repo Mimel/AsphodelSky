@@ -15,11 +15,18 @@ import skill.Skill;
  * A component of the Asphodel Sky GUI containing player information.
  * @author Matt Imel
  */
-public class GUISidebar extends GUIComponent<SidebarMode> implements SidebarComponent {
+public class GUISidebar {
 
 	static final int INVENTORY_ROWS = 3;
 	private static final int INVENTORY_SPCS = 26;
 	private static final int SKILL_SPCS = 10;
+
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+
+	private SidebarMode selectedMode;
 
 	/**
 	 * The combatant that is being focused on. If the component is
@@ -29,21 +36,18 @@ public class GUISidebar extends GUIComponent<SidebarMode> implements SidebarComp
 	private Combatant combatantFocus;
 
 	public GUISidebar(int x, int y, int w, int h) {
-		super(x, y, w, h);
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
 
 		selectedMode = SidebarMode.COMBATANT;
-	}
-	
-	@Override
-	public void updateCombatantInfo(Combatant c) {
-		this.combatantFocus = c;
 	}
 	
 	/**
 	 * Draws the sidebar graphics.
 	 */
-	@Override
-	protected void paintComponent(Graphics g) { 
+	protected void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setColor(new Color(0, 200, 0));
 		g2.fillRect(0, 0, width, height);

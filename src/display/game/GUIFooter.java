@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
  * @author Matt Imel
  *
  */
-public class GUIFooter extends GUIComponent<FooterMode> implements FooterComponent {
+public class GUIFooter {
 	/**
 	 * The horizontal banner, used to more easily differentiate the footer from its* higher peers.
 	 */
@@ -35,10 +35,23 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 
 	private GUIFooter_Switch contentSwitch;
 
+	private FooterMode currentDisplayMode;
+
+	private int x;
+
+	private int y;
+
+	private int width;
+
+	private int height;
+
 	public GUIFooter(int x, int y, int w, int h) {
-		super(x, y, w, h);
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
 		
-		selectedMode = FooterMode.MESSAGES;
+		currentDisplayMode = FooterMode.MESSAGES;
 		
 		//Initialize images.
 		try {
@@ -57,12 +70,7 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 
 		this.contentSwitch = new GUIFooter_Switch();
 	}
-	
-	@Override
-	public void updateMessages(String[] msgs) {
-		contentSwitch.updateMessages(msgs);
-	}
-	
+
 	public void insertItem(String name, String desc) {
 		contentSwitch.updateDescription(name, desc);
 	}
@@ -86,8 +94,7 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 	/**
 	 * Draws the footer.
 	 */
-	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;	
 		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
@@ -103,15 +110,15 @@ public class GUIFooter extends GUIComponent<FooterMode> implements FooterCompone
 		AffineTransform stdXY = g2.getTransform();
 		g2.rotate(-Math.PI/32);
 		
-		if(selectedMode.equals(FooterMode.MESSAGES)) {
+		if(currentDisplayMode.equals(FooterMode.MESSAGES)) {
 			g2.drawString("Current Feed", 0, 70);
-		} else if(selectedMode.equals(FooterMode.DESCRIPTION)) {
+		} else if(currentDisplayMode.equals(FooterMode.DESCRIPTION)) {
 			g2.drawString("Inventory", 0, 70);
 		}
 		
 		g2.setTransform(stdXY);
 
 		g2.setFont(new Font("SH Pinscher", Font.PLAIN, 22));
-		contentSwitch.sendTo(g2, selectedMode);
+		contentSwitch.sendTo(g2, currentDisplayMode);
 	}
 }

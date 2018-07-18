@@ -1,6 +1,5 @@
 package entity;
 
-import display.game.SidebarComponent;
 import event.SimpleEvent;
 import grid.CompositeGrid;
 
@@ -11,18 +10,9 @@ import java.util.List;
  * @author Matt Imel
  */
 public class Player extends Combatant {
-	/**
-	 * The output of the player.
-	 */
-	private SidebarComponent combatantOutput;
 	
-	public Player(String name, String title, int health, int science, SidebarComponent sc) {
+	public Player(String name, String title, int health, int science) {
 		super(name, title, "", health, science);
-		this.combatantOutput = sc;
-	}
-
-	public void updatePlayer() {
-		combatantOutput.updateCombatantInfo(this);
 	}
 
 	/**

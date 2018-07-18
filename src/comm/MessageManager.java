@@ -1,11 +1,13 @@
 package comm;
 
+import java.util.Iterator;
+
 /**
  * Manages messages received from a given stream to implement in the game.
  * @author Matt Imel
  *
  */
-public class MessageManager implements Runnable {
+public class MessageManager {
 	
 	/**
 	 * The maximum number of strings that may be stored on the buffer.
@@ -20,12 +22,7 @@ public class MessageManager implements Runnable {
 	/**
 	 * The list of messages that are available to write.
 	 */
-	private String[] messageBuffer;
-	
-	/**
-	 * Lock, ensures no busywaiting for the MM thread.
-	 */
-	private final Object lock = new Object();
+	private final String[] messageBuffer;
 	
 	public MessageManager() {
 		
@@ -39,19 +36,17 @@ public class MessageManager implements Runnable {
 	 * @param msgs The messages to insert.
 	 */
 	public void insertMessage(String... msgs) {
-		synchronized(lock) {
-			for(String msg : msgs) {
-				if(messageHead < MESSAGEMAX) {
-					messageBuffer[messageHead++] = msg;
-				} else {
-					shiftBuffer(msg);
-				}
+		for(String msg : msgs) {
+			if(messageHead < MESSAGEMAX) {
+				messageBuffer[messageHead++] = msg;
+			} else {
+				shiftBuffer(msg);
 			}
-			
-			//Update the GUI.
-			lock.notify();
 		}
-		
+	}
+
+	public String[] getFeedContents() {
+		return messageBuffer;
 	}
 	
 	/**
@@ -63,13 +58,5 @@ public class MessageManager implements Runnable {
 	private void shiftBuffer(String msg) {
 		System.arraycopy(messageBuffer, 1, messageBuffer, 0, MESSAGEMAX - 1);
 		messageBuffer[MESSAGEMAX - 1] = msg;
-	}
-
-	/**
-	 * Runs the manager.
-	 */
-	@Override
-	public void run() {
-
 	}
 }

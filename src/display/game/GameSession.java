@@ -25,27 +25,12 @@ import java.util.concurrent.Executors;
  *
  */
 public class GameSession extends GameViewObserver {
-	
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * CompositeGrid component, based on the left side of the window between the header and footer.
-	 */
-	private GUIFocus gc;
-	
-	/**
-	 * Sidebar component, based on the right side of the window between the header and footer.
-	 */
-	private GUISidebar sc;
-	
-	/**
-	 * Footer component, based on the bottom of the window.
-	 */
-	private GUIFooter fc;
 
 	/**
 	 * The current display configuration.
 	 */
+	private GameView view;
+
 	private DisplayConfiguration currentConfig;
 
 	private AudioPlayer player;
@@ -56,7 +41,6 @@ public class GameSession extends GameViewObserver {
 		this.setBounds(0, 0, winWidth, winHeight);
 		/*
 		//Magic numbers soon to be replaced
-		this.gc = new GUIFocus(0, 0, 624, 624, 48);
 		this.sc = new GUISidebar(624, 50, winWidth - 624, 624);
 		this.fc = new GUIFooter(0, 624, winWidth, winHeight - 624);
 
@@ -75,9 +59,6 @@ public class GameSession extends GameViewObserver {
 		initializeGameSession();
 	}
 
-	GUIFocus getFocus() { return gc; }
-	GUISidebar getSidebar() { return sc;}
-	GUIFooter getFooter() { return fc; }
 	DisplayConfiguration getConfig() {
 		return currentConfig;
 	}
@@ -88,48 +69,21 @@ public class GameSession extends GameViewObserver {
 	 * @param newConfig The new configuration to use.
 	 */
 	void switchState(DisplayConfiguration newConfig) {
-		switch(newConfig) {
-			case DEFAULT:
-				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
-				sc.setCurrentMode(SidebarMode.COMBATANT);
-				fc.setCurrentMode(FooterMode.MESSAGES);
-				break;
-
-			case TILE_SELECT:
-				gc.setCurrentMode(FocusMode.SELECTION);
-				sc.setCurrentMode(SidebarMode.COMBATANT);
-				fc.setCurrentMode(FooterMode.DESCRIPTION);
-				break;
-
-			case SKILL_SELECT:
-				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
-				sc.setCurrentMode(SidebarMode.SKILL_SELECTION);
-				fc.setCurrentMode(FooterMode.DESCRIPTION);
-				break;
-
-			case INVENTORY_SELECT:
-				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
-				sc.setCurrentMode(SidebarMode.ITEM_SELECTION);
-				fc.setCurrentMode(FooterMode.DESCRIPTION);
-				break;
-
-			case DIALOGUE:
-				gc.setCurrentMode(FocusMode.PLAYER_FOCUS);
-				sc.setCurrentMode(SidebarMode.COMBATANT);
-				fc.setCurrentMode(FooterMode.DIALOGUE);
-				break;
-		}
-
 		currentConfig = newConfig;
 	}
 
-	private void initializeGameSession() {
-		//Initialize message manager.
-		ExecutorService threadList = Executors.newFixedThreadPool(2);
-		MessageManager mm = new MessageManager();
-		threadList.execute(mm);
+	public GUISidebar getSidebar() {
+		return view.getSidebar();
+	}
 
-		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22, getSidebar());
+	public GUIFooter getFooter() {
+		return view.getFooter();
+	}
+
+	private void initializeGameSession() {
+		MessageManager mm = new MessageManager();
+
+		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22);
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -151,7 +105,10 @@ public class GameSession extends GameViewObserver {
 		//PLAYGROUND TEMPORARY
 		CompositeGrid compositeGrid = new CompositeGrid();
 
-		this.add(new GameView(compositeGrid));
+
+		view = new GameView(compositeGrid, new GUISidebar(0, 0, 500, 800), new GUIFooter(500, 0, 600, 200));
+
+		this.add(view);
 
 		compositeGrid.addCombatant(p1, 1, 1);
 		compositeGrid.bindTo(0);

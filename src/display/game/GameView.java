@@ -14,8 +14,14 @@ public class GameView extends JPanel {
 
     private Point trueOrigin;
 
-    public GameView(CompositeGrid model) {
+    private GUISidebar sidebar;
+
+    private GUIFooter footer;
+
+    public GameView(CompositeGrid model, GUISidebar drawnSidebar, GUIFooter drawnFooter) {
         this.model = model;
+        this.sidebar = drawnSidebar;
+        this.footer = drawnFooter;
         this.trueOrigin = new Point(0, 0);
         recalculateTrueOrigin();
     }
@@ -97,6 +103,16 @@ public class GameView extends JPanel {
             start.move(startingX, start.y + 1);
 
         }
+
+        footer.paint(g);
+    }
+
+    public GUISidebar getSidebar() {
+        return sidebar;
+    }
+
+    public GUIFooter getFooter() {
+        return footer;
     }
 
     private int widthInTiles() {

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.List;
 
 import display.image.ImageAssets;
@@ -21,12 +22,15 @@ public class GUISidebar {
 	private static final int INVENTORY_SPCS = 26;
 	private static final int SKILL_SPCS = 10;
 
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	static final Point INVENTORY_OFFSET = new Point(35, 250);
+	static final Point SKILLSET_OFFSET = new Point(35, 450);
 
-	private SidebarMode selectedMode;
+	private DrawingArea bounds;
+
+	private SidebarSelectLayer none;
+	private SidebarSelectLayer itemSelect;
+	private SidebarSelectLayer skillSelect;
+	private SidebarSelectLayer currentSelection;
 
 	/**
 	 * The combatant that is being focused on. If the component is
@@ -35,13 +39,26 @@ public class GUISidebar {
 	 */
 	private Combatant combatantFocus;
 
-	public GUISidebar(int x, int y, int w, int h) {
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
+	public GUISidebar(int x, int y, int w, int h, Combatant focus) {
+		this.bounds = new DrawingArea(x, y, w, h);
+		this.combatantFocus = focus;
+		this.none = new SidebarNoSelect();
+		this.itemSelect = new SidebarSelectItem(focus.getInventory());
+		this.skillSelect = new SidebarSelectSkill(focus.getSkillSet());
 
-		selectedMode = SidebarMode.COMBATANT;
+		this.currentSelection = none;
+	}
+
+	public void switchToNoSelect() {
+		currentSelection = none;
+	}
+
+	public void switchToItemSelect() {
+		currentSelection = itemSelect;
+	}
+
+	public void switchToSkillSelect() {
+		currentSelection = skillSelect;
 	}
 	
 	/**
@@ -50,7 +67,7 @@ public class GUISidebar {
 	protected void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setColor(new Color(0, 200, 0));
-		g2.fillRect(0, 0, width, height);
+		g2.fillRect(bounds.getXOffset(), bounds.getYOffset(), bounds.getWidth(), bounds.getHeight());
 		
 		g2.setColor(new Color(0, 0, 0));
 		g2.setFont(new Font("Verdana", Font.PLAIN, 24));
@@ -71,24 +88,17 @@ public class GUISidebar {
 				
 				//Background for item.
 				g2.setColor(new Color(slot * 8, 0, 0));
-				g2.fillRect(35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, 48, 48);
+				g2.fillRect(INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48, 48, 48);
 				g2.setColor(Color.BLACK);
-				g2.drawRect(35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, 48, 48);
+				g2.drawRect(INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48, 48, 48);
 
 				//Item.
 				if(!items.isEmpty()) {
 					Item currentItem = items.remove(0);
-					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), 35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, null);
+					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48, null);
 					
 					g2.setColor(Color.WHITE);
-					g2.drawString(amts.remove(0).toString(), 35 + (slot/INVENTORY_ROWS)*48 + 5, 250 + (slot%INVENTORY_ROWS)*48 + 24);
-				}
-				
-				//Draw crosshair over focused slot, if applicable.
-				if(selectedMode == SidebarMode.ITEM_SELECTION) {
-					if(slot == combatantFocus.getInventory().getFocusIndex()) {
-						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot/INVENTORY_ROWS)*48, 250 + (slot%INVENTORY_ROWS)*48, null);
-					}
+					g2.drawString(amts.remove(0).toString(), INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48 + 5, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48 + 24);
 				}
 			}
 
@@ -98,23 +108,18 @@ public class GUISidebar {
 
 				//Background for skills
 				g2.setColor(new Color(220, 220, 220));
-				g2.fillRect(35 + (slot)*48, 450, 48, 48);
+				g2.fillRect(SKILLSET_OFFSET.x + (slot)*48, SKILLSET_OFFSET.y, 48, 48);
 				g2.setColor(Color.BLACK);
-				g2.drawRect(35 + (slot)*48, 450, 48, 48);
+				g2.drawRect(SKILLSET_OFFSET.x + (slot)*48, SKILLSET_OFFSET.y, 48, 48);
 
 				//Skill images.
 				if(!skills.isEmpty()) {
 					Skill currentSkill = skills.remove(0);
-					g2.drawImage(ImageAssets.getSkillImage(currentSkill.getName()), 35 + (slot)*48, 450, null);
-				}
-
-				//Draw crosshair over focused slot, if applicable.
-				if(selectedMode == SidebarMode.SKILL_SELECTION) {
-					if(slot == combatantFocus.getSkillSet().getFocusedSkillIndex()) {
-						g2.drawImage(ImageAssets.getMiscImage('+'), 35 + (slot)*48, 450, null);
-					}
+					g2.drawImage(ImageAssets.getSkillImage(currentSkill.getName()), SKILLSET_OFFSET.x + (slot)*48, SKILLSET_OFFSET.y, null);
 				}
 			}
+
+			currentSelection.paintSelection(g, bounds);
 		}
 	}
 }

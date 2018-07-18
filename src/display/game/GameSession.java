@@ -38,16 +38,6 @@ public class GameSession extends GameViewObserver {
 		this.setLayout(new BorderLayout());
 
 		this.setBounds(0, 0, winWidth, winHeight);
-		/*
-		//Magic numbers soon to be replaced
-		this.sc = new GUISidebar(624, 50, winWidth - 624, 624);
-		this.fc = new GUIFooter(0, 624, winWidth, winHeight - 624);
-
-		this.add(gc, BorderLayout.WEST);
-		this.add(sc, BorderLayout.EAST);
-		this.add(fc, BorderLayout.SOUTH);
-		*/
-
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
@@ -70,14 +60,23 @@ public class GameSession extends GameViewObserver {
 	void switchState(DisplayConfiguration newConfig) {
 		switch(newConfig) {
 			case DIALOGUE:
+				getSidebar().switchToNoSelect();
 				getFooter().switchToDialogue();
 				break;
 			case TILE_SELECT:
+				getSidebar().switchToNoSelect();
+				getFooter().switchToSrcDesc();
+				break;
 			case SKILL_SELECT:
+				getSidebar().switchToSkillSelect();
+				getFooter().switchToSrcDesc();
+				break;
 			case INVENTORY_SELECT:
+				getSidebar().switchToItemSelect();
 				getFooter().switchToSrcDesc();
 				break;
 			case DEFAULT:
+				getSidebar().switchToNoSelect();
 				getFooter().switchToMessages();
 				break;
 		}
@@ -118,7 +117,8 @@ public class GameSession extends GameViewObserver {
 		CompositeGrid compositeGrid = new CompositeGrid();
 		SourceDescriptionPair sdp = new SourceDescriptionPair("", "");
 
-		view = new GameView(compositeGrid, new GUISidebar(0, 0, 500, 800), new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue()));
+		view = new GameView(compositeGrid, new GUISidebar(0, 0, 500, 800, p1),
+				new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue()));
 
 		this.add(view);
 

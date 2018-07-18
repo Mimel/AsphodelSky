@@ -4,7 +4,6 @@ import display.image.ImageAssets;
 import entity.Combatant;
 import entity.Player;
 import grid.CompositeGrid;
-import item.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +27,8 @@ public class GameView extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        long timeStart = System.currentTimeMillis();
+
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -85,7 +86,7 @@ public class GameView extends JPanel {
             for(int x = testx + xMargin; x < getWidth() && start.x < model.getNumberOfColumns(); x += ImageAssets.SPRITE_DIMENSION_PX) {
                 g.drawImage(ImageAssets.getTerrainImage(model.getTileAt(start.x, start.y).getTerrain()), x, y, null);
 
-                if((currentCombatant = model.getCombatantAt(start.x, start.y)) != null) { //TODO HERE
+                if((currentCombatant = model.getCombatantAt(start.x, start.y)) != null) {
                     if(currentCombatant.getId() == Player.PLAYER_ID) {
                         g.setColor(new Color(200, 100, 30));
                         g.fillRect(x, y, ImageAssets.SPRITE_DIMENSION_PX, ImageAssets.SPRITE_DIMENSION_PX);
@@ -94,7 +95,7 @@ public class GameView extends JPanel {
                     }
                 }
 
-                if(model.getItemsOnTile(start.x, start.y) != null) {
+                if(model.getItemsOnTile(start.x, start.y) != null && !model.getItemsOnTile(start.x, start.y).isEmpty()) {
                     g.drawImage(ImageAssets.getItemImage(model.getItemsOnTile(start.x, start.y).getFocusedItem().getName()), x, y, null);
                 }
 
@@ -104,7 +105,11 @@ public class GameView extends JPanel {
 
         }
 
+        sidebar.paint(g);
         footer.paint(g);
+
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("Paint time: " + (timeEnd - timeStart) + "ms.");
     }
 
     public GUISidebar getSidebar() {

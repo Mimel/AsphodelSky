@@ -12,8 +12,8 @@ public class GameManager extends JLayeredPane {
 
     public GameManager(AudioPlayer ap) {
         this.panels = new ArrayList<>();
-        this.add(new GameSession(1920, 1080, ap, this), 0, 0);
-        this.add(new InGamePauseMenu(1920, 1080, this), 1, 0);
+        this.add(new GameSession(1500, 600, ap, this), 0, 0);
+        this.add(new InGamePauseMenu(1500, 600, this), 1, 0);
         this.setFocusedPanel(GameSessionViewState.GAME);
     }
 

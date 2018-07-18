@@ -13,7 +13,7 @@ public class PromptManager {
     /**
      * The display to adjust.
      */
-    GameSession screen;
+    GameView screen;
 
     /**
      * A queue of required requests that must be fulfilled before the configuration resets to default.
@@ -25,7 +25,7 @@ public class PromptManager {
      */
     private Stack<DisplayPrompt> usedPromptStack;
 
-    PromptManager(GameSession d) {
+    PromptManager(GameView d) {
         this.screen = d;
         this.promptQueue = new LinkedList<>();
         this.usedPromptStack = new Stack<>();

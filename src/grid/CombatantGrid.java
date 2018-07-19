@@ -11,7 +11,7 @@ import java.util.Map;
  * id of a combatant to the coordinates it's on, and a map that relates
  * a set of grid coordinates to the Combatant that exists there.
  */
-public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> {
+public class CombatantGrid implements IdSearchableGrid<Combatant> {
     /**
      * Map that maps coordinates to the combatant located at that set of coordinates.
      */
@@ -114,22 +114,6 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     public void clearGrid() {
         coordToOccupant.clear();
         idToCoord.clear();
-    }
-
-    @Override
-    public Grid<Combatant, Map.Entry<Point, Combatant>> subGrid(int x, int y, int width, int height) {
-        Grid<Combatant, Map.Entry<Point, Combatant>> subGrid = new CombatantGrid();
-        for(Point p : coordToOccupant.keySet()) {
-            if(p.x() >= x && p.x() < x + width && p.y() >= y && p.y() < y + height) {
-                subGrid.placeOccupant(coordToOccupant.get(p), p.x(), p.y());
-            }
-        }
-        return subGrid;
-    }
-
-    @Override
-    public Iterator<Map.Entry<Point, Combatant>> iterator() {
-        return coordToOccupant.entrySet().iterator();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Map;
  * Represents the catalog overlay. Consists of a map that relates grid coordinates
  * to the items that are on it.
  */
-public class CatalogGrid implements Grid<Catalog, Map.Entry<Point, Catalog>> {
+public class CatalogGrid implements Grid<Catalog> {
 
     private final Map<Point, Catalog> catalogMap;
 
@@ -41,22 +41,6 @@ public class CatalogGrid implements Grid<Catalog, Map.Entry<Point, Catalog>> {
     @Override
     public void clearGrid() {
         catalogMap.clear();
-    }
-
-    @Override
-    public Grid<Catalog, Map.Entry<Point, Catalog>> subGrid(int x, int y, int width, int height) {
-        Grid<Catalog, Map.Entry<Point, Catalog>> subGrid = new CatalogGrid();
-        for(Point p : catalogMap.keySet()) {
-            if(p.x() >= x && p.x() < x + width && p.y() >= y && p.y() < y + height) {
-                subGrid.placeOccupant(catalogMap.get(p), p.x(), p.y());
-            }
-        }
-        return subGrid;
-    }
-
-    @Override
-    public Iterator<Map.Entry<Point, Catalog>> iterator() {
-        return catalogMap.entrySet().iterator();
     }
 
     @Override

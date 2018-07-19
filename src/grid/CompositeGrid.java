@@ -21,11 +21,11 @@ import java.util.Map;
  */
 public class CompositeGrid {
 
-	private final Grid<Tile, Tile[]> tiles;
+	private final Grid<Tile> tiles;
 
-	private final IdSearchableGrid<Combatant, Map.Entry<Point, Combatant>> actors;
+	private final IdSearchableGrid<Combatant> actors;
 
-	private final Grid<Catalog, Map.Entry<Point, Catalog>> catalogs;
+	private final Grid<Catalog> catalogs;
 
 	/**
 	 * The name of the map.
@@ -290,21 +290,6 @@ public class CompositeGrid {
 	 */
 	private boolean isValidLocation(int xCoord, int yCoord) {
 		return xCoord >= 0 && yCoord >= 0 && yCoord < MAX_BOUNDS.y() && xCoord < MAX_BOUNDS.x();
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-
-		for (Tile[] row : tiles) {
-			for (Tile space : row) {
-				sb.append(space.getTerrain());
-			}
-
-			sb.append('\n');
-		}
-		
-		return sb.toString();
 	}
 
 	public String getGridRepresentation() {

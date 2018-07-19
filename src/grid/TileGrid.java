@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * A two-dimensional array of Tiles.
  */
-public class TileGrid implements Grid<Tile, Tile[]> {
+public class TileGrid implements Grid<Tile> {
 
     private final Tile[][] tiles;
 
@@ -44,28 +44,6 @@ public class TileGrid implements Grid<Tile, Tile[]> {
                 tiles[x][y] = new Tile('.');
             }
         }
-    }
-
-    @Override
-    public Grid<Tile, Tile[]> subGrid(int x, int y, int width, int height) {
-        Grid<Tile, Tile[]> subGrid = new TileGrid(width, height);
-        int origX = x;
-        int origY = y;
-        int subX = 0;
-        int subY = 0;
-        for(x = origX; x < origX + width; x++) {
-            for(y = origY; y < origY + height; y++) {
-                subGrid.placeOccupant(tiles[x][y], subX, subY++);
-            }
-            subX++;
-            subY = 0;
-        }
-        return subGrid;
-    }
-
-    @Override
-    public Iterator<Tile[]> iterator() {
-        return Arrays.asList(tiles).iterator();
     }
 
     @Override

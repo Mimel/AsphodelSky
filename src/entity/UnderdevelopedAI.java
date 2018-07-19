@@ -22,4 +22,9 @@ public class UnderdevelopedAI extends Combatant {
     public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useUnderdeveloped(this, time, gr);
     }
+
+    @Override
+    public String toString() {
+        return "$Underdeveloped\n" + super.toString();
+    }
 }

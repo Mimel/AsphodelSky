@@ -18,5 +18,10 @@ public enum FlagType {
      * Acts as both an ADD and CANCEL; it first removes the event
      * that fired this flag, then adds events to the queue.
      */
-    REPLACE
+    REPLACE,
+
+    /**
+     * Does nothing.
+     */
+    STAY
 }

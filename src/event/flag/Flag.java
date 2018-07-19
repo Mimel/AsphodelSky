@@ -61,4 +61,16 @@ public abstract class Flag {
      * @return true if the top event was removed; false otherwise.
      */
     public abstract boolean checkForTrigger(EventQueue queue);
+
+    String fillStringRepresentationTemplate(FlagType redirectProtocol) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append('!').append(eventTrigger).append('/').append(redirectProtocol).append('\n');
+        for(int i = 0; i < eventsAddedOnTrigger.size(); i++) {
+            sb.append('\t').append(eventsAddedOnTrigger.get(i).toString())
+                    .append(" @").append(eventRedirections.get(i)).append('\n');
+        }
+
+        return sb.toString();
+    }
 }

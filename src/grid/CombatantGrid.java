@@ -2,8 +2,8 @@ package grid;
 
 import entity.Combatant;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -23,8 +23,8 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     private final Map<Integer, Point> idToCoord;
 
     CombatantGrid() {
-        coordToOccupant = new HashMap<>();
-        idToCoord = new HashMap<>();
+        coordToOccupant = new LinkedHashMap<>();
+        idToCoord = new LinkedHashMap<>();
     }
 
     @Override
@@ -135,7 +135,10 @@ public class CombatantGrid implements IdSearchableGrid<Combatant, Map.Entry<Poin
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
+        for(Map.Entry<Integer, Point> combatantLoc : idToCoord.entrySet()) {
+            sb.append('{').append(combatantLoc.getKey()).append("}->{").append(combatantLoc.getValue().toString()).append("}->\n");
+            sb.append(coordToOccupant.get(combatantLoc.getValue()).toString());
+        }
         return sb.toString();
     }
 }

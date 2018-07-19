@@ -394,10 +394,29 @@ public abstract class Combatant implements Entity {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(id).append("\n");
-		sb.append(name).append("\n");
-		sb.append(title).append("\n");
+		sb.append("setName=").append(name).append("\n");
+		sb.append("setDesc=").append(desc).append("\n");
+		sb.append("setTitle=").append(title).append("\n");
 
+		sb.append("setMaximumHealth=").append(maximumHealth).append("\n");
+		sb.append("setCurrentHealth=").append(currentHealth).append("\n");
+		sb.append("setMaximumScience=").append(maximumScience).append("\n");
+		sb.append("setCurrentScience=").append(currentScience).append("\n");
+
+		sb.append("setPoise=").append(poise).append("\n");
+		sb.append("setSubtlety=").append(subtlety).append("\n");
+		sb.append("setAcumen=").append(acumen).append("\n");
+		sb.append("setCharisma=").append(charisma).append("\n");
+		sb.append("setIntuition=").append(intuition).append("\n");
+
+		sb.append("reinitializeInventory=").append(inventory.toString()).append("\n");
+		sb.append("reinitializeSkillSet=").append(skills.toString()).append("\n");
+
+		for(Flag f : eventTriggerList) {
+			sb.append(f.toString());
+		}
+
+		sb.append("-\n");
 		return sb.toString();
 	}
 }

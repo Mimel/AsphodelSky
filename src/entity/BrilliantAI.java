@@ -21,4 +21,9 @@ public class BrilliantAI extends Combatant {
     public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useBrilliant(this, time, gr);
     }
+
+    @Override
+    public String toString() {
+        return "$Brilliant\n" + super.toString();
+    }
 }

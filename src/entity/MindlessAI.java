@@ -21,4 +21,9 @@ public class MindlessAI extends Combatant {
     public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useMindless(this, time, gr);
     }
+
+    @Override
+    public String toString() {
+        return "$Mindless\n" + super.toString();
+    }
 }

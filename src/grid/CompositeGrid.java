@@ -290,8 +290,9 @@ public class CompositeGrid {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(name).append('\n');
-		sb.append(tiles);
-		sb.append(catalogs);
+		sb.append(tiles).append("&NEXT\n");
+		sb.append(catalogs).append("&NEXT\n");
+		sb.append(actors);
 
 		return sb.toString();
 	}

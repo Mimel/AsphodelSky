@@ -23,4 +23,9 @@ public class AnimalisticAI extends Combatant {
     public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
         return opai.useAnimalistic(this, time, gr);
     }
+
+    @Override
+    public String toString() {
+        return "$Animalistic\n" + super.toString();
+    }
 }

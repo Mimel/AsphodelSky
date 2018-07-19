@@ -19,6 +19,7 @@ import grid.CompositeGrid;
 import grid.Tile;
 import item.ItemLoader;
 import item.ItemPromptLoader;
+import saveload.GridSaver;
 import skill.SkillLoader;
 
 import java.awt.*;
@@ -135,8 +136,7 @@ public class GameView extends GameViewObserver {
 
 		player.playSong("AttemptNo1.mp3");
 
-		System.out.println(model.getGridRepresentation());
-
+		new GridSaver(model).save();
 
 		repaint();
 		//END PLAYGROUND

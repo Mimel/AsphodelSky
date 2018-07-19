@@ -1,6 +1,7 @@
 package event.flag;
 
 import event.EventQueue;
+import event.FlagType;
 import event.Opcode;
 import event.SimpleEvent;
 
@@ -33,5 +34,10 @@ public class ProtocolCancel extends Flag {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return fillStringRepresentationTemplate(FlagType.CANCEL);
     }
 }

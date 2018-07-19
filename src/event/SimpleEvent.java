@@ -101,6 +101,16 @@ public class SimpleEvent extends Event {
     }
 
     public String toString() {
-        return "SimpleEvent " + operation + " at time " + getTriggerDelay() + "s past the current.";
+        StringBuilder sb = new StringBuilder();
+        sb.append(operation).append('(')
+                .append(getTriggerDelay()).append(',')
+                .append(getPriority()).append(')');
+
+        sb.append(" ~id=").append(getTargetID());
+        sb.append(" ~x=").append(getTileX());
+        sb.append(" ~y=").append(getTileY());
+        sb.append(" ~sec=").append(getSecondary());
+
+        return sb.toString();
     }
 }

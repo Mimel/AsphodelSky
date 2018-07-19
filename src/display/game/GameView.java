@@ -19,6 +19,7 @@ import grid.CompositeGrid;
 import grid.Tile;
 import item.ItemLoader;
 import item.ItemPromptLoader;
+import saveload.GridLoader;
 import saveload.GridSaver;
 import skill.SkillLoader;
 
@@ -94,7 +95,7 @@ public class GameView extends GameViewObserver {
 	private void initializeGameSession() {
 		MessageManager mm = new MessageManager();
 
-		Player p1 = new Player("Place Holder", "Apprentice", 1000, 22);
+		//Player p1 = new Player("Place Holder", "Apprentice", 1000, 22);
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
@@ -106,40 +107,21 @@ public class GameView extends GameViewObserver {
 		Instruction.loadInstructionSet();
 		Response.loadResponseTable("map/responsemap.dat");
 
-		p1.getInventory().insertItem(ItemLoader.getItemById(0), 1);
-		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(0));
-		p1.getSkillSet().addSkill(SkillLoader.getSkillByID(1));
-
 		EventQueue eq = new EventQueue();
 
-		//PLAYGROUND TEMPORARY
-		CompositeGrid model = new CompositeGrid();
+		CompositeGrid model = new GridLoader("saves/1.asf").loadGrid();
+		Player p1 = (Player)model.getFocusedCombatant();
 		SourceDescriptionPair sdp = new SourceDescriptionPair("", "");
 
 		focus = new GUIFocus(0, 0, getWidth(), getHeight(), model);
 		sidebar = new GUISidebar(0, 0, 500, 800, p1);
 		footer = new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue());
 
-		model.addCombatant(p1, 1, 1);
-		model.bindTo(0);
-
-		model.addItem(0, 4, 4);
-		model.addItem(1, 4, 8);
-		for(int x = 0; x < 10; x++) {
-			model.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), (3 + 7 * x) % 10, 3 + x);
-		}
-
-		model.addCombatant(EnemyGenerator.getEnemyByName("Khweiri Dervish"), 19, 0);
-
-		model.addCombatant(EnemyGenerator.getEnemyByName("Bilge Rat"), 12, 4);
-		model.addCombatant(EnemyGenerator.getEnemyByName("Fireball"), 13, 4);
-
 		player.playSong("AttemptNo1.mp3");
 
 		new GridSaver(model).save();
 
 		repaint();
-		//END PLAYGROUND
 
 		DisplayKeyBindings.initKeyBinds(this, model, p1, mm, sdp, eq);
 	}

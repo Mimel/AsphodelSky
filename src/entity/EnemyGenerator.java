@@ -9,7 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Container for all enemy information. Distributes instances to other classes
@@ -63,60 +65,77 @@ public final class EnemyGenerator {
         }
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            List<String> combatantRepresentation = new ArrayList<>();
+
             String currLine;
-            char firstCharacter;
-            Combatant newCombatant = null;
-            Flag currentFlag = null;
-
             while((currLine = br.readLine()) != null) {
-                firstCharacter = currLine.charAt(0);
-                if(firstCharacter == '$') {
-                    switch(currLine.charAt(1)) {
-                        case 'M':
-                            newCombatant = new MindlessAI();
-                            break;
-                        case 'A':
-                            newCombatant = new AnimalisticAI();
-                            break;
-                        case 'U':
-                            newCombatant = new UnderdevelopedAI();
-                            break;
-                        case 'S':
-                            newCombatant = new SapientAI();
-                            break;
-                        case 'B':
-                            newCombatant = new BrilliantAI();
-                            break;
-                    }
-                } else if(firstCharacter == '!') {
-                    int slashLoc = currLine.indexOf('/');
-                    String opTrigger = currLine.substring(1, slashLoc);
-                    String responseState = currLine.substring(slashLoc + 1);
-                    currentFlag = Flag.determineFlag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
-                } else if(firstCharacter == '-') {
-                    if(currentFlag != null) {
-                        newCombatant.addToFlagList(currentFlag);
-                        currentFlag = null;
-                    }
+                if(currLine.charAt(0) == '-') {
+                    combatantRepresentation.add(currLine);
+                    Combatant newCombatant = createCombatant(combatantRepresentation);
                     nameToCombatant.put(newCombatant.getName(), newCombatant);
-                } else if(firstCharacter == ' ') {
-                    if(currentFlag != null) {
-                        SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
-                        trigger.getData().setCasterIDTo(newCombatant.getId());
-                        FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
-                        currentFlag.addEventToFlag(trigger, loc);
-                    }
+                    combatantRepresentation.clear();
                 } else {
-                    int equalSignLoc = currLine.indexOf('=');
-                    String fieldToSet = currLine.substring(0, equalSignLoc);
-                    String valueOfField = currLine.substring(equalSignLoc + 1);
-
-                    assignToField(newCombatant, fieldToSet, valueOfField);
+                    combatantRepresentation.add(currLine);
                 }
             }
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    public static Combatant createCombatant(List<String> combatantRepresentation) {
+        Combatant newCombatant = null;
+        Flag currentFlag = null;
+
+        for(String currLine : combatantRepresentation) {
+            char firstCharacter = currLine.charAt(0);
+            if (firstCharacter == '$') {
+                switch (currLine.charAt(1)) {
+                    case 'M':
+                        newCombatant = new MindlessAI();
+                        break;
+                    case 'A':
+                        newCombatant = new AnimalisticAI();
+                        break;
+                    case 'U':
+                        newCombatant = new UnderdevelopedAI();
+                        break;
+                    case 'S':
+                        newCombatant = new SapientAI();
+                        break;
+                    case 'B':
+                        newCombatant = new BrilliantAI();
+                        break;
+                    case 'P':
+                        newCombatant = new Player();
+                        break;
+                }
+            } else if (firstCharacter == '!') {
+                int slashLoc = currLine.indexOf('/');
+                String opTrigger = currLine.substring(1, slashLoc);
+                String responseState = currLine.substring(slashLoc + 1);
+                currentFlag = Flag.determineFlag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
+            } else if (firstCharacter == '-') {
+                if (currentFlag != null) {
+                    newCombatant.addToFlagList(currentFlag);
+                }
+            } else if (firstCharacter == ' ' || firstCharacter == '\t') {
+                if (currentFlag != null) {
+                    SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
+                    trigger.getData().setCasterIDTo(newCombatant.getId());
+                    FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
+                    currentFlag.addEventToFlag(trigger, loc);
+                }
+            } else {
+                int equalSignLoc = currLine.indexOf('=');
+                String fieldToSet = currLine.substring(0, equalSignLoc);
+                String valueOfField = currLine.substring(equalSignLoc + 1);
+
+                assignToField(newCombatant, fieldToSet, valueOfField);
+            }
+        }
+
+        return newCombatant;
     }
 
     private static void assignToField(Combatant newCombatant, String setterName, String valueOfField) {

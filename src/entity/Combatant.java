@@ -187,6 +187,13 @@ public abstract class Combatant implements Entity {
 	public int getId() {
 		return id;
 	}
+
+	public void setId(int newID) {
+		this.id = newID;
+		if(newID > auto_incr_id.get()) {
+			auto_incr_id.set(newID + 1);
+		}
+	}
 	
 	/**
 	 * Gets the name of the combatant.

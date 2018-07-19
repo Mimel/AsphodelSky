@@ -67,7 +67,7 @@ public class SimpleEvent extends Event {
             if(phrase.indexOf('~', counter) == -1) {
                 flag_val = Integer.parseInt(phrase.substring(counter + 1));
             } else {
-                flag_val = Integer.parseInt(phrase.substring(counter + 1, (counter = phrase.indexOf('~', counter))));
+                flag_val = Integer.parseInt(phrase.substring(counter + 1, (counter = phrase.indexOf('~', counter))).trim());
             }
 
 

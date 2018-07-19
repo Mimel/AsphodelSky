@@ -14,8 +14,8 @@ public class GridSaver {
     }
 
     public void save() {
-        try(BufferedWriter br = new BufferedWriter(new FileWriter("saves/1.asf"))) {
-            br.write(model.getGridRepresentation());
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter("saves/1.asf"))) {
+            bw.write(model.getGridRepresentation());
         } catch (IOException e) {
             e.printStackTrace();
         }

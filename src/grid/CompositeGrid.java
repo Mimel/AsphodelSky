@@ -56,6 +56,19 @@ public class CompositeGrid {
 		this.boundId = 0;
 	}
 
+	public CompositeGrid(String name, int width, int height) {
+		this.name = name;
+		MAX_BOUNDS = new Point(width, height);
+
+		tiles = new TileGrid(MAX_BOUNDS.x(), MAX_BOUNDS.y());
+		actors = new CombatantGrid();
+		catalogs = new CatalogGrid();
+
+		this.focalPoint = new Point(0,0);
+		this.isBoundToCombatant = false;
+		this.boundId = 0;
+	}
+
 	public int getNumberOfColumns() {
 		return MAX_BOUNDS.x();
 	}
@@ -105,6 +118,10 @@ public class CompositeGrid {
 	 */
 	public Tile getTileAt(int x, int y) {
 		return tiles.getOccupantAt(x, y);
+	}
+
+	public void setTileAt(int x, int y, char terrain) {
+		tiles.placeOccupant(new Tile(terrain), x, y);
 	}
 
 	public void addCombatant(Combatant c, int x, int y) {
@@ -184,6 +201,10 @@ public class CompositeGrid {
 			}
 			catalogs.getOccupantAt(x, y).insertItem(ItemLoader.getItemById(itemId), 1);
 		}
+	}
+
+	public void addCatalog(Catalog catalog, int x, int y) {
+		catalogs.placeOccupant(catalog, x, y);
 	}
 
 	/**
@@ -289,9 +310,9 @@ public class CompositeGrid {
 	public String getGridRepresentation() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(name).append('\n');
-		sb.append(tiles).append("&NEXT\n");
-		sb.append(catalogs).append("&NEXT\n");
+		sb.append(name).append('\n').append(MAX_BOUNDS.x()).append(',').append(MAX_BOUNDS.y()).append('\n');
+		sb.append(tiles).append("&CATALOGS\n");
+		sb.append(catalogs).append("&ACTORS\n");
 		sb.append(actors);
 
 		return sb.toString();

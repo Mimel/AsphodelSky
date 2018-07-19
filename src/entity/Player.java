@@ -10,6 +10,10 @@ import java.util.List;
  * @author Matt Imel
  */
 public class Player extends Combatant {
+
+	public Player() {
+		super();
+	}
 	
 	public Player(String name, String title, int health, int science) {
 		super(name, title, "", health, science);
@@ -22,5 +26,10 @@ public class Player extends Combatant {
 	@Override
 	public List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr) {
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "$Player\n" + super.toString();
 	}
 }

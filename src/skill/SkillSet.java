@@ -13,6 +13,28 @@ public class SkillSet {
         focusedSkillIndex = 0;
     }
 
+    public SkillSet(String skillSetRepresentation) {
+        this.skillList = new ArrayList<>();
+        this.focusedSkillIndex = 0;
+
+        for(String skillName : skillSetRepresentation.split(",")) {
+            if(skillName.equals("END")) {
+                continue;
+            }
+
+            addSkill(SkillLoader.getSkillByName(skillName));
+        }
+    }
+
+    public SkillSet(SkillSet old) {
+        this.skillList = new ArrayList<>();
+        this.focusedSkillIndex = old.focusedSkillIndex;
+
+        for(Skill s : old.skillList) {
+            this.addSkill(s);
+        }
+    }
+
     public int getFocusedSkillIndex() {
         return focusedSkillIndex;
     }
@@ -49,5 +71,16 @@ public class SkillSet {
 
     public boolean isSkillSetEmpty() {
         return skillList.size() == 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(Skill s : skillList) {
+            sb.append(s.toString()).append(',');
+        }
+        sb.append("END");
+
+        return sb.toString();
     }
 }

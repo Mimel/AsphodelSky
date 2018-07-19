@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class SkillLoader {
-    private static Map<Integer, Skill> skillNameToSkill;
+    private static Map<Integer, Skill> skillIdToSkill;
+    private static Map<String, Skill> skillNameToSkill;
 
     private SkillLoader(){}
 
     public static void initializeSkillMap(String fileName) {
-        if(skillNameToSkill == null) {
+        if(skillIdToSkill == null) {
+            skillIdToSkill = new HashMap<>();
             skillNameToSkill = new HashMap<>();
         } else {
             return;
@@ -35,7 +37,8 @@ public final class SkillLoader {
                     uDesc = line;
                 } else if(line.equals("!END")) {
                     Skill newestSkill = new Skill(name, vDesc, uDesc, effects.toString());
-                    skillNameToSkill.put(newestSkill.getId(), newestSkill);
+                    skillIdToSkill.put(newestSkill.getId(), newestSkill);
+                    skillNameToSkill.put(name, newestSkill);
                     name = "";
                     vDesc = "";
                     uDesc = "";
@@ -50,6 +53,10 @@ public final class SkillLoader {
     }
 
     public static Skill getSkillByID(int id) {
-        return skillNameToSkill.get(id);
+        return skillIdToSkill.get(id);
+    }
+
+    static Skill getSkillByName(String name) {
+        return skillNameToSkill.get(name);
     }
 }

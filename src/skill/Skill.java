@@ -74,4 +74,9 @@ public class Skill {
 
         return skillEventsDeepCopy;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -172,7 +172,7 @@ public abstract class Combatant implements Entity {
 
 		this.inventory = new Catalog(c.getInventory());
 
-		this.skills = new SkillSet();
+		this.skills = new SkillSet(c.getSkillSet());
 
 		this.eventTriggerList = new ArrayList<>();
 		for(Flag f : c.getFlagList()) {
@@ -368,6 +368,10 @@ public abstract class Combatant implements Entity {
 
 	public SkillSet getSkillSet() {
 		return skills;
+	}
+
+	public void reinitializeSkillSet(String skillSetRepresentation) {
+		skills = new SkillSet(skillSetRepresentation);
 	}
 
 	/**

@@ -105,8 +105,8 @@ public class Event {
         return params.getTile();
     }
 
-    public void setTile(int x, int y) {
-        this.getData().setCoordTo(x, y);
+    public void setTile(Point loc) {
+        this.getData().setCoordTo(loc);
     }
 
 

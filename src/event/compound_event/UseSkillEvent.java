@@ -19,7 +19,7 @@ public class UseSkillEvent extends CompoundEvent {
         ce.setTarget(getTarget());
         ce.setItem(getItem());
         ce.setSkill(getSkill());
-        ce.setTile(getTile().x(), getTile().y());
+        ce.setTile(getTile());
         ce.setSecondary(getSecondary());
         return ce;
     }
@@ -28,14 +28,10 @@ public class UseSkillEvent extends CompoundEvent {
     public List<SimpleEvent> decompose() {
         List<SimpleEvent> eventList = new LinkedList<>();
         this.setTriggerDelay(0);
-
-        Skill usedSkill;
-        if((usedSkill = SkillLibrary.getSkillByID(getSkill().getId())) != null) {
-            List<SimpleEvent> l = usedSkill.useSkill(getTarget());
-            for(SimpleEvent se : l) {
-                se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
-                eventList.add(se);
-            }
+        List<SimpleEvent> l = getSkill().useSkill(getCaster(), getTarget());
+        for(SimpleEvent se : l) {
+            se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
+            eventList.add(se);
         }
 
         return eventList;

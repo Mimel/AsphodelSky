@@ -1,6 +1,7 @@
 package event;
 
 import grid.CompositeGrid;
+import grid.Point;
 
 /**
  * An action to be executed, with the time of execution and a secondary priority parameter attached.
@@ -26,7 +27,7 @@ public class SimpleEvent extends Event {
         this.setTarget(e.getData().getTarget());
         this.setItem(e.getData().getItem());
         this.setSkill(e.getData().getSkill());
-        this.setTile(e.getData().getTile().x(), e.getData().getTile().y());
+        this.setTile(e.getData().getTile());
         this.setSecondary(e.getData().getSecondary());
     }
 
@@ -84,7 +85,7 @@ public class SimpleEvent extends Event {
         }
 
         SimpleEvent interpretedEvent = new SimpleEvent(time, priority, name);
-        interpretedEvent.getData().setCoordTo(x, y).setSecondaryTo(sec);
+        interpretedEvent.getData().setCoordTo(new Point(x, y)).setSecondaryTo(sec);
         return interpretedEvent;
     }
 
@@ -100,7 +101,6 @@ public class SimpleEvent extends Event {
         return String.valueOf(operation) + '(' +
                 getTriggerDelay() + ',' +
                 getPriority() + ')' +
-                " ~id=" + getTarget().getId() +
                 " ~x=" + getTile().x() +
                 " ~y=" + getTile().y() +
                 " ~sec=" + getSecondary();

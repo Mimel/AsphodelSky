@@ -64,8 +64,8 @@ public class InstructionData {
         return this;
     }
 
-    public InstructionData setCoordTo(int x, int y) {
-        this.tile = new Point(x, y);
+    public InstructionData setCoordTo(Point loc) {
+        this.tile = loc;
         return this;
     }
 

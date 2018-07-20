@@ -98,12 +98,17 @@ public class Item implements Comparable<Item> {
 	 * Uses the item.
 	 * @return A set of events that occur after usage.
 	 */
-	public List<SimpleEvent> use(Combatant target) {
+	public List<SimpleEvent> use(Combatant caster, Combatant target) {
 		List<SimpleEvent> eventsDeepCopy = new LinkedList<>();
+
+		// If an item use does not target anyone, then it targets the caster.
+		if(target == null) {
+			target = caster;
+		}
 
 		for(SimpleEvent ev : useEffects) {
 			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev);
-			temporarilyRevisedEvent.getData().setTargetTo(target);
+			temporarilyRevisedEvent.getData().setCasterTo(caster).setTargetTo(target);
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

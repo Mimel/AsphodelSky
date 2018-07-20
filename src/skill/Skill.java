@@ -87,11 +87,17 @@ public class Skill {
      * @param target The target of the skill.
      * @return The simple events in the skill, but deep-copied, and with the target id applied to all of them.
      */
-    public List<SimpleEvent> useSkill(Combatant target) {
+    public List<SimpleEvent> useSkill(Combatant caster, Combatant target) {
         List<SimpleEvent> skillEventsDeepCopy = new ArrayList<>();
+
+        // If a skill does not target anyone, then it targets the caster.
+        if(target == null) {
+            target = caster;
+        }
+
         for(SimpleEvent se : skillEffects) {
             SimpleEvent temporarilyRevisedEvent = new SimpleEvent(se);
-            temporarilyRevisedEvent.getData().setTargetTo(target);
+            temporarilyRevisedEvent.getData().setCasterTo(caster).setTargetTo(target);
             skillEventsDeepCopy.add(temporarilyRevisedEvent);
         }
 

@@ -2,8 +2,6 @@ package event.compound_event;
 
 import event.Opcode;
 import event.SimpleEvent;
-import item.Item;
-import item.ItemLoader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class UseItemEvent extends CompoundEvent {
         ce.setTarget(getTarget());
         ce.setItem(getItem());
         ce.setSkill(getSkill());
-        ce.setTile(getTile().x(), getTile().y());
+        ce.setTile(getTile());
         ce.setSecondary(getSecondary());
         return ce;
     }
@@ -31,15 +29,14 @@ public class UseItemEvent extends CompoundEvent {
         this.setTriggerDelay(0);
 
         SimpleEvent useClause = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
-        useClause.getData().setTargetTo(getCaster()).setSecondaryTo(1);
+        useClause.setTarget(getCaster());
+        useClause.setSecondary(1);
         eventList.add(useClause);
-        Item target;
-        if((target = ItemLoader.getItemById(getItem().getId())) != null) {
-            List<SimpleEvent> l = target.use(getTarget());
-            for(SimpleEvent se : l) {
-                se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
-                eventList.add(se);
-            }
+
+        List<SimpleEvent> l = getItem().use(getCaster(), getTarget());
+        for(SimpleEvent se : l) {
+            se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
+            eventList.add(se);
         }
 
         return eventList;

@@ -117,7 +117,7 @@ class DisplayKeyBindings {
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
                         SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
-                        moveSelfEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer()).setCoordTo(xOffset, yOffset);
+                        moveSelfEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer()).setCoordTo(new Point(xOffset, yOffset));
                         eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
@@ -178,7 +178,7 @@ class DisplayKeyBindings {
                         grid.getPlayer().getSkillSet().resetFocusedSkillIndex();
                         break;
                     case TILE_PROMPT:
-                        pendingInjection.setTile(grid.getFocus().x(), grid.getFocus().y());
+                        pendingInjection.setTile(grid.getFocus());
                         grid.bindTo(Player.PLAYER_ID);
                         break;
                     case DIALOGUE_PROMPT:
@@ -281,6 +281,8 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new NoOpEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -295,6 +297,8 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new NoOpEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -307,6 +311,7 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
                     pendingInjection = new UseSkillEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -321,6 +326,8 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
                     pendingInjection = new UseItemEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
+
                     lookForItemPrompts = true;
 
                     updateOutput(Collections.emptyList());
@@ -336,6 +343,8 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
                     pendingInjection = new DropItemEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -349,6 +358,8 @@ class DisplayKeyBindings {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     pendingInjection = new ShellTalkEvent(0, 20);
+                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection.setTarget(grid.getPlayer());
                     pendingInjection.getData().setCasterTo(grid.getPlayer()).setSecondaryTo(252);
 
                     updateOutput(Collections.emptyList());

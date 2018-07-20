@@ -11,17 +11,17 @@ import java.util.List;
  */
 public abstract class CompoundEvent extends Event {
 
-    public CompoundEvent(int time, int priority) {
+    CompoundEvent(int time, int priority) {
         super(time, priority);
     }
 
-    protected SimpleEvent copyInfoToSimpleEvent(Opcode op) {
+    SimpleEvent copyInfoToSimpleEvent(Opcode op) {
         SimpleEvent se = new SimpleEvent(getTriggerDelay(), getPriority(), op);
         se.getData().setCasterTo(getCaster())
                 .setTargetTo(getTarget())
                 .setItemTo(getItem())
                 .setSkillTo(getSkill())
-                .setCoordTo(getTile().x(), getTile().y())
+                .setCoordTo(getTile())
                 .setSecondaryTo(getSecondary());
         return se;
     }

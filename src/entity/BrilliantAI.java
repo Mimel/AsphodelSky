@@ -10,7 +10,7 @@ import java.util.List;
  * 'smartest' out of all the five intelligence classes.
  */
 public class BrilliantAI extends Combatant {
-    BrilliantAI() {
+    public BrilliantAI() {
         super();
     }
 

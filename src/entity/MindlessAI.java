@@ -10,7 +10,7 @@ import java.util.List;
  * of the five intelligence classes.
  */
 public class MindlessAI extends Combatant {
-    MindlessAI() {
+    public MindlessAI() {
         super();
     }
 

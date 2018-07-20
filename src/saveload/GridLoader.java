@@ -1,13 +1,19 @@
 package saveload;
 
-import entity.Combatant;
-import entity.EnemyGenerator;
+import entity.*;
+import event.FlagType;
+import event.Opcode;
+import event.SimpleEvent;
+import event.flag.Flag;
+import event.flag.FlagRedirectLocation;
 import grid.CompositeGrid;
 import item.Catalog;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +66,7 @@ public class GridLoader {
                     y = Integer.parseInt(actorDetails.substring(actorDetails.indexOf(',') + 1, actorDetails.indexOf('}')));
                 } else if(actorDetails.charAt(0) == '-') {
                     actorRep.add(actorDetails);
-                    Combatant c = EnemyGenerator.createCombatant(actorRep);
+                    Combatant c = createCombatant(actorRep);
                     c.setId(id);
                     model.addCombatant(c, x, y);
                     actorRep.clear();
@@ -77,5 +83,87 @@ public class GridLoader {
         }
 
         return model;
+    }
+
+    private Combatant createCombatant(List<String> combatantRepresentation) {
+        Combatant newCombatant = null;
+        Flag currentFlag = null;
+
+        for(String currLine : combatantRepresentation) {
+            char firstCharacter = currLine.charAt(0);
+            if (firstCharacter == '$') {
+                switch (currLine.charAt(1)) {
+                    case 'M':
+                        newCombatant = new MindlessAI();
+                        break;
+                    case 'A':
+                        newCombatant = new AnimalisticAI();
+                        break;
+                    case 'U':
+                        newCombatant = new UnderdevelopedAI();
+                        break;
+                    case 'S':
+                        newCombatant = new SapientAI();
+                        break;
+                    case 'B':
+                        newCombatant = new BrilliantAI();
+                        break;
+                    case 'P':
+                        newCombatant = new Player();
+                        break;
+                }
+            } else if (firstCharacter == '!') {
+                int slashLoc = currLine.indexOf('/');
+                String opTrigger = currLine.substring(1, slashLoc);
+                String responseState = currLine.substring(slashLoc + 1);
+                currentFlag = Flag.determineFlag(Opcode.valueOf(opTrigger), FlagType.valueOf(responseState));
+            } else if (firstCharacter == '-') {
+                if (currentFlag != null) {
+                    newCombatant.addToFlagList(currentFlag);
+                }
+            } else if (firstCharacter == ' ' || firstCharacter == '\t') {
+                if (currentFlag != null) {
+                    SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
+                    trigger = new SimpleEvent(trigger, newCombatant);
+                    FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
+                    currentFlag.addEventToFlag(trigger, loc);
+                }
+            } else {
+                int equalSignLoc = currLine.indexOf('=');
+                String fieldToSet = currLine.substring(0, equalSignLoc);
+                String valueOfField = currLine.substring(equalSignLoc + 1);
+
+                assignToField(newCombatant, fieldToSet, valueOfField);
+            }
+        }
+
+        return newCombatant;
+    }
+
+    private void assignToField(Combatant newCombatant, String setterName, String valueOfField) {
+        assert (newCombatant != null);
+
+        Method setter;
+        try {
+            if(isStringNumeric(valueOfField)) {
+                setter = newCombatant.getClass().getMethod(setterName, int.class);
+                setter.invoke(newCombatant, Integer.parseInt(valueOfField));
+            } else {
+                setter = newCombatant.getClass().getMethod(setterName, String.class);
+                setter.invoke(newCombatant, valueOfField);
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isStringNumeric(String input) {
+        for(char character : input.toCharArray()) {
+            if(!Character.isDigit(character)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

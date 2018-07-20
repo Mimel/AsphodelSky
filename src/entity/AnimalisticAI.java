@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class AnimalisticAI extends Combatant {
 
-    AnimalisticAI() {
+    public AnimalisticAI() {
         super();
     }
 

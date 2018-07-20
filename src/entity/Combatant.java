@@ -391,7 +391,7 @@ public abstract class Combatant implements Entity {
 	 */
 	public abstract List<SimpleEvent> act(OperationAI opai, int time, CompositeGrid gr);
 
-	void addToFlagList(Flag newFlag) {
+	public void addToFlagList(Flag newFlag) {
 		eventTriggerList.add(newFlag);
 	}
 

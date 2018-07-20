@@ -10,7 +10,7 @@ import java.util.List;
  * Animalistic enemies and 'dumber' than Sapient enemies.
  */
 public class UnderdevelopedAI extends Combatant {
-    UnderdevelopedAI() {
+    public UnderdevelopedAI() {
         super();
     }
 

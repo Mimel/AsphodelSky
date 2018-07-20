@@ -10,7 +10,6 @@ import display.game.footer.GUIFooter;
 import display.game.sidebar.GUISidebar;
 import display.image.ImageAssets;
 import display.music.AudioPlayer;
-import entity.EnemyGenerator;
 import entity.Player;
 import event.EventQueue;
 import event.InstructionSet;
@@ -100,7 +99,6 @@ public class GameView extends GameViewObserver {
 		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
 		SkillLibrary.initializeSkillMap("map/skill_effectmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
-		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 
 		ResponseTable rt = new ResponseTable("map/responsemap.dat");
 		InstructionSet operations = new InstructionSet(rt);

@@ -1,5 +1,7 @@
 package grid;
 
+import java.util.Objects;
+
 import static grid.Direction.*;
 
 /**
@@ -64,9 +66,7 @@ public class Point {
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        return result;
+        return Objects.hash(x, y);
     }
 
     @Override

@@ -158,12 +158,12 @@ class DisplayKeyBindings {
 
                 switch(promptManager.dequeuePrompt()) {
                     case ACTOR_PROMPT:
-                        pendingInjection.setTargetID(grid.getFocusedCombatant().getId());
+                        pendingInjection.setTarget(grid.getFocusedCombatant().getId());
                         grid.bindTo(Player.PLAYER_ID);
                         break;
                     case ITEM_PROMPT:
                         Item focusedItem = grid.getOccupant(Player.PLAYER_ID).getInventory().getFocusedItem();
-                        pendingInjection.setItemID(focusedItem.getId());
+                        pendingInjection.setItem(focusedItem.getId());
                         grid.getOccupant(Player.PLAYER_ID).getInventory().resetFocusIndex();
 
                         if(lookForItemPrompts) {

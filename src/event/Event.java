@@ -1,5 +1,10 @@
 package event;
 
+import entity.Combatant;
+import grid.Point;
+import item.Item;
+import skill.Skill;
+
 /**
  * Describes an event that can be executed, either by executing a raw instruction (see SimpleEvent)
  * or by returning a set of Events (see CompoundEvent).
@@ -58,50 +63,46 @@ public class Event {
         return priority;
     }
 
-    public boolean isFlaggable() { return flaggable; }
+    boolean isFlaggable() { return flaggable; }
 
-    public void setFlaggable(boolean newFlaggable) {
+    void setFlaggable(boolean newFlaggable) {
         this.flaggable = newFlaggable;
     }
 
-    public int getCasterID() {
-        return params.getCasterID();
+    public Combatant getCaster() {
+        return params.getCaster();
     }
 
-    public void setCasterID(int casterID) {
-        this.getData().setCasterIDTo(casterID);
+    public void setCaster(Combatant caster) {
+        this.getData().setCasterTo(caster);
     }
 
-    public int getTargetID() {
-        return params.getTargetID();
+    public Combatant getTarget() {
+        return params.getTarget();
     }
 
-    public void setTargetID(int targetID) {
-        this.getData().setTargetIDTo(targetID);
+    public void setTarget(Combatant target) {
+        this.getData().setTargetTo(target);
     }
 
-    public int getItemID() {
-        return params.getItemID();
+    public Item getItem() {
+        return params.getItem();
     }
 
-    public void setItemID(int itemID) {
-        this.getData().setItemIDTo(itemID);
+    public void setItem(Item item) {
+        this.getData().setItemTo(item);
     }
 
-    public int getSkillID() {
-        return params.getSkillID();
+    public Skill getSkill() {
+        return params.getSkill();
     }
 
-    public void setSkillID(int skillID) {
-        this.getData().setSkillIDTo(skillID);
+    public void setSkill(Skill skill) {
+        this.getData().setSkillTo(skill);
     }
 
-    public int getTileX() {
-        return params.getTileX();
-    }
-
-    public int getTileY() {
-        return params.getTileY();
+    public Point getTile() {
+        return params.getTile();
     }
 
     public void setTile(int x, int y) {

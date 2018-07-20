@@ -17,7 +17,7 @@ public class ProtocolAdd extends Flag {
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
             SimpleEvent dup = new SimpleEvent(se);
-            dup.setCasterID(newCID);
+            dup.setCaster(newCID);
             copy.eventsAddedOnTrigger.add(dup);
         }
 
@@ -29,8 +29,8 @@ public class ProtocolAdd extends Flag {
     @Override
     public boolean checkForTrigger(EventQueue queue) {
         if(queue.peek().getSimpleOperation() == eventTrigger) {
-            int selfID = queue.peek().getTargetID();
-            int senderID = queue.peek().getCasterID();
+            int selfID = queue.peek().getTarget();
+            int senderID = queue.peek().getCaster();
 
             for (int event = 0; event < eventsAddedOnTrigger.size(); event++) {
                 SimpleEvent triggerEvent = eventsAddedOnTrigger.get(event);

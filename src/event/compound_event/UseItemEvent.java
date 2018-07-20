@@ -16,10 +16,10 @@ public class UseItemEvent extends CompoundEvent {
     @Override
     public CompoundEvent clone() {
         CompoundEvent ce = new UseItemEvent(getTriggerDelay(), getPriority());
-        ce.setCasterID(getCasterID());
-        ce.setTargetID(getTargetID());
-        ce.setItemID(getItemID());
-        ce.setSkillID(getSkillID());
+        ce.setCaster(getCaster());
+        ce.setTarget(getTarget());
+        ce.setItem(getItem());
+        ce.setSkillID(getSkill());
         ce.setTile(getTileX(), getTileY());
         ce.setSecondary(getSecondary());
         return ce;
@@ -31,11 +31,11 @@ public class UseItemEvent extends CompoundEvent {
         this.setTriggerDelay(0);
 
         SimpleEvent useClause = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
-        useClause.getData().setTargetIDTo(getCasterID()).setSecondaryTo(1);
+        useClause.getData().setTargetIDTo(getCaster()).setSecondaryTo(1);
         eventList.add(useClause);
         Item target;
-        if((target = ItemLoader.getItemById(getItemID())) != null) {
-            List<SimpleEvent> l = target.use(getTargetID());
+        if((target = ItemLoader.getItemById(getItem())) != null) {
+            List<SimpleEvent> l = target.use(getTarget());
             for(SimpleEvent se : l) {
                 se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());
                 eventList.add(se);

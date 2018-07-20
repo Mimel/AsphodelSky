@@ -22,10 +22,10 @@ public class SimpleEvent extends Event {
     public SimpleEvent(SimpleEvent e) {
         super(e.getTriggerDelay(), e.getPriority());
         this.operation = e.operation;
-        this.setCasterID(e.getData().getCasterID());
-        this.setTargetID(e.getData().getTargetID());
-        this.setItemID(e.getData().getItemID());
-        this.setSkillID(e.getData().getSkillID());
+        this.setCaster(e.getData().getCaster());
+        this.setTarget(e.getData().getTarget());
+        this.setItem(e.getData().getItem());
+        this.setSkillID(e.getData().getSkill());
         this.setTile(e.getData().getTileX(), e.getData().getTileY());
         this.setSecondary(e.getData().getSecondary());
     }
@@ -104,7 +104,7 @@ public class SimpleEvent extends Event {
         return String.valueOf(operation) + '(' +
                 getTriggerDelay() + ',' +
                 getPriority() + ')' +
-                " ~id=" + getTargetID() +
+                " ~id=" + getTarget() +
                 " ~x=" + getTileX() +
                 " ~y=" + getTileY() +
                 " ~sec=" + getSecondary();

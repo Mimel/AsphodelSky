@@ -17,7 +17,7 @@ public class ProtocolStay extends Flag {
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
             SimpleEvent dup = new SimpleEvent(se);
-            dup.setCasterID(newCID);
+            dup.setCaster(newCID);
             copy.eventsAddedOnTrigger.add(dup);
         }
 

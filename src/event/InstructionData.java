@@ -1,72 +1,71 @@
 package event;
 
+import entity.Combatant;
+import grid.Point;
+import item.Item;
+import skill.Skill;
+
 /**
  * A data object that encapsulates all the data necessary for an event to be used.
  */
 public class InstructionData {
-    private int casterID;
-    private int targetID;
-    private int itemID;
-    private int skillID;
-    private int tileX;
-    private int tileY;
+    private Combatant caster;
+    private Combatant target;
+    private Item item;
+    private Skill skill;
+    private Point tile;
     private int secondary;
 
     InstructionData() {
 
     }
 
-    int getCasterID() {
-        return casterID;
+    Combatant getCaster() {
+        return caster;
     }
 
-    int getTargetID() {
-        return targetID;
+    Combatant getTarget() {
+        return target;
     }
 
-    int getItemID() {
-        return itemID;
+    Item getItem() {
+        return item;
     }
 
-    int getSkillID() {
-        return skillID;
+    Skill getSkill() {
+        return skill;
     }
 
-    int getTileX() {
-        return tileX;
-    }
-
-    int getTileY() {
-        return tileY;
+    Point getTile() {
+        return tile;
     }
 
     int getSecondary() {
         return secondary;
     }
 
-    public InstructionData setCasterIDTo(int CID) {
-        this.casterID = CID;
+    public InstructionData setCasterTo(Combatant caster) {
+        this.caster = caster;
         return this;
     }
 
-    public InstructionData setTargetIDTo(int TID) {
-        this.targetID = TID;
+    public InstructionData setTargetTo(Combatant target) {
+        this.target = target;
         return this;
     }
 
-    public InstructionData setItemIDTo(int IID) {
-        this.itemID = IID;
+    public InstructionData setItemTo(Item item) {
+        this.item = item;
         return this;
     }
 
-    public InstructionData setSkillIDTo(int SID) {
-        this.skillID = SID;
+    public InstructionData setSkillTo(Skill skill) {
+        this.skill = skill;
         return this;
     }
 
     public InstructionData setCoordTo(int x, int y) {
-        this.tileX = x;
-        this.tileY = y;
+        this.tile = new Point(x, y);
         return this;
     }
 

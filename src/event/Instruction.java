@@ -37,17 +37,17 @@ public class Instruction
             instructionSet = new HashMap<>();
 
             instructionSet.put(Opcode.TILE_SPAWN, (opData, grid) -> {
-                grid.addItem(opData.getItemID(), opData.getTileX(), opData.getTileY());
+                grid.addItem(opData.getItem(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
             instructionSet.put(Opcode.TILE_REMOVE, (opData, grid) -> {
-                grid.removeItem(opData.getItemID(), opData.getSecondary(), opData.getTileX(), opData.getTileY());
+                grid.removeItem(opData.getItem(), opData.getSecondary(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
             instructionSet.put(Opcode.TILE_REMOVEALL, (opData, grid) -> {
-                grid.removeItem(opData.getItemID(), opData.getTileX(), opData.getTileY());
+                grid.removeItem(opData.getItem(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
@@ -57,47 +57,47 @@ public class Instruction
             });
 
             instructionSet.put(Opcode.COMBATANT_ADJUSTHP, (opData, grid) -> {
-                if(grid.getOccupant(opData.getTargetID()).getHealth() + opData.getSecondary() > 0) {
-                    grid.getOccupant(opData.getTargetID()).adjustHealthBy(opData.getSecondary());
-                    return new ResponseDetails(ResponseCondition.NEGATIVE, grid.getOccupant(opData.getTargetID()).toString(), Integer.toString(-opData.getSecondary()));
+                if(grid.getOccupant(opData.getTarget()).getHealth() + opData.getSecondary() > 0) {
+                    grid.getOccupant(opData.getTarget()).adjustHealthBy(opData.getSecondary());
+                    return new ResponseDetails(ResponseCondition.NEGATIVE, grid.getOccupant(opData.getTarget()).toString(), Integer.toString(-opData.getSecondary()));
                 } else {
-                    grid.killCombatant(opData.getTargetID());
+                    grid.killCombatant(opData.getTarget());
                     return null;
                 }
             });
 
             instructionSet.put(Opcode.COMBATANT_ADD_ITEM, (opData, grid) -> {
-                grid.getOccupant(opData.getTargetID()).getInventory().insertItem(ItemLoader.getItemById(opData.getItemID()), opData.getSecondary());
+                grid.getOccupant(opData.getTarget()).getInventory().insertItem(ItemLoader.getItemById(opData.getItem()), opData.getSecondary());
                 return null;
             });
 
             instructionSet.put(Opcode.COMBATANT_REMOVE_ITEM, (opData, grid) -> {
-                grid.getOccupant(opData.getTargetID()).getInventory().consumeItem(opData.getItemID(), opData.getSecondary());
+                grid.getOccupant(opData.getTarget()).getInventory().consumeItem(opData.getItem(), opData.getSecondary());
                 return null;
             });
 
             instructionSet.put(Opcode.COMBATANT_REMOVEALL_ITEM, (opData, grid) -> {
-                grid.getOccupant(opData.getTargetID()).getInventory().consumeAll(opData.getItemID());
+                grid.getOccupant(opData.getTarget()).getInventory().consumeAll(opData.getItem());
                 return null;
             });
 
             instructionSet.put(Opcode.COMBATANT_MOVE, (opData, grid) -> {
-                grid.moveCombatant(opData.getTargetID(), opData.getTileX(), opData.getTileY());
+                grid.moveCombatant(opData.getTarget(), opData.getTileX(), opData.getTileY());
                 return null;
             });
 
             instructionSet.put(Opcode.TRANSFER_ITEM, (opData, grid) -> {
-                Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTargetID()).consumeItem(opData.getItemID(), opData.getSecondary());
-                grid.getOccupant(opData.getTargetID()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
+                Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTarget()).consumeItem(opData.getItem(), opData.getSecondary());
+                grid.getOccupant(opData.getTarget()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
                 return null;
             });
 
             instructionSet.put(Opcode.TRANSFER_ITEMALL, (opData, grid) -> {
-                grid.getOccupant(opData.getCasterID()).getInventory().transferFrom(grid.getItemsOnTile(opData.getTargetID()));
+                grid.getOccupant(opData.getCaster()).getInventory().transferFrom(grid.getItemsOnTile(opData.getTarget()));
                 return null;
             });
 
-            instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> new ResponseDetails(ResponseCondition.SUCCESS, grid.getOccupant(opData.getTargetID()).getName() + "_" + opData.getSecondary() + ".dat"));
+            instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> new ResponseDetails(ResponseCondition.SUCCESS, grid.getOccupant(opData.getTarget()).getName() + "_" + opData.getSecondary() + ".dat"));
         }
     }
 

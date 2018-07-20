@@ -152,9 +152,9 @@ public class EventQueue {
 
             Opcode op = topEvent.getSimpleOperation();
             String message = null;
-            if(gr.doesCombatantExist(topEvent.getCasterID()) && gr.doesCombatantExist(topEvent.getTargetID())) {
+            if(gr.doesCombatantExist(topEvent.getCaster()) && gr.doesCombatantExist(topEvent.getTarget())) {
                 if (topEvent.isFlaggable()) {
-                    for (Flag f : gr.getOccupant(topEvent.getTargetID()).getFlagList()) {
+                    for (Flag f : gr.getOccupant(topEvent.getTarget()).getFlagList()) {
                         if (f.checkForTrigger(this)) {
                             eventRemoved = true;
                         }

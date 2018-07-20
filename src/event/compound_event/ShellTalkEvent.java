@@ -14,10 +14,10 @@ public class ShellTalkEvent extends CompoundEvent {
     @Override
     public CompoundEvent clone() {
         CompoundEvent ce = new ShellTalkEvent(getTriggerDelay(), getPriority());
-        ce.setCasterID(getCasterID());
-        ce.setTargetID(getTargetID());
-        ce.setItemID(getItemID());
-        ce.setSkillID(getSkillID());
+        ce.setCaster(getCaster());
+        ce.setTarget(getTarget());
+        ce.setItem(getItem());
+        ce.setSkillID(getSkill());
         ce.setTile(getTileX(), getTileY());
         ce.setSecondary(getSecondary());
         return ce;

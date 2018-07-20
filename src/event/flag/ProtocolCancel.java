@@ -17,8 +17,7 @@ public class ProtocolCancel extends Flag {
         Flag copy = new ProtocolCancel(this.eventTrigger);
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
-            SimpleEvent dup = new SimpleEvent(se);
-            dup.setCaster(newCaster);
+            SimpleEvent dup = new SimpleEvent(se, newCaster);
             copy.eventsAddedOnTrigger.add(dup);
         }
 

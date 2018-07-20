@@ -13,14 +13,13 @@ import display.music.AudioPlayer;
 import entity.EnemyGenerator;
 import entity.Player;
 import event.EventQueue;
-import event.Instruction;
-import event.Response;
+import event.InstructionSet;
+import event.ResponseTable;
 import grid.CompositeGrid;
 import grid.Tile;
 import item.ItemLoader;
 import item.ItemPromptLoader;
 import saveload.GridLoader;
-import saveload.GridSaver;
 import skill.SkillLibrary;
 
 import java.awt.*;
@@ -95,8 +94,6 @@ public class GameView extends GameViewObserver {
 	private void initializeGameSession() {
 		MessageManager mm = new MessageManager();
 
-		//Player p1 = new Player("Place Holder", "Apprentice", 1000, 22);
-
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
 		ItemLoader.loadItemEffectMapping("map/item_effectmap.dat");
@@ -104,10 +101,10 @@ public class GameView extends GameViewObserver {
 		SkillLibrary.initializeSkillMap("map/skill_effectmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
-		Instruction.loadInstructionSet();
-		Response.loadResponseTable("map/responsemap.dat");
 
-		EventQueue eq = new EventQueue();
+		ResponseTable rt = new ResponseTable("map/responsemap.dat");
+		InstructionSet operations = new InstructionSet(rt);
+		EventQueue eq = new EventQueue(operations);
 
 		CompositeGrid model = new GridLoader("saves/1.asf").loadGrid();
 		Player p1 = (Player)model.getFocusedCombatant();

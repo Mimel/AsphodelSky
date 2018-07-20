@@ -1,5 +1,7 @@
 package event;
 
+import entity.Combatant;
+import entity.NullCombatant;
 import grid.CompositeGrid;
 import grid.Point;
 
@@ -10,8 +12,8 @@ public class SimpleEvent extends Event {
 
     private Opcode operation;
 
-    public SimpleEvent(int time, int priority, Opcode opcode) {
-        super(time, priority);
+    public SimpleEvent(int time, int priority, Opcode opcode, Combatant caster) {
+        super(time, priority, caster);
         this.operation = opcode;
     }
 
@@ -20,10 +22,9 @@ public class SimpleEvent extends Event {
      * this new one.
      * @param e The event to copy from.
      */
-    public SimpleEvent(SimpleEvent e) {
-        super(e.getTriggerDelay(), e.getPriority());
+    public SimpleEvent(SimpleEvent e, Combatant newCaster) {
+        super(e.getTriggerDelay(), e.getPriority(), newCaster);
         this.operation = e.operation;
-        this.setCaster(e.getData().getCaster());
         this.setTarget(e.getData().getTarget());
         this.setItem(e.getData().getItem());
         this.setSkill(e.getData().getSkill());
@@ -84,7 +85,7 @@ public class SimpleEvent extends Event {
             }
         }
 
-        SimpleEvent interpretedEvent = new SimpleEvent(time, priority, name);
+        SimpleEvent interpretedEvent = new SimpleEvent(time, priority, name, new NullCombatant());
         interpretedEvent.getData().setCoordTo(new Point(x, y)).setSecondaryTo(sec);
         return interpretedEvent;
     }
@@ -93,8 +94,8 @@ public class SimpleEvent extends Event {
      * Executes the instruction in this event.
      * @param gr The grid to impose the instruction on.
      */
-    String execute(CompositeGrid gr) {
-        return Instruction.execute(operation, this.getData(), gr);
+    String execute(CompositeGrid gr, InstructionSet operations) {
+        return operations.execute(operation, this.getData(), gr);
     }
 
     public String toString() {

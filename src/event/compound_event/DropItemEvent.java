@@ -1,5 +1,6 @@
 package event.compound_event;
 
+import entity.Combatant;
 import event.Opcode;
 import event.SimpleEvent;
 
@@ -7,14 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DropItemEvent extends CompoundEvent {
-    public DropItemEvent(int time, int priority) {
-        super(time, priority);
+    public DropItemEvent(int time, int priority, Combatant caster) {
+        super(time, priority, caster);
     }
 
     @Override
     public CompoundEvent clone() {
-        CompoundEvent ce = new DropItemEvent(getTriggerDelay(), getPriority());
-        ce.setCaster(getCaster());
+        CompoundEvent ce = new DropItemEvent(getTriggerDelay(), getPriority(), getCaster());
         ce.setTarget(getTarget());
         ce.setItem(getItem());
         ce.setSkill(getSkill());

@@ -1,21 +1,19 @@
 package event.compound_event;
 
+import entity.Combatant;
 import event.SimpleEvent;
-import skill.Skill;
-import skill.SkillLibrary;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class UseSkillEvent extends CompoundEvent {
-    public UseSkillEvent(int time, int priority) {
-        super(time, priority);
+    public UseSkillEvent(int time, int priority, Combatant caster) {
+        super(time, priority, caster);
     }
 
     @Override
     public CompoundEvent clone() {
-        CompoundEvent ce = new UseSkillEvent(getTriggerDelay(), getPriority());
-        ce.setCaster(getCaster());
+        CompoundEvent ce = new UseSkillEvent(getTriggerDelay(), getPriority(), getCaster());
         ce.setTarget(getTarget());
         ce.setItem(getItem());
         ce.setSkill(getSkill());

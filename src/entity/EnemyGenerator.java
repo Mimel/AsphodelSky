@@ -122,7 +122,7 @@ public final class EnemyGenerator {
             } else if (firstCharacter == ' ' || firstCharacter == '\t') {
                 if (currentFlag != null) {
                     SimpleEvent trigger = SimpleEvent.interpretEvent(currLine.substring(1, currLine.indexOf('@')).trim());
-                    trigger.getData().setCasterTo(newCombatant);
+                    trigger = new SimpleEvent(trigger, newCombatant);
                     FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
                     currentFlag.addEventToFlag(trigger, loc);
                 }

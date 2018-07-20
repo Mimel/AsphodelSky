@@ -116,16 +116,16 @@ class DisplayKeyBindings {
 
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
-                        SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
-                        moveSelfEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer()).setCoordTo(new Point(xOffset, yOffset));
+                        SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE, grid.getPlayer());
+                        moveSelfEvent.getData().setTargetTo(grid.getPlayer()).setCoordTo(new Point(xOffset, yOffset));
                         eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
                         Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
                         Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
 
-                        SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP);
-                        attackAdjacentEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(target).setSecondaryTo(-4);
+                        SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP, grid.getPlayer());
+                        attackAdjacentEvent.getData().setTargetTo(target).setSecondaryTo(-4);
                         eq.addEvent(attackAdjacentEvent);
 
                         messages = eq.progressTimeBy(1, grid);
@@ -257,8 +257,8 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && !(grid.getItemsOnTileWithCombatant(grid.getPlayer()) == null)) {
-                    SimpleEvent getEvent = new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL);
-                    getEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer())
+                    SimpleEvent getEvent = new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL, grid.getPlayer());
+                    getEvent.getData().setTargetTo(grid.getPlayer())
                             .setItemTo(grid.getFocusedCatalog().getFocusedItem());
                     eq.addEvent(getEvent);
 
@@ -280,8 +280,7 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.TILE_PROMPT)) {
-                    pendingInjection = new NoOpEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new NoOpEvent(0, 20, grid.getPlayer());
                     pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
@@ -296,8 +295,7 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    pendingInjection = new NoOpEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new NoOpEvent(0, 20, grid.getPlayer());
                     pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
@@ -310,8 +308,7 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.SKILL_PROMPT)) {
-                    pendingInjection = new UseSkillEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new UseSkillEvent(0, 20, grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
                     game.repaint();
@@ -325,8 +322,7 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT)) {
-                    pendingInjection = new UseItemEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new UseItemEvent(0, 20, grid.getPlayer());
 
                     lookForItemPrompts = true;
 
@@ -342,8 +338,7 @@ class DisplayKeyBindings {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(DisplayPrompt.ITEM_PROMPT, DisplayPrompt.TILE_PROMPT)) {
-                    pendingInjection = new DropItemEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new DropItemEvent(0, 20, grid.getPlayer());
                     pendingInjection.setTarget(grid.getPlayer());
 
                     updateOutput(Collections.emptyList());
@@ -357,10 +352,9 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
-                    pendingInjection = new ShellTalkEvent(0, 20);
-                    pendingInjection.setCaster(grid.getPlayer());
+                    pendingInjection = new ShellTalkEvent(0, 20, grid.getPlayer());
                     pendingInjection.setTarget(grid.getPlayer());
-                    pendingInjection.getData().setCasterTo(grid.getPlayer()).setSecondaryTo(252);
+                    pendingInjection.setSecondary(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

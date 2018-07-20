@@ -1,5 +1,6 @@
 package event.compound_event;
 
+import entity.Combatant;
 import event.Event;
 import event.Opcode;
 import event.SimpleEvent;
@@ -11,14 +12,13 @@ import java.util.List;
  */
 public abstract class CompoundEvent extends Event {
 
-    CompoundEvent(int time, int priority) {
-        super(time, priority);
+    CompoundEvent(int time, int priority, Combatant caster) {
+        super(time, priority, caster);
     }
 
     SimpleEvent copyInfoToSimpleEvent(Opcode op) {
-        SimpleEvent se = new SimpleEvent(getTriggerDelay(), getPriority(), op);
-        se.getData().setCasterTo(getCaster())
-                .setTargetTo(getTarget())
+        SimpleEvent se = new SimpleEvent(getTriggerDelay(), getPriority(), op, getCaster());
+        se.getData().setTargetTo(getTarget())
                 .setItemTo(getItem())
                 .setSkillTo(getSkill())
                 .setCoordTo(getTile())

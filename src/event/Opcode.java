@@ -1,7 +1,7 @@
 package event;
 
 /**
- * A set of opcodes that are used in the Instruction class.
+ * A set of opcodes that are used in the InstructionSet class.
  */
 public enum Opcode {
     NO_OP,

@@ -17,8 +17,7 @@ public class ProtocolAdd extends Flag {
         Flag copy = new ProtocolAdd(this.eventTrigger);
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
-            SimpleEvent dup = new SimpleEvent(se);
-            dup.setCaster(newCaster);
+            SimpleEvent dup = new SimpleEvent(se, newCaster);
             copy.eventsAddedOnTrigger.add(dup);
         }
 

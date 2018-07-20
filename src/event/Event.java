@@ -30,7 +30,7 @@ public class Event {
 
     private final InstructionData params;
 
-    public Event(int delay, int priority) {
+    public Event(int delay, int priority, Combatant caster) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {
@@ -44,7 +44,7 @@ public class Event {
         }
 
         this.flaggable = true;
-        this.params = new InstructionData();
+        this.params = new InstructionData(caster);
     }
 
     public InstructionData getData() {
@@ -71,10 +71,6 @@ public class Event {
 
     public Combatant getCaster() {
         return params.getCaster();
-    }
-
-    public void setCaster(Combatant caster) {
-        this.getData().setCasterTo(caster);
     }
 
     public Combatant getTarget() {

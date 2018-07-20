@@ -7,17 +7,38 @@ import skill.Skill;
 
 /**
  * A data object that encapsulates all the data necessary for an event to be used.
+ * InstructionSet data consists of six parts:
+ *
+ * A caster, which is the combatant that is performing the action. This must always be initialized on
+ * InstructionData creation, can never change, and can never, ever be null (Though it can be a null object).
+ *
+ * A target, which is the combatant that is primarily affected by the action. This can be null before
+ * entry into the EventQueue, but on entry into the EventQueue, this can never, ever be null.
+ * The target is allowed to be the same as the caster.
+ *
+ * An item, which will be affected by an action. This item can be null, if an action in question
+ * does not require it.
+ *
+ * A skill, which will be affected by an action. This skill can be null, if an action in question
+ * does not require it.
+ *
+ * A tile, which is a Cartesian coordinate that will be affected by an action. This point can be null,
+ * if an action in question does not require it.
+ *
+ * A secondary integer, whose usage depends entirely on the context of the action. Some actions
+ * may not use secondary variables.
+ *
  */
 public class InstructionData {
-    private Combatant caster;
+    private final Combatant caster;
     private Combatant target;
     private Item item;
     private Skill skill;
     private Point tile;
     private int secondary;
 
-    InstructionData() {
-
+    InstructionData(Combatant caster) {
+        this.caster = caster;
     }
 
     Combatant getCaster() {
@@ -42,11 +63,6 @@ public class InstructionData {
 
     int getSecondary() {
         return secondary;
-    }
-
-    public InstructionData setCasterTo(Combatant caster) {
-        this.caster = caster;
-        return this;
     }
 
     public InstructionData setTargetTo(Combatant target) {

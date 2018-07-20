@@ -96,8 +96,8 @@ public class Skill {
         }
 
         for(SimpleEvent se : skillEffects) {
-            SimpleEvent temporarilyRevisedEvent = new SimpleEvent(se);
-            temporarilyRevisedEvent.getData().setCasterTo(caster).setTargetTo(target);
+            SimpleEvent temporarilyRevisedEvent = new SimpleEvent(se, caster);
+            temporarilyRevisedEvent.setTarget(target);
             skillEventsDeepCopy.add(temporarilyRevisedEvent);
         }
 

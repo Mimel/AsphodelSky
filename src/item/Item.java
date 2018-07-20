@@ -107,8 +107,8 @@ public class Item implements Comparable<Item> {
 		}
 
 		for(SimpleEvent ev : useEffects) {
-			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev);
-			temporarilyRevisedEvent.getData().setCasterTo(caster).setTargetTo(target);
+			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev, caster);
+			temporarilyRevisedEvent.setTarget(target);
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 

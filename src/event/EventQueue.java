@@ -34,7 +34,9 @@ public class EventQueue {
 
     private boolean dialogueTreePending;
 
-    public EventQueue() {
+    private InstructionSet operations;
+
+    public EventQueue(InstructionSet ops) {
         this.time = 0;
 
         Comparator<Event> c = new EventComparator();
@@ -42,6 +44,8 @@ public class EventQueue {
         this.injectionQueue = new PriorityQueue<>(20, c);
 
         dialogueTreePending = false;
+
+        this.operations = ops;
     }
 
     public void createInjection(CompoundEvent ce) {
@@ -76,7 +80,7 @@ public class EventQueue {
      */
     public void addEvent(SimpleEvent e) {
         if(e.getTriggerDelay() >= 0) {
-            SimpleEvent dup = new SimpleEvent(e);
+            SimpleEvent dup = new SimpleEvent(e, e.getCaster());
             dup.setTriggerDelay(time + dup.getTriggerDelay());
             eventQueue.add(dup);
         }
@@ -168,7 +172,7 @@ public class EventQueue {
                     topEvent.setFlaggable(false);
                 }
 
-                message = topEvent.execute(gr);
+                message = topEvent.execute(gr, operations);
             }
             eventQueue.remove(topEvent);
 

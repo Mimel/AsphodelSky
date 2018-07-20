@@ -72,9 +72,6 @@ public class GridLoader {
 
             model.bindTo(0);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            model = new CompositeGrid();
         } catch (IOException e) {
             e.printStackTrace();
             model = new CompositeGrid();

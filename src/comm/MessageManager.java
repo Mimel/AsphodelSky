@@ -1,7 +1,5 @@
 package comm;
 
-import java.util.Iterator;
-
 /**
  * Manages messages received from a given stream to implement in the game.
  * @author Matt Imel

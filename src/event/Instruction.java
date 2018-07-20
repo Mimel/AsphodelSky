@@ -93,9 +93,8 @@ public class Instruction
             });
 
             instructionSet.put(Opcode.TRANSFER_ITEMALL, (opData, grid) -> {
-                Pair<Item, Integer> tileItems = grid.getItemsOnTile(opData.getTargetID()).consumeAll(opData.getItemID());
-                grid.getOccupant(opData.getTargetID()).getInventory().insertItem(tileItems.getValue0(), tileItems.getValue1());
-                return new ResponseDetails(ResponseCondition.SUCCESS, grid.getOccupant(opData.getTargetID()).getName(), tileItems.getValue0().getName());
+                grid.getOccupant(opData.getCasterID()).getInventory().transferFrom(grid.getItemsOnTile(opData.getTargetID()));
+                return null;
             });
 
             instructionSet.put(Opcode.START_DIALOGUE, (opData, grid) -> new ResponseDetails(ResponseCondition.SUCCESS, grid.getOccupant(opData.getTargetID()).getName() + "_" + opData.getSecondary() + ".dat"));

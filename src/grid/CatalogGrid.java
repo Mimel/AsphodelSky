@@ -3,7 +3,6 @@ package grid;
 import item.Catalog;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -20,7 +19,14 @@ public class CatalogGrid implements Grid<Catalog> {
 
     @Override
     public void placeOccupant(Catalog occupant, int x, int y) {
-        catalogMap.put(new Point(x, y), occupant);
+        Point placeToPutCatalog = new Point(x, y);
+        if(catalogMap.get(placeToPutCatalog) != null) {
+            catalogMap.get(placeToPutCatalog).transferFrom(occupant);
+        } else {
+            Catalog newCatalog = new Catalog();
+            newCatalog.transferFrom(occupant);
+            catalogMap.put(placeToPutCatalog, newCatalog);
+        }
     }
 
     @Override

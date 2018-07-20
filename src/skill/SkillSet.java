@@ -65,8 +65,7 @@ public class SkillSet {
     }
 
     public List<Skill> getSkillsDeepCopy() {
-        List<Skill> newSkills = new ArrayList<>(skillList);
-        return newSkills;
+        return new ArrayList<>(skillList);
     }
 
     public boolean isSkillSetEmpty() {

@@ -1,8 +1,5 @@
 package grid;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 /**
  * A two-dimensional array of Tiles.
  */

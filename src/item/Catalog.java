@@ -246,31 +246,7 @@ public class Catalog {
 	public void sortCatalogById() {
 		Collections.sort(catalog);
 	}
-	
-	/**
-	 * Merges a number of catalogs together.
-	 * @param catalogs The catalogs to merge. Null-safe.
-	 * @return The merged catalog.
-	 */
-	private static Item[] mergeCatalogs(Item[]... catalogs) {
-		Item[] combinedCatalog;
-		int ccSum = 0;
-		
-		for(Item[] catalog : catalogs) {
-			ccSum += catalog.length;
-		}
-		
-		combinedCatalog = new Item[ccSum];
-		
-		for(Item[] catalog : catalogs) {
-			for(Item item : catalog) {
-				combinedCatalog[--ccSum] = item;
-			}
-		}
-		
-		return combinedCatalog;
-	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder cat = new StringBuilder();

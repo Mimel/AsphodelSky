@@ -4,8 +4,6 @@ import entity.Combatant;
 import item.Catalog;
 import item.ItemLoader;
 
-import java.util.Map;
-
 /**
  * A map of the game, containing a set of tiles and all objects within.
  * 
@@ -293,13 +291,9 @@ public class CompositeGrid {
 	}
 
 	public String getGridRepresentation() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(name).append('\n').append(MAX_BOUNDS.x()).append(',').append(MAX_BOUNDS.y()).append('\n');
-		sb.append(tiles).append("&CATALOGS\n");
-		sb.append(catalogs).append("&ACTORS\n");
-		sb.append(actors);
-
-		return sb.toString();
+		return name + '\n' + MAX_BOUNDS.x() + ',' + MAX_BOUNDS.y() + '\n' +
+				tiles + "&CATALOGS\n" +
+				catalogs + "&ACTORS\n" +
+				actors;
 	}
 }

@@ -1,5 +1,6 @@
 package skill;
 
+import entity.Combatant;
 import event.SimpleEvent;
 
 import java.util.ArrayList;
@@ -83,14 +84,14 @@ public class Skill {
 
     /**
      * Uses the skill.
-     * @param targetID The target of the skill.
+     * @param target The target of the skill.
      * @return The simple events in the skill, but deep-copied, and with the target id applied to all of them.
      */
-    public List<SimpleEvent> useSkill(int targetID) {
+    public List<SimpleEvent> useSkill(Combatant target) {
         List<SimpleEvent> skillEventsDeepCopy = new ArrayList<>();
         for(SimpleEvent se : skillEffects) {
             SimpleEvent temporarilyRevisedEvent = new SimpleEvent(se);
-            temporarilyRevisedEvent.getData().setTargetIDTo(targetID);
+            temporarilyRevisedEvent.getData().setTargetTo(target);
             skillEventsDeepCopy.add(temporarilyRevisedEvent);
         }
 

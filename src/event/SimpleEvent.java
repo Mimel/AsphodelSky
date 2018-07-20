@@ -25,8 +25,8 @@ public class SimpleEvent extends Event {
         this.setCaster(e.getData().getCaster());
         this.setTarget(e.getData().getTarget());
         this.setItem(e.getData().getItem());
-        this.setSkillID(e.getData().getSkill());
-        this.setTile(e.getData().getTileX(), e.getData().getTileY());
+        this.setSkill(e.getData().getSkill());
+        this.setTile(e.getData().getTile().x(), e.getData().getTile().y());
         this.setSecondary(e.getData().getSecondary());
     }
 
@@ -46,7 +46,6 @@ public class SimpleEvent extends Event {
         Opcode name;
         int time;
         int priority;
-        int id = -1;
         int sec = -1;
         int x = -1;
         int y = -1;
@@ -72,9 +71,6 @@ public class SimpleEvent extends Event {
 
 
             switch(flag_name) {
-                case "id":
-                    id = flag_val;
-                    break;
                 case "sec":
                     sec = flag_val;
                     break;
@@ -88,7 +84,7 @@ public class SimpleEvent extends Event {
         }
 
         SimpleEvent interpretedEvent = new SimpleEvent(time, priority, name);
-        interpretedEvent.getData().setTargetIDTo(id).setCoordTo(x, y).setSecondaryTo(sec);
+        interpretedEvent.getData().setCoordTo(x, y).setSecondaryTo(sec);
         return interpretedEvent;
     }
 
@@ -104,9 +100,9 @@ public class SimpleEvent extends Event {
         return String.valueOf(operation) + '(' +
                 getTriggerDelay() + ',' +
                 getPriority() + ')' +
-                " ~id=" + getTarget() +
-                " ~x=" + getTileX() +
-                " ~y=" + getTileY() +
+                " ~id=" + getTarget().getId() +
+                " ~x=" + getTile().x() +
+                " ~y=" + getTile().y() +
                 " ~sec=" + getSecondary();
     }
 }

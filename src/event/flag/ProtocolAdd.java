@@ -1,5 +1,6 @@
 package event.flag;
 
+import entity.Combatant;
 import event.EventQueue;
 import event.FlagType;
 import event.Opcode;
@@ -12,12 +13,12 @@ public class ProtocolAdd extends Flag {
     }
 
     @Override
-    public Flag copyThis(int newCID) {
+    public Flag copyThis(Combatant newCaster) {
         Flag copy = new ProtocolAdd(this.eventTrigger);
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
             SimpleEvent dup = new SimpleEvent(se);
-            dup.setCaster(newCID);
+            dup.setCaster(newCaster);
             copy.eventsAddedOnTrigger.add(dup);
         }
 
@@ -29,16 +30,16 @@ public class ProtocolAdd extends Flag {
     @Override
     public boolean checkForTrigger(EventQueue queue) {
         if(queue.peek().getSimpleOperation() == eventTrigger) {
-            int selfID = queue.peek().getTarget();
-            int senderID = queue.peek().getCaster();
+            Combatant self = queue.peek().getTarget();
+            Combatant sender = queue.peek().getCaster();
 
             for (int event = 0; event < eventsAddedOnTrigger.size(); event++) {
                 SimpleEvent triggerEvent = eventsAddedOnTrigger.get(event);
 
                 if (eventRedirections.get(event) == FlagRedirectLocation.SELF) {
-                    triggerEvent.getData().setTargetIDTo(selfID);
+                    triggerEvent.getData().setTargetTo(self);
                 } else if (eventRedirections.get(event) == FlagRedirectLocation.SENDER) {
-                    triggerEvent.getData().setTargetIDTo(senderID);
+                    triggerEvent.getData().setTargetTo(sender);
                 }
 
                 queue.addEvent(triggerEvent);

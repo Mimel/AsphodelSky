@@ -17,11 +17,11 @@ public abstract class CompoundEvent extends Event {
 
     protected SimpleEvent copyInfoToSimpleEvent(Opcode op) {
         SimpleEvent se = new SimpleEvent(getTriggerDelay(), getPriority(), op);
-        se.getData().setCasterIDTo(getCaster())
-                .setTargetIDTo(getTarget())
-                .setItemIDTo(getItem())
-                .setSkillIDTo(getSkill())
-                .setCoordTo(getTileX(), getTileY())
+        se.getData().setCasterTo(getCaster())
+                .setTargetTo(getTarget())
+                .setItemTo(getItem())
+                .setSkillTo(getSkill())
+                .setCoordTo(getTile().x(), getTile().y())
                 .setSecondaryTo(getSecondary());
         return se;
     }

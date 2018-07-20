@@ -154,7 +154,7 @@ public class EventQueue {
             String message = null;
             if(gr.doesCombatantExist(topEvent.getCaster()) && gr.doesCombatantExist(topEvent.getTarget())) {
                 if (topEvent.isFlaggable()) {
-                    for (Flag f : gr.getOccupant(topEvent.getTarget()).getFlagList()) {
+                    for (Flag f : gr.getCombatant(topEvent.getTarget()).getFlagList()) {
                         if (f.checkForTrigger(this)) {
                             eventRemoved = true;
                         }

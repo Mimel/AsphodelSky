@@ -153,11 +153,11 @@ public class Catalog {
 	
 	/**
 	 * Consumes an item, reducing its associated amount by one. If this brings the item's amount to zero, the item and it's associated amount are both removed.
-	 * @param itemID The Item id.
+	 * @param itemToRemove The Item to remove.
 	 */
-	public void consumeItem(int itemID) {
+	public void consumeItem(Item itemToRemove) {
 		for(int x = 0; x < catalog.size(); x++) {
-			if(catalog.get(x).getValue0().getId() == itemID) {
+			if(catalog.get(x).getValue0().equals(itemToRemove)) {
 				if(catalog.get(x).getValue1() == 1) {
 					catalog.remove(x);
 				} else {
@@ -174,13 +174,13 @@ public class Catalog {
 	 * The amount given must be an integer greater than zero. If the amount is greater
 	 * than the actual number associated with the given item, then all copies of the item are
 	 * consumed, as if <code>consumeAll()</code> were called.
-	 * @param itemID The item to consume from the catalog.
+	 * @param itemToRemove The item to consume from the catalog.
 	 * @param amountToConsume The number of items to consume from the catalog.
 	 * @return A Pair containing the item consumed and the number of items consumed.
 	 */
-	public Pair<Item, Integer> consumeItem(int itemID, int amountToConsume) {
+	public Pair<Item, Integer> consumeItem(Item itemToRemove, int amountToConsume) {
 		for(int item = 0; item < catalog.size(); item++) {
-			if(catalog.get(item).getValue0().getId() == itemID) {
+			if(catalog.get(item).getValue0().equals(itemToRemove)) {
 				int numOfItems = catalog.get(item).getValue1();
 				if(numOfItems <= amountToConsume) {
 					return catalog.remove(item);
@@ -196,12 +196,12 @@ public class Catalog {
 
 	/**
 	 * Consumes all instances of an item.
-	 * @param itemID The Item id.
+	 * @param itemToConsume The item to consume.
 	 * @return The item and amount removed if the item can be found, null otherwise.
 	 */
-	public Pair<Item, Integer> consumeAll(int itemID) {
+	public Pair<Item, Integer> consumeAll(Item itemToConsume) {
 		for(int x = 0; x < catalog.size(); x++) {
-			if(catalog.get(x).getValue0().getId() == itemID) {
+			if(catalog.get(x).getValue0().equals(itemToConsume)) {
 				return catalog.remove(x);
 			}
 		}

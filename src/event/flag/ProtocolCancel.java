@@ -1,5 +1,6 @@
 package event.flag;
 
+import entity.Combatant;
 import event.EventQueue;
 import event.FlagType;
 import event.Opcode;
@@ -12,12 +13,12 @@ public class ProtocolCancel extends Flag {
     }
 
     @Override
-    public Flag copyThis(int newCID) {
+    public Flag copyThis(Combatant newCaster) {
         Flag copy = new ProtocolCancel(this.eventTrigger);
 
         for(SimpleEvent se : this.eventsAddedOnTrigger) {
             SimpleEvent dup = new SimpleEvent(se);
-            dup.setCaster(newCID);
+            dup.setCaster(newCaster);
             copy.eventsAddedOnTrigger.add(dup);
         }
 

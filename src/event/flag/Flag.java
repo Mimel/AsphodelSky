@@ -1,5 +1,6 @@
 package event.flag;
 
+import entity.Combatant;
 import event.*;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public abstract class Flag {
         eventRedirections.add(eventDirection);
     }
 
-    public abstract Flag copyThis(int newCID);
+    public abstract Flag copyThis(Combatant newCaster);
 
     /**
      * Checks the event queue to see if this flag gets triggered; if so, proceeds with

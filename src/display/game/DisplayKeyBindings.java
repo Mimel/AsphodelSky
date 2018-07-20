@@ -117,7 +117,7 @@ class DisplayKeyBindings {
                 } else if(game.getConfig() == DisplayConfiguration.DEFAULT) {
                     if(!grid.isTileOccupiedRelativeTo(0, xOffset, yOffset)) {
                         SimpleEvent moveSelfEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_MOVE);
-                        moveSelfEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(Player.PLAYER_ID).setCoordTo(xOffset, yOffset);
+                        moveSelfEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer()).setCoordTo(xOffset, yOffset);
                         eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
@@ -125,7 +125,7 @@ class DisplayKeyBindings {
                         Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
 
                         SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP);
-                        attackAdjacentEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(target.getId()).setSecondaryTo(-4);
+                        attackAdjacentEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(target).setSecondaryTo(-4);
                         eq.addEvent(attackAdjacentEvent);
 
                         messages = eq.progressTimeBy(1, grid);
@@ -158,13 +158,13 @@ class DisplayKeyBindings {
 
                 switch(promptManager.dequeuePrompt()) {
                     case ACTOR_PROMPT:
-                        pendingInjection.setTarget(grid.getFocusedCombatant().getId());
+                        pendingInjection.setTarget(grid.getFocusedCombatant());
                         grid.bindTo(Player.PLAYER_ID);
                         break;
                     case ITEM_PROMPT:
-                        Item focusedItem = grid.getOccupant(Player.PLAYER_ID).getInventory().getFocusedItem();
-                        pendingInjection.setItem(focusedItem.getId());
-                        grid.getOccupant(Player.PLAYER_ID).getInventory().resetFocusIndex();
+                        Item focusedItem = grid.getPlayer().getInventory().getFocusedItem();
+                        pendingInjection.setItem(focusedItem);
+                        grid.getPlayer().getInventory().resetFocusIndex();
 
                         if(lookForItemPrompts) {
                             ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
@@ -173,9 +173,9 @@ class DisplayKeyBindings {
                         }
                         break;
                     case SKILL_PROMPT:
-                        Skill focusedSkill = grid.getOccupant(Player.PLAYER_ID).getSkillSet().getFocusedSkill();
-                        pendingInjection.setSkillID(focusedSkill.getId());
-                        grid.getOccupant(Player.PLAYER_ID).getSkillSet().resetFocusedSkillIndex();
+                        Skill focusedSkill = grid.getPlayer().getSkillSet().getFocusedSkill();
+                        pendingInjection.setSkill(focusedSkill);
+                        grid.getPlayer().getSkillSet().resetFocusedSkillIndex();
                         break;
                     case TILE_PROMPT:
                         pendingInjection.setTile(grid.getFocus().x(), grid.getFocus().y());
@@ -256,10 +256,10 @@ class DisplayKeyBindings {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(keybindsAreRestricted() && !(grid.getItemsOnTile(0) == null)) {
+                if(keybindsAreRestricted() && !(grid.getItemsOnTileWithCombatant(grid.getPlayer()) == null)) {
                     SimpleEvent getEvent = new SimpleEvent(0, 100, Opcode.TRANSFER_ITEMALL);
-                    getEvent.getData().setCasterIDTo(Player.PLAYER_ID).setTargetIDTo(Player.PLAYER_ID)
-                            .setItemIDTo(grid.getFocusedCatalog().getFocusedItem().getId());
+                    getEvent.getData().setCasterTo(grid.getPlayer()).setTargetTo(grid.getPlayer())
+                            .setItemTo(grid.getFocusedCatalog().getFocusedItem());
                     eq.addEvent(getEvent);
 
                     List<String> messages = eq.progressTimeBy(0, grid);
@@ -349,7 +349,7 @@ class DisplayKeyBindings {
                 if(keybindsAreRestricted() && addPromptsToDisplayQueue(ACTOR_PROMPT, DIALOGUE_PROMPT)) {
                     // These two instructions load a dialogue tree into the EventQueue.
                     pendingInjection = new ShellTalkEvent(0, 20);
-                    pendingInjection.getData().setCasterIDTo(Player.PLAYER_ID).setSecondaryTo(252);
+                    pendingInjection.getData().setCasterTo(grid.getPlayer()).setSecondaryTo(252);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

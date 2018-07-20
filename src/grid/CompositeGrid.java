@@ -1,8 +1,9 @@
 package grid;
 
 import entity.Combatant;
+import entity.Player;
 import item.Catalog;
-import item.ItemLoader;
+import item.Item;
 
 /**
  * A map of the game, containing a set of tiles and all objects within.
@@ -128,8 +129,8 @@ public class CompositeGrid {
 		}
 	}
 
-	public boolean doesCombatantExist(int id) {
-		return actors.getOccupantById(id) != null;
+	public boolean doesCombatantExist(Combatant c) {
+		return actors.getOccupantById(c.getId()) != null;
 	}
 
 	public Point getLocationOfCombatant(int id) {
@@ -147,20 +148,20 @@ public class CompositeGrid {
 	/**
 	 * Moves the combatant with given id to a new location on the grid given by the
 	 * coordinates given.
-	 * @param id The id of the combatant to move.
+	 * @param combatantToMove The combatant to move.
 	 * @param xOffset The X-amount to shift the combatant by.
 	 * @param yOffset The Y-amount to shift the combatant by.
 	 */
-	public void moveCombatant(int id, int xOffset, int yOffset) {
-		Point loc = actors.getLocationById(id);
+	public void moveCombatant(Combatant combatantToMove, int xOffset, int yOffset) {
+		Point loc = actors.getLocationById(combatantToMove.getId());
 		int newX = loc.x() + xOffset;
 		int newY = loc.y() + yOffset;
 
 		if(tiles.canOccupy(newX, newY) && actors.canOccupy(newX, newY)) {
-			Combatant c = actors.removeOccuapantById(id);
+			Combatant c = actors.removeOccuapantById(combatantToMove.getId());
 			actors.placeOccupant(c, newX, newY);
 
-			if(isBoundToCombatant && boundId == id) {
+			if(isBoundToCombatant && boundId == combatantToMove.getId()) {
 				focalPoint = new Point(newX, newY);
 			}
 		}
@@ -171,31 +172,34 @@ public class CompositeGrid {
 		return (actors.getOccupantAt(aLoc.x() + x, aLoc.y() + y) != null);
 	}
 
-	public void killCombatant(int id) {
-		Point loc = actors.getLocationById(id);
-		Combatant killedCombatant = actors.removeOccuapantById(id);
+	public void killCombatant(Combatant combatantToKill) {
+		Point loc = actors.getLocationById(combatantToKill.getId());
+		Combatant killedCombatant = actors.removeOccuapantById(combatantToKill.getId());
 		catalogs.placeOccupant(killedCombatant.getInventory(), loc.x(), loc.y());
 	}
 
 	/**
 	 * Searches for an entity within the grid, given the id.
-	 * @param id The id to look up.
+	 * @param c The combatant to look up.
 	 * @return The entity if it can be found, or null if it can't.
 	 */
-	public Combatant getOccupant(int id) {
-		return actors.getOccupantById(id);
+	public Combatant getCombatant(Combatant c) {
+		return actors.getOccupantById(c.getId());
+	}
+
+	public Player getPlayer() {
+		return (Player)actors.getOccupantById(Player.PLAYER_ID);
 	}
 
 	/**
 	 * Spawns a copy of an item with given id on the given tile.
-	 * @param itemId The id of the item to spawn.
-	 * @param x The X-coordinate of the tile to spawn the item in.
-	 * @param y The Y-coordinate of the tile to spawn the item in.
+	 * @param item The item to spawn.
+	 * @param placeToAdd The tile to spawn the item in.
 	 */
-	public void addItem(int itemId, int x, int y) {
-		if(isValidLocation(x, y)) {
-			catalogs.placeOccupant(new Catalog(), x, y);
-			catalogs.getOccupantAt(x, y).insertItem(ItemLoader.getItemById(itemId), 1);
+	public void addItem(Item item, Point placeToAdd) {
+		if(isValidLocation(placeToAdd.x(), placeToAdd.y())) {
+			catalogs.placeOccupant(new Catalog(), placeToAdd.x(), placeToAdd.y());
+			catalogs.getOccupantAt(placeToAdd.x(), placeToAdd.y()).insertItem(item, 1);
 		}
 	}
 
@@ -205,11 +209,11 @@ public class CompositeGrid {
 
 	/**
 	 * Gets the catalog located on the tile that the given combatant is occupying.
-	 * @param combatantId The id of the combatant.
+	 * @param c The combatant.
 	 * @return The catalog of the tile that the combatant is occupying.
 	 */
-	public Catalog getItemsOnTile(int combatantId) {
-		Point loc = actors.getLocationById(combatantId);
+	public Catalog getItemsOnTileWithCombatant(Combatant c) {
+		Point loc = actors.getLocationById(c.getId());
 		return catalogs.getOccupantAt(loc.x(), loc.y());
 	}
 
@@ -219,21 +223,21 @@ public class CompositeGrid {
 
 	/**
 	 * Removes an item from the given tile.
-	 * @param itemId The id of the item to remove.
+	 * @param itemToRemove The item to remove.
 	 * @param x The x-coordinate of the tile to remove the item from.
 	 * @param y The y-coordinate of the tile to remove the item from.
 	 */
-	public void removeItem(int itemId, int x, int y) {
+	public void removeItem(Item itemToRemove, int x, int y) {
 		Catalog c;
 		if((c = catalogs.getOccupantAt(x, y)) != null) {
-			c.consumeItem(itemId);
+			c.consumeItem(itemToRemove);
 		}
 	}
 
-	public void removeItem(int itemId, int numberToRemove, int x, int y) {
+	public void removeItem(Item itemToRemove, int numberToRemove, int x, int y) {
 		Catalog c;
 		if((c = catalogs.getOccupantAt(x, y)) != null) {
-			c.consumeItem(itemId, numberToRemove);
+			c.consumeItem(itemToRemove, numberToRemove);
 		}
 	}
 

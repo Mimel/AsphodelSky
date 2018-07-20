@@ -8,6 +8,7 @@ import skill.SkillSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -176,7 +177,7 @@ public abstract class Combatant implements Entity {
 
 		this.eventTriggerList = new ArrayList<>();
 		for(Flag f : c.getFlagList()) {
-			this.eventTriggerList.add(f.copyThis(this.id));
+			this.eventTriggerList.add(f.copyThis(this));
 		}
 	}
 	
@@ -396,6 +397,24 @@ public abstract class Combatant implements Entity {
 
 	public ArrayList<Flag> getFlagList() {
 		return eventTriggerList;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+
+		if(this.getClass() != obj.getClass()) {
+			return false;
+		}
+
+		return this.getId() == ((Combatant)obj).getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 
 	@Override

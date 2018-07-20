@@ -18,8 +18,8 @@ public class UseSkillEvent extends CompoundEvent {
         ce.setCaster(getCaster());
         ce.setTarget(getTarget());
         ce.setItem(getItem());
-        ce.setSkillID(getSkill());
-        ce.setTile(getTileX(), getTileY());
+        ce.setSkill(getSkill());
+        ce.setTile(getTile().x(), getTile().y());
         ce.setSecondary(getSecondary());
         return ce;
     }
@@ -30,7 +30,7 @@ public class UseSkillEvent extends CompoundEvent {
         this.setTriggerDelay(0);
 
         Skill usedSkill;
-        if((usedSkill = SkillLibrary.getSkillByID(getSkill())) != null) {
+        if((usedSkill = SkillLibrary.getSkillByID(getSkill().getId())) != null) {
             List<SimpleEvent> l = usedSkill.useSkill(getTarget());
             for(SimpleEvent se : l) {
                 se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());

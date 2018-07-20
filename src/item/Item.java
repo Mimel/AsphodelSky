@@ -2,15 +2,14 @@ package item;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import entity.Combatant;
 import event.SimpleEvent;
 
 /**
- * A template for creating an item. All final properties are tied to the class the item is in (Say, Vial or Head),
- * while the non-final properties are tied to each individual item.
- * 
- * The ID is an exception to this.
+ * An item is an interactable object that exists on a CompositeGrid.
  * 
  * @see Catalog
  * @author Matt Imel
@@ -93,30 +92,48 @@ public class Item implements Comparable<Item> {
 		return descUse;
 	}
 
-	public List<SimpleEvent> getEffects() { return useEffects; }
+	private List<SimpleEvent> getEffects() { return useEffects; }
 
 	/**
 	 * Uses the item.
 	 * @return A set of events that occur after usage.
 	 */
-	public List<SimpleEvent> use(int targetID) {
+	public List<SimpleEvent> use(Combatant target) {
 		List<SimpleEvent> eventsDeepCopy = new LinkedList<>();
 
 		for(SimpleEvent ev : useEffects) {
 			SimpleEvent temporarilyRevisedEvent = new SimpleEvent(ev);
-			temporarilyRevisedEvent.getData().setTargetIDTo(targetID);
+			temporarilyRevisedEvent.getData().setTargetTo(target);
 			eventsDeepCopy.add(temporarilyRevisedEvent);
 		}
 
 		return eventsDeepCopy;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+
+		if(this.getClass() != obj.getClass()) {
+			return false;
+		}
+
+		return this.getId() == ((Item)obj).getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
+
 	/**
 	 * Compares two items by id.
 	 */
 	@Override
 	public int compareTo(Item i) {
-		return Integer.compare(this.id, i.id);
+		return Integer.compare(this.getId(), i.getId());
 	}
 	
 	@Override

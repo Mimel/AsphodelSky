@@ -17,8 +17,8 @@ public class DropItemEvent extends CompoundEvent {
         ce.setCaster(getCaster());
         ce.setTarget(getTarget());
         ce.setItem(getItem());
-        ce.setSkillID(getSkill());
-        ce.setTile(getTileX(), getTileY());
+        ce.setSkill(getSkill());
+        ce.setTile(getTile().x(), getTile().y());
         ce.setSecondary(getSecondary());
         return ce;
     }

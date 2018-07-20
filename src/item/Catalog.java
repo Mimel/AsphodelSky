@@ -29,7 +29,7 @@ public class Catalog {
 		focusedItemIndex = 0;
 	}
 
-	public Catalog(String catalogRepresentation) {
+	public Catalog(String catalogRepresentation, ItemLoader itemMappings) {
 		catalog = new ArrayList<>();
 		focusedItemIndex = 0;
 
@@ -41,7 +41,7 @@ public class Catalog {
 			String itemName = itemCoupling.substring(0, itemCoupling.indexOf('('));
 			String itemAmount = itemCoupling.substring(itemCoupling.indexOf('(') + 1, itemCoupling.indexOf(')'));
 
-			insertItem(ItemLoader.getItemByName(itemName), Integer.parseInt(itemAmount));
+			insertItem(itemMappings.getItemByName(itemName), Integer.parseInt(itemAmount));
 		}
 	}
 

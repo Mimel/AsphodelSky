@@ -6,19 +6,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class SkillLibrary {
-    private static Map<Integer, Skill> skillIdToSkill;
-    private static Map<String, Skill> skillNameToSkill;
+public class SkillLibrary {
+    private Map<Integer, Skill> skillIdToSkill;
+    private Map<String, Skill> skillNameToSkill;
 
-    private SkillLibrary(){}
-
-    public static void initializeSkillMap(String fileName) {
-        if(skillIdToSkill == null) {
-            skillIdToSkill = new HashMap<>();
-            skillNameToSkill = new HashMap<>();
-        } else {
-            return;
-        }
+    public SkillLibrary(String fileName) {
+        skillIdToSkill = new HashMap<>();
+        skillNameToSkill = new HashMap<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -52,11 +46,11 @@ public final class SkillLibrary {
         }
     }
 
-    public static Skill getSkillByID(int id) {
+    public Skill getSkillByID(int id) {
         return new Skill(skillIdToSkill.get(id));
     }
 
-    static Skill getSkillByName(String name) {
+    Skill getSkillByName(String name) {
         return new Skill(skillNameToSkill.get(name));
     }
 }

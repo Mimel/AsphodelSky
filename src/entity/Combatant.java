@@ -370,16 +370,16 @@ public abstract class Combatant implements Entity {
 		return inventory;
 	}
 
-	public void reinitializeInventory(String catalogRepresentation) {
-		inventory = new Catalog(catalogRepresentation);
+	public void addToInventory(Catalog newItems) {
+		inventory.transferFrom(newItems);
 	}
 
 	public SkillSet getSkillSet() {
 		return skills;
 	}
 
-	public void reinitializeSkillSet(String skillSetRepresentation) {
-		skills = new SkillSet(skillSetRepresentation);
+	public void addToSkillSet(SkillSet newSkills) {
+		skills.transferFrom(newSkills);
 	}
 
 	/**

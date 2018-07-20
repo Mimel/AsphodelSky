@@ -8,6 +8,9 @@ import event.flag.Flag;
 import event.flag.FlagRedirectLocation;
 import grid.CompositeGrid;
 import item.Catalog;
+import item.ItemLoader;
+import skill.SkillLibrary;
+import skill.SkillSet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,8 +23,14 @@ import java.util.List;
 public class GridLoader {
     private String filename;
 
-    public GridLoader(String filename) {
+    private ItemLoader itemMappings;
+
+    private SkillLibrary skillMappings;
+
+    public GridLoader(String filename, ItemLoader itemMappings, SkillLibrary skillMappings) {
         this.filename = filename;
+        this.itemMappings = itemMappings;
+        this.skillMappings = skillMappings;
     }
 
     public CompositeGrid loadGrid() {
@@ -50,7 +59,7 @@ public class GridLoader {
                 int y = Integer.parseInt(catalogDetails.substring(catalogDetails.indexOf(',') + 1, catalogDetails.indexOf('}')));
                 String catalog = catalogDetails.substring(catalogDetails.indexOf('>') + 1);
 
-                model.addCatalog(new Catalog(catalog), x, y);
+                model.addCatalog(new Catalog(catalog, itemMappings), x, y);
             }
 
             String actorDetails;
@@ -86,7 +95,7 @@ public class GridLoader {
     }
 
     private Combatant createCombatant(List<String> combatantRepresentation) {
-        Combatant newCombatant = null;
+        Combatant newCombatant = new NullCombatant();
         Flag currentFlag = null;
 
         for(String currLine : combatantRepresentation) {
@@ -128,11 +137,19 @@ public class GridLoader {
                     FlagRedirectLocation loc = FlagRedirectLocation.valueOf(currLine.substring(currLine.indexOf('@') + 1));
                     currentFlag.addEventToFlag(trigger, loc);
                 }
+            } else if (firstCharacter == '#') {
+                int equalSignLoc = currLine.indexOf('=');
+                String skillCode = currLine.substring(equalSignLoc + 1);
+
+                newCombatant.addToSkillSet(new SkillSet(skillCode, skillMappings));
+            } else if (firstCharacter == '+') {
+                int equalSignLoc = currLine.indexOf('=');
+                String itemCode = currLine.substring(equalSignLoc + 1);
+                newCombatant.addToInventory(new Catalog(itemCode, itemMappings));
             } else {
                 int equalSignLoc = currLine.indexOf('=');
                 String fieldToSet = currLine.substring(0, equalSignLoc);
                 String valueOfField = currLine.substring(equalSignLoc + 1);
-
                 assignToField(newCombatant, fieldToSet, valueOfField);
             }
         }

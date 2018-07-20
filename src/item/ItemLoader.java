@@ -5,22 +5,18 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ItemLoader {
+public class ItemLoader {
 
     /**
      * Map that maps the item's name to the item as an object.
      */
-    private static Map<Integer, Item> itemIDToItemMap;
+    private Map<Integer, Item> itemIDToItemMap;
 
-    private static Map<String, Integer> itemNameToItemIDMap;
+    private Map<String, Integer> itemNameToItemIDMap;
 
-    public static void loadItemEffectMapping(String fileName) {
-        if(itemIDToItemMap == null) {
-            itemIDToItemMap = new HashMap<>();
-            itemNameToItemIDMap = new HashMap<>();
-        } else {
-            return;
-        }
+    public ItemLoader(String fileName) {
+        itemIDToItemMap = new HashMap<>();
+        itemNameToItemIDMap = new HashMap<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String name = "";
@@ -57,11 +53,11 @@ public final class ItemLoader {
         }
     }
 
-    public static Item getItemById(int id) {
+    public Item getItemById(int id) {
         return itemIDToItemMap.get(id);
     }
 
-    public static Item getItemByName(String name) {
+    Item getItemByName(String name) {
         return itemIDToItemMap.get(itemNameToItemIDMap.get(name));
     }
 }

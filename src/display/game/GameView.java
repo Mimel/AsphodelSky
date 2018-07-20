@@ -95,16 +95,18 @@ public class GameView extends GameViewObserver {
 
 		//Mapping/Images/Assets loading.
 		ImageAssets.loadImageMapping();
-		ItemLoader.loadItemEffectMapping("map/item_effectmap.dat");
 		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
-		SkillLibrary.initializeSkillMap("map/skill_effectmap.dat");
+
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 
 		ResponseTable rt = new ResponseTable("map/responsemap.dat");
 		InstructionSet operations = new InstructionSet(rt);
 		EventQueue eq = new EventQueue(operations);
 
-		CompositeGrid model = new GridLoader("saves/1.asf").loadGrid();
+		ItemLoader il = new ItemLoader("map/item_effectmap.dat");
+		SkillLibrary sl = new SkillLibrary("map/skill_effectmap.dat");
+		CompositeGrid model = new GridLoader("saves/1.asf", il, sl).loadGrid();
+
 		Player p1 = (Player)model.getFocusedCombatant();
 		SourceDescriptionPair sdp = new SourceDescriptionPair("", "");
 

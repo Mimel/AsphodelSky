@@ -36,7 +36,7 @@ public class SkillSet {
      * word 'END' after the last comma.
      * @param skillSetRepresentation A formatted string.
      */
-    public SkillSet(String skillSetRepresentation) {
+    public SkillSet(String skillSetRepresentation, SkillLibrary skillMappings) {
         this.skillList = new ArrayList<>();
         this.focusedSkillIndex = 0;
 
@@ -45,7 +45,7 @@ public class SkillSet {
                 continue;
             }
 
-            addSkill(SkillLibrary.getSkillByName(skillName));
+            addSkill(skillMappings.getSkillByName(skillName));
         }
     }
 
@@ -106,6 +106,14 @@ public class SkillSet {
         if(newSkill != null && !skillList.contains(newSkill)) {
             skillList.add(newSkill);
         }
+    }
+
+    public void transferFrom(SkillSet skillSetToTransferFrom) {
+        for(Skill s : skillSetToTransferFrom.skillList) {
+            this.addSkill(s);
+        }
+
+        skillSetToTransferFrom.skillList.clear();
     }
 
     /**

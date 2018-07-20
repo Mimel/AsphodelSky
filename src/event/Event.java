@@ -25,7 +25,7 @@ public class Event {
 
     private final InstructionData params;
 
-    Event(int delay, int priority) {
+    public Event(int delay, int priority) {
         if(delay >= 0) {
             this.triggerDelay = delay;
         } else {

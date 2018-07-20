@@ -1,4 +1,8 @@
-package event;
+package event.compound_event;
+
+import event.Event;
+import event.Opcode;
+import event.SimpleEvent;
 
 import java.util.List;
 

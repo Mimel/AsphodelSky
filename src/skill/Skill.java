@@ -4,6 +4,7 @@ import event.SimpleEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -18,15 +19,31 @@ public class Skill {
      */
     private static final AtomicInteger AUTO_INCR_ID = new AtomicInteger(0);
 
+    /**
+     * The id of the skill. The id of all different skills are unique,
+     * and the id of all identical skills are identical.
+     */
     private final int id;
 
-    private String name;
+    /**
+     * The name of the skill.
+     */
+    private final String name;
 
-    private String desc_flavor;
+    /**
+     * A short string of text describing the skill in a colorful manner.
+     */
+    private final String desc_flavor;
 
-    private String desc_effect;
+    /**
+     * A short string of text describing the effect the skill has, and how it alters the game state.
+     */
+    private final String desc_effect;
 
-    private List<SimpleEvent> skillEffects;
+    /**
+     * A list of simple events to add to an event queue on activation.
+     */
+    private final List<SimpleEvent> skillEffects;
 
     Skill(String name, String flavor, String effect, String events) {
         id = AUTO_INCR_ID.getAndIncrement();
@@ -64,6 +81,11 @@ public class Skill {
         return desc_effect;
     }
 
+    /**
+     * Uses the skill.
+     * @param targetID The target of the skill.
+     * @return The simple events in the skill, but deep-copied, and with the target id applied to all of them.
+     */
     public List<SimpleEvent> useSkill(int targetID) {
         List<SimpleEvent> skillEventsDeepCopy = new ArrayList<>();
         for(SimpleEvent se : skillEffects) {
@@ -78,5 +100,29 @@ public class Skill {
     @Override
     public String toString() {
         return name;
+    }
+
+    /**
+     * Equates this skill with another. If the specified object is non-null, a Skill, and
+     * has an id equal to this skill, then both skills are equal.
+     * @param obj The specified object to equate this skill to.
+     * @return True if the criteria in the description are fulfilled, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+
+        if(this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        return (this.getId() == ((Skill) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

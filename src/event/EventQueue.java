@@ -4,6 +4,7 @@ import dialogue.DialogueParser;
 import dialogue.Statement;
 import entity.Act;
 import entity.Combatant;
+import event.compound_event.CompoundEvent;
 import event.flag.Flag;
 import grid.CompositeGrid;
 

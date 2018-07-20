@@ -1,9 +1,8 @@
 package event.compound_event;
 
-import event.CompoundEvent;
 import event.SimpleEvent;
 import skill.Skill;
-import skill.SkillLoader;
+import skill.SkillLibrary;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class UseSkillEvent extends CompoundEvent {
         this.setTriggerDelay(0);
 
         Skill usedSkill;
-        if((usedSkill = SkillLoader.getSkillByID(getSkillID())) != null) {
+        if((usedSkill = SkillLibrary.getSkillByID(getSkillID())) != null) {
             List<SimpleEvent> l = usedSkill.useSkill(getTargetID());
             for(SimpleEvent se : l) {
                 se.setTriggerDelay(se.getTriggerDelay() + getTriggerDelay());

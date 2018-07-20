@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class SkillLoader {
+public final class SkillLibrary {
     private static Map<Integer, Skill> skillIdToSkill;
     private static Map<String, Skill> skillNameToSkill;
 
-    private SkillLoader(){}
+    private SkillLibrary(){}
 
     public static void initializeSkillMap(String fileName) {
         if(skillIdToSkill == null) {
@@ -53,10 +53,10 @@ public final class SkillLoader {
     }
 
     public static Skill getSkillByID(int id) {
-        return skillIdToSkill.get(id);
+        return new Skill(skillIdToSkill.get(id));
     }
 
     static Skill getSkillByName(String name) {
-        return skillNameToSkill.get(name);
+        return new Skill(skillNameToSkill.get(name));
     }
 }

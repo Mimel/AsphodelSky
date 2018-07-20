@@ -194,9 +194,7 @@ public class CompositeGrid {
 	 */
 	public void addItem(int itemId, int x, int y) {
 		if(isValidLocation(x, y)) {
-			if(catalogs.getOccupantAt(x, y) == null) {
-				catalogs.placeOccupant(new Catalog(), x, y);
-			}
+			catalogs.placeOccupant(new Catalog(), x, y);
 			catalogs.getOccupantAt(x, y).insertItem(ItemLoader.getItemById(itemId), 1);
 		}
 	}
@@ -291,7 +289,7 @@ public class CompositeGrid {
 	}
 
 	public String getGridRepresentation() {
-		return name + '\n' + MAX_BOUNDS.x() + ',' + MAX_BOUNDS.y() + '\n' +
+		return getName() + '\n' + MAX_BOUNDS.x() + ',' + MAX_BOUNDS.y() + '\n' +
 				tiles + "&CATALOGS\n" +
 				catalogs + "&ACTORS\n" +
 				actors;

@@ -21,7 +21,7 @@ import item.ItemLoader;
 import item.ItemPromptLoader;
 import saveload.GridLoader;
 import saveload.GridSaver;
-import skill.SkillLoader;
+import skill.SkillLibrary;
 
 import java.awt.*;
 
@@ -101,7 +101,7 @@ public class GameView extends GameViewObserver {
 		ImageAssets.loadImageMapping();
 		ItemLoader.loadItemEffectMapping("map/item_effectmap.dat");
 		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
-		SkillLoader.initializeSkillMap("map/skill_effectmap.dat");
+		SkillLibrary.initializeSkillMap("map/skill_effectmap.dat");
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 		EnemyGenerator.loadEnemyMapping("map/enemy_infomap.dat");
 		Instruction.loadInstructionSet();
@@ -119,7 +119,7 @@ public class GameView extends GameViewObserver {
 
 		player.playSong("AttemptNo1.mp3");
 
-		new GridSaver(model).save();
+		//new GridSaver(model).save();
 
 		repaint();
 

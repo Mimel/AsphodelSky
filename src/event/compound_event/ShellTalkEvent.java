@@ -1,6 +1,5 @@
 package event.compound_event;
 
-import event.CompoundEvent;
 import event.Opcode;
 import event.SimpleEvent;
 

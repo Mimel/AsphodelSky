@@ -1,7 +1,7 @@
 package display.game;
 
 import comm.MessageManager;
-import comm.SourceDescriptionPair;
+import comm.SourceDescriptionTriplet;
 import display.game.focus.GUIFocus;
 import display.game.footer.FooterDialogue;
 import display.game.footer.FooterMessageFeed;
@@ -16,8 +16,8 @@ import event.InstructionSet;
 import event.ResponseTable;
 import grid.CompositeGrid;
 import grid.Tile;
-import item.ItemLoader;
-import item.ItemPromptLoader;
+import item.ItemLibrary;
+import item.ItemPromptLibrary;
 import saveload.GridLoader;
 import skill.SkillLibrary;
 
@@ -94,8 +94,8 @@ public class GameView extends GameViewObserver {
 		MessageManager mm = new MessageManager();
 
 		//Mapping/Images/Assets loading.
-		ImageAssets.loadImageMapping();
-		ItemPromptLoader.loadItemPromptMapping("map/item_promptmap.dat");
+		ImageAssets iAssets = new ImageAssets();
+		ItemPromptLibrary ipl = new ItemPromptLibrary("map/item_promptmap.dat");
 
 		Tile.loadTraitMapping("map/terr_infomap.dat");
 
@@ -103,15 +103,15 @@ public class GameView extends GameViewObserver {
 		InstructionSet operations = new InstructionSet(rt);
 		EventQueue eq = new EventQueue(operations);
 
-		ItemLoader il = new ItemLoader("map/item_effectmap.dat");
+		ItemLibrary il = new ItemLibrary("map/item_effectmap.dat");
 		SkillLibrary sl = new SkillLibrary("map/skill_effectmap.dat");
 		CompositeGrid model = new GridLoader("saves/1.asf", il, sl).loadGrid();
 
 		Player p1 = (Player)model.getFocusedCombatant();
-		SourceDescriptionPair sdp = new SourceDescriptionPair("", "");
+		SourceDescriptionTriplet sdp = new SourceDescriptionTriplet("", "", "");
 
-		focus = new GUIFocus(0, 0, getWidth(), getHeight(), model);
-		sidebar = new GUISidebar(0, 0, 500, 800, p1);
+		focus = new GUIFocus(0, 0, getWidth(), getHeight(), model, iAssets);
+		sidebar = new GUISidebar(0, 0, 500, 800, p1, iAssets);
 		footer = new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue());
 
 		player.playSong("AttemptNo1.mp3");
@@ -120,7 +120,7 @@ public class GameView extends GameViewObserver {
 
 		repaint();
 
-		DisplayKeyBindings.initKeyBinds(this, model, p1, mm, sdp, eq);
+		DisplayKeyBindings.initKeyBinds(this, model, mm, sdp, eq, ipl);
 	}
 
 	@Override

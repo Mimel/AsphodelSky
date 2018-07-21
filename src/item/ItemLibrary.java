@@ -5,18 +5,23 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemLoader {
+/**
+ * An item library containing all possible items in the game. Whenever an item is to be added to the game state,
+ * it must be copied from this library.
+ */
+public class ItemLibrary {
 
     /**
      * Map that maps the item's name to the item as an object.
      */
-    private Map<Integer, Item> itemIDToItemMap;
+    private final Map<String, Item> itemNameToItemMap;
 
-    private Map<String, Integer> itemNameToItemIDMap;
-
-    public ItemLoader(String fileName) {
-        itemIDToItemMap = new HashMap<>();
-        itemNameToItemIDMap = new HashMap<>();
+    /**
+     * Loads this library's item mapping from a given text file.
+     * @param fileName The file name to get the item mapping from.
+     */
+    public ItemLibrary(String fileName) {
+        itemNameToItemMap = new HashMap<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String name = "";
@@ -38,8 +43,7 @@ public class ItemLoader {
                     uDesc = line;
                 } else if(line.equals("!END")) {
                     Item newestItem = new Item(name, type, vDesc, uDesc, effects.toString());
-                    itemIDToItemMap.put(newestItem.getId(), newestItem);
-                    itemNameToItemIDMap.put(name, newestItem.getId());
+                    itemNameToItemMap.put(newestItem.getName(), newestItem);
                     name = "";
                     vDesc = "";
                     uDesc = "";
@@ -53,11 +57,12 @@ public class ItemLoader {
         }
     }
 
-    public Item getItemById(int id) {
-        return itemIDToItemMap.get(id);
-    }
-
+    /**
+     * Gets a deep copy of the item in the library based on the name given.
+     * @param name The name of the item to retrieve from the library.
+     * @return The item with the given name if it exists in the library, false otherwise.
+     */
     Item getItemByName(String name) {
-        return itemIDToItemMap.get(itemNameToItemIDMap.get(name));
+        return new Item(itemNameToItemMap.get(name));
     }
 }

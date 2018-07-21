@@ -21,9 +21,8 @@ public class MessageManager {
 	 * The list of messages that are available to write.
 	 */
 	private final String[] messageBuffer;
-	
+
 	public MessageManager() {
-		
 		this.messageBuffer = new String[MESSAGEMAX];
 		this.messageHead = 0;
 	}

@@ -1,35 +1,48 @@
 package item;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.javatuples.Pair;
 
 /**
  * A catalog represents a parallel array between a set of Items and their amounts.
- * @see Item
  *
+ * A catalog, as a string, is represented by the following format, where "[ITEM NAME]"
+ * can be replaced by the exact name of an item, and "[ITEM NUMBER]" is an integer greater
+ * than zero.
+ * "[ITEM NAME]([ITEM NUMBER]),[ITEM NAME]([ITEM NUMBER]),...,END"
+ * @see Item
  */
 public class Catalog {
 	
 	/**
 	 * Set of all items present in the catalog, along with the amounts of each item. Duplicates by id cannot be inserted.
 	 */
-	private List<Pair<Item, Integer>> catalog;
+	private final List<Pair<Item, Integer>> catalog;
 	
 	/**
 	 * A catalog may have a focused item; for example, when searching through the inventory,
 	 * the focused item would be the one the cursor is over.
 	 */
 	private int focusedItemIndex;
-	
+
+	/**
+	 * Creates an empty catalog.
+	 */
 	public Catalog() {
 		catalog = new ArrayList<>();
 		focusedItemIndex = 0;
 	}
 
-	public Catalog(String catalogRepresentation, ItemLoader itemMappings) {
+	/**
+	 * Interprets a string as a catalog according to the mentioned format in the class description,
+	 * and attempts to load said items in the catalog from a given item library.
+	 * @param catalogRepresentation A string, ideally formatted so that it properly represents a catalog.
+	 * @param itemMappings A library of items that determines how the names of the items in the
+	 *                     catalog are interpreted.
+	 */
+	public Catalog(String catalogRepresentation, ItemLibrary itemMappings) {
 		catalog = new ArrayList<>();
 		focusedItemIndex = 0;
 
@@ -45,6 +58,10 @@ public class Catalog {
 		}
 	}
 
+	/**
+	 * Copy constructor for Catalog.
+	 * @param old The catalog to copy from.
+	 */
 	public Catalog(Catalog old) {
 		this.catalog = new ArrayList<>();
 		this.focusedItemIndex = old.focusedItemIndex;
@@ -53,11 +70,14 @@ public class Catalog {
 			this.insertItem(entry.getValue0(), entry.getValue1());
 		}
 	}
-	
+
 	public int getFocusIndex() {
 		return focusedItemIndex;
 	}
-	
+
+	/**
+	 * Resets the focus index to zero.
+	 */
 	public void resetFocusIndex() {
 		focusedItemIndex = 0;
 	}
@@ -116,29 +136,17 @@ public class Catalog {
 		
 		return amts;
 	}
-	
-	/**
-	 * Attempts to insert an item onto the catalog. If the item exists, the amounts list does NOT change.
-	 * @param i The item to insert.
-	 */
-	public void insertItem(Item i) {
-		
-		//Check for duplicates; Item does not get inserted if there is a duplicate.
-		for(Pair<Item, Integer> inList : catalog) {
-			if(inList.getValue0().getId() == i.getId()) {
-				return;
-			}
-		}
-		
-		catalog.add(new Pair<>(i, 1));
-	}
-	
+
 	/**
 	 * Attempts to insert a number of the same item onto the catalog. If the item already exists, the amounts list changes.
 	 * @param i The item to insert.
 	 * @param amt The number of items to add.
 	 */
 	public void insertItem(Item i, int amt) {
+		if(amt <= 0) {
+			return;
+		}
+
 		//Check for duplicates; Item's bound amount increases by AMT if it already exists.
 		for(int x = 0; x < catalog.size(); x++) {
 			Pair<Item, Integer> entry = catalog.get(x);
@@ -238,13 +246,6 @@ public class Catalog {
 	 */
 	public boolean isEmpty() {
 		return catalog.isEmpty();
-	}
-	
-	/**
-	 * Sorts the catalog by id in ascending order.
-	 */
-	public void sortCatalogById() {
-		Collections.sort(catalog);
 	}
 
 	@Override

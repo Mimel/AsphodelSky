@@ -10,6 +10,8 @@ import java.util.List;
  * A skill set, as a string, is represented by the following format, where "[SKILL NAME]"
  * can be replaced by the exact name of a skill;
  * "[SKILL NAME],[SKILL NAME],[SKILL NAME],...,END"
+ *
+ * @see Skill
  */
 public class SkillSet {
 

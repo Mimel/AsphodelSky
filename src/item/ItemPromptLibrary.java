@@ -8,19 +8,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class ItemPromptLoader {
-    private static HashMap<String, ArrayList<DisplayPrompt>> itemToPromptList;
+/**
+ * A library that binds item names to the prompts that must be added to the prompt queue
+ * when they are used.
+ *
+ * @see DisplayPrompt
+ * @see display.game.PromptManager
+ */
+public class ItemPromptLibrary {
 
-    private ItemPromptLoader() {}
+    /**
+     * A library that binds item names to the prompts that must be added to the prompt queue
+     * when they are used.
+     */
+    private final HashMap<String, ArrayList<DisplayPrompt>> itemToPromptList;
 
-    public static ArrayList<DisplayPrompt> getItemPrompts(String itemName) {
-        return itemToPromptList.get(itemName);
-    }
-
-    public static void loadItemPromptMapping(String fileName) {
-        if(itemToPromptList == null) {
-            itemToPromptList = new HashMap<>();
-        }
+    /**
+     * Loads the library mapping from a given text file.
+     * @param fileName The text file to load the library mapping from.
+     */
+    public ItemPromptLibrary(String fileName) {
+        itemToPromptList = new HashMap<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String currLine;
@@ -44,5 +52,14 @@ public final class ItemPromptLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Gets the item prompts from a given item name.
+     * @param itemName The name of the item.
+     * @return The prompts that that item usage requires, or null if either none exist or the item name doesn't exist.
+     */
+    public ArrayList<DisplayPrompt> getItemPrompts(String itemName) {
+        return itemToPromptList.get(itemName);
     }
 }

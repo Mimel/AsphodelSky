@@ -27,6 +27,7 @@ public class GUISidebar {
 	static final Point SKILLSET_OFFSET = new Point(35, 450);
 
 	private final DrawingArea bounds;
+	private final ImageAssets iAssets;
 
 	private final SidebarSelectLayer none;
 	private final SidebarSelectLayer itemSelect;
@@ -40,12 +41,15 @@ public class GUISidebar {
 	 */
 	private final Combatant combatantFocus;
 
-	public GUISidebar(int x, int y, int w, int h, Combatant focus) {
+	public GUISidebar(int x, int y, int w, int h, Combatant focus, ImageAssets iAssets) {
 		this.bounds = new DrawingArea(x, y, w, h);
 		this.combatantFocus = focus;
+		this.iAssets = iAssets;
+
 		this.none = new SidebarNoSelect();
-		this.itemSelect = new SidebarSelectItem(focus.getInventory());
-		this.skillSelect = new SidebarSelectSkill(focus.getSkillSet());
+		this.itemSelect = new SidebarSelectItem(focus.getInventory(), iAssets);
+		this.skillSelect = new SidebarSelectSkill(focus.getSkillSet(), iAssets);
+
 
 		this.currentSelection = none;
 	}
@@ -96,7 +100,7 @@ public class GUISidebar {
 				//Item.
 				if(!items.isEmpty()) {
 					Item currentItem = items.remove(0);
-					g2.drawImage(ImageAssets.getItemImage(currentItem.getName()), INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48, null);
+					g2.drawImage(iAssets.getItemImage(currentItem.getName()), INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48, null);
 					
 					g2.setColor(Color.WHITE);
 					g2.drawString(amts.remove(0).toString(), INVENTORY_OFFSET.x + (slot/INVENTORY_ROWS)*48 + 5, INVENTORY_OFFSET.y + (slot%INVENTORY_ROWS)*48 + 24);
@@ -116,7 +120,7 @@ public class GUISidebar {
 				//Skill images.
 				if(!skills.isEmpty()) {
 					Skill currentSkill = skills.remove(0);
-					g2.drawImage(ImageAssets.getSkillImage(currentSkill.getName()), SKILLSET_OFFSET.x + (slot)*48, SKILLSET_OFFSET.y, null);
+					g2.drawImage(iAssets.getSkillImage(currentSkill.getName()), SKILLSET_OFFSET.x + (slot)*48, SKILLSET_OFFSET.y, null);
 				}
 			}
 

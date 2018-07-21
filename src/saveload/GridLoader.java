@@ -1,14 +1,14 @@
 package saveload;
 
 import entity.*;
-import event.FlagType;
+import event.flag.FlagType;
 import event.Opcode;
 import event.SimpleEvent;
 import event.flag.Flag;
 import event.flag.FlagRedirectLocation;
 import grid.CompositeGrid;
 import item.Catalog;
-import item.ItemLoader;
+import item.ItemLibrary;
 import skill.SkillLibrary;
 import skill.SkillSet;
 
@@ -23,11 +23,11 @@ import java.util.List;
 public class GridLoader {
     private String filename;
 
-    private ItemLoader itemMappings;
+    private ItemLibrary itemMappings;
 
     private SkillLibrary skillMappings;
 
-    public GridLoader(String filename, ItemLoader itemMappings, SkillLibrary skillMappings) {
+    public GridLoader(String filename, ItemLibrary itemMappings, SkillLibrary skillMappings) {
         this.filename = filename;
         this.itemMappings = itemMappings;
         this.skillMappings = skillMappings;
@@ -140,7 +140,6 @@ public class GridLoader {
             } else if (firstCharacter == '#') {
                 int equalSignLoc = currLine.indexOf('=');
                 String skillCode = currLine.substring(equalSignLoc + 1);
-
                 newCombatant.addToSkillSet(new SkillSet(skillCode, skillMappings));
             } else if (firstCharacter == '+') {
                 int equalSignLoc = currLine.indexOf('=');

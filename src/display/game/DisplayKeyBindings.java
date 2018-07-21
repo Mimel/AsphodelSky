@@ -1,7 +1,7 @@
 package display.game;
 
 import comm.MessageManager;
-import comm.SourceDescriptionPair;
+import comm.SourceDescriptionTriplet;
 import display.game.sidebar.GUISidebar;
 import entity.Combatant;
 import entity.Player;
@@ -11,7 +11,7 @@ import grid.CompositeGrid;
 import grid.Point;
 import grid.Tile;
 import item.Item;
-import item.ItemPromptLoader;
+import item.ItemPromptLibrary;
 import skill.Skill;
 
 import javax.swing.*;
@@ -33,8 +33,9 @@ class DisplayKeyBindings {
     private static CompositeGrid grid;
     private static Player p1;
     private static MessageManager messageManager;
-    private static SourceDescriptionPair sdp;
+    private static SourceDescriptionTriplet sdp;
     private static CompoundEvent pendingInjection;
+    private static ItemPromptLibrary itemPromptLibrary;
 
     private static boolean lookForItemPrompts = false;
 
@@ -42,13 +43,14 @@ class DisplayKeyBindings {
      * Creates keybinds for the game.
      * @param game The GUI.
      */
-    static void initKeyBinds(GameView game, CompositeGrid grid, Player p1, MessageManager mm, SourceDescriptionPair sdp, EventQueue eq) {
+    static void initKeyBinds(GameView game, CompositeGrid grid, MessageManager mm, SourceDescriptionTriplet sdp, EventQueue eq, ItemPromptLibrary ipl) {
 
         DisplayKeyBindings.promptManager = new PromptManager(game);
         DisplayKeyBindings.grid = grid;
-        DisplayKeyBindings.p1 = p1;
+        DisplayKeyBindings.p1 = grid.getPlayer();
         DisplayKeyBindings.messageManager = mm;
         DisplayKeyBindings.sdp = sdp;
+        DisplayKeyBindings.itemPromptLibrary = ipl;
 
         Action exitProgram = new AbstractAction() {
 
@@ -167,7 +169,7 @@ class DisplayKeyBindings {
                         grid.getPlayer().getInventory().resetFocusIndex();
 
                         if(lookForItemPrompts) {
-                            ArrayList<DisplayPrompt> prompts = ItemPromptLoader.getItemPrompts(focusedItem.getName());
+                            ArrayList<DisplayPrompt> prompts = itemPromptLibrary.getItemPrompts(focusedItem.getName());
                             addPromptsToDisplayQueue(prompts.toArray(new DisplayPrompt[0]));
                             lookForItemPrompts = false;
                         }
@@ -506,23 +508,25 @@ class DisplayKeyBindings {
     private static void updateSourceDescPair(DisplayPrompt currentPrompt) {
         switch(currentPrompt) {
             case ITEM_PROMPT:
-                sdp.setSourceDescPair(p1.getInventory().getFocusedItem().getName(), p1.getInventory().getFocusedItem().getVisualDescription());
+                Item focusedItem = p1.getInventory().getFocusedItem();
+                sdp.setSourceDescPair(focusedItem.getName(), focusedItem.getVisualDescription(), focusedItem.getUseDescription());
                 break;
 
             case SKILL_PROMPT:
-                sdp.setSourceDescPair(p1.getSkillSet().getFocusedSkill().getName(), p1.getSkillSet().getFocusedSkill().getDesc_flavor());
+                Skill focusedSkill = p1.getSkillSet().getFocusedSkill();
+                sdp.setSourceDescPair(focusedSkill.getName(), focusedSkill.getDesc_flavor(), focusedSkill.getDesc_effect());
                 break;
             case ACTOR_PROMPT:
             case TILE_PROMPT:
                 if (grid.getFocusedCombatant() != null) {
                     Combatant o = grid.getFocusedCombatant();
-                    sdp.setSourceDescPair(o.toString(), o.getDesc());
+                    sdp.setSourceDescPair(o.toString(), o.getDesc(), o.getHealth() + "/" + o.getMaxHealth());
                 } else if (!(grid.getFocusedCatalog() == null) && !grid.getFocusedCatalog().isEmpty()) {
                     Item i = grid.getFocusedCatalog().getFocusedItem();
-                    sdp.setSourceDescPair(i.getName(), i.getVisualDescription());
+                    sdp.setSourceDescPair(i.getName(), i.getVisualDescription(), i.getUseDescription());
                 } else {
                     Tile t = grid.getFocusedTile();
-                    sdp.setSourceDescPair(t.getName(), t.getDesc());
+                    sdp.setSourceDescPair(t.getName(), t.getDesc(), t.getTerrain() + "");
                 }
                 break;
         }

@@ -1,4 +1,4 @@
-package event;
+package event.flag;
 
 /**
  * Determies the operation a flag does when it fires.

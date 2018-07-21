@@ -2,7 +2,6 @@ package event.flag;
 
 import entity.Combatant;
 import event.EventQueue;
-import event.FlagType;
 import event.Opcode;
 import event.SimpleEvent;
 

@@ -6,9 +6,7 @@ import grid.CompositeGrid;
 import item.Catalog;
 import skill.SkillSet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -29,6 +27,11 @@ public abstract class Combatant implements Entity {
 	 * Increments the ID upon Combatant creation.
 	 */
 	private static final AtomicInteger auto_incr_id = new AtomicInteger(0);
+
+	/**
+	 *
+	 */
+	private static final Set<Integer> takenIDs = new TreeSet<>();
 	
 	/**
 	 * The id of the combatant. Each instance of any enemy has a unique integer id,

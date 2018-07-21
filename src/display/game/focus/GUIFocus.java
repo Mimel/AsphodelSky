@@ -15,11 +15,15 @@ public class GUIFocus {
 
     private DrawingArea bounds;
 
-    public GUIFocus(int x, int y, int w, int h, CompositeGrid model) {
+    private ImageAssets imageAssets;
+
+    public GUIFocus(int x, int y, int w, int h, CompositeGrid model, ImageAssets assets) {
         this.model = model;
         this.bounds = new DrawingArea(x, y, w, h);
         this.trueOrigin = new Point(0, 0);
         recalculateTrueOrigin();
+
+        this.imageAssets = assets;
     }
 
     public void paint(Graphics g) {
@@ -78,19 +82,19 @@ public class GUIFocus {
         Combatant currentCombatant;
         for(int y = testy + yMargin; y < bounds.getHeight() && start.y < model.getNumberOfRows(); y += ImageAssets.SPRITE_DIMENSION_PX) {
             for(int x = testx + xMargin; x < bounds.getWidth() && start.x < model.getNumberOfColumns(); x += ImageAssets.SPRITE_DIMENSION_PX) {
-                g.drawImage(ImageAssets.getTerrainImage(model.getTileAt(start.x, start.y).getTerrain()), x, y, null);
+                g.drawImage(imageAssets.getTerrainImage(model.getTileAt(start.x, start.y).getTerrain()), x, y, null);
 
                 if((currentCombatant = model.getCombatantAt(start.x, start.y)) != null) {
                     if(currentCombatant.getId() == Player.PLAYER_ID) {
                         g.setColor(new Color(200, 100, 30));
                         g.fillRect(x, y, ImageAssets.SPRITE_DIMENSION_PX, ImageAssets.SPRITE_DIMENSION_PX);
                     } else {
-                        g.drawImage(ImageAssets.getCharImage(currentCombatant.getName()), x, y, null);
+                        g.drawImage(imageAssets.getCharImage(currentCombatant.getName()), x, y, null);
                     }
                 }
 
                 if(model.getItemsOnTile(start.x, start.y) != null && !model.getItemsOnTile(start.x, start.y).isEmpty()) {
-                    g.drawImage(ImageAssets.getItemImage(model.getItemsOnTile(start.x, start.y).getFocusedItem().getName()), x, y, null);
+                    g.drawImage(imageAssets.getItemImage(model.getItemsOnTile(start.x, start.y).getFocusedItem().getName()), x, y, null);
                 }
 
                 start.translate(1, 0);

@@ -12,8 +12,6 @@ import event.SimpleEvent;
  * An item is an interactable object that exists on a CompositeGrid.
  * 
  * @see Catalog
- * @author Matt Imel
- *
  */
 public class Item implements Comparable<Item> {
 
@@ -31,26 +29,29 @@ public class Item implements Comparable<Item> {
 	/**
 	 * The name of the item.
 	 */
-	protected String name;
+	private final String name;
 
-	protected ItemType type;
+	/**
+	 * The type of item.
+	 */
+	private final ItemType type;
 	
 	/**
 	 * A visual description of the item.
 	 */
-	protected String descVis;
+	private final String descVis;
 
 	/**
 	 * A description of the item shown on use.
 	 */
-	protected String descUse;
+	private final String descUse;
 
 	/**
 	 * The events to perform upon use.
 	 */
-	private List<SimpleEvent> useEffects;
+	private final List<SimpleEvent> useEffects;
 
-	protected Item(String name, ItemType it, String vDesc, String uDesc, String effects) {
+	Item(String name, ItemType it, String vDesc, String uDesc, String effects) {
 		id = AUTO_INCR_ID.getAndIncrement();
 		this.name = name;
 		this.type = it;
@@ -115,6 +116,11 @@ public class Item implements Comparable<Item> {
 		return eventsDeepCopy;
 	}
 
+	/**
+	 * Two items are equal if their ids are the same.
+	 * @param obj The second item to compare this to.
+	 * @return True if this object's id equals the passed item's id. False otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) {

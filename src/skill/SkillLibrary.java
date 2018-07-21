@@ -6,12 +6,22 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A skill library containing all possible skills in the game. Whenever a skill is to be added to the game state,
+ * it must be copied from this library.
+ */
 public class SkillLibrary {
-    private Map<Integer, Skill> skillIdToSkill;
-    private Map<String, Skill> skillNameToSkill;
 
+    /**
+     * A map that maps the names of skills to the skills themselves.
+     */
+    private final Map<String, Skill> skillNameToSkill;
+
+    /**
+     * Loads the skills into the library via text file.
+     * @param fileName The file to read the skill data from.
+     */
     public SkillLibrary(String fileName) {
-        skillIdToSkill = new HashMap<>();
         skillNameToSkill = new HashMap<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -31,7 +41,6 @@ public class SkillLibrary {
                     uDesc = line;
                 } else if(line.equals("!END")) {
                     Skill newestSkill = new Skill(name, vDesc, uDesc, effects.toString());
-                    skillIdToSkill.put(newestSkill.getId(), newestSkill);
                     skillNameToSkill.put(name, newestSkill);
                     name = "";
                     vDesc = "";
@@ -46,10 +55,11 @@ public class SkillLibrary {
         }
     }
 
-    public Skill getSkillByID(int id) {
-        return new Skill(skillIdToSkill.get(id));
-    }
-
+    /**
+     * Gets a deep copy of a skill from the library based on the name given.
+     * @param name The name of a skill.
+     * @return A deep-copied skill from the map, or null if the name is not a key in it.
+     */
     Skill getSkillByName(String name) {
         return new Skill(skillNameToSkill.get(name));
     }

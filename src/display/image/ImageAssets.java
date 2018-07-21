@@ -14,25 +14,16 @@ import javax.imageio.ImageIO;
  * A utility class that stores image data, as well as performs character-to-image conversions via mutliple hashmaps.
  * @author Matt Imel
  */
-public final class ImageAssets {
+public class ImageAssets {
 	public static final int SPRITE_DIMENSION_PX = 48;
 	
-	private static HashMap<Character, Image> terrIdToImage;
-	private static HashMap<String, Image> itemIdToImage;
-	private static HashMap<String, Image> skillIdToImage;
-	private static HashMap<String, Image> charIdToImage;
-	private static HashMap<Character, Image> miscIdToImage;
+	private HashMap<Character, Image> terrIdToImage;
+	private HashMap<String, Image> itemIdToImage;
+	private HashMap<String, Image> skillIdToImage;
+	private HashMap<String, Image> charIdToImage;
+	private HashMap<Character, Image> miscIdToImage;
 
-	/**
-	 * Private constructor used to prevent instantiation of this utility class.
-	 */
-	private ImageAssets() {}
-	
-	/**
-	 * Forces class initialization. Must be called anywhere at least once in order to begin initialization
-	 * and use the class assets. May be a touch hacky in implementation, and will possibly be temporary.
-	 */
-	public static void loadImageMapping() {
+	public ImageAssets() {
 		try {
 			// Initialize tilesets.
 			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
@@ -57,29 +48,29 @@ public final class ImageAssets {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Gets the image in the tileset that is bound to the given character.
 	 * @param key The character of the image to retrieve.
 	 * @return The image bound to the key.
 	 */
-	public static Image getTerrainImage(char key) {
+	public Image getTerrainImage(char key) {
 		return terrIdToImage.get(key);
 	}
 	
-	public static Image getItemImage(String key) {
+	public Image getItemImage(String key) {
 		return itemIdToImage.get(key);
 	}
 
-	public static Image getSkillImage(String key) {
+	public Image getSkillImage(String key) {
 	    return skillIdToImage.get(key);
     }
 	
-	public static Image getCharImage(String key) {
+	public Image getCharImage(String key) {
 		return charIdToImage.get(key);
 	}
 
-	public static Image getMiscImage(char key) { return miscIdToImage.get(key); }
+	public Image getMiscImage(char key) { return miscIdToImage.get(key); }
 	
 	/**
 	 * Fills a given hashmap with keys (Specified characters) and values (x, y margins) by parsing a 
@@ -93,7 +84,7 @@ public final class ImageAssets {
 	 *                based off of this file.
 	 * @param fileName The name of the text file to read.
 	 */
-	private static void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName) {
+	private void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
 			String pair;
 			char key;
@@ -131,7 +122,7 @@ public final class ImageAssets {
 	 *                based off of this file.
 	 * @param fileName The name of the text file to read.
 	 */
-	private static void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName) {
+	private void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
 			String pair;
 			String key;

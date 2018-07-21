@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A skill is a an ability that a combatant uses that alters the game state by adding
  * events to the event queue.
+ *
+ * @see SkillSet
  */
 public class Skill {
 
@@ -66,7 +68,7 @@ public class Skill {
         this.skillEffects = s.skillEffects;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 

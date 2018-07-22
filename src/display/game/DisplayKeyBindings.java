@@ -104,7 +104,6 @@ class DisplayKeyBindings {
 
                     //Moves the cursor over the inventory.
                     if(p1.getInventory().setFocus(xOffset * GUISidebar.INVENTORY_ROWS + yOffset)) {
-                        //p1.updatePlayer(); //TODO UPDATE PLAYER
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
 
@@ -112,7 +111,6 @@ class DisplayKeyBindings {
 
                     //Moves the cursor over the skill set.
                     if(p1.getSkillSet().setFocusedSkillIndex(xOffset)) {
-                        //p1.updatePlayer(); //TODO UPDATE PLAYER
                         updateSourceDescPair(promptManager.peekPrompt());
                     }
 
@@ -124,7 +122,7 @@ class DisplayKeyBindings {
                         messages = eq.progressTimeBy(1, grid);
                     } else {
                         Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
-                        Combatant target = grid.getCombatantAt(playerPos.x() + xOffset, playerPos.y() + yOffset);
+                        Combatant target = grid.getCombatantAt(new Point(playerPos.x() + xOffset, playerPos.y() + yOffset));
 
                         SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP, grid.getPlayer());
                         attackAdjacentEvent.getData().setTargetTo(target).setSecondaryTo(-4);

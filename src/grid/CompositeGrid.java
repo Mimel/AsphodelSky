@@ -97,35 +97,34 @@ public class CompositeGrid {
 	}
 
 	public Catalog getFocusedCatalog() {
-		return catalogs.getOccupantAt(focalPoint.x(), focalPoint.y());
+		return catalogs.getOccupantAt(focalPoint);
 	}
 
 	public Combatant getFocusedCombatant() {
-		return actors.getOccupantAt(focalPoint.x(), focalPoint.y());
+		return actors.getOccupantAt(focalPoint);
 	}
 
 	public Tile getFocusedTile() {
-		return tiles.getOccupantAt(focalPoint.x(), focalPoint.y());
+		return tiles.getOccupantAt(focalPoint);
 	}
 
 	/**
 	 * Attempts to get a tile within the map at the specified coordinates.
 	 * 
-	 * @param x The X-coordinate of the tile requested.
-	 * @param y The Y-coordinate of the tile requested.
+	 * @param loc The location of the tile requested.
 	 * @return The tile if it can be found, or null if it can't.
 	 */
-	public Tile getTileAt(int x, int y) {
-		return tiles.getOccupantAt(x, y);
+	public Tile getTileAt(Point loc) {
+		return tiles.getOccupantAt(loc);
 	}
 
-	public void setTileAt(int x, int y, char terrain) {
-		tiles.placeOccupant(new Tile(terrain), x, y);
+	public void setTileAt(char terrain, Point loc) {
+		tiles.placeOccupant(new Tile(terrain), loc);
 	}
 
-	public void addCombatant(Combatant c, int x, int y) {
-		if(tiles.canOccupy(x, y) && actors.canOccupy(x, y)) {
-			actors.placeOccupant(c, x, y);
+	public void addCombatant(Combatant c, Point loc) {
+		if(tiles.canOccupy(loc) && actors.canOccupy(loc)) {
+			actors.placeOccupant(c, loc);
 		}
 	}
 
@@ -137,8 +136,8 @@ public class CompositeGrid {
 		return actors.getLocationById(id);
 	}
 
-	public Combatant getCombatantAt(int x, int y) {
-		return actors.getOccupantAt(x, y);
+	public Combatant getCombatantAt(Point loc) {
+		return actors.getOccupantAt(loc);
 	}
 
 	public Combatant[] getAllCombatants() {
@@ -153,29 +152,29 @@ public class CompositeGrid {
 	 * @param yOffset The Y-amount to shift the combatant by.
 	 */
 	public void moveCombatant(Combatant combatantToMove, int xOffset, int yOffset) {
-		Point loc = actors.getLocationById(combatantToMove.getId());
-		int newX = loc.x() + xOffset;
-		int newY = loc.y() + yOffset;
+		Point currentLocation = actors.getLocationById(combatantToMove.getId());
+		Point newLocation = new Point(currentLocation.x() + xOffset, currentLocation.y() + yOffset);
 
-		if(tiles.canOccupy(newX, newY) && actors.canOccupy(newX, newY)) {
+		if(tiles.canOccupy(newLocation) && actors.canOccupy(newLocation)) {
 			Combatant c = actors.removeOccuapantById(combatantToMove.getId());
-			actors.placeOccupant(c, newX, newY);
+			actors.placeOccupant(c, newLocation);
 
 			if(isBoundToCombatant && boundId == combatantToMove.getId()) {
-				focalPoint = new Point(newX, newY);
+				focalPoint = newLocation;
 			}
 		}
 	}
 
 	public boolean isTileOccupiedRelativeTo(int id, int x, int y) {
 		Point aLoc = actors.getLocationById(id);
-		return (actors.getOccupantAt(aLoc.x() + x, aLoc.y() + y) != null);
+		Point targetLocation = new Point(aLoc.x() + x, aLoc.y() + y);
+		return (actors.getOccupantAt(targetLocation) != null);
 	}
 
 	public void killCombatant(Combatant combatantToKill) {
 		Point loc = actors.getLocationById(combatantToKill.getId());
 		Combatant killedCombatant = actors.removeOccuapantById(combatantToKill.getId());
-		catalogs.placeOccupant(killedCombatant.getInventory(), loc.x(), loc.y());
+		catalogs.placeOccupant(killedCombatant.getInventory(), loc);
 	}
 
 	/**
@@ -197,14 +196,14 @@ public class CompositeGrid {
 	 * @param placeToAdd The tile to spawn the item in.
 	 */
 	public void addItem(Item item, Point placeToAdd) {
-		if(isValidLocation(placeToAdd.x(), placeToAdd.y())) {
-			catalogs.placeOccupant(new Catalog(), placeToAdd.x(), placeToAdd.y());
-			catalogs.getOccupantAt(placeToAdd.x(), placeToAdd.y()).insertItem(item, 1);
+		if(isValidLocation(placeToAdd)) {
+			catalogs.placeOccupant(new Catalog(), placeToAdd);
+			catalogs.getOccupantAt(placeToAdd).insertItem(item, 1);
 		}
 	}
 
-	public void addCatalog(Catalog catalog, int x, int y) {
-		catalogs.placeOccupant(catalog, x, y);
+	public void addCatalog(Catalog catalog, Point loc) {
+		catalogs.placeOccupant(catalog, loc);
 	}
 
 	/**
@@ -214,29 +213,16 @@ public class CompositeGrid {
 	 */
 	public Catalog getItemsOnTileWithCombatant(Combatant c) {
 		Point loc = actors.getLocationById(c.getId());
-		return catalogs.getOccupantAt(loc.x(), loc.y());
+		return catalogs.getOccupantAt(loc);
 	}
 
-	public Catalog getItemsOnTile(int x, int y) {
-		return catalogs.getOccupantAt(x, y);
+	public Catalog getCatalogOnTile(Point loc) {
+		return catalogs.getOccupantAt(loc);
 	}
 
-	/**
-	 * Removes an item from the given tile.
-	 * @param itemToRemove The item to remove.
-	 * @param x The x-coordinate of the tile to remove the item from.
-	 * @param y The y-coordinate of the tile to remove the item from.
-	 */
-	public void removeItem(Item itemToRemove, int x, int y) {
+	public void removeItem(Item itemToRemove, int numberToRemove, Point loc) {
 		Catalog c;
-		if((c = catalogs.getOccupantAt(x, y)) != null) {
-			c.consumeItem(itemToRemove);
-		}
-	}
-
-	public void removeItem(Item itemToRemove, int numberToRemove, int x, int y) {
-		Catalog c;
-		if((c = catalogs.getOccupantAt(x, y)) != null) {
+		if((c = catalogs.getOccupantAt(loc)) != null) {
 			c.consumeItem(itemToRemove, numberToRemove);
 		}
 	}
@@ -245,15 +231,14 @@ public class CompositeGrid {
 	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
 	 * If there is no crosshair in the given tile, that tile becomes focused.
 	 * Else, the the "isFocused" flag switches between the given tile and the tile plus offsets.
-	 * @param xOffset The X-shift where the entity will go.
-	 * @param yOffset The Y-shift where the entity will go.
+	 * @param xOffset The X-shift where the crosshair will go.
+	 * @param yOffset The Y-shift where the crosshair will go.
 	 */
 	public void shiftFocus(int xOffset, int yOffset) {
-		int newxPosition = focalPoint.x() + xOffset;
-		int newyPosition = focalPoint.y() + yOffset;
-		if(isValidLocation(newxPosition, newyPosition)) {
+		Point newFocalPoint = new Point(focalPoint.x() + xOffset, focalPoint.y() + yOffset);
+		if(isValidLocation(newFocalPoint)) {
 			isBoundToCombatant = false;
-			focalPoint = new Point(newxPosition, newyPosition);
+			focalPoint = newFocalPoint;
 		}
 	}
 
@@ -284,12 +269,11 @@ public class CompositeGrid {
 	
 	/**
 	 * Checks to see if the given coordinates represent a valid location on the grid.
-	 * @param xCoord The X-coordinate.
-	 * @param yCoord The Y-coordinate.
+	 * @param loc The set of coordinates.
 	 * @return True if the location exists on the grid, false otherwise.
 	 */
-	private boolean isValidLocation(int xCoord, int yCoord) {
-		return xCoord >= 0 && yCoord >= 0 && yCoord < MAX_BOUNDS.y() && xCoord < MAX_BOUNDS.x();
+	private boolean isValidLocation(Point loc) {
+		return loc.x() >= 0 && loc.y() >= 0 && loc.x() < MAX_BOUNDS.x() && loc.y() < MAX_BOUNDS.y();
 	}
 
 	public String getGridRepresentation() {

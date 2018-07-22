@@ -45,17 +45,17 @@ public class InstructionSet
         });
 
         instructionSet.put(Opcode.TILE_REMOVE, (opData, grid) -> {
-            grid.removeItem(opData.getItem(), opData.getSecondary(), opData.getTile().x(), opData.getTile().y());
+            grid.removeItem(opData.getItem(), opData.getSecondary(), opData.getTile());
             return null;
         });
 
         instructionSet.put(Opcode.TILE_REMOVEALL, (opData, grid) -> {
-            grid.removeItem(opData.getItem(), opData.getTile().x(), opData.getTile().y());
+            grid.removeItem(opData.getItem(), opData.getTile().x(), opData.getTile());
             return null;
         });
 
         instructionSet.put(Opcode.TILE_CLEAR, (opData, grid) -> {
-            grid.getTileAt(opData.getTile().x(), opData.getTile().y()).getCatalog().clearCatalog();
+            grid.getCatalogOnTile(opData.getTile()).clearCatalog();
             return null;
         });
 

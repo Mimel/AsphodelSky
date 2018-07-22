@@ -30,11 +30,16 @@ public class Point {
         return y;
     }
 
-    public double distanceTo(Point p2) {
+    double distanceTo(Point p2) {
         return Math.sqrt(Math.pow(p2.y() - y, 2) + Math.pow(p2.x() - x, 2));
     }
 
-    public Direction horizontalDirectionToward(Point p2) {
+    /**
+     * Gets the horizontal direction from this point to a given point.
+     * @param p2 The second point to measure to.
+     * @return EAST, CENTER, or WEST, depending if this point has a lower, equal or higher x-Coordinate value than the given point.
+     */
+    Direction horizontalDirectionToward(Point p2) {
         if(p2.x() > x) {
             return EAST;
         } else if(p2.x() < x) {
@@ -44,7 +49,12 @@ public class Point {
         }
     }
 
-    public Direction verticalDirectionToward(Point p2) {
+    /**
+     * Gets the vertical direction from this point to a given point.
+     * @param p2 The second point to measure to.
+     * @return NORTH, CENTER, or SOUTH, depending if this point has a lower, equal or higher y-Coordinate value than the given point.
+     */
+    Direction verticalDirectionToward(Point p2) {
         if(p2.y() > y) {
             return SOUTH;
         } else if(p2.y() < y) {

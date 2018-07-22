@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Stringent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/comm/MessageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/comm/MessageManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/comm/SourceDescriptionPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/game/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/display/game/focus/GUIFocus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/focus/GUIFocus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/game/footer/FooterShortDescriptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/footer/FooterShortDescriptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/game/sidebar/GUISidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/sidebar/GUISidebar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/display/image/ImageAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/display/image/ImageAssets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Combatant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Combatant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/FlagType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/flag/FlagType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/flag/ProtocolAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/flag/ProtocolAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/flag/ProtocolCancel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/flag/ProtocolCancel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/flag/ProtocolReplace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/flag/ProtocolReplace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/flag/ProtocolStay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/flag/ProtocolStay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/item/Catalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/item/Catalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/item/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/item/ItemLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/item/ItemLibrary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/item/ItemPromptLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/item/ItemPromptLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/event/InstructionSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/InstructionSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/CatalogGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/CatalogGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/CombatantGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/CombatantGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/CompositeGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/CompositeGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grid/TileGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grid/TileGrid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/saveload/GridLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/saveload/GridLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skill/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/skill/Skill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skill/SkillLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/skill/SkillLibrary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skill/SkillSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/skill/SkillSet.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +38,21 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="CompositeGrid.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/grid/CompositeGrid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="224" column="12" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
+              <folding>
+                <element signature="e#1512#1513#0" expanded="true" />
+                <element signature="e#1530#1531#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -58,7 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>(SimpleEvent</find>
       <find>(SimpleEvent)</find>
       <find>B</find>
       <find>System.out.println</find>
@@ -88,9 +94,9 @@
       <find>catalogDetails</find>
       <find>reinitializeSkillSet</find>
       <find>ImageAssets</find>
+      <find>newX</find>
     </findStrings>
     <replaceStrings>
-      <replace>get()</replace>
       <replace>getTriggerDelay()</replace>
       <replace>getAffectedId()</replace>
       <replace>int</replace>
@@ -120,6 +126,7 @@
       <replace>actorDetails</replace>
       <replace>#SKILLS</replace>
       <replace>imageAssets</replace>
+      <replace>newLocation</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\Owner\Documents\Programming\Java\AsphodelSky\dialogue</dir>
@@ -131,13 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/grid/TileGrid.java" />
-        <option value="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
-        <option value="$PROJECT_DIR$/src/skill/SkillLoader.java" />
-        <option value="$PROJECT_DIR$/src/grid/Point.java" />
-        <option value="$PROJECT_DIR$/src/event/flag/Flag.java" />
-        <option value="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
-        <option value="$PROJECT_DIR$/src/event/Event.java" />
         <option value="$PROJECT_DIR$/src/entity/NullCombatant.java" />
         <option value="$PROJECT_DIR$/src/event/compound_event/CompoundEvent.java" />
         <option value="$PROJECT_DIR$/src/event/compound_event/DropItemEvent.java" />
@@ -154,25 +154,20 @@
         <option value="$PROJECT_DIR$/src/event/ResponseTablle.java" />
         <option value="$PROJECT_DIR$/src/event/Instruction.java" />
         <option value="$PROJECT_DIR$/src/event/ResponseTable.java" />
-        <option value="$PROJECT_DIR$/src/event/InstructionSet.java" />
         <option value="$PROJECT_DIR$/src/event/SimpleEvent.java" />
         <option value="$PROJECT_DIR$/src/event/EventQueue.java" />
         <option value="$PROJECT_DIR$/src/entity/EnemyGenerator.java" />
         <option value="$PROJECT_DIR$/src/entity/CombatantGenerator.java" />
         <option value="$PROJECT_DIR$/saves/1.asf" />
-        <option value="$PROJECT_DIR$/src/saveload/GridLoader.java" />
         <option value="$PROJECT_DIR$/src/display/image/ImageAssets.java" />
-        <option value="$PROJECT_DIR$/src/display/game/focus/GUIFocus.java" />
         <option value="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectSkill.java" />
         <option value="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectItem.java" />
         <option value="$PROJECT_DIR$/src/display/game/sidebar/GUISidebar.java" />
         <option value="$PROJECT_DIR$/src/entity/Combatant.java" />
         <option value="$PROJECT_DIR$/src/comm/SourceDescriptionPair.java" />
-        <option value="$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java" />
         <option value="$PROJECT_DIR$/src/display/game/footer/FooterShortDescriptor.java" />
         <option value="$PROJECT_DIR$/src/item/ItemLoader.java" />
         <option value="$PROJECT_DIR$/src/display/game/GameView.java" />
-        <option value="$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java" />
         <option value="$PROJECT_DIR$/src/item/ItemType.java" />
         <option value="$PROJECT_DIR$/src/skill/SkillLibrary.java" />
         <option value="$PROJECT_DIR$/src/skill/Skill.java" />
@@ -182,6 +177,18 @@
         <option value="$PROJECT_DIR$/src/item/ItemLibrary.java" />
         <option value="$PROJECT_DIR$/src/item/ItemPromptLibrary.java" />
         <option value="$PROJECT_DIR$/src/comm/MessageManager.java" />
+        <option value="$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java" />
+        <option value="$PROJECT_DIR$/src/grid/Point.java" />
+        <option value="$PROJECT_DIR$/src/grid/Tile.java" />
+        <option value="$PROJECT_DIR$/src/grid/Grid.java" />
+        <option value="$PROJECT_DIR$/src/grid/CatalogGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/CombatantGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/TileGrid.java" />
+        <option value="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
+        <option value="$PROJECT_DIR$/src/display/game/focus/GUIFocus.java" />
+        <option value="$PROJECT_DIR$/src/event/InstructionSet.java" />
+        <option value="$PROJECT_DIR$/src/saveload/GridLoader.java" />
+        <option value="$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java" />
       </list>
     </option>
   </component>
@@ -192,8 +199,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="548" />
-    <option name="y" value="-8" />
+    <option name="x" value="780" />
+    <option name="y" value="-12" />
     <option name="width" value="969" />
     <option name="height" value="1080" />
   </component>
@@ -203,8 +210,30 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Problems">
           <expand>
@@ -227,37 +256,15 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/AsphodelSky/src/entity/Combatant.java" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/jlayer1.0.1/JLayer1.0.1/jl1.0.1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="run.code.analysis.last.selected.profile" value="pStringent" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
@@ -389,13 +396,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Added additional enemies.">
-      <created>1516040251110</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1516040251112</updated>
     </task>
     <task id="LOCAL-00089" summary="Refactored Flag classes to eliminate switch statement in checkForTrigger().">
       <created>1530135762149</created>
@@ -733,7 +733,14 @@
       <option name="project" value="LOCAL" />
       <updated>1532122763332</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="Various small refactors in the item and skill packages.">
+      <created>1532157322219</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1532157322219</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TodoView">
@@ -750,20 +757,20 @@
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.46481878" weight="0.10828026" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42864582" weight="0.3673036" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42697227" weight="0.3673036" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.46770832" side_tool="true" weight="0.18642351" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.28304905" side_tool="true" visible="true" weight="0.27494693" />
       <window_info anchor="top" id="Maven Projects" order="0" weight="0.6759582" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.48081023" weight="0.24522293" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53229165" weight="0.43630573" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53198296" weight="0.43630573" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4936034" weight="0.2282378" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6326964" visible="true" weight="0.124200426" />
-      <window_info anchor="bottom" id="Inspection Results" order="9" sideWeight="0.7188694" weight="0.20063694" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.4523061" visible="true" weight="0.33651805" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6326964" visible="true" weight="0.108208954" />
+      <window_info anchor="bottom" id="Inspection Results" order="9" sideWeight="0.71695095" visible="true" weight="0.27494693" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.45149255" weight="0.39065817" />
       <window_info anchor="right" id="Structure" order="9" sideWeight="0.3673036" side_tool="true" weight="0.007995736" />
       <window_info anchor="right" id="Ant Build" order="2" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -825,7 +832,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Adjusted music looping in AudioPlayer by setting cycle counts instead of on song end events." />
     <MESSAGE value="Added mouse controls to main menu." />
     <MESSAGE value="Added in-game pause menu implementation, made &quot;start&quot; option in main menu open a JLayeredPane instead of the GameSession JPanel." />
     <MESSAGE value="Pause Menu is now implemented correctly via Observer." />
@@ -850,7 +856,8 @@
     <MESSAGE value="InstructionSet and ResponseTable are no longer utility classes - ResponseTable is now a member of InstructionSet, and InstructionSet is now a member of EventQueue." />
     <MESSAGE value="Removed EnemyGenerator, integrated methods into FileLoader." />
     <MESSAGE value="Integrated ItemLoader and SkillLibrary into GridLoader." />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrated ItemLoader and SkillLibrary into GridLoader." />
+    <MESSAGE value="Various small refactors in the item and skill packages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Various small refactors in the item and skill packages." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -890,81 +897,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/event/flag/Flag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="55" column="53" selection-start-line="55" selection-start-column="53" selection-end-line="55" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/CatalogGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/EventComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/compound_event/CompoundEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#285#286#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/compound_event/DropItemEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-          <folding>
-            <element signature="e#232#233#0" expanded="true" />
-            <element signature="e#269#270#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/compound_event/NoOpEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/compound_event/ShellTalkEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/compound_event/UseItemEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/event/compound_event/UseSkillEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="15" column="92" selection-start-line="15" selection-start-column="92" selection-end-line="15" selection-end-column="92" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,9 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="755">
           <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1010,11 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#235#236#0" expanded="true" />
-            <element signature="e#262#263#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1043,9 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="107" selection-start-line="12" selection-start-column="107" selection-end-line="12" selection-end-column="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1053,9 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="92" column="7" lean-forward="true" selection-start-line="92" selection-start-column="7" selection-end-line="92" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,47 +992,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/event/InstructionSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/CombatantGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="30" column="18" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/CompositeGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grid/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-361">
-          <caret line="25" column="73" lean-forward="true" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/CombatantGenerator.java" />
     <entry file="file://$PROJECT_DIR$/saves/1.asf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5128">
@@ -1121,16 +1006,6 @@
     <entry file="file://$PROJECT_DIR$/map/skill_effectmap.dat">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/saveload/GridLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="141" column="72" selection-start-line="141" selection-start-column="72" selection-end-line="141" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/image/ImageAssets.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-85">
@@ -1138,20 +1013,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/game/focus/GUIFocus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="86" column="45" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectSkill.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1190,17 +1055,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="39" lean-forward="true" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-          <folding>
-            <element signature="e#620#621#0" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/display/game/footer/GUIFooter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1233,9 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="11" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1243,16 +1094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
           <caret line="249" lean-forward="true" selection-start-line="249" selection-end-line="249" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="168" column="74" lean-forward="true" selection-start-line="168" selection-start-column="74" selection-end-line="168" selection-end-column="74" />
         </state>
       </provider>
     </entry>
@@ -1267,9 +1108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="10" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,10 +1115,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
           <caret line="60" column="7" lean-forward="true" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="7" />
-          <folding>
-            <element signature="e#1465#1466#0" expanded="true" />
-            <element signature="e#1518#1519#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1288,10 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="62" column="89" selection-start-line="62" selection-start-column="89" selection-end-line="62" selection-end-column="89" />
-          <folding>
-            <element signature="e#2063#2064#0" expanded="true" />
-            <element signature="e#2123#2124#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1299,8 +1129,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="93" column="32" selection-start-line="93" selection-start-column="32" selection-end-line="93" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/comm/SourceDescriptionTriplet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#901#902#0" expanded="true" />
+            <element signature="e#934#935#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+            <element signature="e#1020#1021#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1309,9 +1151,136 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/Direction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control/ASControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
           <folding>
-            <element signature="e#962#963#0" expanded="true" />
-            <element signature="e#989#990#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="77" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/IdSearchableGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/CatalogGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
+          <folding>
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1058#1059#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/CombatantGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="35" column="46" lean-forward="true" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+          <folding>
+            <element signature="e#1127#1128#0" expanded="true" />
+            <element signature="e#1207#1208#0" expanded="true" />
+            <element signature="e#1259#1260#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="46" column="16" lean-forward="true" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/TileGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/game/DisplayKeyBindings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
+          <folding>
+            <element signature="e#1684#1840#0" expanded="true" />
+            <element signature="e#1839#1840#0" expanded="true" />
+            <element signature="e#5816#5817#0" expanded="true" />
+            <element signature="e#8608#9636#0" expanded="true" />
+            <element signature="e#9635#9636#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/saveload/GridLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="90" column="32" lean-forward="true" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/event/InstructionSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-550">
+          <caret line="52" column="82" lean-forward="true" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/display/game/focus/GUIFocus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1632">
+          <caret line="96" column="112" selection-start-line="96" selection-start-column="112" selection-end-line="96" selection-end-column="112" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grid/CompositeGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="224" column="12" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
+          <folding>
+            <element signature="e#1512#1513#0" expanded="true" />
+            <element signature="e#1530#1531#0" expanded="true" />
           </folding>
         </state>
       </provider>

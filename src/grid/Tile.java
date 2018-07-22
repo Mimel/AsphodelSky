@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.Combatant;
 import org.javatuples.Triplet;
-
-import item.Catalog;
 
 /**
  * The makeup of a grid, that may contain items, the player, and enemy, or otherwise;
@@ -29,7 +26,7 @@ public class Tile {
 	 * The terrain of the tile, denoted by a character.
 	 * 
 	 */
-	private char terrain;
+	private final char terrain;
 	
 	/**
 	 * The name of the tile.
@@ -53,17 +50,6 @@ public class Tile {
 	 * dissuading Combatant collision.
 	 */
 	private byte flags;
-
-	/**
-	 * The occupant of this tile. Null indicates that it either does not have an occupant
-	 * or it cannot occupy an entity.
-	 */
-	private Combatant occupant;
-	
-	/**
-	 * The set of items on this tile.
-	 */
-	private Catalog catalog;
 	
 	public Tile(char terr) {
 		this.terrain = terr;
@@ -74,12 +60,6 @@ public class Tile {
 			this.description = traits.getValue1();
 			this.flags = traits.getValue2();
 		}
-		
-		//No initial occupant.
-		this.occupant = null;
-		
-		//Tiles start with no items, with the ability to gain more.
-		this.catalog = new Catalog();
 	}
 	
 	/**
@@ -119,7 +99,7 @@ public class Tile {
 					} else {
 						switch(currLine.charAt(0)) {
 							case 'T': //Traversable
-								flags = (byte)(flags | 0b10000000);
+								flags |= 0b10000000;
 						}
 					}
 				}
@@ -133,8 +113,6 @@ public class Tile {
 	public char getTerrain() { return terrain; }
 	public String getName() { return name; }
 	public String getDesc() { return description; }
-	public Combatant getOccupant() { return occupant; }
-	public Catalog getCatalog() { return catalog; }
 
 	/**
 	 * Checks if the Traversible bit in the flags byte is on; if so, then the tile can be occupied.

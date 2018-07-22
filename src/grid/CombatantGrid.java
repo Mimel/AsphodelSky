@@ -27,19 +27,19 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
     }
 
     @Override
-    public void placeOccupant(Combatant occupant, int x, int y) {
-        coordToOccupant.put(new Point(x, y), occupant);
-        idToCoord.put(occupant.getId(), new Point(x, y));
+    public void placeOccupant(Combatant occupant, Point location) {
+        coordToOccupant.put(location, occupant);
+        idToCoord.put(occupant.getId(), location);
     }
 
     @Override
-    public boolean canOccupy(int x, int y) {
-        return !coordToOccupant.containsKey(new Point(x, y));
+    public boolean canOccupy(Point location) {
+        return !coordToOccupant.containsKey(location);
     }
 
     @Override
-    public Combatant getOccupantAt(int x, int y) {
-        return coordToOccupant.get(new Point(x, y));
+    public Combatant getOccupantAt(Point location) {
+        return coordToOccupant.get(location);
     }
 
     @Override
@@ -97,22 +97,9 @@ public class CombatantGrid implements IdSearchableGrid<Combatant> {
     }
 
     @Override
-    public Combatant removeOccupantAt(int x, int y) {
-        Combatant c = coordToOccupant.remove(new Point(x, y));
-        idToCoord.remove(c.getId());
-        return c;
-    }
-
-    @Override
     public Combatant removeOccuapantById(int id) {
         Point coords = idToCoord.remove(id);
         return coordToOccupant.remove(coords);
-    }
-
-    @Override
-    public void clearGrid() {
-        coordToOccupant.clear();
-        idToCoord.clear();
     }
 
     @Override

@@ -7,6 +7,7 @@ import event.SimpleEvent;
 import event.flag.Flag;
 import event.flag.FlagRedirectLocation;
 import grid.CompositeGrid;
+import grid.Point;
 import item.Catalog;
 import item.ItemLibrary;
 import skill.SkillLibrary;
@@ -46,7 +47,7 @@ public class GridLoader {
             for(int row = 0; row < height; row++) {
                 tilesInRow = br.readLine();
                 for(int column = 0; column < width; column++) {
-                    model.setTileAt(row, column, tilesInRow.charAt(column));
+                    model.setTileAt(tilesInRow.charAt(column), new Point(row, column));
                 }
             }
 
@@ -59,7 +60,7 @@ public class GridLoader {
                 int y = Integer.parseInt(catalogDetails.substring(catalogDetails.indexOf(',') + 1, catalogDetails.indexOf('}')));
                 String catalog = catalogDetails.substring(catalogDetails.indexOf('>') + 1);
 
-                model.addCatalog(new Catalog(catalog, itemMappings), x, y);
+                model.addCatalog(new Catalog(catalog, itemMappings), new Point(x, y));
             }
 
             String actorDetails;
@@ -77,7 +78,7 @@ public class GridLoader {
                     actorRep.add(actorDetails);
                     Combatant c = createCombatant(actorRep);
                     c.setId(id);
-                    model.addCombatant(c, x, y);
+                    model.addCombatant(c, new Point(x, y));
                     actorRep.clear();
                 } else {
                     actorRep.add(actorDetails);

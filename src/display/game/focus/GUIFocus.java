@@ -82,9 +82,9 @@ public class GUIFocus {
         Combatant currentCombatant;
         for(int y = testy + yMargin; y < bounds.getHeight() && start.y < model.getNumberOfRows(); y += ImageAssets.SPRITE_DIMENSION_PX) {
             for(int x = testx + xMargin; x < bounds.getWidth() && start.x < model.getNumberOfColumns(); x += ImageAssets.SPRITE_DIMENSION_PX) {
-                g.drawImage(imageAssets.getTerrainImage(model.getTileAt(start.x, start.y).getTerrain()), x, y, null);
+                g.drawImage(imageAssets.getTerrainImage(model.getTileAt(new grid.Point(start.x, start.y)).getTerrain()), x, y, null);
 
-                if((currentCombatant = model.getCombatantAt(start.x, start.y)) != null) {
+                if((currentCombatant = model.getCombatantAt(new grid.Point(start.x, start.y))) != null) {
                     if(currentCombatant.getId() == Player.PLAYER_ID) {
                         g.setColor(new Color(200, 100, 30));
                         g.fillRect(x, y, ImageAssets.SPRITE_DIMENSION_PX, ImageAssets.SPRITE_DIMENSION_PX);
@@ -93,8 +93,8 @@ public class GUIFocus {
                     }
                 }
 
-                if(model.getItemsOnTile(start.x, start.y) != null && !model.getItemsOnTile(start.x, start.y).isEmpty()) {
-                    g.drawImage(imageAssets.getItemImage(model.getItemsOnTile(start.x, start.y).getFocusedItem().getName()), x, y, null);
+                if(model.getCatalogOnTile(new grid.Point(start.x, start.y)) != null && !model.getCatalogOnTile(new grid.Point(start.x, start.y)).isEmpty()) {
+                    g.drawImage(imageAssets.getItemImage(model.getCatalogOnTile(new grid.Point(start.x, start.y)).getFocusedItem().getName()), x, y, null);
                 }
 
                 start.translate(1, 0);

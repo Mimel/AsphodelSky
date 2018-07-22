@@ -18,35 +18,24 @@ public class CatalogGrid implements Grid<Catalog> {
     }
 
     @Override
-    public void placeOccupant(Catalog occupant, int x, int y) {
-        Point placeToPutCatalog = new Point(x, y);
-        if(catalogMap.get(placeToPutCatalog) != null) {
-            catalogMap.get(placeToPutCatalog).transferFrom(occupant);
+    public void placeOccupant(Catalog occupant, Point location) {
+        if(catalogMap.get(location) != null) {
+            catalogMap.get(location).transferFrom(occupant);
         } else {
             Catalog newCatalog = new Catalog();
             newCatalog.transferFrom(occupant);
-            catalogMap.put(placeToPutCatalog, newCatalog);
+            catalogMap.put(location, newCatalog);
         }
     }
 
     @Override
-    public boolean canOccupy(int x, int y) {
-        return !catalogMap.containsKey(new Point(x, y));
+    public boolean canOccupy(Point location) {
+        return !catalogMap.containsKey(location);
     }
 
     @Override
-    public Catalog getOccupantAt(int x, int y) {
-        return catalogMap.get(new Point(x, y));
-    }
-
-    @Override
-    public Catalog removeOccupantAt(int x, int y) {
-        return catalogMap.remove(new Point(x, y));
-    }
-
-    @Override
-    public void clearGrid() {
-        catalogMap.clear();
+    public Catalog getOccupantAt(Point location) {
+        return catalogMap.get(location);
     }
 
     @Override

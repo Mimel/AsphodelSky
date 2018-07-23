@@ -3,9 +3,6 @@ package display.game;
 import comm.MessageManager;
 import comm.SourceDescriptionTriplet;
 import display.game.focus.GUIFocus;
-import display.game.footer.FooterDialogue;
-import display.game.footer.FooterMessageFeed;
-import display.game.footer.FooterShortDescriptor;
 import display.game.footer.GUIFooter;
 import display.game.sidebar.GUISidebar;
 import display.image.ImageAssets;
@@ -16,9 +13,10 @@ import event.InstructionSet;
 import event.ResponseTable;
 import grid.CompositeGrid;
 import grid.Tile;
+import grid.creation.GridLoaderRectangles;
 import item.ItemLibrary;
 import item.ItemPromptLibrary;
-import saveload.GridLoader;
+import grid.creation.GridLoaderFromFile;
 import skill.SkillLibrary;
 
 import java.awt.*;
@@ -105,14 +103,14 @@ public class GameView extends GameViewObserver {
 
 		ItemLibrary il = new ItemLibrary("map/item_effectmap.dat");
 		SkillLibrary sl = new SkillLibrary("map/skill_effectmap.dat");
-		CompositeGrid model = new GridLoader("saves/1.asf", il, sl).loadGrid();
+		CompositeGrid model = new GridLoaderRectangles().loadGrid();
 
 		Player p1 = (Player)model.getFocusedCombatant();
 		SourceDescriptionTriplet sdp = new SourceDescriptionTriplet("", "", "");
 
 		focus = new GUIFocus(0, 0, getWidth(), getHeight(), model, iAssets);
-		sidebar = new GUISidebar(0, 0, 500, 800, p1, iAssets);
-		footer = new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue());
+		//sidebar = new GUISidebar(0, 0, 500, 800, p1, iAssets);
+		//footer = new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue());
 
 		player.playSong("AttemptNo1.mp3");
 
@@ -128,8 +126,8 @@ public class GameView extends GameViewObserver {
 		long timeStart = System.currentTimeMillis();
 
 		focus.paint(g);
-		sidebar.paint(g);
-		footer.paint(g);
+		//sidebar.paint(g);
+		//footer.paint(g);
 
 		long timeEnd = System.currentTimeMillis();
 		System.out.println("Paint time: " + (timeEnd - timeStart) + "ms.");

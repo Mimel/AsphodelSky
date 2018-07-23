@@ -196,10 +196,6 @@ class DisplayKeyBindings {
                     }
 
                     messages = eq.progressTimeBy(0, grid);
-
-                    /*if(eq.isDialogueTreePending()) {
-                        game.getFooter().insertDialogue(eq.getPendingDialogueTree());
-                    }*/
                 } else {
                     updateSourceDescPair(promptManager.peekPrompt());
                 }

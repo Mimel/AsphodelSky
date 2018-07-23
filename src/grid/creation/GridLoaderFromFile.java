@@ -1,4 +1,4 @@
-package saveload;
+package grid.creation;
 
 import entity.*;
 import event.flag.FlagType;
@@ -21,19 +21,20 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridLoader {
+public class GridLoaderFromFile implements GridLoader {
     private String filename;
 
     private ItemLibrary itemMappings;
 
     private SkillLibrary skillMappings;
 
-    public GridLoader(String filename, ItemLibrary itemMappings, SkillLibrary skillMappings) {
+    public GridLoaderFromFile(String filename, ItemLibrary itemMappings, SkillLibrary skillMappings) {
         this.filename = filename;
         this.itemMappings = itemMappings;
         this.skillMappings = skillMappings;
     }
 
+    @Override
     public CompositeGrid loadGrid() {
         CompositeGrid model;
         try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -47,7 +48,7 @@ public class GridLoader {
             for(int row = 0; row < height; row++) {
                 tilesInRow = br.readLine();
                 for(int column = 0; column < width; column++) {
-                    model.setTileAt(tilesInRow.charAt(column), new Point(row, column));
+                    model.setTileAt(tilesInRow.charAt(column), new Point(column, row));
                 }
             }
 

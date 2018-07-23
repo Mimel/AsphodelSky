@@ -56,24 +56,10 @@ public class EventQueue {
         }
     }
 
-    public Statement getPendingDialogueTree() {
-        if(dialogueTreePending) {
-            dialogueTreePending = false;
-            return pendingDialogueTree;
-        } else {
-            return null;
-        }
-    }
-
     private void setPendingDialogueTree(Statement newTree) {
         this.pendingDialogueTree = newTree;
         dialogueTreePending = true;
     }
-
-    public boolean isDialogueTreePending() {
-        return dialogueTreePending;
-    }
-
     /**
      * Adds an event to the queue.
      * @param e The event to add.

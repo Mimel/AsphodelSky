@@ -1,5 +1,6 @@
 package grid;
 
+import grid.creation.GridLoaderRectangles;
 import item.Catalog;
 
 import java.util.HashMap;

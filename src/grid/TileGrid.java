@@ -19,7 +19,7 @@ public class TileGrid implements Grid<Tile> {
 
     @Override
     public boolean canOccupy(Point location) {
-        return (location.x() >= 0 && location.y() >= 0 && location.x() < tiles.length && location.y() < tiles[location.x()].length);
+        return (location.x() >= 0 && location.y() >= 0 && location.x() < tiles.length && location.y() < tiles[location.x()].length && getOccupantAt(location).canOccupy());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TileGrid implements Grid<Tile> {
         return tiles[location.x()][location.y()];
     }
 
-    public void clearGrid() {
+    private void clearGrid() {
         for(int x = 0; x < tiles.length; x++) {
             for(int y = 0; y < tiles[x].length; y++) {
                 tiles[x][y] = new Tile('.');

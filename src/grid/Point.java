@@ -8,16 +8,16 @@ import static grid.Direction.*;
  * Represents a set of 2D coordinates that pertain to a space on top of a grid.
  */
 public class Point {
-    private final int x;
+    private int x;
 
-    private final int y;
+    private int y;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    Point(Point p) {
+    public Point(Point p) {
         this.x = p.x;
         this.y = p.y;
     }
@@ -28,6 +28,27 @@ public class Point {
 
     public int y() {
         return y;
+    }
+
+    public void moveStepsInDirection(Direction direction, int numberOfSteps) {
+        switch(direction) {
+            case EAST:
+                x += numberOfSteps;
+                break;
+            case WEST:
+                x -= numberOfSteps;
+                break;
+            case NORTH:
+                y -= numberOfSteps;
+                break;
+            case SOUTH:
+                y += numberOfSteps;
+                break;
+        }
+    }
+
+    public boolean isValid(Point bounds) {
+        return x >= 0 && y >= 0 && x < bounds.x && y < bounds.y;
     }
 
     double distanceTo(Point p2) {

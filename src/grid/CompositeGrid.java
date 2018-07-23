@@ -76,7 +76,7 @@ public class CompositeGrid {
 		return MAX_BOUNDS.y();
 	}
 
-	public String getName() {
+	private String getName() {
 		return name;
 	}
 

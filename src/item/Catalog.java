@@ -158,24 +158,6 @@ public class Catalog {
 		
 		catalog.add(new Pair<>(i, amt));
 	}
-	
-	/**
-	 * Consumes an item, reducing its associated amount by one. If this brings the item's amount to zero, the item and it's associated amount are both removed.
-	 * @param itemToRemove The Item to remove.
-	 */
-	public void consumeItem(Item itemToRemove) {
-		for(int x = 0; x < catalog.size(); x++) {
-			if(catalog.get(x).getValue0().equals(itemToRemove)) {
-				if(catalog.get(x).getValue1() == 1) {
-					catalog.remove(x);
-				} else {
-					catalog.set(x, new Pair<>(catalog.get(x).getValue0(), catalog.get(x).getValue1() - 1));
-				}
-				return;
-			}
-		}
-
-	}
 
 	/**
 	 * Consumes a number of items from the catalog, reducing the associated amount by the number given.

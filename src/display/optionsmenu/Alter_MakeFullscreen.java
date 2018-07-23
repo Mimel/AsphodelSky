@@ -1,4 +1,4 @@
-package display.mainmenu.alterop;
+package display.optionsmenu;
 
 import javax.swing.*;
 

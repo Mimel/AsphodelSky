@@ -1,23 +1,8 @@
 package display.game;
 
-import comm.MessageManager;
-import comm.SourceDescriptionTriplet;
 import display.game.focus.GUIFocus;
 import display.game.footer.GUIFooter;
 import display.game.sidebar.GUISidebar;
-import display.image.ImageAssets;
-import display.music.AudioPlayer;
-import entity.Player;
-import event.EventQueue;
-import event.InstructionSet;
-import event.ResponseTable;
-import grid.CompositeGrid;
-import grid.Tile;
-import grid.creation.GridLoaderRectangles;
-import item.ItemLibrary;
-import item.ItemPromptLibrary;
-import grid.creation.GridLoaderFromFile;
-import skill.SkillLibrary;
 
 import java.awt.*;
 
@@ -29,28 +14,29 @@ import java.awt.*;
  */
 public class GameView extends GameViewObserver {
 
-	private GUIFocus focus;
+	private final GUIFocus focus;
 
-	private GUISidebar sidebar;
+	private final GUISidebar sidebar;
 
-	private GUIFooter footer;
+	private final GUIFooter footer;
 
 	private DisplayConfiguration currentConfig;
 
-	private AudioPlayer player;
-
-	GameView(int winWidth, int winHeight, AudioPlayer ap, GameManager gm) {
+	GameView(int winWidth, int winHeight, GUIFocus focus, GUISidebar sidebar, GUIFooter footer, GameManager gm) {
 		this.setLayout(new BorderLayout());
 
 		this.setBounds(0, 0, winWidth, winHeight);
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
-		this.player = ap;
+		this.focus = focus;
+		this.sidebar = sidebar;
+		this.footer = footer;
+
 		this.viewManager = gm;
 		this.viewManager.addObserver(this);
 
-		initializeGameSession();
+		repaint();
 	}
 
 	DisplayConfiguration getConfig() {
@@ -88,46 +74,13 @@ public class GameView extends GameViewObserver {
 		currentConfig = newConfig;
 	}
 
-	private void initializeGameSession() {
-		MessageManager mm = new MessageManager();
-
-		//Mapping/Images/Assets loading.
-		ImageAssets iAssets = new ImageAssets();
-		ItemPromptLibrary ipl = new ItemPromptLibrary("map/item_promptmap.dat");
-
-		Tile.loadTraitMapping("map/terr_infomap.dat");
-
-		ResponseTable rt = new ResponseTable("map/responsemap.dat");
-		InstructionSet operations = new InstructionSet(rt);
-		EventQueue eq = new EventQueue(operations);
-
-		ItemLibrary il = new ItemLibrary("map/item_effectmap.dat");
-		SkillLibrary sl = new SkillLibrary("map/skill_effectmap.dat");
-		CompositeGrid model = new GridLoaderRectangles().loadGrid();
-
-		Player p1 = (Player)model.getFocusedCombatant();
-		SourceDescriptionTriplet sdp = new SourceDescriptionTriplet("", "", "");
-
-		focus = new GUIFocus(0, 0, getWidth(), getHeight(), model, iAssets);
-		//sidebar = new GUISidebar(0, 0, 500, 800, p1, iAssets);
-		//footer = new GUIFooter(500, 0, 600, 200, new FooterMessageFeed(mm), new FooterShortDescriptor(sdp), new FooterDialogue());
-
-		player.playSong("AttemptNo1.mp3");
-
-		//new GridSaver(model).save();
-
-		repaint();
-
-		DisplayKeyBindings.initKeyBinds(this, model, mm, sdp, eq, ipl);
-	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		long timeStart = System.currentTimeMillis();
 
 		focus.paint(g);
-		//sidebar.paint(g);
-		//footer.paint(g);
+		sidebar.paint(g);
+		footer.paint(g);
 
 		long timeEnd = System.currentTimeMillis();
 		System.out.println("Paint time: " + (timeEnd - timeStart) + "ms.");

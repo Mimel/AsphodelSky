@@ -1,12 +1,8 @@
 package display;
 
-import display.game.GameManager;
-import display.mainmenu.MainMenuDisplay;
-import display.mainmenu.MainMenuLogic;
-import display.mainmenu.ViewChanger;
+import display.mainmenu.*;
 import display.music.AudioPlayer;
-import display.optionsmenu.OptionsDisplay;
-import display.optionsmenu.OptionsLogic;
+import grid.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,10 +33,13 @@ public class WindowController {
         ExecutorService es = Executors.newSingleThreadExecutor();
         es.execute(ap);
 
+        Tile.loadTraitMapping("map/terr_infomap.dat");
+
         this.viewStack = new Stack<>();
-        ViewChanger goToGame = new ViewChanger("Start", new GameManager(ap));
-        ViewChanger goToOptions = new ViewChanger("Options", new OptionsDisplay(new OptionsLogic(view), this));
-        MainMenuLogic mml = new MainMenuLogic(goToGame, goToOptions);
+        ViewChanger continueGame = new GoToLoadGame("Continue", "saves/1.asf");
+        ViewChanger startNewGame = new GoToNewGame("New Game");
+        ViewChanger goToOptions = new GoToOptionsMenu("Options", view, this);
+        MainMenuLogic mml = new MainMenuLogic(continueGame, startNewGame, goToOptions);
         MainMenuDisplay mmd = new MainMenuDisplay(mml, this, ap);
 
         addViewToTop(mmd);

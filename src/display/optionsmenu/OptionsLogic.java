@@ -1,10 +1,5 @@
 package display.optionsmenu;
 
-import display.mainmenu.alterop.Alter_AdjustResolution;
-import display.mainmenu.alterop.Alter_MakeFullscreen;
-import display.mainmenu.alterop.Alter_MakeWindowed;
-import display.mainmenu.alterop.ViewAlterer;
-
 import javax.swing.*;
 
 /**

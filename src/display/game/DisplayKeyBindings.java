@@ -5,7 +5,9 @@ import comm.SourceDescriptionTriplet;
 import display.game.sidebar.GUISidebar;
 import entity.Combatant;
 import entity.Player;
-import event.*;
+import event.EventQueue;
+import event.Opcode;
+import event.SimpleEvent;
 import event.compound_event.*;
 import grid.CompositeGrid;
 import grid.Point;
@@ -20,9 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static display.game.DisplayPrompt.ACTOR_PROMPT;
-import static display.game.DisplayPrompt.DIALOGUE_PROMPT;
-import static display.game.DisplayPrompt.TILE_PROMPT;
+import static display.game.DisplayPrompt.*;
 
 /**
  * The set of keybinds used for the game.
@@ -263,7 +263,7 @@ class DisplayKeyBindings {
 
                     updateOutput(messages);
                 } else {
-                    mm.insertMessage("There are no items on this tile.");
+                    messageManager.insertMessage("There are no items on this tile.");
                 }
 
                 game.repaint();

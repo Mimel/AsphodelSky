@@ -24,6 +24,12 @@ public class SourceDescriptionTriplet {
      */
     private String effectsOfSource;
 
+    public SourceDescriptionTriplet() {
+        this.sourceName = "";
+        this.descriptionOfSource = "";
+        this.effectsOfSource = "";
+    }
+
     public SourceDescriptionTriplet(String source, String visualDescription, String effectDescription) {
         this.sourceName = source;
         this.descriptionOfSource = visualDescription;

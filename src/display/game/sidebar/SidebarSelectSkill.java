@@ -20,7 +20,7 @@ public class SidebarSelectSkill implements SidebarSelectLayer {
     public void paintSelection(Graphics g, DrawingArea bounds) {
         int slot = targetSkills.getFocusedSkillIndex();
         g.drawImage(iAssets.getMiscImage('+'),
-                bounds.getXOffset() + GUISidebar.SKILLSET_OFFSET.x + (slot * ImageAssets.SPRITE_DIMENSION_PX),
+                bounds.getXOffset() + GUISidebar.SKILLSET_OFFSET.x + (slot * ImageAssets.SPRITE_DIMENSION_SM_PX),
                 bounds.getYOffset() + GUISidebar.SKILLSET_OFFSET.y,
                 null);
     }

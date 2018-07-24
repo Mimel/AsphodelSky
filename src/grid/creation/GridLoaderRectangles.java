@@ -1,11 +1,14 @@
 package grid.creation;
 
+import entity.Combatant;
 import entity.Player;
 import grid.CompositeGrid;
 import grid.Direction;
 import grid.Point;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class GridLoaderRectangles implements GridLoader {
 
@@ -38,7 +41,7 @@ public class GridLoaderRectangles implements GridLoader {
             s.addToGrid();
         }
 
-        Player p1 = new Player();
+        Combatant p1 = new Player("Test", "Test", 608, 202);
         p1.setId(0);
         grid.addCombatant(p1, new Point(11, 16));
         grid.bindTo(0);

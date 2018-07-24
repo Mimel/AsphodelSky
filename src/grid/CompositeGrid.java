@@ -1,7 +1,6 @@
 package grid;
 
 import entity.Combatant;
-import entity.Player;
 import item.Catalog;
 import item.Item;
 
@@ -37,7 +36,7 @@ public class CompositeGrid {
 
 	private int boundId;
 
-	private final Point MAX_BOUNDS;
+	public final Point MAX_BOUNDS;
 	
 	/**
 	 * Creates an empty grid with default dimensions.
@@ -186,8 +185,8 @@ public class CompositeGrid {
 		return actors.getOccupantById(c.getId());
 	}
 
-	public Player getPlayer() {
-		return (Player)actors.getOccupantById(Player.PLAYER_ID);
+	public Combatant getPlayer() {
+		return actors.getOccupantById(Combatant.PLAYER_ID);
 	}
 
 	/**

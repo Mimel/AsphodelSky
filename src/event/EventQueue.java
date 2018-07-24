@@ -1,7 +1,5 @@
 package event;
 
-import dialogue.DialogueParser;
-import dialogue.Statement;
 import entity.Act;
 import entity.Combatant;
 import event.compound_event.CompoundEvent;
@@ -30,10 +28,6 @@ public class EventQueue {
      */
     private final Queue<CompoundEvent> injectionQueue;
 
-    private Statement pendingDialogueTree;
-
-    private boolean dialogueTreePending;
-
     private InstructionSet operations;
 
     public EventQueue(InstructionSet ops) {
@@ -42,8 +36,6 @@ public class EventQueue {
         Comparator<Event> c = new EventComparator();
         this.eventQueue = new PriorityQueue<>(20, c);
         this.injectionQueue = new PriorityQueue<>(20, c);
-
-        dialogueTreePending = false;
 
         this.operations = ops;
     }
@@ -54,11 +46,6 @@ public class EventQueue {
             dup.setTriggerDelay(time + dup.getTriggerDelay());
             injectionQueue.add(dup);
         }
-    }
-
-    private void setPendingDialogueTree(Statement newTree) {
-        this.pendingDialogueTree = newTree;
-        dialogueTreePending = true;
     }
     /**
      * Adds an event to the queue.
@@ -140,7 +127,6 @@ public class EventQueue {
             boolean eventRemoved = false;
             SimpleEvent topEvent = eventQueue.peek();
 
-            Opcode op = topEvent.getSimpleOperation();
             String message = null;
             if(gr.doesCombatantExist(topEvent.getCaster()) && gr.doesCombatantExist(topEvent.getTarget())) {
                 if (topEvent.isFlaggable()) {
@@ -163,11 +149,7 @@ public class EventQueue {
             eventQueue.remove(topEvent);
 
             if(message != null) {
-                if(op == Opcode.START_DIALOGUE) {
-                    setPendingDialogueTree(DialogueParser.loadDialogueTree(message));
-                } else {
-                    messageList.add(message);
-                }
+                messageList.add(message);
             }
         }
 

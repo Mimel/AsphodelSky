@@ -27,6 +27,7 @@ public class GameManager extends JLayeredPane {
     public GameManager(GridLoader gridLoader) {
         this.panels = new ArrayList<>();
 
+        //remove DI?
         CompositeGrid grid = gridLoader.loadGrid();
         EventQueue eq = new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat")));
         ImageAssets ia = new ImageAssets();

@@ -26,6 +26,7 @@ public class GameView extends GameViewObserver {
 		this.setLayout(new BorderLayout());
 
 		this.setBounds(0, 0, winWidth, winHeight);
+		this.setDoubleBuffered(true);
 
 		this.currentConfig = DisplayConfiguration.DEFAULT;
 
@@ -76,14 +77,14 @@ public class GameView extends GameViewObserver {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		long timeStart = System.currentTimeMillis();
+		//long timeStart = System.currentTimeMillis();
 
 		focus.paint(g);
 		sidebar.paint(g);
 		footer.paint(g);
 
-		long timeEnd = System.currentTimeMillis();
-		System.out.println("Paint time: " + (timeEnd - timeStart) + "ms.");
+		//long timeEnd = System.currentTimeMillis();
+		//System.out.println("Paint time: " + (timeEnd - timeStart) + "ms.");
 	}
 
 	void pause() {

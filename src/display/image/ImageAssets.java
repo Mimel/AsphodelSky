@@ -1,6 +1,7 @@
 package display.image;
 
-import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,41 +9,40 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-
 /**
  * A utility class that stores image data, as well as performs character-to-image conversions via mutliple hashmaps.
  * @author Matt Imel
  */
 public class ImageAssets {
-	public static final int SPRITE_DIMENSION_PX = 48;
+	public static final int SPRITE_DIMENSION_SM_PX = 48;
+	public static final int SPRITE_DIMENSION_LG_PX = 96;
 	
-	private HashMap<Character, Image> terrIdToImage;
+	private HashMap<Character, Image> terrIdToImage; //Check
 	private HashMap<String, Image> itemIdToImage;
-	private HashMap<String, Image> skillIdToImage;
+	private HashMap<String, Image> skillIdToImage; //Check
 	private HashMap<String, Image> charIdToImage;
 	private HashMap<Character, Image> miscIdToImage;
 
 	public ImageAssets() {
 		try {
 			// Initialize tilesets.
-			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/terraintileset.png"));
-			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/vials.png"));
+			BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/floors.png"));
+			BufferedImage TILESET_ITEM = ImageIO.read(new File("img/item/items.png"));
 			BufferedImage TILESET_SKLL = ImageIO.read(new File("img/skill/tests.png"));
-			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/enemies.png"));
+			BufferedImage TILESET_CHAR = ImageIO.read(new File("img/enemy/characters.png"));
 			BufferedImage TILESET_MISC = ImageIO.read(new File("img/misc/misc.png"));
 
 			// Initialize hashmaps.
 			terrIdToImage = new HashMap<>();
-			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat");
+			fillCharHashmap(terrIdToImage, TILESET_TERR, "map/terr_imagemap.dat", SPRITE_DIMENSION_LG_PX);
 			itemIdToImage = new HashMap<>();
-			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_imagemap.dat");
+			fillStringHashmap(itemIdToImage, TILESET_ITEM, "map/item_lg_imagemap.dat", SPRITE_DIMENSION_LG_PX);
 			skillIdToImage = new HashMap<>();
-			fillStringHashmap(skillIdToImage, TILESET_SKLL, "map/skill_imagemap.dat");
+			fillStringHashmap(skillIdToImage, TILESET_SKLL, "map/skill_imagemap.dat", SPRITE_DIMENSION_SM_PX);
 			charIdToImage = new HashMap<>();
-			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat");
+			fillStringHashmap(charIdToImage, TILESET_CHAR, "map/char_imagemap.dat", SPRITE_DIMENSION_LG_PX);
 			miscIdToImage = new HashMap<>();
-			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat");
+			fillCharHashmap(miscIdToImage, TILESET_MISC, "map/misc_imagemap.dat", SPRITE_DIMENSION_SM_PX);
 
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -84,7 +84,7 @@ public class ImageAssets {
 	 *                based off of this file.
 	 * @param fileName The name of the text file to read.
 	 */
-	private void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName) {
+	private void fillCharHashmap(HashMap<Character, Image> map, BufferedImage tileset, String fileName, int dimension) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
 			String pair;
 			char key;
@@ -101,7 +101,7 @@ public class ImageAssets {
 					xCoord = -1;
 					yCoord = -1;
 				}
-				map.put(key, tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_PX, SPRITE_DIMENSION_PX));
+				map.put(key, tileset.getSubimage(xCoord, yCoord, dimension, dimension));
 			}
 			
 		} catch(IOException ioe) {
@@ -122,7 +122,7 @@ public class ImageAssets {
 	 *                based off of this file.
 	 * @param fileName The name of the text file to read.
 	 */
-	private void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName) {
+	private void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName, int dimension) {
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {	
 			String pair;
 			String key;
@@ -146,7 +146,7 @@ public class ImageAssets {
 					continue;
 				}
 				
-				map.put(key, tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_PX, SPRITE_DIMENSION_PX));
+				map.put(key, tileset.getSubimage(xCoord, yCoord, dimension, dimension));
 			}
 			
 		} catch(IOException ioe) {

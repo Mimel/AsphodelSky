@@ -4,7 +4,6 @@ import comm.MessageManager;
 import comm.SourceDescriptionTriplet;
 import display.game.sidebar.GUISidebar;
 import entity.Combatant;
-import entity.Player;
 import event.EventQueue;
 import event.Opcode;
 import event.SimpleEvent;
@@ -31,7 +30,7 @@ class DisplayKeyBindings {
 
     private static PromptManager promptManager;
     private static CompositeGrid grid;
-    private static Player p1;
+    private static Combatant p1;
     private static MessageManager messageManager;
     private static SourceDescriptionTriplet sdp;
     private static CompoundEvent pendingInjection;
@@ -121,7 +120,7 @@ class DisplayKeyBindings {
                         eq.addEvent(moveSelfEvent);
                         messages = eq.progressTimeBy(1, grid);
                     } else {
-                        Point playerPos = grid.getLocationOfCombatant(Player.PLAYER_ID);
+                        Point playerPos = grid.getLocationOfCombatant(Combatant.PLAYER_ID);
                         Combatant target = grid.getCombatantAt(new Point(playerPos.x() + xOffset, playerPos.y() + yOffset));
 
                         SimpleEvent attackAdjacentEvent = new SimpleEvent(1, 100, Opcode.COMBATANT_ADJUSTHP, grid.getPlayer());
@@ -159,7 +158,7 @@ class DisplayKeyBindings {
                 switch(promptManager.dequeuePrompt()) {
                     case ACTOR_PROMPT:
                         pendingInjection.setTarget(grid.getFocusedCombatant());
-                        grid.bindTo(Player.PLAYER_ID);
+                        grid.bindTo(Combatant.PLAYER_ID);
                         break;
                     case ITEM_PROMPT:
                         Item focusedItem = grid.getPlayer().getInventory().getFocusedItem();
@@ -179,7 +178,7 @@ class DisplayKeyBindings {
                         break;
                     case TILE_PROMPT:
                         pendingInjection.setTile(grid.getFocus());
-                        grid.bindTo(Player.PLAYER_ID);
+                        grid.bindTo(Combatant.PLAYER_ID);
                         break;
                     case DIALOGUE_PROMPT:
                         /*if(game.getFooter().canDialogueContinue()) {
@@ -213,7 +212,7 @@ class DisplayKeyBindings {
                     switch(promptManager.peekPrompt()) {
                         case ACTOR_PROMPT:
                         case TILE_PROMPT:
-                            grid.bindTo(Player.PLAYER_ID);
+                            grid.bindTo(Combatant.PLAYER_ID);
                             break;
                     }
 
@@ -239,7 +238,7 @@ class DisplayKeyBindings {
             public void actionPerformed(ActionEvent e) {
                 if(!promptManager.isPromptQueueEmpty()) {
                     promptManager.clearPromptQueue();
-                    grid.bindTo(Player.PLAYER_ID);
+                    grid.bindTo(Combatant.PLAYER_ID);
 
                     updateOutput(Collections.emptyList());
                     game.repaint();

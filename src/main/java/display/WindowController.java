@@ -165,10 +165,22 @@ public class WindowController {
         Texture.loadTexture("img/terrain/floors.png");
 
         glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
-            if(key == GLFW_KEY_D && action == GLFW_PRESS) {
-                c.accelerate();
-            } else if(key == GLFW_KEY_D && action == GLFW_RELEASE) {
-                c.decelerate();
+            if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
+                c.accelerate(Direction.N);
+            } else if(key == GLFW_KEY_UP && action == GLFW_RELEASE) {
+                c.decelerate(Direction.N);
+            } else if(key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+                c.accelerate(Direction.W);
+            } else if(key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
+                c.decelerate(Direction.W);
+            } else if(key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+                c.accelerate(Direction.S);
+            } else if(key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
+                c.decelerate(Direction.S);
+            } else if(key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+                c.accelerate(Direction.E);
+            } else if(key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
+                c.decelerate(Direction.E);
             }
         });
 

@@ -25,10 +25,13 @@ public class Camera {
     private boolean isAccelerating;
     private float timeSinceSpeedChangePrompt;
     private float accelerant;
+    private Direction direction;
 
     public Camera(Matrix4f view, Matrix4f projection, int shaderProgram) {
         this.view = view;
         this.projection = projection;
+
+        direction = Direction.C;
 
         this.isAccelerating = false;
         this.timeSinceSpeedChangePrompt = 0.0f;
@@ -53,7 +56,7 @@ public class Camera {
     public void alterView() {
         if(accelerant != 0.0f || isAccelerating) {
                 if(isAccelerating) {
-                    accelerant = (float)glfwGetTime() - timeSinceSpeedChangePrompt;
+                    accelerant += ((float)glfwGetTime() - timeSinceSpeedChangePrompt);
                     if(accelerant > 1.0f) {
                         accelerant = 1.0f;
                     }
@@ -64,19 +67,26 @@ public class Camera {
                         accelerant = 0.0f;
                     }
             }
-
-            view.translate(new Vector3f(0.09f * accelerant, 0.0f, 0.0f));
+            view.translate(new Vector3f(direction.getVectorDirection()).mul(accelerant * 0.2f));
             glUniformMatrix4fv(viewLoc, false, view.get(viewData));
         }
     }
 
-    public void accelerate() {
-        timeSinceSpeedChangePrompt = (float)glfwGetTime();
-        isAccelerating = true;
+    public void accelerate(Direction d) {
+        if(direction == Direction.C) {
+            timeSinceSpeedChangePrompt = (float)glfwGetTime();
+            isAccelerating = true;
+        }
+
+        direction = Direction.addDirection(direction, d);
     }
 
-    public void decelerate() {
-        timeSinceSpeedChangePrompt = (float)glfwGetTime();
-        isAccelerating = false;
+    public void decelerate(Direction d) {
+        direction = Direction.subtractDirection(direction, d);
+
+        if(direction == Direction.C) {
+            timeSinceSpeedChangePrompt = (float)glfwGetTime();
+            isAccelerating = false;
+        }
     }
 }

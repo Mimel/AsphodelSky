@@ -21,7 +21,9 @@ public class DrawnTile implements Drawable {
     private int[] indices;
     private Vector3f position;
 
-    public DrawnTile(Vector3f position) {
+    private int textureID;
+
+    public DrawnTile(Vector3f position, int textureID) {
         shape = new float[]{
                 -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
                 0.5f, -0.5f, 0.0f,  1.0f, 1.0f,
@@ -35,14 +37,8 @@ public class DrawnTile implements Drawable {
         };
 
         this.position = position;
+        this.textureID = textureID;
 
-        init();
-    }
-
-    public DrawnTile(float[] vertices, int[] indices, Vector3f position) {
-        this.shape = vertices;
-        this.indices = indices;
-        this.position = position;
         init();
     }
 
@@ -77,6 +73,8 @@ public class DrawnTile implements Drawable {
     @Override
     public void draw(Camera c) {
         glBindVertexArray(vaoID);
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
         c.alterModel(new Matrix4f().translate(position));
 

@@ -10,50 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd809b3a-2587-4078-a7df-c0a938096699" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/display/Drawable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/display/DrawnCube.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/display/image/ImageAssets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/sample.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/sample.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/sample.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/sample.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/display/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map/terr_imagemap.dat" beforeDir="false" afterPath="$PROJECT_DIR$/map/terr_imagemap.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/display/DrawnCube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/display/DrawnCube.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/display/DrawnTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/display/DrawnTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/display/WindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/display/WindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/DisplayConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/DisplayKeyBindings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/DisplayPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/DrawingArea.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/GameManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/GameSessionViewState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/GameView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/GameViewObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/InGamePauseMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/PromptManager.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/footer/FooterContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/footer/FooterDialogue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/footer/FooterMessageFeed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/footer/FooterShortDescriptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/footer/GUIFooter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/sidebar/GUISidebar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/sidebar/SidebarNoSelect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/sidebar/SidebarSelectItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/sidebar/SidebarSelectLayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/game/sidebar/SidebarSelectSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/image/ImageAssets.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/GoToLoadGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/GoToNewGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/GoToOptionsMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/MainMenuDisplay.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/MainMenuLogic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/mainmenu/ViewChanger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/music/AudioPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/Alter_AdjustResolution.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/Alter_MakeFullscreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/Alter_MakeWindowed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/OptionsDisplay.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/OptionsLogic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/display/optionsmenu/ViewAlterer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/item/ItemPromptLibrary.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -73,77 +36,98 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.58312345">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="WindowController.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/display/WindowController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="71" column="31" selection-start-line="71" selection-start-column="31" selection-end-line="71" selection-end-column="31" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DrawnCube.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnCube.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1328">
-                  <caret line="117" column="39" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="DrawnTile.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnTile.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="563">
-                  <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="sample.vert" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/shaders/sample.vert">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" selection-start-line="3" selection-end-line="3" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="sample.frag" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/shaders/sample.frag">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" selection-start-line="3" selection-end-line="3" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="DrawnTile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnTile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1292">
+              <caret line="76" column="48" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIFocus.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="403">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridLoaderRectangles.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="184" selection-start-line="184" selection-end-line="184" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/grid/Tile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-34">
+              <caret line="56" selection-start-line="55" selection-end-line="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Point.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/grid/Point.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#426#427#0" expanded="true" />
+                <element signature="e#448#449#0" expanded="true" />
+                <element signature="e#472#473#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Texture.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/display/Texture.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="31" selection-start-line="12" selection-end-line="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WindowController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/display/WindowController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -222,7 +206,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/saves/1.asf" />
         <option value="$PROJECT_DIR$/src/saveload/GridLoader.java" />
         <option value="$PROJECT_DIR$/src/grid/GridLoader.java" />
         <option value="$PROJECT_DIR$/src/saveload/GridLoaderFromFile.java" />
@@ -244,7 +227,6 @@
         <option value="$PROJECT_DIR$/src/display/game/sidebar/SidebarSelectItem.java" />
         <option value="$PROJECT_DIR$/src/display/image/ImageAssets.java" />
         <option value="$PROJECT_DIR$/map/item_lg_imagemap.dat" />
-        <option value="$PROJECT_DIR$/map/terr_imagemap.dat" />
         <option value="$PROJECT_DIR$/src/display/game/focus/GUIFocus.java" />
         <option value="$PROJECT_DIR$/src/grid/CompositeGrid.java" />
         <option value="$PROJECT_DIR$/src/display/game/focus/newGUIFocus.java" />
@@ -264,14 +246,16 @@
         <option value="$PROJECT_DIR$/src/main/java/display/Direction.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/game/GameView.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/optionsmenu/OptionsDisplay.java" />
-        <option value="$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/game/GameManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/mainmenu/MainMenuDisplay.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/Drawable.java" />
         <option value="$PROJECT_DIR$/shaders/sample.vert" />
         <option value="$PROJECT_DIR$/shaders/sample.frag" />
-        <option value="$PROJECT_DIR$/src/main/java/display/DrawnTile.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/DrawnCube.java" />
+        <option value="$PROJECT_DIR$/map/terr_imagemap.dat" />
+        <option value="$PROJECT_DIR$/src/main/java/display/image/ImageAssets.java" />
+        <option value="$PROJECT_DIR$/src/main/java/display/DrawnTile.java" />
+        <option value="$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java" />
         <option value="$PROJECT_DIR$/src/main/java/display/WindowController.java" />
       </list>
     </option>
@@ -304,6 +288,40 @@
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
               <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="enemy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="item" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="terrain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="map" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
@@ -342,7 +360,34 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
+              <item name="display" type="462c0819:PsiDirectoryNode" />
+              <item name="focus" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="display" type="462c0819:PsiDirectoryNode" />
+              <item name="image" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AsphodelSky" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
+              <item name="creation" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AsphodelSky" type="b2602c69:ProjectViewProjectNode" />
@@ -519,13 +564,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495170304046</updated>
-    </task>
-    <task id="LOCAL-00097" summary="Added rough Skill class implementation.">
-      <created>1530516253011</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1530516253012</updated>
     </task>
     <task id="LOCAL-00098" summary="Added rough Skill implementation and integration into the View/Controller.">
       <created>1530591043175</created>
@@ -863,7 +901,14 @@
       <option name="project" value="LOCAL" />
       <updated>1532649490373</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="Temporarily removed all non-OpenGL-relevant display files, added implementation for drawn cubes.">
+      <created>1532673096518</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1532673096518</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="TodoView">
@@ -957,7 +1002,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Removed unnecessary and outmoded footer classes." />
     <MESSAGE value="Revised game sidebar classes to conform to new game display." />
     <MESSAGE value="Merged GameSession and GameView." />
     <MESSAGE value="Enemies can now be initialized with items, and drop items on death." />
@@ -982,7 +1026,8 @@
     <MESSAGE value="More getting used to Maven." />
     <MESSAGE value="More messing around with OpenGL." />
     <MESSAGE value="Added more camera controls." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more camera controls." />
+    <MESSAGE value="Temporarily removed all non-OpenGL-relevant display files, added implementation for drawn cubes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Temporarily removed all non-OpenGL-relevant display files, added implementation for drawn cubes." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1003,12 +1048,6 @@
           <line>126</line>
           <properties />
           <option name="timeStamp" value="231" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java</url>
-          <line>52</line>
-          <properties />
-          <option name="timeStamp" value="246" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/display/Camera.java</url>
@@ -1034,11 +1073,29 @@
           <properties />
           <option name="timeStamp" value="263" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java</url>
+          <line>218</line>
+          <properties />
+          <option name="timeStamp" value="270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java</url>
+          <line>209</line>
+          <properties />
+          <option name="timeStamp" value="271" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java</url>
+          <line>133</line>
+          <properties />
+          <option name="timeStamp" value="272" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="264" />
+      <option name="time" value="273" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1076,14 +1133,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/event/QueueLoader.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/event/EventQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/display/game/footer/GUIFooter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1207">
@@ -1119,13 +1168,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/display/image/ImageAssets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/map/item_sm_imagemap.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1137,13 +1179,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map/terr_imagemap.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="5" lean-forward="true" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1164,13 +1199,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grid/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/display/game/sidebar/GUISidebar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -1182,13 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
@@ -1213,13 +1234,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grid/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="56" selection-start-line="55" selection-end-line="56" />
         </state>
       </provider>
     </entry>
@@ -1354,34 +1368,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/sample.frag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/sample.vert">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/display/Drawable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1402,10 +1392,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/display/Texture.java">
+    <entry file="file://$PROJECT_DIR$/shaders/sample.vert">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/sample.frag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/terrain/floors.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/terrain/terraintileset.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/display/image/ImageAssets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2460#2461#0" expanded="true" />
+            <element signature="e#2505#2506#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/terr_imagemap.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnCube.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1240">
+          <caret line="106" column="37" lean-forward="true" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1414,18 +1443,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnTile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="1292">
+          <caret line="76" column="48" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/display/DrawnCube.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/display/game/focus/GUIFocus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1328">
-          <caret line="117" column="39" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+        <state relative-caret-position="403">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/grid/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#448#449#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/grid/creation/GridLoaderRectangles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/grid/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="56" selection-start-line="55" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/display/Texture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" selection-start-line="12" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1434,8 +1502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/display/WindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="71" column="31" selection-start-line="71" selection-start-column="31" selection-end-line="71" selection-end-column="31" />
+        <state relative-caret-position="135">
+          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

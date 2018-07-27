@@ -1,6 +1,8 @@
 package display;
 
 import display.game.focus.GUIFocus;
+import display.image.ImageAssets;
+import grid.Tile;
 import grid.creation.GridLoaderRectangles;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -25,8 +27,6 @@ public class WindowController {
 
     private long windowHandle;
 
-    private Camera c;
-
     private GUIFocus windowDisplay;
 
     public void runApplication() {
@@ -45,6 +45,8 @@ public class WindowController {
         GLFWErrorCallback.createPrint(System.err).set();
         glfwInit();
         windowHandle = glfwCreateWindow(1600, 900, "AsphodelSky", NULL, NULL);
+
+        Tile.loadTraitMapping("map/terr_infomap.dat");
 
         try(MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);
@@ -90,7 +92,7 @@ public class WindowController {
         projection.perspective((float)Math.toRadians(45.0f), 1600.0f/900.0f, 0.1f, 100.0f);
         Camera c = new Camera(view, projection, shaderProgram);
 
-        Texture.loadTexture("img/terrain/floors.png");
+        ImageAssets ia = new ImageAssets();
 
         glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
@@ -112,20 +114,17 @@ public class WindowController {
             }
         });
 
-        DrawnCube dc = new DrawnCube(new Vector3f(0.0f, 0.0f, 1.0f));
-
         //glDeleteShader(vertShader);
         //glDeleteShader(fragShader);
 
-        windowDisplay = new GUIFocus(new GridLoaderRectangles().loadGrid(), c);
+        windowDisplay = new GUIFocus(new GridLoaderRectangles().loadGrid(), c, ia);
 
         while(!glfwWindowShouldClose(windowHandle)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             c.alterView();
 
-            //windowDisplay.draw();
-            dc.draw(c);
+            windowDisplay.draw();
 
             glfwSwapBuffers(windowHandle);
             glfwPollEvents();

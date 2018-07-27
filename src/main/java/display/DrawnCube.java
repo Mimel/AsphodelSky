@@ -21,7 +21,9 @@ public class DrawnCube implements Drawable {
 
     private int vaoID;
 
-    public DrawnCube(Vector3f position) {
+    private int textureID;
+
+    public DrawnCube(Vector3f position, int textureID) {
         shape = new float[]{
                 -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
                 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
@@ -75,6 +77,7 @@ public class DrawnCube implements Drawable {
         };
 
         this.position = position;
+        this.textureID = textureID;
 
         init();
     }
@@ -111,9 +114,12 @@ public class DrawnCube implements Drawable {
     public void draw(Camera c) {
         glBindVertexArray(vaoID);
 
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
         c.alterModel(new Matrix4f().translate(position));
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
         glBindVertexArray(0);
     }
 }

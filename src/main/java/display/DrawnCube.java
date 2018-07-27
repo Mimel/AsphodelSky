@@ -14,35 +14,68 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class DrawnTile implements Drawable {
-    private int vaoID;
-
+public class DrawnCube implements Drawable {
     private float[] shape;
     private int[] indices;
     private Vector3f position;
 
-    public DrawnTile(Vector3f position) {
+    private int vaoID;
+
+    public DrawnCube(Vector3f position) {
         shape = new float[]{
-                -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
-                0.5f, -0.5f, 0.0f,  1.0f, 1.0f,
-                0.5f, 0.5f, 0.0f,   1.0f, 0.0f,
-                -0.5f, 0.5f, 0.0f,  0.0f, 0.0f
+                -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+                0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+                0.5f, 0.5f, -0.5f,   1.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f,  0.0f, 0.0f,
+
+                -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+                -0.5f, -0.5f, 0.5f,  1.0f, 1.0f,
+                -0.5f, 0.5f, 0.5f,   1.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f,  0.0f, 0.0f,
+
+                -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+                -0.5f, -0.5f, 0.5f,  1.0f, 1.0f,
+                0.5f, -0.5f, 0.5f,   1.0f, 0.0f,
+                0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+                -0.5f, -0.5f, 0.5f, 0.0f, 1.0f,
+                0.5f, -0.5f, 0.5f,  1.0f, 1.0f,
+                0.5f, 0.5f, 0.5f,   1.0f, 0.0f,
+                -0.5f, 0.5f, 0.5f,  0.0f, 0.0f,
+
+                0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+                0.5f, -0.5f, 0.5f,  1.0f, 1.0f,
+                0.5f, 0.5f, 0.5f,   1.0f, 0.0f,
+                0.5f, 0.5f, -0.5f,  0.0f, 0.0f,
+
+                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+                -0.5f, 0.5f, 0.5f,  1.0f, 1.0f,
+                0.5f, 0.5f, 0.5f,   1.0f, 0.0f,
+                0.5f, 0.5f, -0.5f,  0.0f, 0.0f
         };
 
         indices = new int[] {
                 0, 1, 2,
-                0, 2, 3
+                0, 2, 3,
+
+                4, 5, 6,
+                4, 6, 7,
+
+                8, 9, 10,
+                8, 10, 11,
+
+                12, 13, 14,
+                12, 14, 15,
+
+                16, 17, 18,
+                16, 18, 19,
+
+                20, 21, 22,
+                20, 22, 23
         };
 
         this.position = position;
 
-        init();
-    }
-
-    public DrawnTile(float[] vertices, int[] indices, Vector3f position) {
-        this.shape = vertices;
-        this.indices = indices;
-        this.position = position;
         init();
     }
 
@@ -80,7 +113,7 @@ public class DrawnTile implements Drawable {
 
         c.alterModel(new Matrix4f().translate(position));
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 }

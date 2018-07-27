@@ -3,15 +3,15 @@ package display;
 import org.joml.Vector3f;
 
 public enum Direction {
-    W (0, new Vector3f(-1.0f, 0.0f, 0.0f)),
-    NW(1, new Vector3f(-sqrt2div2(), -sqrt2div2(), 0.0f)),
+    W (0, new Vector3f(1.0f, 0.0f, 0.0f)),
+    NW(1, new Vector3f(sqrt2div2(), -sqrt2div2(), 0.0f)),
     N (2, new Vector3f(0.0f, -1.0f, 0.0f)),
-    SW(3, new Vector3f(-sqrt2div2(), sqrt2div2(), 0.0f)),
+    SW(3, new Vector3f(sqrt2div2(), sqrt2div2(), 0.0f)),
     C (4, new Vector3f(0.0f, 0.0f, 0.0f)),
-    NE(5, new Vector3f(sqrt2div2(), -sqrt2div2(), 0.0f)),
+    NE(5, new Vector3f(-sqrt2div2(), -sqrt2div2(), 0.0f)),
     S (6,new Vector3f(0.0f, 1.0f, 0.0f)),
-    SE(7, new Vector3f(sqrt2div2(), sqrt2div2(), 0.0f)),
-    E (8, new Vector3f(1.0f, 0.0f, 0.0f));
+    SE(7, new Vector3f(-sqrt2div2(), sqrt2div2(), 0.0f)),
+    E (8, new Vector3f(-1.0f, 0.0f, 0.0f));
     
     private int mapPosition;
     private Vector3f dir;

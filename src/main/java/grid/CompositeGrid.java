@@ -30,12 +30,6 @@ public class CompositeGrid {
 	 */
 	private final String name;
 
-	private Point focalPoint;
-
-	private boolean isBoundToCombatant;
-
-	private int boundId;
-
 	public final Point MAX_BOUNDS;
 	
 	/**
@@ -49,9 +43,6 @@ public class CompositeGrid {
 		catalogs = new CatalogGrid();
 
 		this.name = "<NO TITLE>";
-		this.focalPoint = new Point(0,0);
-		this.isBoundToCombatant = false;
-		this.boundId = 0;
 	}
 
 	public CompositeGrid(String name, int width, int height) {
@@ -61,10 +52,6 @@ public class CompositeGrid {
 		tiles = new TileGrid(MAX_BOUNDS.x(), MAX_BOUNDS.y());
 		actors = new CombatantGrid();
 		catalogs = new CatalogGrid();
-
-		this.focalPoint = new Point(0,0);
-		this.isBoundToCombatant = false;
-		this.boundId = 0;
 	}
 
 	public int getNumberOfColumns() {
@@ -77,34 +64,6 @@ public class CompositeGrid {
 
 	private String getName() {
 		return name;
-	}
-
-	public Point getFocus() {
-		return focalPoint;
-	}
-
-	public void unbind() {
-		isBoundToCombatant = false;
-	}
-
-	public void bindTo(int id) {
-		if(actors.getOccupantById(id) != null) {
-			boundId = id;
-			isBoundToCombatant = true;
-			focalPoint = new Point(actors.getLocationById(id));
-		}
-	}
-
-	public Catalog getFocusedCatalog() {
-		return catalogs.getOccupantAt(focalPoint);
-	}
-
-	public Combatant getFocusedCombatant() {
-		return actors.getOccupantAt(focalPoint);
-	}
-
-	public Tile getFocusedTile() {
-		return tiles.getOccupantAt(focalPoint);
 	}
 
 	/**
@@ -131,14 +90,6 @@ public class CompositeGrid {
 		return actors.getOccupantById(c.getId()) != null;
 	}
 
-	public Point getLocationOfCombatant(int id) {
-		return actors.getLocationById(id);
-	}
-
-	public Combatant getCombatantAt(Point loc) {
-		return actors.getOccupantAt(loc);
-	}
-
 	public Combatant[] getAllCombatants() {
 		return actors.getAllOccupants();
 	}
@@ -157,17 +108,14 @@ public class CompositeGrid {
 		if(tiles.canOccupy(newLocation) && actors.canOccupy(newLocation)) {
 			Combatant c = actors.removeOccuapantById(combatantToMove.getId());
 			actors.placeOccupant(c, newLocation);
-
-			if(isBoundToCombatant && boundId == combatantToMove.getId()) {
-				focalPoint = newLocation;
-			}
 		}
 	}
 
 	public boolean isTileOccupiedRelativeTo(int id, int x, int y) {
 		Point aLoc = actors.getLocationById(id);
 		Point targetLocation = new Point(aLoc.x() + x, aLoc.y() + y);
-		return (actors.getOccupantAt(targetLocation) != null);
+		Tile t = getTileAt(targetLocation);
+		return (!tiles.canOccupy(targetLocation) || actors.getOccupantAt(targetLocation) != null);
 	}
 
 	public void killCombatant(Combatant combatantToKill) {
@@ -201,6 +149,7 @@ public class CompositeGrid {
 		}
 	}
 
+
 	public void addCatalog(Catalog catalog, Point loc) {
 		catalogs.placeOccupant(catalog, loc);
 	}
@@ -226,46 +175,6 @@ public class CompositeGrid {
 		}
 	}
 
-	/**
-	 * Switches the crosshair location to a tile relative to the one the crosshair is currently on.
-	 * If there is no crosshair in the given tile, that tile becomes focused.
-	 * Else, the the "isFocused" flag switches between the given tile and the tile plus offsets.
-	 * @param xOffset The X-shift where the crosshair will go.
-	 * @param yOffset The Y-shift where the crosshair will go.
-	 */
-	public void shiftFocus(int xOffset, int yOffset) {
-		Point newFocalPoint = new Point(focalPoint.x() + xOffset, focalPoint.y() + yOffset);
-		if(isValidLocation(newFocalPoint)) {
-			isBoundToCombatant = false;
-			focalPoint = newFocalPoint;
-		}
-	}
-
-	public void shiftFocusToClosestCombatant(int horiz, int vert) {
-		Direction h;
-		Direction v;
-
-		if(horiz > 0) {
-			h = Direction.EAST;
-		} else if(horiz < 0) {
-			h = Direction.WEST;
-		} else {
-			h = Direction.CENTER;
-		}
-
-		if(vert > 0) {
-			v = Direction.SOUTH;
-		} else if(vert < 0) {
-			v = Direction.NORTH;
-		} else {
-			v = Direction.CENTER;
-		}
-
-		if(getFocusedCombatant() != null) {
-			focalPoint = actors.getLocationById(actors.getClosestOccupant(getFocusedCombatant().getId(), h, v).getId());
-		}
-	}
-	
 	/**
 	 * Checks to see if the given coordinates represent a valid location on the grid.
 	 * @param loc The set of coordinates.

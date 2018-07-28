@@ -53,7 +53,6 @@ public class GridLoaderRectangles implements GridLoader {
         Combatant p1 = new Player("Test", "Test", 608, 202);
         p1.setId(0);
         grid.addCombatant(p1, new Point(11, 16));
-        grid.bindTo(0);
 
         return grid;
     }

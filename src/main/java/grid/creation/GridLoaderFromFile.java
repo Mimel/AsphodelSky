@@ -86,8 +86,6 @@ public class GridLoaderFromFile implements GridLoader {
                 }
             }
 
-            model.bindTo(0);
-
         } catch (IOException e) {
             e.printStackTrace();
             model = new CompositeGrid();

@@ -2,6 +2,10 @@ package display;
 
 import display.game.focus.GUIFocus;
 import display.image.ImageAssets;
+import event.EventQueue;
+import event.InstructionSet;
+import event.ResponseTable;
+import grid.CompositeGrid;
 import grid.Tile;
 import grid.creation.GridLoaderRectangles;
 import org.joml.Matrix4f;
@@ -94,7 +98,7 @@ public class WindowController {
 
         ImageAssets ia = new ImageAssets();
 
-        glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
+        /*glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
                 c.accelerate(Direction.N);
             } else if(key == GLFW_KEY_UP && action == GLFW_RELEASE) {
@@ -112,12 +116,15 @@ public class WindowController {
             } else if(key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
                 c.decelerate(Direction.E);
             }
-        });
+        });*/
 
+        CompositeGrid model = new GridLoaderRectangles().loadGrid();
+        windowDisplay = new GUIFocus(model, c, ia);
+        GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
         //glDeleteShader(vertShader);
         //glDeleteShader(fragShader);
 
-        windowDisplay = new GUIFocus(new GridLoaderRectangles().loadGrid(), c, ia);
+
 
         while(!glfwWindowShouldClose(windowHandle)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

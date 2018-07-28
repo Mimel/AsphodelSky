@@ -52,6 +52,10 @@ public class EventQueue {
      * @param e The event to add.
      */
     public void addEvent(SimpleEvent e) {
+        if(e == null) {
+            return;
+        }
+
         if(e.getTriggerDelay() >= 0) {
             SimpleEvent dup = new SimpleEvent(e, e.getCaster());
             dup.setTriggerDelay(time + dup.getTriggerDelay());
@@ -84,8 +88,8 @@ public class EventQueue {
      * @param gr The grid environment.
      * @return The set of messages received from the events.
      */
-    public List<String> progressTimeBy(int timeOffset, CompositeGrid gr) {
-        List<String> messagesList = new ArrayList<>();
+    public List<SimpleEvent> progressTimeBy(int timeOffset, CompositeGrid gr) {
+        List<SimpleEvent> eventHistory = new ArrayList<>();
 
         for(Combatant c : gr.getAllCombatants()) {
             if(c.getId() != 0) {
@@ -102,7 +106,7 @@ public class EventQueue {
 
             // Execute all events at time.
             if(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
-                messagesList.addAll(progressTimeInstantaneous(gr));
+                eventHistory.addAll(progressTimeInstantaneous(gr));
             }
 
             // This should be the only location where time is adjusted.
@@ -112,8 +116,8 @@ public class EventQueue {
             timeOffset--;
         }
 
-        messagesList.removeIf(Objects::isNull);
-        return messagesList;
+        eventHistory.removeIf(Objects::isNull);
+        return eventHistory;
     }
 
     /**
@@ -121,13 +125,12 @@ public class EventQueue {
      * @param gr The grid to affect.
      * @return The entire set of event messages that occured.
      */
-    private List<String> progressTimeInstantaneous(CompositeGrid gr) {
-        List<String> messageList = new ArrayList<>();
+    private List<SimpleEvent> progressTimeInstantaneous(CompositeGrid gr) {
+        List<SimpleEvent> eventHistory = new ArrayList<>();
         while(!eventQueue.isEmpty() && eventQueue.peek().getTriggerDelay() == time) {
             boolean eventRemoved = false;
             SimpleEvent topEvent = eventQueue.peek();
 
-            String message = null;
             if(gr.doesCombatantExist(topEvent.getCaster()) && gr.doesCombatantExist(topEvent.getTarget())) {
                 if (topEvent.isFlaggable()) {
                     for (Flag f : gr.getCombatant(topEvent.getTarget()).getFlagList()) {
@@ -144,16 +147,13 @@ public class EventQueue {
                     topEvent.setFlaggable(false);
                 }
 
-                message = topEvent.execute(gr, operations);
+                topEvent.execute(gr, operations);
+                eventHistory.add(topEvent);
             }
             eventQueue.remove(topEvent);
-
-            if(message != null) {
-                messageList.add(message);
-            }
         }
 
-        return messageList;
+        return eventHistory;
     }
 
     public String toString() {

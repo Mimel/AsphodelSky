@@ -5,6 +5,7 @@ import display.Drawable;
 import display.DrawnCube;
 import display.DrawnTile;
 import display.image.ImageAssets;
+import event.SimpleEvent;
 import grid.CompositeGrid;
 import grid.Point;
 import org.joml.Vector3f;
@@ -48,5 +49,9 @@ public class GUIFocus {
                 }
             }
         }
+    }
+
+    public void interpretSimpleEventsGraphically(List<SimpleEvent> simpleEvents) {
+        System.out.println("Interpret");
     }
 }

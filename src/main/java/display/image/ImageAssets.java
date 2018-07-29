@@ -1,6 +1,7 @@
 package display.image;
 
 import display.Texture;
+import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A utility class that stores image data, as well as performs character-to-image conversions via mutliple hashmaps.
@@ -19,7 +22,8 @@ public class ImageAssets {
     public static final int SPRITE_DIMENSION_SM_PX = 48;
     public static final int SPRITE_DIMENSION_LG_PX = 96;
 
-    private HashMap<Character, Integer> terrIDToTextureID;
+    private Map<Character, Integer> terrIDToTextureID;
+    private Map<String, Integer> combatantNameToTextureID;
 
     public ImageAssets() {
         try {
@@ -28,7 +32,9 @@ public class ImageAssets {
 
             // Initialize hashmaps.
             terrIDToTextureID = new HashMap<>();
-            fillCharHashmap(terrIDToTextureID, "img/terrain/", "map/terr_imagemap.dat");
+            combatantNameToTextureID = new HashMap<>();
+            fillCharHashmap(terrIDToTextureID, TILESET_TERR, "map/terr_imagemap.dat");
+            //fillStringHashmap(combatantNameToTextureID, "img/");
 
         } catch(IOException ioe) {
             ioe.printStackTrace();
@@ -54,16 +60,31 @@ public class ImageAssets {
      * @param map The given hashmap to fill.
      * @param fileName The name of the text file to read.
      */
-    private void fillCharHashmap(HashMap<Character, Integer> map, String pathToImageFiles, String fileName) {
+    private void fillCharHashmap(Map<Character, Integer> map, BufferedImage tileset, String fileName) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String pair;
-            char key;
-            String imageFile;
+            String key;
+            int xCoord;
+            int yCoord;
+            int atLoc;
+            int commaLoc;
 
             while((pair = br.readLine()) != null) {
-                key = pair.charAt(0);
-                imageFile = pair.substring(1);
-                map.put(key, Texture.loadTexture(pathToImageFiles + imageFile));
+                if((atLoc = pair.indexOf('@')) != -1) {
+                    key = pair.substring(0, atLoc);
+                } else {
+                    continue;
+                }
+
+                if((commaLoc = pair.indexOf(',')) != -1) {
+                    xCoord = Integer.parseInt(pair.substring(atLoc + 1, commaLoc));
+                    yCoord = Integer.parseInt(pair.substring(commaLoc + 1));
+                } else {
+                    continue;
+                }
+
+                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_LG_PX, SPRITE_DIMENSION_LG_PX);
+                map.put(key.charAt(0), Texture.loadTexture(writeImageToBuffer(subImage, SPRITE_DIMENSION_LG_PX)));
             }
 
         } catch(IOException ioe) {
@@ -84,7 +105,7 @@ public class ImageAssets {
      *                based off of this file.
      * @param fileName The name of the text file to read.
      */
-    private void fillStringHashmap(HashMap<String, Image> map, BufferedImage tileset, String fileName, int dimension) {
+    private void fillStringHashmap(Map<String, Image> map, BufferedImage tileset, String fileName, int dimension) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String pair;
             String key;
@@ -115,5 +136,22 @@ public class ImageAssets {
             ioe.printStackTrace();
         }
 
+    }
+
+    private ByteBuffer writeImageToBuffer(BufferedImage imageToWrite, int squareSize) {
+        int[] pixels = imageToWrite.getRGB(0, 0, squareSize, squareSize, null, 0, squareSize);
+        ByteBuffer imageRep = BufferUtils.createByteBuffer(pixels.length * Integer.BYTES).clear();
+
+        for(int x = 0; x < imageRep.capacity() / Integer.BYTES; x++) {
+            if(x % 500 == 0) {
+                System.out.println("Red: " + ((pixels[x] & 0x00FF0000) >> 16));
+            }
+            imageRep.put((byte)((pixels[x] & 0x00FF0000) >> 16)); // Red for .png
+            imageRep.put((byte)((pixels[x] & 0x0000FF00) >> 8)); // Green for .png
+            imageRep.put((byte)(pixels[x] & 0x000000FF)); // Blue for .png
+            imageRep.put((byte)((pixels[x] & 0xFF000000) >>> 24)); // Alpha for .png
+        }
+
+        return imageRep.flip();
     }
 }

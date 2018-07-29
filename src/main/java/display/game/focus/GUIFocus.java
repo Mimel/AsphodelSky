@@ -52,6 +52,6 @@ public class GUIFocus {
     }
 
     public void interpretSimpleEventsGraphically(List<SimpleEvent> simpleEvents) {
-        System.out.println("Interpret");
+        System.out.println(simpleEvents);
     }
 }

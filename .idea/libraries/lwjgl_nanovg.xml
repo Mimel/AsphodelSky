@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lwjgl-nanovg">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/lwjgl-3.1.6/lwjgl-nanovg" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/lwjgl-3.1.6/lwjgl-nanovg" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/lwjgl-3.1.6/lwjgl-nanovg" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/lwjgl-3.1.6/lwjgl-nanovg" recursive="false" type="SOURCES" />
+  </library>
+</component>

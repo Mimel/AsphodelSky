@@ -54,7 +54,6 @@ public class Camera {
     }
 
     public void alterView() {
-        if(accelerant != 0.0f || isAccelerating) {
                 if(isAccelerating) {
                     accelerant += ((float)glfwGetTime() - timeSinceSpeedChangePrompt);
                     if(accelerant > 1.0f) {
@@ -68,8 +67,7 @@ public class Camera {
                     }
             }
             view.translate(new Vector3f(direction.getVectorDirection()).mul(accelerant * 0.2f));
-            glUniformMatrix4fv(viewLoc, false, view.get(viewData));
-        }
+            //glUniformMatrix4fv(viewLoc, false, view.get(viewData));
     }
 
     public void accelerate(Direction d) {
@@ -88,5 +86,10 @@ public class Camera {
             timeSinceSpeedChangePrompt = (float)glfwGetTime();
             isAccelerating = false;
         }
+    }
+
+    public void moveCameraTo(Vector3f newLoc) {
+        view.m30(-newLoc.x).m31(-newLoc.y);
+        glUniformMatrix4fv(viewLoc, false, view.get(viewData));
     }
 }

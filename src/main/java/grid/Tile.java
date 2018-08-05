@@ -107,8 +107,6 @@ public class Tile {
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
-
-		System.out.println("State!");
 	}
 	
 	//Accessors, Mutators

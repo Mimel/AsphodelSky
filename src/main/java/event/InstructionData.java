@@ -41,11 +41,11 @@ public class InstructionData {
         this.caster = caster;
     }
 
-    Combatant getCaster() {
+    public Combatant getCaster() {
         return caster;
     }
 
-    Combatant getTarget() {
+    public Combatant getTarget() {
         return target;
     }
 
@@ -57,7 +57,7 @@ public class InstructionData {
         return skill;
     }
 
-    Point getTile() {
+    public Point getTile() {
         return tile;
     }
 

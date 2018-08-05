@@ -21,8 +21,43 @@ public class GameKeyBindings {
         this.keybinds = new TreeMap<>();
 
         //Move commands.
+        keybinds.put(GLFW_KEY_Q, () -> {
+            eventQueue.addEvent(addMoveEvent(-1, 1, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_W, () -> {
+            eventQueue.addEvent(addMoveEvent(0, 1, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_E, () -> {
+            eventQueue.addEvent(addMoveEvent(1, 1, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
         keybinds.put(GLFW_KEY_A, () -> {
+            eventQueue.addEvent(addMoveEvent(-1, 0, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_D, () -> {
             eventQueue.addEvent(addMoveEvent(1, 0, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_Z, () -> {
+            eventQueue.addEvent(addMoveEvent(-1, -1, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_X, () -> {
+            eventQueue.addEvent(addMoveEvent(0, -1, model));
+            return eventQueue.progressTimeBy(1, model);
+        });
+
+        keybinds.put(GLFW_KEY_C, () -> {
+            eventQueue.addEvent(addMoveEvent(1, -1, model));
             return eventQueue.progressTimeBy(1, model);
         });
 

@@ -90,6 +90,10 @@ public class CompositeGrid {
 		return actors.getOccupantById(c.getId()) != null;
 	}
 
+	public Combatant getCombatantAt(Point p) {
+		return actors.getOccupantAt(p);
+	}
+
 	public Combatant[] getAllCombatants() {
 		return actors.getAllOccupants();
 	}

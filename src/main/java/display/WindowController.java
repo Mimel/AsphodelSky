@@ -20,6 +20,8 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.nanovg.NanoVG.*;
+import static org.lwjgl.nanovg.NanoVGGL3.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -75,6 +77,7 @@ public class WindowController {
     private void runGraphicsLoop() {
         GL.createCapabilities();
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
         System.out.println("Testing with OpenGL: " + glGetString(GL_VERSION));
 
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
@@ -97,6 +100,7 @@ public class WindowController {
         Camera c = new Camera(view, projection, shaderProgram);
 
         ImageAssets ia = new ImageAssets();
+        long nvgContext = nvgCreate(NVG_STENCIL_STROKES | NVG_DEBUG);
 
         /*glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
@@ -119,22 +123,43 @@ public class WindowController {
         });*/
 
         CompositeGrid model = new GridLoaderRectangles().loadGrid();
-        windowDisplay = new GUIFocus(model, c, ia);
+        windowDisplay = new GUIFocus(new Stage(model, ia, c), new GraphicInstructionSet());
         GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
         //glDeleteShader(vertShader);
         //glDeleteShader(fragShader);
 
+        FontData fd = new FontData(nvgContext);
+
 
 
         while(!glfwWindowShouldClose(windowHandle)) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+            glEnable(GL_DEPTH_TEST);
+            glEnable(GL_STENCIL_TEST);
+            glUseProgram(shaderProgram);
+            glfwPollEvents();
 
             c.alterView();
 
             windowDisplay.draw();
 
+            nvgBeginFrame(nvgContext, 1600, 900, 1.0f);
+
+            nvgBeginPath(nvgContext);
+            nvgRoundedRect(nvgContext, 100, 200, 200, 200, 5);
+            //nvgFillColor(nvgContext, NVGColor.create().r(20.0f).g(100.0f).b(120.0f));
+            nvgFill(nvgContext);
+
+            nvgFontSize(nvgContext, 20.0f);
+            nvgFontFaceId(nvgContext, fd.muli);
+            nvgText(nvgContext, 200.0f, 200.0f, "Helelo!");
+
+            nvgEndFrame(nvgContext);
+
             glfwSwapBuffers(windowHandle);
-            glfwPollEvents();
         }
+
+        nvgDelete(nvgContext);
     }
 }

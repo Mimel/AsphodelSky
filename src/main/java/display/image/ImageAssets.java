@@ -4,7 +4,6 @@ import display.Texture;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,11 +28,13 @@ public class ImageAssets {
         try {
             // Initialize tilesets.
             BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/floors.png"));
+            BufferedImage TILESET_COMBATANT = ImageIO.read(new File("img/enemy/entities.png"));
 
             // Initialize hashmaps.
             terrIDToTextureID = new HashMap<>();
             combatantNameToTextureID = new HashMap<>();
             fillCharHashmap(terrIDToTextureID, TILESET_TERR, "map/terr_imagemap.dat");
+            fillStringHashmap(combatantNameToTextureID, TILESET_COMBATANT, "map/char_imagemap.dat");
             //fillStringHashmap(combatantNameToTextureID, "img/");
 
         } catch(IOException ioe) {
@@ -48,6 +49,10 @@ public class ImageAssets {
      */
     public Integer getTerrainTextureID(char key) {
         return terrIDToTextureID.get(key);
+    }
+
+    public Integer getCombatantTextureID(String key) {
+        return combatantNameToTextureID.get(key);
     }
 
     /**
@@ -90,7 +95,6 @@ public class ImageAssets {
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-
     }
 
     /**
@@ -105,7 +109,7 @@ public class ImageAssets {
      *                based off of this file.
      * @param fileName The name of the text file to read.
      */
-    private void fillStringHashmap(Map<String, Image> map, BufferedImage tileset, String fileName, int dimension) {
+    private void fillStringHashmap(Map<String, Integer> map, BufferedImage tileset, String fileName) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String pair;
             String key;
@@ -115,7 +119,6 @@ public class ImageAssets {
             int commaLoc;
 
             while((pair = br.readLine()) != null) {
-
                 if((atLoc = pair.indexOf('@')) != -1) {
                     key = pair.substring(0, atLoc);
                 } else {
@@ -129,13 +132,13 @@ public class ImageAssets {
                     continue;
                 }
 
-                map.put(key, tileset.getSubimage(xCoord, yCoord, dimension, dimension));
+                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_LG_PX, SPRITE_DIMENSION_LG_PX);
+                map.put(key, Texture.loadTexture(writeImageToBuffer(subImage, SPRITE_DIMENSION_LG_PX)));
             }
 
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-
     }
 
     private ByteBuffer writeImageToBuffer(BufferedImage imageToWrite, int squareSize) {
@@ -143,9 +146,6 @@ public class ImageAssets {
         ByteBuffer imageRep = BufferUtils.createByteBuffer(pixels.length * Integer.BYTES).clear();
 
         for(int x = 0; x < imageRep.capacity() / Integer.BYTES; x++) {
-            if(x % 500 == 0) {
-                System.out.println("Red: " + ((pixels[x] & 0x00FF0000) >> 16));
-            }
             imageRep.put((byte)((pixels[x] & 0x00FF0000) >> 16)); // Red for .png
             imageRep.put((byte)((pixels[x] & 0x0000FF00) >> 8)); // Green for .png
             imageRep.put((byte)(pixels[x] & 0x000000FF)); // Blue for .png

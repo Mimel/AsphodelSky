@@ -61,6 +61,16 @@ public class GameKeyBindings {
             return eventQueue.progressTimeBy(1, model);
         });
 
+        keybinds.put(GLFW_KEY_I, () -> {
+            view.showSidebar();
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_O, () -> {
+            view.hideSidebar();
+            return null;
+        });
+
         glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             List<SimpleEvent> history = null;
             if(keybinds.containsKey(key) && action == GLFW_PRESS) {

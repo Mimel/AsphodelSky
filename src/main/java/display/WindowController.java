@@ -20,8 +20,6 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.nanovg.NanoVG.*;
-import static org.lwjgl.nanovg.NanoVGGL3.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -34,6 +32,9 @@ public class WindowController {
     private long windowHandle;
 
     private GUIFocus windowDisplay;
+
+    private int windowWidth;
+    private int windowHeight;
 
     public void runApplication() {
         System.out.println("Testing with LWJGL: " + Version.getVersion());
@@ -59,6 +60,9 @@ public class WindowController {
             IntBuffer pHeight = stack.mallocInt(1);
 
             glfwGetWindowSize(windowHandle, pWidth, pHeight);
+
+            windowWidth = pWidth.get(0);
+            windowHeight = pHeight.get(0);
 
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
@@ -100,7 +104,6 @@ public class WindowController {
         Camera c = new Camera(view, projection, shaderProgram);
 
         ImageAssets ia = new ImageAssets();
-        long nvgContext = nvgCreate(NVG_STENCIL_STROKES | NVG_DEBUG);
 
         /*glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
             if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
@@ -123,12 +126,12 @@ public class WindowController {
         });*/
 
         CompositeGrid model = new GridLoaderRectangles().loadGrid();
-        windowDisplay = new GUIFocus(new Stage(model, ia, c), new GraphicInstructionSet());
+        windowDisplay = new GUIFocus(model.getPlayer(), new Stage(model, ia, c), new GraphicInstructionSet(), windowWidth, windowHeight);
         GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
         //glDeleteShader(vertShader);
         //glDeleteShader(fragShader);
 
-        FontData fd = new FontData(nvgContext);
+        //FontData fd = new FontData(nvgContext);
 
 
 
@@ -144,22 +147,9 @@ public class WindowController {
 
             windowDisplay.draw();
 
-            nvgBeginFrame(nvgContext, 1600, 900, 1.0f);
-
-            nvgBeginPath(nvgContext);
-            nvgRoundedRect(nvgContext, 100, 200, 200, 200, 5);
-            //nvgFillColor(nvgContext, NVGColor.create().r(20.0f).g(100.0f).b(120.0f));
-            nvgFill(nvgContext);
-
-            nvgFontSize(nvgContext, 20.0f);
-            nvgFontFaceId(nvgContext, fd.muli);
-            nvgText(nvgContext, 200.0f, 200.0f, "Helelo!");
-
-            nvgEndFrame(nvgContext);
-
             glfwSwapBuffers(windowHandle);
         }
 
-        nvgDelete(nvgContext);
+        //nvgDelete(nvgContext);
     }
 }

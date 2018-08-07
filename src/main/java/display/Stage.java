@@ -17,6 +17,8 @@ public class Stage {
 
     private Map<Combatant, DrawnCombatant> actors;
 
+    private Combatant focusedActor;
+
     private Camera viewport;
 
     Stage(CompositeGrid model, ImageAssets ia, Camera viewport) {
@@ -40,6 +42,8 @@ public class Stage {
                 }
             }
         }
+
+        this.focusedActor = model.getPlayer();
     }
 
     public DrawnCombatant getDrawnCombatant(Combatant c) {

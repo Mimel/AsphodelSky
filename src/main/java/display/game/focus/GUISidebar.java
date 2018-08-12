@@ -1,5 +1,6 @@
 package display.game.focus;
 
+import display.image.ImageAssets;
 import entity.Combatant;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
@@ -21,9 +22,6 @@ public class GUISidebar {
     private int screenWidth;
     private int screenHeight;
 
-    private final float VERT_MARGIN = 50.0f;
-    private final float HORZ_MARGIN = 50.0f;
-
     private float sidebarX;
 
     private float hiddenSidebarX;
@@ -38,7 +36,13 @@ public class GUISidebar {
     private double previousTime;
     private final float TRANSITION_TIME = 0.2f;
 
-    GUISidebar(Combatant focusedCombatant, int width, int height) {
+    private final FontData fonts;
+    private final NVGColorData colors;
+
+    private final SidebarInventory drawnInventory;
+    private final SidebarSkills drawnSkills;
+
+    GUISidebar(Combatant focusedCombatant, int width, int height, ImageAssets ia) {
         this.focusedCombatant = focusedCombatant;
         this.nvgContext = nvgCreate(NVG_STENCIL_STROKES | NVG_DEBUG);
 
@@ -46,14 +50,22 @@ public class GUISidebar {
         this.screenHeight = height;
 
         this.hiddenSidebarX = screenWidth;
+        float HORZ_MARGIN = 50.0f;
         this.shownSidebarX = screenWidth - SIDEBAR_WIDTH - HORZ_MARGIN;
 
         this.sidebarX = hiddenSidebarX;
+        float VERT_MARGIN = 50.0f;
         this.sidebarY = VERT_MARGIN;
         this.sidebarHeight = screenHeight - (VERT_MARGIN * 2);
 
         this.visibility = sidebarState.OFF_SCREEN;
         this.previousTime = glfwGetTime();
+
+        this.fonts = new FontData(nvgContext);
+        this.colors = new NVGColorData();
+
+        this.drawnInventory = new SidebarInventory(focusedCombatant, sidebarX, sidebarY + 300.0f, ia);
+        this.drawnSkills = new SidebarSkills(focusedCombatant, sidebarX, sidebarY + 500.0f);
     }
 
     void draw() {
@@ -66,6 +78,26 @@ public class GUISidebar {
         nvgBeginPath(nvgContext);
         nvgRoundedRect(nvgContext, sidebarX, sidebarY, SIDEBAR_WIDTH, sidebarHeight, 5);
         nvgFill(nvgContext);
+
+        nvgBeginPath(nvgContext);
+        nvgFillColor(nvgContext, colors.RED);
+        nvgRect(nvgContext, sidebarX + 20.0f, sidebarY + 40.0f, 300.0f, 50.0f);
+        nvgFill(nvgContext);
+
+        nvgFontSize(nvgContext, 85.5f);
+        nvgFontFace(nvgContext, fonts.MULI_BOLD);
+        nvgFillColor(nvgContext, colors.DARK_RED);
+        nvgTextAlign(nvgContext, NVG_ALIGN_BASELINE);
+        nvgText(nvgContext, sidebarX + 40.0f, sidebarY + 90.0f, focusedCombatant.getHealth() + "");
+        float nextChar = nvgText(nvgContext, sidebarX + 40.0f, sidebarY + 90.0f, focusedCombatant.getHealth() + "");
+
+        nvgFontSize(nvgContext, 30.0f);
+        nvgFontFace(nvgContext, fonts.MULI);
+        nvgTextAlign(nvgContext, NVG_ALIGN_BASELINE);
+        nvgText(nvgContext, nextChar, sidebarY + 90.0f - 15.5f, "/" + focusedCombatant.getMaxHealth());
+
+        drawnInventory.draw(nvgContext);
+        drawnSkills.draw(nvgContext);
 
         nvgEndFrame(nvgContext);
     }

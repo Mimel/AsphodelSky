@@ -81,6 +81,10 @@ public class Catalog {
 	public void resetFocusIndex() {
 		focusedItemIndex = 0;
 	}
+
+	public int size() {
+		return catalog.size();
+	}
 	
 	/**
 	 * Gets the focused Item, without the amount.
@@ -135,6 +139,14 @@ public class Catalog {
 		}
 		
 		return amts;
+	}
+
+	public Item getItemAt(int index) {
+		return catalog.get(index).getValue0();
+	}
+
+	public int getAmountAt(int index) {
+		return catalog.get(index).getValue1();
 	}
 
 	/**

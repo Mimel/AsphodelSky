@@ -7,7 +7,8 @@ import event.InstructionSet;
 import event.ResponseTable;
 import grid.CompositeGrid;
 import grid.Tile;
-import grid.creation.GridLoaderRectangles;
+import grid.creation.GridLoaderFromFile;
+import item.ItemLibrary;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.Version;
@@ -15,6 +16,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
+import skill.SkillLibrary;
 
 import java.nio.IntBuffer;
 
@@ -89,6 +91,7 @@ public class WindowController {
         int shaderProgram = glCreateProgram();
         int vertShader = new ShaderReader(GL_VERTEX_SHADER, "shaders/sample.vert").getShader();
         int fragShader = new ShaderReader(GL_FRAGMENT_SHADER, "shaders/sample.frag").getShader();
+
         glAttachShader(shaderProgram, vertShader);
         glAttachShader(shaderProgram, fragShader);
         glLinkProgram(shaderProgram);
@@ -105,34 +108,9 @@ public class WindowController {
 
         ImageAssets ia = new ImageAssets();
 
-        /*glfwSetKeyCallback(windowHandle, (window, key, scancode, action, mods) -> {
-            if(key == GLFW_KEY_UP && action == GLFW_PRESS) {
-                c.accelerate(Direction.N);
-            } else if(key == GLFW_KEY_UP && action == GLFW_RELEASE) {
-                c.decelerate(Direction.N);
-            } else if(key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-                c.accelerate(Direction.W);
-            } else if(key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
-                c.decelerate(Direction.W);
-            } else if(key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
-                c.accelerate(Direction.S);
-            } else if(key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
-                c.decelerate(Direction.S);
-            } else if(key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-                c.accelerate(Direction.E);
-            } else if(key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
-                c.decelerate(Direction.E);
-            }
-        });*/
-
-        CompositeGrid model = new GridLoaderRectangles().loadGrid();
+        CompositeGrid model = new GridLoaderFromFile("saves/1.asf", new ItemLibrary("map/item_effectmap.dat"), new SkillLibrary("map/skill_effectmap.dat")).loadGrid();
         windowDisplay = new GUIFocus(model.getPlayer(), new Stage(model, ia, c), new GraphicInstructionSet(), windowWidth, windowHeight);
         GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
-        //glDeleteShader(vertShader);
-        //glDeleteShader(fragShader);
-
-        //FontData fd = new FontData(nvgContext);
-
 
 
         while(!glfwWindowShouldClose(windowHandle)) {
@@ -150,6 +128,7 @@ public class WindowController {
             glfwSwapBuffers(windowHandle);
         }
 
-        //nvgDelete(nvgContext);
+        ia.deleteAllTextures();
+
     }
 }

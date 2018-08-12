@@ -2,6 +2,7 @@ package display.game.focus;
 
 import display.GraphicInstructionSet;
 import display.Stage;
+import display.image.ImageAssets;
 import entity.Combatant;
 import event.SimpleEvent;
 
@@ -18,7 +19,7 @@ public class GUIFocus {
     public GUIFocus(Combatant player, Stage view, GraphicInstructionSet gis, int windowWidth, int windowHeight) {
         this.view = view;
         this.gis = gis;
-        this.sidebar = new GUISidebar(player, windowWidth, windowHeight);
+        this.sidebar = new GUISidebar(player, windowWidth, windowHeight, new ImageAssets());
     }
 
     public void adjustDimensions(int newWidth, int newHeight) {

@@ -92,4 +92,12 @@ public class Camera {
         view.m30(-newLoc.x).m31(-newLoc.y);
         glUniformMatrix4fv(viewLoc, false, view.get(viewData));
     }
+
+    public void offsetCameraHorizontallyBy(float x) {
+        
+    }
+
+    public void recenterCamera() {
+
+    }
 }

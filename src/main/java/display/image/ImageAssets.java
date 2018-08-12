@@ -11,7 +11,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
 
 /**
  * A utility class that stores image data, as well as performs character-to-image conversions via mutliple hashmaps.
@@ -23,20 +27,45 @@ public class ImageAssets {
 
     private Map<Character, Integer> terrIDToTextureID;
     private Map<String, Integer> combatantNameToTextureID;
+    private Map<String, Integer> sm_itemNameToTextureID;
+    private Map<String, Integer> lg_itemNameToTextureID;
+    private Map<Character, Integer> sm_miscRepToTextureID;
+    private Map<Character, Integer> lg_miscRepToTextureID;
+
+    private List<Integer> allTextureIDs;
+
+    private int playerImage;
+    private int defaultImage;
 
     public ImageAssets() {
         try {
+            allTextureIDs = new LinkedList<>();
+
             // Initialize tilesets.
             BufferedImage TILESET_TERR = ImageIO.read(new File("img/terrain/floors.png"));
             BufferedImage TILESET_COMBATANT = ImageIO.read(new File("img/enemy/entities.png"));
+            BufferedImage TILESET_SM_ITEM = ImageIO.read(new File("img/item/vials.png"));
+            BufferedImage TILESET_LG_ITEM = ImageIO.read(new File("img/item/items.png"));
+            BufferedImage TILESET_SM_MISC = ImageIO.read(new File("img/misc/misc.png"));
 
             // Initialize hashmaps.
             terrIDToTextureID = new HashMap<>();
             combatantNameToTextureID = new HashMap<>();
-            fillCharHashmap(terrIDToTextureID, TILESET_TERR, "map/terr_imagemap.dat");
-            fillStringHashmap(combatantNameToTextureID, TILESET_COMBATANT, "map/char_imagemap.dat");
-            //fillStringHashmap(combatantNameToTextureID, "img/");
+            sm_itemNameToTextureID = new HashMap<>();
+            lg_itemNameToTextureID = new HashMap<>();
+            sm_miscRepToTextureID = new HashMap<>();
+            lg_miscRepToTextureID = new HashMap<>();
 
+            // Fill hashmaps with tileset data.
+            fillCharHashmap(terrIDToTextureID, TILESET_TERR, "map/terr_imagemap.dat", SPRITE_DIMENSION_LG_PX);
+            fillStringHashmap(combatantNameToTextureID, TILESET_COMBATANT, "map/char_imagemap.dat", SPRITE_DIMENSION_LG_PX);
+            fillStringHashmap(sm_itemNameToTextureID, TILESET_SM_ITEM, "map/item_sm_imagemap.dat", SPRITE_DIMENSION_SM_PX);
+            fillStringHashmap(lg_itemNameToTextureID, TILESET_LG_ITEM, "map/item_lg_imagemap.dat", SPRITE_DIMENSION_LG_PX);
+            fillCharHashmap(sm_miscRepToTextureID, TILESET_SM_MISC, "map/misc_imagemap.dat", SPRITE_DIMENSION_SM_PX);
+
+            // Load single images.
+            playerImage = Texture.loadTexture(writeImageToBuffer(ImageIO.read(new File("img/enemy/characters.png")), SPRITE_DIMENSION_LG_PX), SPRITE_DIMENSION_LG_PX);
+            defaultImage = Texture.loadTexture(writeImageToBuffer(ImageIO.read(new File("img/default/default.png")), SPRITE_DIMENSION_LG_PX), SPRITE_DIMENSION_LG_PX);
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
@@ -48,11 +77,35 @@ public class ImageAssets {
      * @return The image bound to the key.
      */
     public Integer getTerrainTextureID(char key) {
-        return terrIDToTextureID.get(key);
+        if(terrIDToTextureID.containsKey(key)) {
+            return terrIDToTextureID.get(key);
+        } else {
+            return defaultImage;
+        }
     }
 
     public Integer getCombatantTextureID(String key) {
-        return combatantNameToTextureID.get(key);
+        if(combatantNameToTextureID.containsKey(key)) {
+            return combatantNameToTextureID.get(key);
+        } else {
+            return defaultImage;
+        }
+    }
+
+    public Integer getSmallItemTextureID(String key) {
+        return sm_itemNameToTextureID.get(key);
+    }
+
+    public Integer getLargeItemTextureID(String key) {
+        if(lg_itemNameToTextureID.containsKey(key)) {
+            return lg_itemNameToTextureID.get(key);
+        } else {
+            return defaultImage;
+        }
+    }
+
+    public Integer getSmallMiscTextureID(char key) {
+        return sm_miscRepToTextureID.get(key);
     }
 
     /**
@@ -65,7 +118,7 @@ public class ImageAssets {
      * @param map The given hashmap to fill.
      * @param fileName The name of the text file to read.
      */
-    private void fillCharHashmap(Map<Character, Integer> map, BufferedImage tileset, String fileName) {
+    private void fillCharHashmap(Map<Character, Integer> map, BufferedImage tileset, String fileName, int squareSize) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String pair;
             String key;
@@ -88,8 +141,11 @@ public class ImageAssets {
                     continue;
                 }
 
-                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_LG_PX, SPRITE_DIMENSION_LG_PX);
-                map.put(key.charAt(0), Texture.loadTexture(writeImageToBuffer(subImage, SPRITE_DIMENSION_LG_PX)));
+                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, squareSize, squareSize);
+                int texture = Texture.loadTexture(writeImageToBuffer(subImage, squareSize), squareSize);
+
+                map.put(key.charAt(0), texture);
+                allTextureIDs.add(texture);
             }
 
         } catch(IOException ioe) {
@@ -109,7 +165,7 @@ public class ImageAssets {
      *                based off of this file.
      * @param fileName The name of the text file to read.
      */
-    private void fillStringHashmap(Map<String, Integer> map, BufferedImage tileset, String fileName) {
+    private void fillStringHashmap(Map<String, Integer> map, BufferedImage tileset, String fileName, int squareSize) {
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String pair;
             String key;
@@ -132,8 +188,11 @@ public class ImageAssets {
                     continue;
                 }
 
-                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, SPRITE_DIMENSION_LG_PX, SPRITE_DIMENSION_LG_PX);
-                map.put(key, Texture.loadTexture(writeImageToBuffer(subImage, SPRITE_DIMENSION_LG_PX)));
+                BufferedImage subImage = tileset.getSubimage(xCoord, yCoord, squareSize, squareSize);
+                int texture = Texture.loadTexture(writeImageToBuffer(subImage, squareSize), squareSize);
+
+                map.put(key, texture);
+                allTextureIDs.add(texture);
             }
 
         } catch(IOException ioe) {
@@ -153,5 +212,11 @@ public class ImageAssets {
         }
 
         return imageRep.flip();
+    }
+
+    public void deleteAllTextures() {
+        for(int x : allTextureIDs) {
+            glDeleteTextures(x);
+        }
     }
 }

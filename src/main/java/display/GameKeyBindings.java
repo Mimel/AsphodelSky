@@ -1,10 +1,14 @@
 package display;
 
 import display.game.focus.GUIFocus;
+import display.protocol.ItemSelectProtocol;
+import display.protocol.ProtocolHistory;
 import entity.Combatant;
 import event.EventQueue;
 import event.Opcode;
 import event.SimpleEvent;
+import event.compound_event.CompoundEvent;
+import event.compound_event.NoOpEvent;
 import grid.CompositeGrid;
 import grid.Point;
 
@@ -17,47 +21,94 @@ import static org.lwjgl.glfw.GLFW.*;
 public class GameKeyBindings {
     private final SortedMap<Integer, Procedure> keybinds;
 
+    private final ProtocolHistory history;
+
     public GameKeyBindings(long windowHandle, GUIFocus view, CompositeGrid model, EventQueue eventQueue) {
         this.keybinds = new TreeMap<>();
+        this.history = new ProtocolHistory();
 
         //Move commands.
         keybinds.put(GLFW_KEY_Q, () -> {
-            eventQueue.addEvent(addMoveEvent(-1, 1, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(-1, 1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_W, () -> {
-            eventQueue.addEvent(addMoveEvent(0, 1, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(0, 1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_E, () -> {
-            eventQueue.addEvent(addMoveEvent(1, 1, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(1, 1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_A, () -> {
-            eventQueue.addEvent(addMoveEvent(-1, 0, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(-1, 0, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                history.peek().move(eventQueue, -1, 0);
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_D, () -> {
-            eventQueue.addEvent(addMoveEvent(1, 0, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(1, 0, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                history.peek().move(eventQueue, 1, 0);
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_Z, () -> {
-            eventQueue.addEvent(addMoveEvent(-1, -1, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(-1, -1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_X, () -> {
-            eventQueue.addEvent(addMoveEvent(0, -1, model));
-            return eventQueue.progressTimeBy(1, model);
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(0, -1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
         });
 
         keybinds.put(GLFW_KEY_C, () -> {
-            eventQueue.addEvent(addMoveEvent(1, -1, model));
+            if(history.isEmpty()) {
+                eventQueue.addEvent(addMoveEvent(1, -1, model));
+                return eventQueue.progressTimeBy(1, model);
+            } else {
+                return null;
+            }
+        });
+
+        // Gets an item(s) from the ground.
+        keybinds.put(GLFW_KEY_G, () -> {
+            if(model.getItemsOnTileWithCombatant(model.getPlayer()) != null) {
+                SimpleEvent getAllItems = new SimpleEvent(1, 100, Opcode.TRANSFER_ITEMALL, model.getPlayer());
+                getAllItems.setTarget(model.getPlayer());
+                eventQueue.addEvent(getAllItems);
+            }
             return eventQueue.progressTimeBy(1, model);
         });
 
@@ -68,6 +119,14 @@ public class GameKeyBindings {
 
         keybinds.put(GLFW_KEY_O, () -> {
             view.hideSidebar();
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_R, () -> {
+            CompoundEvent recon = new NoOpEvent(0, 0, model.getPlayer());
+            history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), recon));
+            view.showSidebar();
+            view.showItemSelector();
             return null;
         });
 

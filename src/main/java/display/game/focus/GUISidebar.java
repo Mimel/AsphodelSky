@@ -64,7 +64,7 @@ public class GUISidebar {
         this.fonts = new FontData(nvgContext);
         this.colors = new NVGColorData();
 
-        this.drawnInventory = new SidebarInventory(focusedCombatant, sidebarX, sidebarY + 300.0f, ia);
+        this.drawnInventory = new SidebarInventory(focusedCombatant, ia, fonts, colors);
         this.drawnSkills = new SidebarSkills(focusedCombatant, sidebarX, sidebarY + 500.0f);
     }
 
@@ -96,7 +96,7 @@ public class GUISidebar {
         nvgTextAlign(nvgContext, NVG_ALIGN_BASELINE);
         nvgText(nvgContext, nextChar, sidebarY + 90.0f - 15.5f, "/" + focusedCombatant.getMaxHealth());
 
-        drawnInventory.draw(nvgContext);
+        drawnInventory.draw(nvgContext, sidebarX, sidebarY + 300.0f);
         drawnSkills.draw(nvgContext);
 
         nvgEndFrame(nvgContext);
@@ -114,6 +114,22 @@ public class GUISidebar {
             visibility = sidebarState.SLIDING_OUT;
             previousTime = glfwGetTime();
         }
+    }
+
+    void showItemMarker() {
+        drawnInventory.showItemMarker();
+    }
+
+    void hideItemMarker() {
+        drawnInventory.hideItemMarker();
+    }
+
+    void showSkillMarker() {
+
+    }
+
+    void hideSkillMarker() {
+
     }
 
     private void adjustSidebarLocation() {

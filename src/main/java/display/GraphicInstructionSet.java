@@ -21,6 +21,10 @@ public class GraphicInstructionSet {
             stage.getDrawnCombatant(data.getTarget()).move(data.getTile());
             stage.moveCameraToCombatant(data.getTarget());
         });
+
+        graphicInstructionSet.put(Opcode.TRANSFER_ITEMALL, (data, stage) -> {
+            stage.removeAllEmptyCatalogs();
+        });
     }
 
     public void alterViewByEvent(SimpleEvent actionToPerform, Stage s) {

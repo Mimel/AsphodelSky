@@ -41,17 +41,15 @@ public class Stage {
 
                 Combatant c;
                 if((c = model.getCombatantAt(currentLoc)) != null) {
-                    DrawnCombatant dc = new DrawnCombatant(new Vector3f(x, y, 0.1f), ia.getCombatantTextureID(c.getName()));
+                    DrawnCombatant dc = new DrawnCombatant(new Vector3f(x, y, 0.2f), ia.getCombatantTextureID(c.getName()));
 
-                    tiles.add(dc);
                     actors.put(c, dc);
                 }
 
                 Catalog cat;
                 if((cat = model.getCatalogOnTile(currentLoc)) != null) {
-                    DrawnItem di = new DrawnItem(new Vector3f(x, y, 0.05f), ia.getLargeItemTextureID(cat.getFocusedItem().getName()));
+                    DrawnItem di = new DrawnItem(new Vector3f(x, y, 0.1f), ia.getLargeItemTextureID(cat.getFocusedItem().getName()));
 
-                    tiles.add(di);
                     catalogs.put(cat, di);
                 }
             }
@@ -66,6 +64,14 @@ public class Stage {
 
     public void moveCameraToCombatant(Combatant c) {
         viewport.moveCameraTo(actors.get(c).getPosition());
+    }
+
+    public void removeAllEmptyCatalogs() {
+        for(Catalog c : catalogs.keySet()) {
+            if(c.isEmpty()) {
+                catalogs.remove(c);
+            }
+        }
     }
 
     public void draw() {

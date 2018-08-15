@@ -118,7 +118,9 @@ public class CompositeGrid {
 	public boolean isTileOccupiedRelativeTo(int id, int x, int y) {
 		Point aLoc = actors.getLocationById(id);
 		Point targetLocation = new Point(aLoc.x() + x, aLoc.y() + y);
-		Tile t = getTileAt(targetLocation);
+		if(!isValidLocation(targetLocation)) {
+			return true;
+		}
 		return (!tiles.canOccupy(targetLocation) || actors.getOccupantAt(targetLocation) != null);
 	}
 

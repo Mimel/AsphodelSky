@@ -22,16 +22,20 @@ public class GUIFocus {
         this.sidebar = new GUISidebar(player, windowWidth, windowHeight, new ImageAssets());
     }
 
-    public void adjustDimensions(int newWidth, int newHeight) {
-
-    }
-
     public void showSidebar() {
         sidebar.show();
     }
 
     public void hideSidebar() {
         sidebar.hide();
+    }
+
+    public void showItemSelector() {
+        sidebar.showItemMarker();
+    }
+
+    public void hideItemSelector() {
+        sidebar.hideItemMarker();
     }
 
     public void draw() {

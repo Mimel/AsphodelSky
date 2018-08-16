@@ -1,5 +1,6 @@
 package display.protocol;
 
+import display.game.focus.GUIFocus;
 import event.EventQueue;
 import event.compound_event.CompoundEvent;
 import item.Catalog;
@@ -19,17 +20,18 @@ public class ItemSelectProtocol implements InputProtocol {
     }
 
     @Override
-    public void confirm(EventQueue eq, ProtocolHistory actions) {
+    public void confirm(EventQueue eq, GUIFocus view) {
         queuedEvent.setItem(targetCatalog.getFocusedItem());
+        view.hideItemSelector();
     }
 
     @Override
-    public void goBack(EventQueue eq, ProtocolHistory actions) {
-
+    public void goBack(EventQueue eq, GUIFocus view) {
+        view.hideItemSelector();
     }
 
     @Override
-    public void reset(EventQueue eq, ProtocolHistory actions) {
-
+    public CompoundEvent getQueuedEvent() {
+        return queuedEvent;
     }
 }

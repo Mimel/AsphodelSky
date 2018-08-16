@@ -28,6 +28,6 @@ public class GraphicInstructionSet {
     }
 
     public void alterViewByEvent(SimpleEvent actionToPerform, Stage s) {
-        graphicInstructionSet.get(actionToPerform.getSimpleOperation()).accept(actionToPerform.getData(), s);
+        graphicInstructionSet.getOrDefault(actionToPerform.getSimpleOperation(), (data, stage) -> {}).accept(actionToPerform.getData(), s);
     }
 }

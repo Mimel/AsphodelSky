@@ -1,6 +1,7 @@
 package display;
 
 import display.game.focus.GUIFocus;
+import display.protocol.InputProtocol;
 import display.protocol.ItemSelectProtocol;
 import display.protocol.ProtocolHistory;
 import entity.Combatant;
@@ -9,6 +10,7 @@ import event.Opcode;
 import event.SimpleEvent;
 import event.compound_event.CompoundEvent;
 import event.compound_event.NoOpEvent;
+import event.compound_event.UseItemEvent;
 import grid.CompositeGrid;
 import grid.Point;
 
@@ -102,6 +104,31 @@ public class GameKeyBindings {
             }
         });
 
+        keybinds.put(GLFW_KEY_ENTER, () -> {
+            InputProtocol completedProtocol;
+            if(!history.isEmpty()) {
+                completedProtocol = history.pop();
+                completedProtocol.confirm(eventQueue, view);
+
+                if(history.isEmpty()) {
+                    eventQueue.createInjection(completedProtocol.getQueuedEvent());
+                    view.hideEverything();
+                    eventQueue.progressTimeBy(1, model);
+                }
+            }
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_BACKSPACE, () -> {
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_ESCAPE, () -> {
+            history.clear();
+            view.hideEverything();
+            return null;
+        });
+
         // Gets an item(s) from the ground.
         keybinds.put(GLFW_KEY_G, () -> {
             if(model.getItemsOnTileWithCombatant(model.getPlayer()) != null) {
@@ -127,6 +154,15 @@ public class GameKeyBindings {
             history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), recon));
             view.showSidebar();
             view.showItemSelector();
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_U, () -> {
+            CompoundEvent use = new UseItemEvent(1, 0, model.getPlayer());
+            history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), use));
+            view.showSidebar();
+            view.showItemSelector();
+
             return null;
         });
 

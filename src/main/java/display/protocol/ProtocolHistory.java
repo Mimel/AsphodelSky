@@ -16,8 +16,19 @@ public class ProtocolHistory {
         protocolStack.push(ip);
     }
 
+    public void pushPreviousProtocol() {
+        protocolStack.push(protocolUsed.pop());
+    }
+
     public InputProtocol peek() {
         return protocolStack.peek();
+    }
+
+    public InputProtocol pop() {
+        InputProtocol ip = protocolStack.pop();
+        protocolUsed.push(ip);
+
+        return ip;
     }
 
     public void clear() {

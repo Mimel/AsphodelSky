@@ -20,9 +20,11 @@ public class ItemSelectProtocol implements InputProtocol {
     }
 
     @Override
-    public void confirm(EventQueue eq, GUIFocus view) {
+    public CompoundEvent confirm(EventQueue eq, GUIFocus view) {
         queuedEvent.setItem(targetCatalog.getFocusedItem());
         view.hideItemSelector();
+
+        return queuedEvent;
     }
 
     @Override
@@ -30,8 +32,4 @@ public class ItemSelectProtocol implements InputProtocol {
         view.hideItemSelector();
     }
 
-    @Override
-    public CompoundEvent getQueuedEvent() {
-        return queuedEvent;
-    }
 }

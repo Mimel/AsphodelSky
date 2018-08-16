@@ -65,7 +65,7 @@ public class GUISidebar {
         this.colors = new NVGColorData();
 
         this.drawnInventory = new SidebarInventory(focusedCombatant, ia, fonts, colors);
-        this.drawnSkills = new SidebarSkills(focusedCombatant, sidebarX, sidebarY + 500.0f);
+        this.drawnSkills = new SidebarSkills(focusedCombatant, ia, fonts, colors);
     }
 
     void draw() {
@@ -97,7 +97,7 @@ public class GUISidebar {
         nvgText(nvgContext, nextChar, sidebarY + 90.0f - 15.5f, "/" + focusedCombatant.getMaxHealth());
 
         drawnInventory.draw(nvgContext, sidebarX, sidebarY + 300.0f);
-        drawnSkills.draw(nvgContext);
+        drawnSkills.draw(nvgContext, sidebarX, sidebarY + 500.0f);
 
         nvgEndFrame(nvgContext);
     }
@@ -125,11 +125,11 @@ public class GUISidebar {
     }
 
     void showSkillMarker() {
-
+        drawnSkills.showSkillMarker();
     }
 
     void hideSkillMarker() {
-
+        drawnSkills.hideSkillMarker();
     }
 
     private void adjustSidebarLocation() {

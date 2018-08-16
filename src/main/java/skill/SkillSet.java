@@ -118,6 +118,10 @@ public class SkillSet {
         skillSetToTransferFrom.skillList.clear();
     }
 
+    public Skill getSkillAtIndex(int index) {
+        return skillList.get(index);
+    }
+
     /**
      * Gets a deep copy of the skill list.
      * @return A deep copy of the skill list.
@@ -126,8 +130,12 @@ public class SkillSet {
         return new ArrayList<>(skillList);
     }
 
+    public int size() {
+        return skillList.size();
+    }
+
     public boolean isSkillSetEmpty() {
-        return skillList.size() == 0;
+        return skillList.isEmpty();
     }
 
     @Override

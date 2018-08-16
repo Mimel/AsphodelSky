@@ -29,8 +29,8 @@ public class ImageAssets {
     private Map<String, Integer> combatantNameToTextureID;
     private Map<String, Integer> sm_itemNameToTextureID;
     private Map<String, Integer> lg_itemNameToTextureID;
+    private Map<String, Integer> skillNameToTextureID;
     private Map<Character, Integer> sm_miscRepToTextureID;
-    private Map<Character, Integer> lg_miscRepToTextureID;
 
     private List<Integer> allTextureIDs;
 
@@ -46,6 +46,7 @@ public class ImageAssets {
             BufferedImage TILESET_COMBATANT = ImageIO.read(new File("img/enemy/entities.png"));
             BufferedImage TILESET_SM_ITEM = ImageIO.read(new File("img/item/vials.png"));
             BufferedImage TILESET_LG_ITEM = ImageIO.read(new File("img/item/items.png"));
+            BufferedImage TILESET_SKILL = ImageIO.read(new File("img/skill/tests.png"));
             BufferedImage TILESET_SM_MISC = ImageIO.read(new File("img/misc/misc.png"));
 
             // Initialize hashmaps.
@@ -53,14 +54,15 @@ public class ImageAssets {
             combatantNameToTextureID = new HashMap<>();
             sm_itemNameToTextureID = new HashMap<>();
             lg_itemNameToTextureID = new HashMap<>();
+            skillNameToTextureID = new HashMap<>();
             sm_miscRepToTextureID = new HashMap<>();
-            lg_miscRepToTextureID = new HashMap<>();
 
             // Fill hashmaps with tileset data.
             fillCharHashmap(terrIDToTextureID, TILESET_TERR, "map/terr_imagemap.dat", SPRITE_DIMENSION_LG_PX);
             fillStringHashmap(combatantNameToTextureID, TILESET_COMBATANT, "map/char_imagemap.dat", SPRITE_DIMENSION_LG_PX);
             fillStringHashmap(sm_itemNameToTextureID, TILESET_SM_ITEM, "map/item_sm_imagemap.dat", SPRITE_DIMENSION_SM_PX);
             fillStringHashmap(lg_itemNameToTextureID, TILESET_LG_ITEM, "map/item_lg_imagemap.dat", SPRITE_DIMENSION_LG_PX);
+            fillStringHashmap(skillNameToTextureID, TILESET_SKILL, "map/skill_imagemap.dat", SPRITE_DIMENSION_SM_PX);
             fillCharHashmap(sm_miscRepToTextureID, TILESET_SM_MISC, "map/misc_imagemap.dat", SPRITE_DIMENSION_SM_PX);
 
             // Load single images.
@@ -99,6 +101,14 @@ public class ImageAssets {
     public Integer getLargeItemTextureID(String key) {
         if(lg_itemNameToTextureID.containsKey(key)) {
             return lg_itemNameToTextureID.get(key);
+        } else {
+            return defaultImage;
+        }
+    }
+
+    public Integer getSkillTextureID(String key) {
+        if(skillNameToTextureID.containsKey(key)) {
+            return skillNameToTextureID.get(key);
         } else {
             return defaultImage;
         }

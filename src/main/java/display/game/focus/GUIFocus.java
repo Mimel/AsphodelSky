@@ -44,6 +44,14 @@ public class GUIFocus {
         sidebar.hideItemMarker();
     }
 
+    public void showSkillSelector() {
+        sidebar.showSkillMarker();
+    }
+
+    public void hideSkillSelector() {
+        sidebar.hideSkillMarker();
+    }
+
     public void draw() {
         view.draw();
         sidebar.draw();

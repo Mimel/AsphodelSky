@@ -4,6 +4,7 @@ import display.game.focus.GUIFocus;
 import display.protocol.InputProtocol;
 import display.protocol.ItemSelectProtocol;
 import display.protocol.ProtocolHistory;
+import display.protocol.SkillSelectProtocol;
 import entity.Combatant;
 import event.EventQueue;
 import event.Opcode;
@@ -11,6 +12,7 @@ import event.SimpleEvent;
 import event.compound_event.CompoundEvent;
 import event.compound_event.NoOpEvent;
 import event.compound_event.UseItemEvent;
+import event.compound_event.UseSkillEvent;
 import grid.CompositeGrid;
 import grid.Point;
 
@@ -108,10 +110,10 @@ public class GameKeyBindings {
             InputProtocol completedProtocol;
             if(!history.isEmpty()) {
                 completedProtocol = history.pop();
-                completedProtocol.confirm(eventQueue, view);
+                CompoundEvent ce = completedProtocol.confirm(eventQueue, view);
 
                 if(history.isEmpty()) {
-                    eventQueue.createInjection(completedProtocol.getQueuedEvent());
+                    eventQueue.createInjection(ce);
                     view.hideEverything();
                     eventQueue.progressTimeBy(1, model);
                 }
@@ -162,6 +164,15 @@ public class GameKeyBindings {
             history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), use));
             view.showSidebar();
             view.showItemSelector();
+
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_V, () -> {
+            CompoundEvent evoke = new UseSkillEvent(1, 0, model.getPlayer());
+            history.push(new SkillSelectProtocol(model.getPlayer().getSkillSet(), evoke));
+            view.showSidebar();
+            view.showSkillSelector();
 
             return null;
         });

@@ -1,10 +1,7 @@
 package display;
 
 import display.game.focus.GUIFocus;
-import display.protocol.InputProtocol;
-import display.protocol.ItemSelectProtocol;
-import display.protocol.ProtocolHistory;
-import display.protocol.SkillSelectProtocol;
+import display.protocol.*;
 import entity.Combatant;
 import event.EventQueue;
 import event.Opcode;
@@ -37,6 +34,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(-1, 1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, -1, 1);
                 return null;
             }
         });
@@ -46,6 +44,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(0, 1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, 0, 1);
                 return null;
             }
         });
@@ -55,6 +54,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(1, 1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, 1, 1);
                 return null;
             }
         });
@@ -64,7 +64,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(-1, 0, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
-                history.peek().move(eventQueue, -1, 0);
+                history.peek().move(eventQueue, view, -1, 0);
                 return null;
             }
         });
@@ -74,7 +74,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(1, 0, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
-                history.peek().move(eventQueue, 1, 0);
+                history.peek().move(eventQueue, view, 1, 0);
                 return null;
             }
         });
@@ -84,6 +84,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(-1, -1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, -1, -1);
                 return null;
             }
         });
@@ -93,6 +94,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(0, -1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, 0, -1);
                 return null;
             }
         });
@@ -102,6 +104,7 @@ public class GameKeyBindings {
                 eventQueue.addEvent(addMoveEvent(1, -1, model));
                 return eventQueue.progressTimeBy(1, model);
             } else {
+                history.peek().move(eventQueue, view, 1, -1);
                 return null;
             }
         });
@@ -174,6 +177,13 @@ public class GameKeyBindings {
             view.showSidebar();
             view.showSkillSelector();
 
+            return null;
+        });
+
+        keybinds.put(GLFW_KEY_B, () -> {
+            CompoundEvent behold = new NoOpEvent(0, 0, model.getPlayer());
+            history.push(new TileSelectProtocol(0, 0, model.getNumberOfColumns(), model.getNumberOfRows(), behold));
+            view.showTileSelector(0, 0);
             return null;
         });
 

@@ -15,7 +15,7 @@ public class ItemSelectProtocol implements InputProtocol {
     }
 
     @Override
-    public void move(EventQueue eq, int x, int y) {
+    public void move(EventQueue eq, GUIFocus view, int x, int y) {
         targetCatalog.setFocus(x);
     }
 

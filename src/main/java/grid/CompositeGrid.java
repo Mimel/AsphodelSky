@@ -80,6 +80,18 @@ public class CompositeGrid {
 		tiles.placeOccupant(new Tile(terrain), loc);
 	}
 
+	public boolean[][] deriveTerrainPassabilityMap() {
+		boolean[][] tpMap = new boolean[MAX_BOUNDS.x()][MAX_BOUNDS.y()];
+
+		for(int x = 0; x < tpMap.length; x++) {
+			for(int y = 0; y < tpMap[x].length; y++) {
+				tpMap[x][y] = tiles.getOccupantAt(new Point(x, y)).canOccupy();
+			}
+		}
+
+		return tpMap;
+	}
+
 	public void addCombatant(Combatant c, Point loc) {
 		if(tiles.canOccupy(loc) && actors.canOccupy(loc)) {
 			actors.placeOccupant(c, loc);

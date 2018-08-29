@@ -8,13 +8,14 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class DrawnCube implements Drawable {
+public class DrawnCube implements DrawnGridSpace {
     private float[] shape;
     private int[] indices;
     private Vector3f position;
@@ -112,14 +113,27 @@ public class DrawnCube implements Drawable {
 
     @Override
     public void draw(Camera c) {
-        glBindVertexArray(vaoID);
-
+        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureID);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glBindVertexArray(vaoID);
 
         c.alterModel(new Matrix4f().translate(position));
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
+    }
+
+    @Override
+    public void showOverlay() {
+
+    }
+
+    @Override
+    public void hideOverlay() {
+
     }
 }

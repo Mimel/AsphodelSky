@@ -36,6 +36,14 @@ public class GUIFocus {
         sidebar.hide();
     }
 
+    public void showTileSelector(int x, int y) {
+        view.showOverlaysOnTile(x, y);
+    }
+
+    public void hideTileSelector(int x, int y) {
+        view.hideOverlaysOnTile(x, y);
+    }
+
     public void showItemSelector() {
         sidebar.showItemMarker();
     }

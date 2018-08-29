@@ -7,14 +7,12 @@ import grid.Point;
 import item.Catalog;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Stage {
 
-    private List<Drawable> tiles;
+    private Map<Point, DrawnGridSpace> tiles;
 
     private Map<Combatant, DrawnCombatant> actors;
 
@@ -25,7 +23,7 @@ public class Stage {
     private Camera viewport;
 
     Stage(CompositeGrid model, ImageAssets ia, Camera viewport) {
-        this.tiles = new ArrayList<>();
+        this.tiles = new HashMap<>();
         this.actors = new HashMap<>();
         this.catalogs = new HashMap<>();
         this.viewport = viewport;
@@ -34,9 +32,9 @@ public class Stage {
             for(int y = 0; y < model.MAX_BOUNDS.y(); y++) {
                 Point currentLoc = new Point(x, y);
                 if(model.getTileAt(currentLoc).getTerrain() == '.') {
-                    tiles.add(new DrawnTile(new Vector3f(x, y, 0.0f), ia.getTerrainTextureID('.')));
+                    tiles.put(currentLoc, new DrawnTile(new Vector3f(x, y, 0.0f), ia.getTerrainTextureID('.'), ia.getSmallMiscTextureID('+')));
                 } else {
-                    tiles.add(new DrawnCube(new Vector3f(x, y, 0.0f), ia.getTerrainTextureID('#')));
+                    tiles.put(currentLoc, new DrawnCube(new Vector3f(x, y, 0.0f), ia.getTerrainTextureID('#')));
                 }
 
                 Combatant c;
@@ -58,6 +56,14 @@ public class Stage {
         this.focusedActor = model.getPlayer();
     }
 
+    public void showOverlaysOnTile(int x, int y) {
+        tiles.get(new Point(x, y)).showOverlay();
+    }
+
+    public void hideOverlaysOnTile(int x, int y) {
+        tiles.get(new Point(x, y)).hideOverlay();
+    }
+
     public DrawnCombatant getDrawnCombatant(Combatant c) {
         return actors.get(c);
     }
@@ -75,7 +81,7 @@ public class Stage {
     }
 
     public void draw() {
-        for(Drawable d : tiles) {
+        for(Drawable d : tiles.values()) {
             d.draw(viewport);
         }
 

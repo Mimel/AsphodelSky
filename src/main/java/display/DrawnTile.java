@@ -8,13 +8,14 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class DrawnTile implements Drawable {
+public class DrawnTile implements DrawnGridSpace {
     private int vaoID;
 
     private float[] shape;
@@ -22,8 +23,11 @@ public class DrawnTile implements Drawable {
     private Vector3f position;
 
     private int textureID;
+    private int overlayID;
 
-    public DrawnTile(Vector3f position, int textureID) {
+    private boolean showOverlay;
+
+    public DrawnTile(Vector3f position, int textureID, int overlayID) {
         shape = new float[]{
                 -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
                 0.5f, -0.5f, 0.0f,  1.0f, 1.0f,
@@ -38,6 +42,8 @@ public class DrawnTile implements Drawable {
 
         this.position = position;
         this.textureID = textureID;
+        this.overlayID = overlayID;
+        this.showOverlay = false;
 
         init();
     }
@@ -70,11 +76,27 @@ public class DrawnTile implements Drawable {
         glBindVertexArray(0);
     }
 
+    public void showOverlay() {
+        showOverlay = true;
+    }
+
+    public void hideOverlay() {
+        showOverlay = false;
+    }
+
     @Override
     public void draw(Camera c) {
-        glBindVertexArray(vaoID);
-
+        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureID);
+        glActiveTexture(GL_TEXTURE1);
+        if(showOverlay) {
+            glBindTexture(GL_TEXTURE_2D, overlayID);
+        } else {
+            glBindTexture(GL_TEXTURE_2D, textureID);
+        }
+
+
+        glBindVertexArray(vaoID);
 
         c.alterModel(new Matrix4f().translate(position));
 

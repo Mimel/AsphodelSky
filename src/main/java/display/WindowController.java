@@ -99,6 +99,8 @@ public class WindowController {
         System.out.println(glGetProgramInfoLog(shaderProgram));
 
         glUseProgram(shaderProgram);
+        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
+        glUniform1i(glGetUniformLocation(shaderProgram, "overlayTexture"), 1);
 
         Matrix4f view = new Matrix4f();
         view.lookAt(new Vector3f(0.0f, 0.0f, 10.0f), new Vector3f(0.0f, 0.0f,0.0f), new Vector3f(0.0f, 1.0f, 0.0f));
@@ -112,13 +114,13 @@ public class WindowController {
         windowDisplay = new GUIFocus(model.getPlayer(), new Stage(model, ia, c), new GraphicInstructionSet(), windowWidth, windowHeight);
         GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
 
-
         while(!glfwWindowShouldClose(windowHandle)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
             glEnable(GL_DEPTH_TEST);
             glEnable(GL_STENCIL_TEST);
             glUseProgram(shaderProgram);
+
             glfwPollEvents();
 
             c.alterView();
@@ -128,7 +130,7 @@ public class WindowController {
             glfwSwapBuffers(windowHandle);
         }
 
-        ia.deleteAllTextures();
+        //ia.deleteAllTextures();
 
     }
 }

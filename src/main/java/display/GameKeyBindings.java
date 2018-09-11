@@ -182,8 +182,9 @@ public class GameKeyBindings {
 
         keybinds.put(GLFW_KEY_B, () -> {
             CompoundEvent behold = new NoOpEvent(0, 0, model.getPlayer());
-            history.push(new TileSelectProtocol(0, 0, model.getNumberOfColumns(), model.getNumberOfRows(), behold));
-            view.showTileSelector(0, 0);
+            Point p = model.getLocationOfPlayer();
+            history.push(new TileSelectProtocol(p.x(), p.y(), model.getNumberOfColumns(), model.getNumberOfRows(), behold));
+            view.showTileSelector(p.x(), p.y());
             return null;
         });
 

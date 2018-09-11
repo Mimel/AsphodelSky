@@ -72,6 +72,10 @@ public class Stage {
         viewport.moveCameraTo(actors.get(c).getPosition());
     }
 
+    public void moveCameraToPosition(Point p) {
+        viewport.moveCameraTo(new Vector3f(p.x(), p.y(), 0.0f));
+    }
+
     public void removeAllEmptyCatalogs() {
         for(Catalog c : catalogs.keySet()) {
             if(c.isEmpty()) {

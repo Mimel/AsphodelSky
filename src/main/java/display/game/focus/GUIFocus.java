@@ -5,6 +5,7 @@ import display.Stage;
 import display.image.ImageAssets;
 import entity.Combatant;
 import event.SimpleEvent;
+import grid.Point;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class GUIFocus {
     }
 
     public void hideEverything() {
+        //hideTileSelector();
         sidebar.hideItemMarker();
         sidebar.hideSkillMarker();
         sidebar.hide();
@@ -38,6 +40,7 @@ public class GUIFocus {
 
     public void showTileSelector(int x, int y) {
         view.showOverlaysOnTile(x, y);
+        view.moveCameraToPosition(new Point(x, y));
     }
 
     public void hideTileSelector(int x, int y) {

@@ -1,6 +1,7 @@
 package grid;
 
 import entity.Combatant;
+import entity.Player;
 import item.Catalog;
 import item.Item;
 
@@ -100,6 +101,10 @@ public class CompositeGrid {
 
 	public boolean doesCombatantExist(Combatant c) {
 		return actors.getOccupantById(c.getId()) != null;
+	}
+
+	public Point getLocationOfPlayer() {
+		return actors.getLocationById(Combatant.PLAYER_ID);
 	}
 
 	public Combatant getCombatantAt(Point p) {

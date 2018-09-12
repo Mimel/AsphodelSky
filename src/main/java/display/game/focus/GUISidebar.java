@@ -116,6 +116,10 @@ public class GUISidebar {
         }
     }
 
+    boolean isHidden() {
+        return visibility == sidebarState.OFF_SCREEN || visibility == sidebarState.SLIDING_OUT;
+    }
+
     void showItemMarker() {
         drawnInventory.showItemMarker();
     }

@@ -125,16 +125,20 @@ public class GameKeyBindings {
         });
 
         keybinds.put(GLFW_KEY_BACKSPACE, () -> {
+            history.pushPreviousProtocol();
             return null;
         });
 
         keybinds.put(GLFW_KEY_ESCAPE, () -> {
+            while(!history.isEmpty()) {
+                history.pop().goBack(eventQueue, view);
+            }
             history.clear();
-            view.hideEverything();
+
             return null;
         });
 
-        // Gets an item(s) from the ground.
+        // [G]ets an item(s) from the ground.
         keybinds.put(GLFW_KEY_G, () -> {
             if(model.getItemsOnTileWithCombatant(model.getPlayer()) != null) {
                 SimpleEvent getAllItems = new SimpleEvent(1, 100, Opcode.TRANSFER_ITEMALL, model.getPlayer());
@@ -144,17 +148,13 @@ public class GameKeyBindings {
             return eventQueue.progressTimeBy(1, model);
         });
 
+        keybinds.put(GLFW_KEY_LEFT_SHIFT, () -> {
+            view.toggleSidebar();
+            return null;
+        });
+
+        // Allows user to view [I]nventory items.
         keybinds.put(GLFW_KEY_I, () -> {
-            view.showSidebar();
-            return null;
-        });
-
-        keybinds.put(GLFW_KEY_O, () -> {
-            view.hideSidebar();
-            return null;
-        });
-
-        keybinds.put(GLFW_KEY_R, () -> {
             CompoundEvent recon = new NoOpEvent(0, 0, model.getPlayer());
             history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), recon));
             view.showSidebar();
@@ -162,6 +162,7 @@ public class GameKeyBindings {
             return null;
         });
 
+        // [U]ses an item.
         keybinds.put(GLFW_KEY_U, () -> {
             CompoundEvent use = new UseItemEvent(1, 0, model.getPlayer());
             history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), use));
@@ -171,6 +172,7 @@ public class GameKeyBindings {
             return null;
         });
 
+        // e[V]okes a skill.
         keybinds.put(GLFW_KEY_V, () -> {
             CompoundEvent evoke = new UseSkillEvent(1, 0, model.getPlayer());
             history.push(new SkillSelectProtocol(model.getPlayer().getSkillSet(), evoke));
@@ -180,7 +182,8 @@ public class GameKeyBindings {
             return null;
         });
 
-        keybinds.put(GLFW_KEY_B, () -> {
+        // [R]econs the grid.
+        keybinds.put(GLFW_KEY_R, () -> {
             CompoundEvent behold = new NoOpEvent(0, 0, model.getPlayer());
             Point p = model.getLocationOfPlayer();
             history.push(new TileSelectProtocol(p.x(), p.y(), model.getNumberOfColumns(), model.getNumberOfRows(), behold));

@@ -18,7 +18,7 @@ public class Stage {
 
     private Map<Catalog, DrawnItem> catalogs;
 
-    private Combatant focusedActor;
+    private Combatant player;
 
     private Camera viewport;
 
@@ -26,6 +26,7 @@ public class Stage {
         this.tiles = new HashMap<>();
         this.actors = new HashMap<>();
         this.catalogs = new HashMap<>();
+        this.player = model.getPlayer();
         this.viewport = viewport;
 
         for(int x = 0; x < model.MAX_BOUNDS.x(); x++) {
@@ -52,8 +53,6 @@ public class Stage {
                 }
             }
         }
-
-        this.focusedActor = model.getPlayer();
     }
 
     public void showOverlaysOnTile(int x, int y) {
@@ -68,8 +67,8 @@ public class Stage {
         return actors.get(c);
     }
 
-    public void moveCameraToCombatant(Combatant c) {
-        viewport.moveCameraTo(actors.get(c).getPosition());
+    public void moveCameraToPlayer() {
+        viewport.moveCameraTo(actors.get(player).getPosition());
     }
 
     public void moveCameraToPosition(Point p) {

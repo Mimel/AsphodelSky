@@ -38,6 +38,14 @@ public class GUIFocus {
         sidebar.hide();
     }
 
+    public void toggleSidebar() {
+        if(sidebar.isHidden()) {
+            sidebar.show();
+        } else {
+            sidebar.hide();
+        }
+    }
+
     public void showTileSelector(int x, int y) {
         view.showOverlaysOnTile(x, y);
         view.moveCameraToPosition(new Point(x, y));
@@ -45,6 +53,7 @@ public class GUIFocus {
 
     public void hideTileSelector(int x, int y) {
         view.hideOverlaysOnTile(x, y);
+        view.moveCameraToPlayer();
     }
 
     public void showItemSelector() {

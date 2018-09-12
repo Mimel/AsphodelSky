@@ -55,6 +55,6 @@ public class TileSelectProtocol implements InputProtocol {
 
     @Override
     public void goBack(EventQueue eq, GUIFocus view) {
-
+        view.hideTileSelector(xCurr, yCurr);
     }
 }

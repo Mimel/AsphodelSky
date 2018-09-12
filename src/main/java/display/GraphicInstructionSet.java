@@ -19,7 +19,7 @@ public class GraphicInstructionSet {
     private void loadGraphicInstructionSet() {
         graphicInstructionSet.put(Opcode.COMBATANT_MOVE, (data, stage) -> {
             stage.getDrawnCombatant(data.getTarget()).move(data.getTile());
-            stage.moveCameraToCombatant(data.getTarget());
+            stage.moveCameraToPlayer();
         });
 
         graphicInstructionSet.put(Opcode.TRANSFER_ITEMALL, (data, stage) -> {

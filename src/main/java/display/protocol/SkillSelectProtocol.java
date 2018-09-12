@@ -30,6 +30,6 @@ public class SkillSelectProtocol implements InputProtocol {
 
     @Override
     public void goBack(EventQueue eq, GUIFocus view) {
-
+        view.hideSkillSelector();
     }
 }

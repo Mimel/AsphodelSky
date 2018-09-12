@@ -27,6 +27,7 @@ public class DropItemEvent extends CompoundEvent {
     public List<SimpleEvent> decompose() {
         List<SimpleEvent> eventList = new LinkedList<>();
         this.setTriggerDelay(0);
+        this.setTarget(getCaster());
 
         SimpleEvent dropClause1 = copyInfoToSimpleEvent(Opcode.COMBATANT_REMOVE_ITEM);
         SimpleEvent dropClause2 = copyInfoToSimpleEvent(Opcode.TILE_SPAWN);

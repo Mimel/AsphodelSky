@@ -6,10 +6,7 @@ import entity.Combatant;
 import event.EventQueue;
 import event.Opcode;
 import event.SimpleEvent;
-import event.compound_event.CompoundEvent;
-import event.compound_event.NoOpEvent;
-import event.compound_event.UseItemEvent;
-import event.compound_event.UseSkillEvent;
+import event.compound_event.*;
 import grid.CompositeGrid;
 import grid.Point;
 
@@ -114,6 +111,7 @@ public class GameKeyBindings {
             if(!history.isEmpty()) {
                 completedProtocol = history.pop();
                 CompoundEvent ce = completedProtocol.confirm(eventQueue, view);
+                completedProtocol.goBack(eventQueue, view);
 
                 if(history.isEmpty()) {
                     eventQueue.createInjection(ce);
@@ -155,29 +153,49 @@ public class GameKeyBindings {
 
         // Allows user to view [I]nventory items.
         keybinds.put(GLFW_KEY_I, () -> {
-            CompoundEvent recon = new NoOpEvent(0, 0, model.getPlayer());
-            history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), recon));
-            view.showSidebar();
-            view.showItemSelector();
+            if(!model.getPlayer().getInventory().isEmpty()) {
+                CompoundEvent recon = new NoOpEvent(0, 0, model.getPlayer());
+                history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), recon));
+                view.showSidebar();
+                view.showItemSelector();
+            }
             return null;
         });
 
         // [U]ses an item.
         keybinds.put(GLFW_KEY_U, () -> {
-            CompoundEvent use = new UseItemEvent(1, 0, model.getPlayer());
-            history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), use));
-            view.showSidebar();
-            view.showItemSelector();
+            if(!model.getPlayer().getInventory().isEmpty()) {
+                CompoundEvent use = new UseItemEvent(1, 0, model.getPlayer());
+                history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), use));
+                view.showSidebar();
+                view.showItemSelector();
+            }
+
+            return null;
+        });
+
+        // [T]hrows an item.
+        keybinds.put(GLFW_KEY_T, () -> {
+            if(!model.getPlayer().getInventory().isEmpty()) {
+                CompoundEvent toss = new DropItemEvent(1, 0, model.getPlayer());
+                Point p = model.getLocationOfPlayer();
+                history.push(new TileSelectProtocol(p.x(), p.y(), model.getNumberOfColumns(), model.getNumberOfRows(), toss));
+                history.push(new ItemSelectProtocol(model.getPlayer().getInventory(), toss));
+                view.showSidebar();
+                view.showItemSelector();
+            }
 
             return null;
         });
 
         // e[V]okes a skill.
         keybinds.put(GLFW_KEY_V, () -> {
-            CompoundEvent evoke = new UseSkillEvent(1, 0, model.getPlayer());
-            history.push(new SkillSelectProtocol(model.getPlayer().getSkillSet(), evoke));
-            view.showSidebar();
-            view.showSkillSelector();
+            if(!model.getPlayer().getSkillSet().isSkillSetEmpty()) {
+                CompoundEvent evoke = new UseSkillEvent(1, 0, model.getPlayer());
+                history.push(new SkillSelectProtocol(model.getPlayer().getSkillSet(), evoke));
+                view.showSidebar();
+                view.showSkillSelector();
+            }
 
             return null;
         });

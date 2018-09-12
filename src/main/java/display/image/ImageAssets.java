@@ -23,7 +23,7 @@ import static org.lwjgl.opengl.GL11.glDeleteTextures;
  */
 public class ImageAssets {
     public static final int SPRITE_DIMENSION_SM_PX = 48;
-    public static final int SPRITE_DIMENSION_LG_PX = 96;
+    private static final int SPRITE_DIMENSION_LG_PX = 96;
 
     private Map<Character, Integer> terrIDToTextureID;
     private Map<String, Integer> combatantNameToTextureID;

@@ -16,13 +16,13 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class DrawnCube implements DrawnGridSpace {
-    private float[] shape;
-    private int[] indices;
-    private Vector3f position;
+    private final float[] shape;
+    private final int[] indices;
+    private final Vector3f position;
 
     private int vaoID;
 
-    private int textureID;
+    private final int textureID;
 
     public DrawnCube(Vector3f position, int textureID) {
         shape = new float[]{

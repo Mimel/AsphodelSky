@@ -8,11 +8,11 @@ import skill.SkillSet;
 import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.nvglCreateImageFromHandle;
 
-public class SidebarSkills {
-    private SkillSet focusedSkillSet;
-    private ImageAssets images;
-    private FontData fonts;
-    private NVGColorData colors;
+class SidebarSkills {
+    private final SkillSet focusedSkillSet;
+    private final ImageAssets images;
+    private final FontData fonts;
+    private final NVGColorData colors;
 
     private boolean showFocusedSkillMarker;
 

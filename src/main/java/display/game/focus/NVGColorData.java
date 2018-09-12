@@ -4,7 +4,7 @@ import org.lwjgl.nanovg.NVGColor;
 
 import static org.lwjgl.nanovg.NanoVG.nvgRGB;
 
-public class NVGColorData {
+class NVGColorData {
     final NVGColor BLACK = NVGColor.create();
     final NVGColor RED = NVGColor.create();
     final NVGColor DARK_RED = NVGColor.create();

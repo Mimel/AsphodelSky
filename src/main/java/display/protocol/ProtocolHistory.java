@@ -3,9 +3,9 @@ package display.protocol;
 import java.util.Stack;
 
 public class ProtocolHistory {
-    private Stack<InputProtocol> protocolStack;
+    private final Stack<InputProtocol> protocolStack;
 
-    private Stack<InputProtocol> protocolUsed;
+    private final Stack<InputProtocol> protocolUsed;
 
     public ProtocolHistory() {
         protocolStack = new Stack<>();

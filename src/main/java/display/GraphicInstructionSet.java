@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class GraphicInstructionSet {
-    private Map<Opcode, BiConsumer<InstructionData, Stage>> graphicInstructionSet;
+    private final Map<Opcode, BiConsumer<InstructionData, Stage>> graphicInstructionSet;
 
     GraphicInstructionSet() {
         graphicInstructionSet = new HashMap<>();

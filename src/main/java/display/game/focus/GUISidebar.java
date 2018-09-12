@@ -16,20 +16,20 @@ public class GUISidebar {
         SLIDING_OUT
     }
 
-    private Combatant focusedCombatant;
-    private long nvgContext;
+    private final Combatant focusedCombatant;
+    private final long nvgContext;
 
-    private int screenWidth;
-    private int screenHeight;
+    private final int screenWidth;
+    private final int screenHeight;
 
     private float sidebarX;
 
-    private float hiddenSidebarX;
-    private float shownSidebarX;
+    private final float hiddenSidebarX;
+    private final float shownSidebarX;
 
-    private float sidebarY;
+    private final float sidebarY;
     private final float SIDEBAR_WIDTH = 400.0f;
-    private float sidebarHeight;
+    private final float sidebarHeight;
 
     private sidebarState visibility;
 

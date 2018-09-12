@@ -12,15 +12,15 @@ import java.util.Map;
 
 public class Stage {
 
-    private Map<Point, DrawnGridSpace> tiles;
+    private final Map<Point, DrawnGridSpace> tiles;
 
-    private Map<Combatant, DrawnCombatant> actors;
+    private final Map<Combatant, DrawnCombatant> actors;
 
-    private Map<Catalog, DrawnItem> catalogs;
+    private final Map<Catalog, DrawnItem> catalogs;
 
-    private Combatant player;
+    private final Combatant player;
 
-    private Camera viewport;
+    private final Camera viewport;
 
     Stage(CompositeGrid model, ImageAssets ia, Camera viewport) {
         this.tiles = new HashMap<>();

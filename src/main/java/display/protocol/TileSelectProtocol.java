@@ -9,10 +9,10 @@ public class TileSelectProtocol implements InputProtocol {
     private int xCurr;
     private int yCurr;
 
-    private int xMax;
-    private int yMax;
+    private final int xMax;
+    private final int yMax;
 
-    private CompoundEvent queuedEvent;
+    private final CompoundEvent queuedEvent;
 
     public TileSelectProtocol(int x, int y, int xMax, int yMax, CompoundEvent ce) {
         this.xCurr = x;

@@ -7,8 +7,8 @@ import skill.SkillSet;
 
 public class SkillSelectProtocol implements InputProtocol {
 
-    private SkillSet skillSet;
-    private CompoundEvent queuedEvent;
+    private final SkillSet skillSet;
+    private final CompoundEvent queuedEvent;
 
     public SkillSelectProtocol(SkillSet ss, CompoundEvent ce) {
         this.skillSet = ss;

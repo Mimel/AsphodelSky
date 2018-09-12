@@ -9,10 +9,10 @@ import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.nvglCreateImageFromHandle;
 
 class SidebarInventory {
-    private Catalog focusedCatalog;
-    private ImageAssets images;
-    private FontData fonts;
-    private NVGColorData colors;
+    private final Catalog focusedCatalog;
+    private final ImageAssets images;
+    private final FontData fonts;
+    private final NVGColorData colors;
 
     private boolean showFocusedItemMarker;
 

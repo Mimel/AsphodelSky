@@ -6,8 +6,8 @@ import event.compound_event.CompoundEvent;
 import item.Catalog;
 
 public class ItemSelectProtocol implements InputProtocol {
-    private Catalog targetCatalog;
-    private CompoundEvent queuedEvent;
+    private final Catalog targetCatalog;
+    private final CompoundEvent queuedEvent;
 
     public ItemSelectProtocol(Catalog c, CompoundEvent ce) {
         this.targetCatalog = c;

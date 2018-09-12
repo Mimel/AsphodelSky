@@ -5,6 +5,6 @@ import event.SimpleEvent;
 import java.util.List;
 
 @FunctionalInterface
-public interface Procedure {
+interface Procedure {
     List<SimpleEvent> execute();
 }

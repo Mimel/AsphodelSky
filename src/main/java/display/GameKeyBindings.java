@@ -16,12 +16,12 @@ import java.util.TreeMap;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class GameKeyBindings {
+class GameKeyBindings {
     private final SortedMap<Integer, Procedure> keybinds;
 
     private final ProtocolHistory history;
 
-    public GameKeyBindings(long windowHandle, GUIFocus view, CompositeGrid model, EventQueue eventQueue) {
+    GameKeyBindings(long windowHandle, GUIFocus view, CompositeGrid model, EventQueue eventQueue) {
         this.keybinds = new TreeMap<>();
         this.history = new ProtocolHistory();
 
@@ -105,6 +105,7 @@ public class GameKeyBindings {
                 return null;
             }
         });
+        // End move commands.
 
         keybinds.put(GLFW_KEY_ENTER, () -> {
             InputProtocol completedProtocol;

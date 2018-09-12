@@ -112,7 +112,7 @@ public class WindowController {
 
         CompositeGrid model = new GridLoaderFromFile("saves/1.asf", new ItemLibrary("map/item_effectmap.dat"), new SkillLibrary("map/skill_effectmap.dat")).loadGrid();
         windowDisplay = new GUIFocus(model.getPlayer(), new Stage(model, ia, c), new GraphicInstructionSet(), windowWidth, windowHeight);
-        GameKeyBindings kb = new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
+        new GameKeyBindings(windowHandle, windowDisplay, model, new EventQueue(new InstructionSet(new ResponseTable("map/responsemap.dat"))));
 
         while(!glfwWindowShouldClose(windowHandle)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -129,8 +129,5 @@ public class WindowController {
 
             glfwSwapBuffers(windowHandle);
         }
-
-        //ia.deleteAllTextures();
-
     }
 }

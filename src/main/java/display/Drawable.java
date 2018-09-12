@@ -1,5 +1,5 @@
 package display;
 
-public interface Drawable {
+interface Drawable {
     void draw(Camera c);
 }

@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL20.*;
 
-public class ShaderReader {
-    private int shader;
+class ShaderReader {
+    private final int shader;
 
     public ShaderReader(int shaderType, String fileName) {
         shader = glCreateShader(shaderType);

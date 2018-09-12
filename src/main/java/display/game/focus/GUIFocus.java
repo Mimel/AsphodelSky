@@ -11,11 +11,11 @@ import java.util.List;
 
 public class GUIFocus {
 
-    private Stage view;
+    private final Stage view;
 
-    private GraphicInstructionSet gis;
+    private final GraphicInstructionSet gis;
 
-    private GUISidebar sidebar;
+    private final GUISidebar sidebar;
 
     public GUIFocus(Combatant player, Stage view, GraphicInstructionSet gis, int windowWidth, int windowHeight) {
         this.view = view;

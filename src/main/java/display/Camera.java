@@ -10,26 +10,22 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 
-public class Camera {
-    private Matrix4f view;
-    private Matrix4f projection;
+class Camera {
+    private final Matrix4f view;
 
     private final FloatBuffer modelData;
     private final FloatBuffer viewData;
-    private final FloatBuffer projData;
 
-    private int modelLoc;
-    private int viewLoc;
-    private int projLoc;
+    private final int modelLoc;
+    private final int viewLoc;
 
-    private boolean isAccelerating;
+    private final boolean isAccelerating;
     private float timeSinceSpeedChangePrompt;
     private float accelerant;
-    private Direction direction;
+    private final Direction direction;
 
-    public Camera(Matrix4f view, Matrix4f projection, int shaderProgram) {
+    Camera(Matrix4f view, Matrix4f projection, int shaderProgram) {
         this.view = view;
-        this.projection = projection;
 
         direction = Direction.C;
 
@@ -39,21 +35,21 @@ public class Camera {
 
         this.modelLoc = glGetUniformLocation(shaderProgram, "model");
         this.viewLoc = glGetUniformLocation(shaderProgram, "view");
-        this.projLoc = glGetUniformLocation(shaderProgram, "projection");
+        int projLoc = glGetUniformLocation(shaderProgram, "projection");
 
         this.modelData = BufferUtils.createFloatBuffer(16);
         this.viewData = BufferUtils.createFloatBuffer(16);
-        this.projData = BufferUtils.createFloatBuffer(16);
+        FloatBuffer projData = BufferUtils.createFloatBuffer(16);
 
         glUniformMatrix4fv(viewLoc, false, view.get(viewData));
         glUniformMatrix4fv(projLoc, false, projection.get(projData));
     }
 
-    public void alterModel(Matrix4f newMat) {
+    void alterModel(Matrix4f newMat) {
         glUniformMatrix4fv(modelLoc, false, newMat.get(modelData));
     }
 
-    public void alterView() {
+    void alterView() {
                 if(isAccelerating) {
                     accelerant += ((float)glfwGetTime() - timeSinceSpeedChangePrompt);
                     if(accelerant > 1.0f) {
@@ -70,34 +66,8 @@ public class Camera {
             //glUniformMatrix4fv(viewLoc, false, view.get(viewData));
     }
 
-    public void accelerate(Direction d) {
-        if(direction == Direction.C) {
-            timeSinceSpeedChangePrompt = (float)glfwGetTime();
-            isAccelerating = true;
-        }
-
-        direction = Direction.addDirection(direction, d);
-    }
-
-    public void decelerate(Direction d) {
-        direction = Direction.subtractDirection(direction, d);
-
-        if(direction == Direction.C) {
-            timeSinceSpeedChangePrompt = (float)glfwGetTime();
-            isAccelerating = false;
-        }
-    }
-
-    public void moveCameraTo(Vector3f newLoc) {
+    void moveCameraTo(Vector3f newLoc) {
         view.m30(-newLoc.x).m31(-newLoc.y);
         glUniformMatrix4fv(viewLoc, false, view.get(viewData));
-    }
-
-    public void offsetCameraHorizontallyBy(float x) {
-        
-    }
-
-    public void recenterCamera() {
-
     }
 }

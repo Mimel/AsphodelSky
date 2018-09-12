@@ -18,11 +18,11 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 public class DrawnItem implements Drawable {
     private int vaoID;
 
-    private float[] shape;
-    private int[] indices;
-    private Vector3f position;
+    private final float[] shape;
+    private final int[] indices;
+    private final Vector3f position;
 
-    private int textureID;
+    private final int textureID;
 
     public DrawnItem(Vector3f position, int textureID) {
         shape = new float[]{
